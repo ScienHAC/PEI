@@ -15,7 +15,7 @@ function App() {
             <Routes>
               <Route path="/" element={
                 <>
-                  <h2>Welcome to JETM</h2>
+                  <h2>Welcome to PEI</h2>
                   <br />
                   <blockquote>
                     <a href="google.com">PIONEERING ENGINEERING INSIGHT</a>
