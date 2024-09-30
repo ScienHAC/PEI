@@ -1,0 +1,143 @@
+* {
+    box-sizing: border-box;
+    /* background-color: red; */
+}
+
+body {
+    background-color: #fff;
+}
+
+.navbar,
+ul {
+    margin: 0 auto 0 auto !important;
+    width: 100%;
+}
+
+
+#main {
+    display: flex;
+    flex-grow: 1;
+    background-color: rgb(209, 242, 252);
+    align-items: center;
+    justify-content: center;
+}
+
+#root {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    opacity: 1 !important;
+}
+
+#topBar {
+    display: flex;
+    top: 100px;
+    width: auto;
+    height: 140px;
+    background-color: var(--orange);
+    border-bottom: 2px solid #22cfdb;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    opacity: 1 !important;
+    padding: 40px;
+}
+
+@media(min-width: 1024px) {
+    .jnhd {
+        font-size: 40px !important;
+        white-space: normal;
+        text-align: center;
+    }
+
+    .jndh {
+        font-size: 20px !important;
+        white-space: normal;
+        text-align: center;
+        font-weight: 400;
+    }
+}
+
+.jnhd {
+    font-size: 25px;
+    white-space: normal;
+    text-align: center;
+    color: var(--white);
+}
+
+.jndh {
+    font-size: 10px;
+    white-space: normal;
+    text-align: center;
+}
+
+#topBar h2,
+#topBar p {
+    margin: 0;
+    padding: 0 10px;
+    /* Adds some padding to ensure text doesn't touch the sides */
+}
+
+ul>.nav-item {
+    margin: 0 20px;
+}
+
+ul {
+    align-items: center;
+    justify-content: center;
+}
+
+#main_body {
+    margin-bottom: 9px;
+    width: 80vw;
+    height: 100%;
+    background-color: rgb(209, 242, 252);
+}
+
+
+#main_body h2,
+blockquote,
+h3,
+table {
+    color: rgb(19, 15, 15);
+}
+
+
+blockquote {
+    border-left: 8px solid #b1b1b3;
+    padding: 20px;
+}
+
+blockquote a {
+    font-style: italic;
+    text-decoration: underline;
+}
+
+table,
+td,
+tr {
+    border: 1px solid var(--dark);
+    padding: 12px;
+}
+
+table {
+    padding: 10px;
+    width: 100%;
+}
+
+#footer {
+    align-self: last baseline;
+    width: 100vw;
+    height: 100px;
+    background-color: var(--dark);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--white);
+}
+
+#footer p {
+    margin: 6px;
+    padding: 0;
+}
