@@ -28,7 +28,7 @@ export default function Header() {
                     <ul className="navbar-nav">
                         <li className="nav-item active">
                             <Link className="nav-link" to="/">
-                                Welcome to JETM<span className="sr-only">(current)</span>
+                                Welcome to PEI<span className="sr-only">(current)</span>
                             </Link>
                         </li>
                         <li className="nav-item">
