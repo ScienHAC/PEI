@@ -69,6 +69,7 @@ function App() {
               } />
               <Route path='/about' element={<About />} />
               <Route path='/form' element={<Form />} />
+              <Route path='*' element={<h1>Sorry Page Not Found!!!</h1>} />
             </Routes>
           </div>
         </div>
