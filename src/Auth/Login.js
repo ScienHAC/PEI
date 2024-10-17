@@ -9,7 +9,7 @@ const Login = () => {
                 <input type="email" id="email" name="email" required />
                 <label htmlFor="password">Password</label>
                 <input type="password" id="password" name="password" required />
-                <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Sign Up</button>
+                <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
             </form>
         </>
     )
