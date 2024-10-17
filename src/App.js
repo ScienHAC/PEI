@@ -5,6 +5,8 @@ import Footer from './MyComponents/Footer';
 import Home from './Pages/Home';
 import { About } from './Pages/About';
 import Form from './Pages/Form';
+import Login from './Auth/Login';
+import Signup from './Auth/Signup';
 function App() {
   return (
     <>
@@ -17,6 +19,8 @@ function App() {
               <Route path="/" element={<Home />} />
               <Route path='/about' element={<About />} />
               <Route path='/form' element={<Form />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/signup' element={<Signup />} />
               <Route path='*' element={<h1>Sorry Page Not Found!!!</h1>} />
             </Routes>
           </div>
