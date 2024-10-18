@@ -72,12 +72,22 @@ export default function Header() {
 
                     {/* Buttons on the right for larger screens */}
                     <div className="d-none d-lg-flex">
-                        <button className="btn btn-outline-success mx-2" id="Login_btn" onClick={handleLogin}>
-                            Login
-                        </button>
-                        <button className="btn btn-outline-success mx-2" id="Signup_btn" onClick={handleSignup}>
-                            Sign Up
-                        </button>
+                        {isAuthenticated ? (
+                            <>
+                                <button className="btn btn-outline-success mx-2" id="Logout_btn">
+                                    <i className="fa fa-sign-out" aria-hidden="true"></i>
+                                </button>
+                            </>
+                        ) : (
+                            <>
+                                <button className="btn btn-outline-success mx-2" id="Login_btn" onClick={handleLogin}>
+                                    Login
+                                </button>
+                                <button className="btn btn-outline-success mx-2" id="Signup_btn" onClick={handleSignup}>
+                                    Sign Up
+                                </button>
+                            </>
+                        )}
                     </div>
                 </div>
             </nav>
