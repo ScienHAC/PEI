@@ -81,74 +81,85 @@ const Signup = () => {
     };
 
     return (
-        <div>
-            <h1>{otpStep ? 'Verify OTP' : 'Signup'}</h1>
-            <form onSubmit={handleSubmit}>
-                {!otpStep && (
-                    <>
-                        <label htmlFor="name">Name</label>
-                        <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleChange}
-                            required
-                        />
+        <div className="container d-flex justify-content-center align-items-center min-vh-100">
+            <div className="col-12 col-sm-8 col-md-6 col-lg-4">
+                <h1>{otpStep ? 'Verify OTP' : 'Signup'}</h1>
+                <form onSubmit={handleSubmit}>
+                    {!otpStep && !loading && (
+                        <>
+                            <label htmlFor="name">Name</label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                value={formData.name}
+                                onChange={handleChange}
+                                className="form-control mb-3"
+                                required
+                            />
 
-                        <label htmlFor="email">Email</label>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            required
-                        />
+                            <label htmlFor="email">Email</label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                value={formData.email}
+                                onChange={handleChange}
+                                className="form-control mb-3"
+                                required
+                            />
 
-                        <label htmlFor="password">Password</label>
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            value={formData.password}
-                            onChange={handleChange}
-                            required
-                        />
+                            <label htmlFor="password">Password</label>
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                value={formData.password}
+                                onChange={handleChange}
+                                className="form-control mb-3"
+                                required
+                            />
 
-                        <label htmlFor="contactNo">Contact No</label>
-                        <input
-                            type="tel"
-                            id="contact"
-                            name="contact"
-                            value={formData.contact}
-                            onChange={handleChange}
-                            required
-                        />
-                    </>
-                )}
+                            <label htmlFor="contactNo">Contact No</label>
+                            <input
+                                type="tel"
+                                id="contact"
+                                name="contact"
+                                value={formData.contact}
+                                onChange={handleChange}
+                                className="form-control mb-3"
+                                required
+                            />
+                        </>
+                    )}
 
-                {otpStep && (
-                    <>
-                        <label htmlFor="otp">Enter OTP</label>
-                        <input
-                            type="text"
-                            id="otp"
-                            name="otp"
-                            value={formData.otp}
-                            onChange={handleChange}
-                            required
-                        />
-                    </>
-                )}
+                    {otpStep && (
+                        <>
+                            <label htmlFor="otp">Enter OTP</label>
+                            <input
+                                type="text"
+                                id="otp"
+                                name="otp"
+                                value={formData.otp}
+                                onChange={handleChange}
+                                className="form-control mb-3"
+                                required
+                            />
+                        </>
+                    )}
+                    {!loading && (
+                        <button type="submit" className="btn btn-outline-success btn-block">
+                            {otpStep ? 'Verify OTP' : 'Sign Up'}
+                        </button>
+                    )}
+                </form>
 
-                <button type="submit" className="btn btn-outline-success my-2 my-sm-0">
-                    {otpStep ? 'Verify OTP' : 'Sign Up'}
-                </button>
-            </form>
-
-            {loading && <p>Loading...</p>}
-            {message && <p>{message}</p>}
+                {/* Loader container */}
+                <div className="d-flex justify-content-center align-items-center mt-4">
+                    {loading && <span className="loader"></span>}
+                </div>
+                {message && <p>{message}</p>}
+            </div>
         </div>
     );
 };
