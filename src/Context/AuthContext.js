@@ -11,7 +11,11 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const checkAuthStatus = async () => {
             try {
-                const response = await fetch(`${process.env.REACT_APP_hostURL}/auth/status`);
+                const response = await fetch(`${process.env.REACT_APP_hostURL}/auth/status`, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                });
                 const data = await response.json();
                 setAuthState({
                     user: data.user,
