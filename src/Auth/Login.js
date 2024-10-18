@@ -123,7 +123,7 @@ const Login = () => {
 
                     {/*  Submit Button  */}
                     {!loading && (
-                        <button type="submit" className="btn btn-outline-success btn-block">
+                        <button type="submit" className="btn btn-outline-success btn-block btn-form-auth">
                             {otpStep ? 'Verify OTP' : 'Login'}
                         </button>
                     )}

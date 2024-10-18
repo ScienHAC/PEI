@@ -168,18 +168,10 @@ label {
 }
 
 /* Add some margin to the button */
-button {
+.btn-form-auth {
     margin-top: 20px;
     padding: 12px 0;
     font-size: 16px;
-}
-
-/* Style for loading message */
-p {
-    font-size: 14px;
-    color: #777;
-    text-align: center;
-    margin-top: 15px;
 }
 
 /* Loader Styling */
