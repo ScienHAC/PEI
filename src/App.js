@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
 import Header from './MyComponents/Header';
 import Footer from './MyComponents/Footer';
@@ -36,7 +36,11 @@ function AuthRoutes() {
       <Route path="/about" element={<About />} />
       <Route path="/form" element={<Form />} />
       {isAuthenticated ? (
-        <Route path="/dashboard" element={<h1>Welcome to Dashboard!</h1>} />
+        <>
+          <Route path="/dashboard" element={<h1>Welcome to Dashboard!</h1>} />
+          <Route path="/login" element={isAuthenticated ? <Navigate to="/" /> : <Login />} />
+          <Route path="/signup" element={isAuthenticated ? <Navigate to="/" /> : <Signup />} />
+        </>
       ) : (
         <>
           <Route path="/login" element={<Login />} />

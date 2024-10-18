@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import useAuth from '../Hooks/useAuth';
 export default function Header() {
+    const { isAuthenticated } = useAuth();
     const navigate = useNavigate();
     const handleLogin = () => {
         navigate('/login'); // This will navigate to the /about route
