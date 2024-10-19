@@ -35,7 +35,7 @@ function AuthRoutes() {
 
   // If loading, show a loading spinner or message
   if (loading) {
-    return <div>Loading...</div>; // You can customize this as needed
+    return <i className="fa fa-sign-out" aria-hidden="true"></i>; // You can customize this as needed
   }
 
   return (
