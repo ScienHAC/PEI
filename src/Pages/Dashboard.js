@@ -59,7 +59,7 @@ const Dashboard = () => {
                                     </a>
                                 </td>
                                 <td>
-                                    <a href={`${process.env.REACT_APP_hostURL}/api/uploads/${paper.filePath}`} target="_blank" download>
+                                    <a href={`${process.env.REACT_APP_hostURL}/api/uploads/${paper.filePath}`} target="_blank" rel="noopener noreferrer" download>
                                         Download
                                     </a>
                                 </td>
