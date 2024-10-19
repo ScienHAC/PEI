@@ -23,6 +23,24 @@ export default function Header() {
         navigate('/signup');
         refreshAuth();
     };
+    const handleLogout = () => {
+        // Logout user
+        fetch(`${process.env.REACT_APP_hostURL}/auth/logout`, {
+            method: 'GET',
+            credentials: 'include',
+        })
+            .then((response) => {
+                if (response.ok) {
+                    navigate('/', { replace: true });
+                    refreshAuth();
+                } else {
+                    console.error('Error:', response);
+                }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+    };
     return (
         <>
             <div id="topBar">
@@ -50,7 +68,7 @@ export default function Header() {
                 <div className="d-flex ms-auto d-lg-none">
                     {isAuthenticated ? (
                         <>
-                            <button className="btn btn-outline-success mx-2" id="Logout_btn">
+                            <button className="btn btn-outline-success mx-2" id="Logout_btn" onClick={handleLogout}>
                                 <i className="fa fa-sign-out" aria-hidden="true"></i>
                             </button>
                         </>
@@ -98,7 +116,7 @@ export default function Header() {
                     <div className="d-none d-lg-flex">
                         {isAuthenticated ? (
                             <>
-                                <button className="btn btn-outline-success mx-2" id="Logout_btn">
+                                <button className="btn btn-outline-success mx-2" id="Logout_btn" onClick={handleLogout}>
                                     <i className="fa fa-sign-out" aria-hidden="true"></i>
                                 </button>
                             </>
