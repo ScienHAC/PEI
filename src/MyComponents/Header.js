@@ -1,14 +1,27 @@
-import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useEffect, useCallback } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../Hooks/useAuth';
 export default function Header() {
-    const { isAuthenticated } = useAuth();
+    const { isAuthenticated, refreshAuthStatus } = useAuth();
     const navigate = useNavigate();
+    const location = useLocation();
+
+    // Memoize refreshAuthStatus to avoid dependency warnings
+    const refreshAuth = useCallback(() => {
+        refreshAuthStatus();
+    }, [refreshAuthStatus]);
+
+    useEffect(() => {
+        refreshAuth(); // Refresh on route change
+    }, [location, refreshAuth]); // Add refreshAuth to dependency array
+
     const handleLogin = () => {
-        navigate('/login'); // This will navigate to the /about route
+        navigate('/login');
+        refreshAuth();
     };
     const handleSignup = () => {
-        navigate('/signup'); // This will navigate to the /about route
+        navigate('/signup');
+        refreshAuth();
     };
     return (
         <>
@@ -33,13 +46,24 @@ export default function Header() {
                 </button>
 
                 {/* Buttons that stay outside the collapsible part */}
+
                 <div className="d-flex ms-auto d-lg-none">
-                    <button className="btn btn-outline-success mx-2" id="Login_btn" onClick={handleLogin}>
-                        Login
-                    </button>
-                    <button className="btn btn-outline-success mx-2" id="Signup_btn" onClick={handleSignup}>
-                        Sign Up
-                    </button>
+                    {isAuthenticated ? (
+                        <>
+                            <button className="btn btn-outline-success mx-2" id="Logout_btn">
+                                <i className="fa fa-sign-out" aria-hidden="true"></i>
+                            </button>
+                        </>
+                    ) : (
+                        <>
+                            <button className="btn btn-outline-success mx-2" id="Login_btn" onClick={handleLogin}>
+                                Login
+                            </button>
+                            <button className="btn btn-outline-success mx-2" id="Signup_btn" onClick={handleSignup}>
+                                Sign Up
+                            </button>
+                        </>
+                    )}
                 </div>
 
                 <div className="collapse navbar-collapse" id="navbarNav">
