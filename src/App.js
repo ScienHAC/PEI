@@ -35,15 +35,16 @@ function AuthRoutes() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
-      <Route path="/form" element={<Form />} />
       {isAuthenticated ? (
         <>
+          <Route path="/form" element={<Form />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/login" element={isAuthenticated ? <Navigate to="/" /> : <Login />} />
           <Route path="/signup" element={isAuthenticated ? <Navigate to="/" /> : <Signup />} />
         </>
       ) : (
         <>
+          <Route path="/form" element={isAuthenticated ? <Navigate to="/login" /> : <Form />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
         </>
