@@ -7,6 +7,7 @@ import { About } from './Pages/About';
 import Form from './Pages/Form';
 import Login from './Auth/Login';
 import Signup from './Auth/Signup';
+import Dashboard from './Pages/Dashboard';
 import { AuthProvider } from './Context/AuthContext';
 import useAuth from './Hooks/useAuth';
 
@@ -37,7 +38,7 @@ function AuthRoutes() {
       <Route path="/form" element={<Form />} />
       {isAuthenticated ? (
         <>
-          <Route path="/dashboard" element={<h1>Welcome to Dashboard!</h1>} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/login" element={isAuthenticated ? <Navigate to="/" /> : <Login />} />
           <Route path="/signup" element={isAuthenticated ? <Navigate to="/" /> : <Signup />} />
         </>

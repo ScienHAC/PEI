@@ -110,6 +110,9 @@ export default function Header() {
                         <li className="nav-item">
                             <Link className="nav-link" to="/form">Research Archive</Link>
                         </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/dashboard">Dashboard</Link>
+                        </li>
                     </ul>
 
                     {/* Buttons on the right for larger screens */}
