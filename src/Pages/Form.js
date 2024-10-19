@@ -5,11 +5,14 @@ import {
     Button,
     Typography,
     Paper,
-    Autocomplete,
     LinearProgress,
     Snackbar,
     Alert,
-    styled
+    styled,
+    MenuItem,
+    Select,
+    InputLabel,
+    FormControl,
 } from "@mui/material";
 import { useDropzone } from "react-dropzone"; // Import dropzone
 
@@ -45,8 +48,12 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
 const ResearchPaperForm = () => {
     const [formData, setFormData] = useState({
         title: "",
-        authors: [],
+        author: "",
+        contactNumber: "",
         abstract: "",
+        articleType: "",
+        journal: "",
+        country: "",
         file: null,
     });
     const [errors, setErrors] = useState({});
@@ -80,30 +87,77 @@ const ResearchPaperForm = () => {
     const validateForm = () => {
         const newErrors = {};
         if (!formData.title.trim()) newErrors.title = "Title is required";
+        if (!formData.author.trim()) newErrors.author = "Author is required";
+        if (!formData.contactNumber.trim()) newErrors.contactNumber = "Contact number is required";
         if (!formData.abstract.trim()) newErrors.abstract = "Abstract is required";
-        if (formData.authors.length === 0) newErrors.authors = "At least one author is required";
+        if (!formData.articleType) newErrors.articleType = "Article type is required";
+        if (!formData.journal) newErrors.journal = "Journal is required";
+        if (!formData.country.trim()) newErrors.country = "Country is required";
         if (!formData.file) newErrors.file = "Please upload a PDF file";
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
 
 
+    // ** Handle form submission**
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (validateForm()) {
-            // Simulate file upload
-            for (let i = 0; i <= 100; i += 10) {
-                setUploadProgress(i);
-                await new Promise((resolve) => setTimeout(resolve, 200));
-            }
+            const formDataToSend = new FormData(); // Create FormData object to handle files
 
-            console.log(formData);
-            setSnackbar({ open: true, message: "Research paper submitted successfully!", severity: "success" });
-            // Reset form
-            setFormData({ title: "", authors: [], abstract: "", file: null });
-            setUploadProgress(0);
+            // Append all form fields to FormData
+            formDataToSend.append("title", formData.title);
+            formDataToSend.append("author", formData.author);
+            formDataToSend.append("contactNumber", formData.contactNumber);
+            formDataToSend.append("abstract", formData.abstract);
+            formDataToSend.append("articleType", formData.articleType);
+            formDataToSend.append("journal", formData.journal);
+            formDataToSend.append("country", formData.country);
+            formDataToSend.append("file", formData.file); // Append file
+
+            try {
+                const response = await fetch(`${process.env.REACT_APP_hostURL}/auth/submit-paper`, {
+                    method: "POST",
+                    body: formDataToSend,
+                    credentials: "include",
+                });
+
+                if (response.ok) {
+                    setSnackbar({
+                        open: true,
+                        message: "Research paper submitted successfully!",
+                        severity: "success",
+                    });
+                    setFormData({
+                        title: "",
+                        author: "",
+                        contactNumber: "",
+                        abstract: "",
+                        articleType: "",
+                        journal: "",
+                        country: "",
+                        file: null,
+                    });
+                    setUploadProgress(0);
+                } else {
+                    const errorData = await response.json();
+                    setSnackbar({
+                        open: true,
+                        message: errorData.message || "Failed to submit the research paper",
+                        severity: "error",
+                    });
+                }
+            } catch (error) {
+                setSnackbar({
+                    open: true,
+                    message: "An error occurred. Please try again.",
+                    severity: "error",
+                });
+                console.error("Submission error:", error);
+            }
         }
     };
+    //** end of this submission function**
 
     const handleSnackbarClose = (event, reason) => {
         if (reason === "clickaway") return;
@@ -113,7 +167,7 @@ const ResearchPaperForm = () => {
     return (
         <StyledForm component="form" onSubmit={handleSubmit} elevation={3}>
             <Typography variant="h4" component="h1" gutterBottom align="center" color="primary">
-                Publish Research Paper
+                Research Archives Submission
             </Typography>
 
             <StyledTextField
@@ -128,41 +182,29 @@ const ResearchPaperForm = () => {
                 inputProps={{ "aria-label": "Research paper title" }}
             />
 
-            <Alert severity="info" sx={{ mb: 2 }}>
-                You can add authors by pressing "Enter" and add multiple authors.
-            </Alert>
-
-            <Autocomplete
-                multiple
-                freeSolo
-                options={[]}  // No suggestions provided
-                renderInput={(params) => (
-                    <StyledTextField
-                        {...params}
-                        label="Authors"
-                        error={!!errors.authors}
-                        helperText={errors.authors}
-                        // Remove the required attribute
-                        inputProps={{ ...params.inputProps, "aria-label": "Authors" }}
-                    />
-                )}
-                value={formData.authors}
-                onChange={(event, newValue) => {
-                    const filteredAuthors = newValue.filter((author) => author.trim() !== "");
-                    setFormData({ ...formData, authors: filteredAuthors });
-                    setErrors({ ...errors, authors: "" });
-                }}
-                onKeyDown={(event) => {
-                    if (event.key === 'Enter' && event.target.value.trim() !== "") {
-                        event.preventDefault();
-                        const newAuthor = event.target.value.trim();
-                        if (!formData.authors.includes(newAuthor)) {
-                            setFormData({ ...formData, authors: [...formData.authors, newAuthor] });
-                        }
-                    }
-                }}
+            <StyledTextField
+                fullWidth
+                label="Author"
+                name="author"
+                value={formData.author}
+                onChange={handleInputChange}
+                error={!!errors.author}
+                helperText={errors.author}
+                required
+                inputProps={{ "aria-label": "Author" }}
             />
 
+            <StyledTextField
+                fullWidth
+                label="Contact Number"
+                name="contactNumber"
+                value={formData.contactNumber}
+                onChange={handleInputChange}
+                error={!!errors.contactNumber}
+                helperText={errors.contactNumber}
+                required
+                inputProps={{ "aria-label": "Contact number" }}
+            />
 
             <StyledTextField
                 fullWidth
@@ -176,6 +218,58 @@ const ResearchPaperForm = () => {
                 multiline
                 rows={4}
                 inputProps={{ "aria-label": "Research paper abstract" }}
+            />
+
+            <FormControl fullWidth variant="outlined" sx={{ mb: 2 }}>
+                <InputLabel id="article-type-label">Select Article Type</InputLabel>
+                <Select
+                    labelId="article-type-label"
+                    value={formData.articleType}
+                    onChange={handleInputChange}
+                    name="articleType"
+                    label="Article Type"
+                    error={!!errors.articleType}
+                >
+                    <MenuItem value="commentary">Commentary</MenuItem>
+                    <MenuItem value="research">Research Article</MenuItem>
+                </Select>
+                {errors.articleType && (
+                    <Typography color="error" variant="body2" sx={{ mt: 1 }}>
+                        {errors.articleType}
+                    </Typography>
+                )}
+            </FormControl>
+
+            <FormControl fullWidth variant="outlined" sx={{ mb: 2 }}>
+                <InputLabel id="journal-label">Select Journal</InputLabel>
+                <Select
+                    labelId="journal-label"
+                    value={formData.journal}
+                    onChange={handleInputChange}
+                    name="journal"
+                    label="Journal"
+                    error={!!errors.journal}
+                >
+                    <MenuItem value="globalJournalSurgery">Global Journal of Surgery</MenuItem>
+                    <MenuItem value="globalJournalPharma">Global Journal of Pharmaceuticals</MenuItem>
+                </Select>
+                {errors.journal && (
+                    <Typography color="error" variant="body2" sx={{ mt: 1 }}>
+                        {errors.journal}
+                    </Typography>
+                )}
+            </FormControl>
+
+            <StyledTextField
+                fullWidth
+                label="Country"
+                name="country"
+                value={formData.country}
+                onChange={handleInputChange}
+                error={!!errors.country}
+                helperText={errors.country}
+                required
+                inputProps={{ "aria-label": "Country" }}
             />
 
             <Box sx={{ mb: 2 }}>
