@@ -1,69 +1,64 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Login = () => {
+const ForgotPassword = () => {
     const navigate = useNavigate();
-    const [message, setMessage] = useState('');
-    const [loading, setLoading] = useState(false);
-    const [otpStep, setOtpStep] = useState(false);
-
+    const [step, setStep] = useState(1); // Step 1: Enter Email, Step 2: Enter OTP and New Password
     const [formData, setFormData] = useState({
         email: '',
-        password: '',
-        otp: ''
+        otp: '',
+        newPassword: ''
     });
+    const [message, setMessage] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
         setFormData({
             ...formData,
-            [e.target.name]: e.target.value.trim().toLowerCase()
+            [e.target.name]: e.target.value.trim()
         });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        if (otpStep) {
-            // Handle OTP verification
+
+        if (step === 1) {
+            // Step 1: Send OTP to email
             try {
-                const response = await fetch(`${process.env.REACT_APP_hostURL}/auth/verify-otp-login`, {
+                const response = await fetch(`${process.env.REACT_APP_hostURL}/auth/forgot-password`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData),
-                    credentials: 'include',
+                    body: JSON.stringify({ email: formData.email }),
                 });
 
                 const result = await response.json();
-
                 if (response.ok) {
-                    setMessage('Otp verified successfully!');
-                    navigate('/', { replace: true });
+                    setStep(2); // Move to OTP step
+                    setMessage('OTP sent to your email!');
                 } else {
-                    setMessage(result.message || 'Verification failed. Please try again.');
+                    setMessage(result.message || 'Failed to send OTP. Please try again.');
                 }
             } catch (error) {
                 console.error('Error:', error);
                 setMessage('An error occurred. Please try again.');
             }
         } else {
-            // Handle user login
+            // Step 2: Verify OTP and reset password
             try {
-                const response = await fetch(`${process.env.REACT_APP_hostURL}/auth/login`, {
+                const response = await fetch(`${process.env.REACT_APP_hostURL}/auth/reset-password`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(formData),
-                    credentials: 'include',
                 });
 
                 const result = await response.json();
-
                 if (response.ok) {
-                    setOtpStep(true); // Switch to OTP step
-                    setMessage('Login successful!');
+                    setMessage('Password reset successful! Redirecting to login...');
+                    setTimeout(() => navigate('/login', { replace: true }), 2000);
                 } else {
-                    setMessage(result.message || 'Login failed. Please try again.');
+                    setMessage(result.message || 'Failed to reset password. Please try again.');
                 }
-
             } catch (error) {
                 console.error('Error:', error);
                 setMessage('An error occurred. Please try again.');
@@ -76,12 +71,12 @@ const Login = () => {
     return (
         <div className="container d-flex justify-content-center align-items-center min-vh-100">
             <div className="col-12 col-sm-8 col-md-6 col-lg-4">
-                <h1>{otpStep ? 'Verify OTP' : 'Login'}</h1>
+                <h1>{step === 1 ? 'Forgot Password' : 'Reset Password'}</h1>
                 <form onSubmit={handleSubmit}>
-                    {/* Email and Password Fields */}
-                    {!otpStep && !loading && (
+                    {/* Email Field */}
+                    {step === 1 && (
                         <>
-                            <label htmlFor="email">Email</label>
+                            <label htmlFor="email">Enter your email</label>
                             <input
                                 type="email"
                                 id="email"
@@ -91,22 +86,11 @@ const Login = () => {
                                 className="form-control mb-3"
                                 required
                             />
-
-                            <label htmlFor="password">Password</label>
-                            <input
-                                type="password"
-                                id="password"
-                                name="password"
-                                value={formData.password}
-                                onChange={handleChange}
-                                className="form-control mb-3"
-                                required
-                            />
                         </>
                     )}
 
-                    {/* OTP Field */}
-                    {otpStep && (
+                    {/* OTP and New Password Fields */}
+                    {step === 2 && (
                         <>
                             <label htmlFor="otp">Enter OTP</label>
                             <input
@@ -118,18 +102,26 @@ const Login = () => {
                                 className="form-control mb-3"
                                 required
                             />
+
+                            <label htmlFor="newPassword">New Password</label>
+                            <input
+                                type="password"
+                                id="newPassword"
+                                name="newPassword"
+                                value={formData.newPassword}
+                                onChange={handleChange}
+                                className="form-control mb-3"
+                                required
+                            />
                         </>
                     )}
 
-                    {/*  Submit Button  */}
+                    {/* Submit Button */}
                     {!loading && (
                         <button type="submit" className="btn btn-outline-success btn-block btn-form-auth">
-                            {otpStep ? 'Verify OTP' : 'Login'}
+                            {step === 1 ? 'Send OTP' : 'Reset Password'}
                         </button>
                     )}
-                    <button className="btn btn-link" onClick={() => navigate('/forgot-password')}>
-                        Forgot Password?
-                    </button>
                 </form>
 
                 {/* Loader container */}
@@ -140,9 +132,7 @@ const Login = () => {
                 {message && <p>{message}</p>}
             </div>
         </div>
-
-
     );
 };
 
-export default Login;
+export default ForgotPassword;

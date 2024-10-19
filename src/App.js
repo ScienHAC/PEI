@@ -7,6 +7,7 @@ import { About } from './Pages/About';
 import Form from './Pages/Form';
 import Login from './Auth/Login';
 import Signup from './Auth/Signup';
+import ForgotPassword from './Auth/ForgotPassword';
 import Dashboard from './Pages/Dashboard';
 import Admin from './Admin/Admin';
 import { AuthProvider } from './Context/AuthContext';
@@ -42,6 +43,7 @@ function AuthRoutes() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
       {isAuthenticated ? (
         <>
           <Route path="/form" element={<Form />} />
