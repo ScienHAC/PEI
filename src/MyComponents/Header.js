@@ -2,7 +2,7 @@ import React, { useEffect, useCallback } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../Hooks/useAuth';
 export default function Header() {
-    const { isAuthenticated, refreshAuthStatus } = useAuth();
+    const { isAuthenticated, refreshAuthStatus, isAdmin } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -115,7 +115,14 @@ export default function Header() {
                                 <Link className="nav-link" to="/dashboard">Dashboard</Link>
                             </li>
                         ) : (
-                            <></>
+                            null
+                        )}
+                        {isAdmin ? (
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/admin">Admin</Link>
+                            </li>
+                        ) : (
+                            null
                         )}
                     </ul>
 

@@ -6,8 +6,9 @@ export const AuthProvider = ({ children }) => {
     const [authState, setAuthState] = useState({
         user: null,
         isAuthenticated: false,
+        isAdmin: false,
     });
-
+    const [loading, setLoading] = useState(true);
     // Memoize the function with useCallback to avoid infinite calls
     const refreshAuthStatus = useCallback(async () => {
         try {
@@ -22,18 +23,25 @@ export const AuthProvider = ({ children }) => {
                 setAuthState({
                     user: data.user,
                     isAuthenticated: data.isAuthenticated,
+                    isAdmin: data.user.isAdmin,
                 });
             } else {
-                setAuthState({ user: null, isAuthenticated: false });
+                setAuthState({ user: null, isAuthenticated: false, isAdmin: false });
             }
         } catch (error) {
             console.log('Failed to fetch auth status:', error);
+        } finally {
+            setLoading(false);
         }
     }, []); // Empty dependency array ensures function remains stable
 
+    // Use useEffect with the memoized function
+    useEffect(() => {
+        refreshAuthStatus(); // Call only once on mount
+    }, [refreshAuthStatus]);
 
     return (
-        <AuthContext.Provider value={{ ...authState, refreshAuthStatus }}>
+        <AuthContext.Provider value={{ ...authState, loading, refreshAuthStatus }}>
             {children}
         </AuthContext.Provider>
     );

@@ -8,6 +8,7 @@ import Form from './Pages/Form';
 import Login from './Auth/Login';
 import Signup from './Auth/Signup';
 import Dashboard from './Pages/Dashboard';
+import Admin from './Admin/Admin';
 import { AuthProvider } from './Context/AuthContext';
 import useAuth from './Hooks/useAuth';
 
@@ -28,8 +29,14 @@ function App() {
   );
 }
 
+
 function AuthRoutes() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
+
+  // If loading, show a loading spinner or message
+  if (loading) {
+    return <div>Loading...</div>; // You can customize this as needed
+  }
 
   return (
     <Routes>
@@ -38,13 +45,15 @@ function AuthRoutes() {
       {isAuthenticated ? (
         <>
           <Route path="/form" element={<Form />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/login" element={isAuthenticated ? <Navigate to="/" /> : <Login />} />
-          <Route path="/signup" element={isAuthenticated ? <Navigate to="/" /> : <Signup />} />
+          <Route path="/login" element={<Navigate to="/" replace />} />
+          <Route path="/signup" element={<Navigate to="/" replace />} />
         </>
       ) : (
         <>
-          <Route path="/form" element={isAuthenticated ? <Navigate to="/login" /> : <Form />} />
+          <Route path="/form" element={<Navigate to="/login" replace />} />
+          <Route path="/admin" element={<Navigate to="/login" replace />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
         </>
@@ -54,4 +63,7 @@ function AuthRoutes() {
   );
 }
 
+
 export default App;
+
+
