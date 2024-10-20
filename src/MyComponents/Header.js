@@ -1,5 +1,8 @@
 import React, { useEffect, useCallback } from 'react';
+import pei_logo from '../Images/PEI_LOGO.png';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import useAuth from '../Hooks/useAuth';
 export default function Header() {
     const { isAuthenticated, refreshAuthStatus, isAdmin } = useAuth();
@@ -43,14 +46,22 @@ export default function Header() {
     };
     return (
         <>
+            <div id='info-bar'>
+                <div id='child-info-bar'>
+                    <span><FontAwesomeIcon className="mx-2" icon={faEnvelope} />info@pei.com</span>
+                    <span><FontAwesomeIcon className="mx-2" icon={faPhone} />+(91) 99999 40157</span>
+                </div>
+            </div>
             <div id="topBar">
-                <h2 className="jnhd">PIONEERING ENGINEERING INSIGHT</h2>
+                {/* <h2 className="jnhd">PIONEERING ENGINEERING INSIGHT</h2>
                 <p className="jndh">
                     ISSN: 0923--4748 Scopus Indexed and Multidisciplinary Journal
-                </p>
+                </p> */}
+                <img className="d-none d-lg-flex logo-max" src={pei_logo} alt="Logo" />
+                <img className="d-lg-none logo-min" src={pei_logo} alt="Logo" />
             </div>
 
-            <nav className="navbar navbar-expand-lg navbar-light mx-auto" style={{ backgroundColor: "#e3f2fd" }}>
+            <nav className="navbar navbar-expand-lg navbar-light mx-auto navbar-custom" style={{ backgroundColor: "#e3f2fd" }}>
                 <button
                     className="navbar-toggler"
                     type="button"
@@ -85,7 +96,7 @@ export default function Header() {
                 </div>
 
                 <div className="collapse navbar-collapse" id="navbarNav">
-                    <ul className="navbar-nav me-auto">
+                    <ul className="navbar-nav me-auto nav-link-custom">
                         <li className="nav-item active">
                             <Link className="nav-link" to="/">Welcome to PEI<span className="sr-only">(current)</span></Link>
                         </li>
