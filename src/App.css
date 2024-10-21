@@ -51,44 +51,62 @@ ul {
 
 #topBar {
     display: flex;
-    top: 100px;
-    width: auto;
-    height: 140px;
+    width: 100%;
     background-color: var(--light);
     border-bottom: 2px solid #22cfdb;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+
+.logo-min {
+    width: 9rem;
+}
+
+.logo-max {
+    width: 10vw;
+}
+
+
+.jnhd-max {
+    font-size: 45px !important;
+    font-family: "Exo 2", sans-serif;
     text-align: center;
-    opacity: 1 !important;
-    padding: 40px;
+    color: #084C61 !important;
 }
 
-@media(min-width: 1024px) {
-    .jnhd {
-        font-size: 45px !important;
-        font-family: "Exo 2", sans-serif;
-        text-align: center;
-    }
-
-    .jndh {
-        font-size: 20px !important;
-        white-space: normal;
-        text-align: center;
-        font-weight: 400;
-    }
+.jndh-max {
+    font-size: 20px !important;
+    white-space: normal;
+    text-align: center;
+    font-weight: 400;
+    color: #6C757D;
 }
 
-.jnhd {
-    font-size: 25px;
+.jnhd-min {
+    font-size: 45px;
     white-space: normal;
     text-align: center;
     color: #084C61 !important;
     font-family: "Exo 2", sans-serif;
 }
 
-.jndh {
-    font-size: 10px;
+@media(max-width: 600px) {
+    .jnhd-min {
+        font-size: 18px !important;
+    }
+
+    .logo-min {
+        left: -10px !important;
+    }
+
+    .logo-min {
+        width: 7rem;
+    }
+}
+
+.jndh-min {
+    font-size: 15px;
     white-space: normal;
     text-align: center;
     color: #6C757D;
@@ -101,8 +119,8 @@ ul {
     /* Adds some padding to ensure text doesn't touch the sides */
 }
 
-#innerBar {
-    width: 55vw;
+#innerBar-max,
+#innerBar-min {
     height: inherit;
     display: flex;
     justify-content: flex-start;
@@ -110,13 +128,14 @@ ul {
     position: relative;
 }
 
-#innerBar img {
+#innerBar-max img,
+#innerBar-min img {
     position: absolute;
     left: 0;
 }
 
-#childBar {
-    width: 45vw;
+#childBar-max,
+#childBar-min {
     height: inherit;
     margin-left: auto;
     margin-right: auto;
@@ -126,6 +145,21 @@ ul {
     flex-direction: column;
 }
 
+#innerBar-max {
+    width: 55vw;
+}
+
+#childBar-max {
+    width: 45vw;
+}
+
+#innerBar-min {
+    width: 100vw;
+}
+
+#childBar-min {
+    width: 70vw;
+}
 
 ul>.nav-item {
     margin: 0 20px;
@@ -276,14 +310,6 @@ label {
     100% {
         clip-path: polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%);
     }
-}
-
-.logo-min {
-    width: 12rem;
-}
-
-.logo-max {
-    width: 10vw;
 }
 
 .nav-link-custom {

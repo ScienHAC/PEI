@@ -53,12 +53,22 @@ export default function Header() {
                 </div>
             </div>
             <div id="topBar">
-                <div id="innerBar">
-                    <img className="d-lg-none logo-min" src={pei_logo} alt="Logo" />
-                    <img className="d-none d-lg-flex logo-max" src={pei_logo} alt="Logo" />
-                    <div id='childBar'>
-                        <h2 className="jnhd">Pioneering Engineering Insight</h2>
-                        <p className="jndh">
+                {/* for wider screen */}
+                <div id="innerBar-max" className='d-none d-lg-flex'>
+                    <img className="logo-max" src={pei_logo} alt="Logo" />
+                    <div id='childBar-max'>
+                        <h2 className="jnhd-max">Pioneering Engineering Insight</h2>
+                        <p className="jndh-max">
+                            ISSN: 0923-4748
+                        </p>
+                    </div>
+                </div>
+                {/* for mobile pr lower screen */}
+                <div id="innerBar-min" className='d-lg-none'>
+                    <img className="logo-min" src={pei_logo} alt="Logo" />
+                    <div id='childBar-min'>
+                        <h2 className="jnhd-min">Pioneering Engineering Insight</h2>
+                        <p className="jndh-min">
                             ISSN: 0923-4748
                         </p>
                     </div>
