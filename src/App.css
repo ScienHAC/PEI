@@ -1,4 +1,5 @@
 @import '~font-awesome/css/font-awesome.css';
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
 
 * {
     box-sizing: border-box;
@@ -22,6 +23,7 @@ ul {
     justify-content: center;
     background-image: linear-gradient(to right, var(--dark), var(--gray-dark));
     color: white;
+    z-index: 2;
 }
 
 #child-info-bar {
@@ -64,8 +66,8 @@ ul {
 
 @media(min-width: 1024px) {
     .jnhd {
-        font-size: 40px !important;
-        white-space: normal;
+        font-size: 45px !important;
+        font-family: "Exo 2", sans-serif;
         text-align: center;
     }
 
@@ -81,21 +83,49 @@ ul {
     font-size: 25px;
     white-space: normal;
     text-align: center;
-    color: var(--white);
+    color: #084C61 !important;
+    font-family: "Exo 2", sans-serif;
 }
 
 .jndh {
     font-size: 10px;
     white-space: normal;
     text-align: center;
+    color: #6C757D;
 }
 
 #topBar h2,
 #topBar p {
-    margin: 0;
+    margin: 10px 0;
     padding: 0 10px;
     /* Adds some padding to ensure text doesn't touch the sides */
 }
+
+#innerBar {
+    width: 55vw;
+    height: inherit;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+}
+
+#innerBar img {
+    position: absolute;
+    left: 0;
+}
+
+#childBar {
+    width: 45vw;
+    height: inherit;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
 
 ul>.nav-item {
     margin: 0 20px;
@@ -150,7 +180,7 @@ table {
     align-self: last baseline;
     width: 100vw;
     height: 100px;
-    background-color: var(--dark);
+    background-color: #263238;
     display: flex;
     justify-content: center;
     align-items: center;

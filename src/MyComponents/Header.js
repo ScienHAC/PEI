@@ -53,12 +53,16 @@ export default function Header() {
                 </div>
             </div>
             <div id="topBar">
-                {/* <h2 className="jnhd">PIONEERING ENGINEERING INSIGHT</h2>
-                <p className="jndh">
-                    ISSN: 0923--4748 Scopus Indexed and Multidisciplinary Journal
-                </p> */}
-                <img className="d-none d-lg-flex logo-max" src={pei_logo} alt="Logo" />
-                <img className="d-lg-none logo-min" src={pei_logo} alt="Logo" />
+                <div id="innerBar">
+                    <img className="d-lg-none logo-min" src={pei_logo} alt="Logo" />
+                    <img className="d-none d-lg-flex logo-max" src={pei_logo} alt="Logo" />
+                    <div id='childBar'>
+                        <h2 className="jnhd">Pioneering Engineering Insight</h2>
+                        <p className="jndh">
+                            ISSN: 0923-4748
+                        </p>
+                    </div>
+                </div>
             </div>
 
             <nav className="navbar navbar-expand-lg navbar-light mx-auto navbar-custom" style={{ backgroundColor: "#e3f2fd" }}>
