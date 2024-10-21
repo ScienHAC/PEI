@@ -58,13 +58,14 @@ ul {
     justify-content: center;
 }
 
-
 .logo-min {
     width: 9rem;
+    filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.15));
 }
 
 .logo-max {
     width: 10vw;
+    filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2));
 }
 
 
