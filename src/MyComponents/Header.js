@@ -1,22 +1,22 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import pei_logo from '../Images/PEI_LOGO.png';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import useAuth from '../Hooks/useAuth';
 export default function Header() {
-    const { isAuthenticated, refreshAuthStatus, isAdmin } = useAuth();
+    const { isAuthenticated, refreshAuthStatus, isAdmin, user } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
-
-    // Memoize refreshAuthStatus to avoid dependency warnings
+    const userDetailsRef = useRef(null);
+    const [showUserDetails, setShowUserDetails] = useState(false);
     const refreshAuth = useCallback(() => {
         refreshAuthStatus();
     }, [refreshAuthStatus]);
 
     useEffect(() => {
-        refreshAuth(); // Refresh on route change
-    }, [location, refreshAuth]); // Add refreshAuth to dependency array
+        refreshAuth();
+    }, [location, refreshAuth]);
 
     const handleLogin = () => {
         navigate('/login');
@@ -44,6 +44,31 @@ export default function Header() {
                 console.error('Error:', error);
             });
     };
+    const handleMouseEnter = () => {
+        setShowUserDetails(true);
+    };
+
+    const handleMouseLeave = () => {
+        setShowUserDetails(false);
+    };
+
+    const handleClickOutside = (event) => {
+        if (userDetailsRef.current && !userDetailsRef.current.contains(event.target)) {
+            setShowUserDetails(false);
+        }
+    };
+    useEffect(() => {
+        if (showUserDetails) {
+            document.addEventListener('mousedown', handleClickOutside);
+        } else {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [showUserDetails]);
+
     return (
         <>
             <div id='info-bar'>
@@ -93,6 +118,9 @@ export default function Header() {
                 <div className="d-flex ms-auto d-lg-none">
                     {isAuthenticated ? (
                         <>
+                            <button className="btn btn-outline-success mx-2" id="User_btn">
+                                <i className="fa-regular fa-user"></i>
+                            </button>
                             <button className="btn btn-outline-success mx-2" id="Logout_btn" onClick={handleLogout}>
                                 <i className="fa fa-sign-out" aria-hidden="true"></i>
                             </button>
@@ -135,13 +163,6 @@ export default function Header() {
                         <li className="nav-item">
                             <Link className="nav-link" to="/form">Research Archive</Link>
                         </li>
-                        {isAuthenticated ? (
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/dashboard">Dashboard</Link>
-                            </li>
-                        ) : (
-                            null
-                        )}
                         {isAdmin ? (
                             <li className="nav-item">
                                 <Link className="nav-link" to="/admin">Admin</Link>
@@ -155,9 +176,41 @@ export default function Header() {
                     <div className="d-none d-lg-flex">
                         {isAuthenticated ? (
                             <>
+                                <button
+                                    className="btn btn-outline-success mx-2"
+                                    id="User_btn"
+                                    onClick={() => setShowUserDetails(!showUserDetails)}
+                                    onMouseEnter={handleMouseEnter}
+                                >
+                                    <i className="fa-regular fa-user"></i>
+                                </button>
                                 <button className="btn btn-outline-success mx-2" id="Logout_btn" onClick={handleLogout}>
                                     <i className="fa fa-sign-out" aria-hidden="true"></i>
                                 </button>
+                                {/* Conditionally render user dashboard details */}
+                                {showUserDetails && (
+                                    <div
+                                        ref={userDetailsRef}
+                                        className="user-details-dropdown"
+                                        style={{
+                                            position: 'absolute',
+                                            top: '60px', // Adjust as needed
+                                            right: '20px', // Adjust as needed
+                                            backgroundColor: '#fff',
+                                            border: '1px solid #ccc',
+                                            padding: '10px',
+                                            borderRadius: '5px',
+                                            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
+                                        }}
+                                        onMouseEnter={handleMouseEnter}
+                                        onMouseLeave={handleMouseLeave}
+                                    >
+                                        <p><strong>User Dashboard</strong></p>
+                                        <p>Name: {user.name}</p>
+                                        <p>Email: {user.email}</p>
+                                        <Link to="/dashboard">Go to Dashboard</Link>
+                                    </div>
+                                )}
                             </>
                         ) : (
                             <>

@@ -69,69 +69,72 @@ const ForgotPassword = () => {
     };
 
     return (
-        <div className="container d-flex justify-content-center align-items-center min-vh-100">
-            <div className="col-12 col-sm-8 col-md-6 col-lg-4">
-                <h1>{step === 1 ? 'Forgot Password' : 'Reset Password'}</h1>
-                <form onSubmit={handleSubmit}>
-                    {/* Email Field */}
-                    {step === 1 && (
-                        <>
-                            <label htmlFor="email">Enter your email</label>
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                                className="form-control mb-3"
-                                required
-                            />
-                        </>
-                    )}
+        <>
+            <br />
+            <div className="container d-flex justify-content-center align-items-center min-vh-100">
+                <div className="col-12 col-sm-8 col-md-6 col-lg-4">
+                    <h1>{step === 1 ? 'Forgot Password' : 'Reset Password'}</h1>
+                    <form onSubmit={handleSubmit}>
+                        {/* Email Field */}
+                        {step === 1 && (
+                            <>
+                                <label htmlFor="email">Enter your email</label>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    className="form-control mb-3"
+                                    required
+                                />
+                            </>
+                        )}
 
-                    {/* OTP and New Password Fields */}
-                    {step === 2 && (
-                        <>
-                            <label htmlFor="otp">Enter OTP</label>
-                            <input
-                                type="text"
-                                id="otp"
-                                name="otp"
-                                value={formData.otp}
-                                onChange={handleChange}
-                                className="form-control mb-3"
-                                required
-                            />
+                        {/* OTP and New Password Fields */}
+                        {step === 2 && (
+                            <>
+                                <label htmlFor="otp">Enter OTP</label>
+                                <input
+                                    type="text"
+                                    id="otp"
+                                    name="otp"
+                                    value={formData.otp}
+                                    onChange={handleChange}
+                                    className="form-control mb-3"
+                                    required
+                                />
 
-                            <label htmlFor="newPassword">New Password</label>
-                            <input
-                                type="password"
-                                id="newPassword"
-                                name="newPassword"
-                                value={formData.newPassword}
-                                onChange={handleChange}
-                                className="form-control mb-3"
-                                required
-                            />
-                        </>
-                    )}
+                                <label htmlFor="newPassword">New Password</label>
+                                <input
+                                    type="password"
+                                    id="newPassword"
+                                    name="newPassword"
+                                    value={formData.newPassword}
+                                    onChange={handleChange}
+                                    className="form-control mb-3"
+                                    required
+                                />
+                            </>
+                        )}
 
-                    {/* Submit Button */}
-                    {!loading && (
-                        <button type="submit" className="btn btn-outline-success btn-block btn-form-auth">
-                            {step === 1 ? 'Send OTP' : 'Reset Password'}
-                        </button>
-                    )}
-                </form>
+                        {/* Submit Button */}
+                        {!loading && (
+                            <button type="submit" className="btn btn-outline-success btn-block btn-form-auth">
+                                {step === 1 ? 'Send OTP' : 'Reset Password'}
+                            </button>
+                        )}
+                    </form>
 
-                {/* Loader container */}
-                <div className="d-flex justify-content-center align-items-center mt-4">
-                    {loading && <span className="loader"></span>}
+                    {/* Loader container */}
+                    <div className="d-flex justify-content-center align-items-center mt-4">
+                        {loading && <span className="loader"></span>}
+                    </div>
+
+                    {message && <p>{message}</p>}
                 </div>
-
-                {message && <p>{message}</p>}
             </div>
-        </div>
+        </>
     );
 };
 

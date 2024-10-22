@@ -165,171 +165,174 @@ const ResearchPaperForm = () => {
     };
 
     return (
-        <StyledForm component="form" onSubmit={handleSubmit} elevation={3}>
-            <Typography variant="h4" component="h1" gutterBottom align="center" color="primary">
-                Research Archives Submission
-            </Typography>
+        <>
+            <br />
+            <StyledForm component="form" onSubmit={handleSubmit} elevation={3}>
+                <Typography variant="h4" component="h1" gutterBottom align="center" color="primary">
+                    Research Archives Submission
+                </Typography>
 
-            <StyledTextField
-                fullWidth
-                label="Title"
-                name="title"
-                value={formData.title}
-                onChange={handleInputChange}
-                error={!!errors.title}
-                helperText={errors.title}
-                required
-                inputProps={{ "aria-label": "Research paper title" }}
-            />
-
-            <StyledTextField
-                fullWidth
-                label="Author"
-                name="author"
-                value={formData.author}
-                onChange={handleInputChange}
-                error={!!errors.author}
-                helperText={errors.author}
-                required
-                inputProps={{ "aria-label": "Author" }}
-            />
-
-            <StyledTextField
-                fullWidth
-                label="Contact Number"
-                name="contactNumber"
-                value={formData.contactNumber}
-                onChange={handleInputChange}
-                error={!!errors.contactNumber}
-                helperText={errors.contactNumber}
-                required
-                inputProps={{ "aria-label": "Contact number" }}
-            />
-
-            <StyledTextField
-                fullWidth
-                label="Abstract"
-                name="abstract"
-                value={formData.abstract}
-                onChange={handleInputChange}
-                error={!!errors.abstract}
-                helperText={errors.abstract}
-                required
-                multiline
-                rows={4}
-                inputProps={{ "aria-label": "Research paper abstract" }}
-            />
-
-            <FormControl fullWidth variant="outlined" sx={{ mb: 2 }}>
-                <InputLabel id="article-type-label">Select Article Type</InputLabel>
-                <Select
-                    labelId="article-type-label"
-                    value={formData.articleType}
+                <StyledTextField
+                    fullWidth
+                    label="Title"
+                    name="title"
+                    value={formData.title}
                     onChange={handleInputChange}
-                    name="articleType"
-                    label="Article Type"
-                    error={!!errors.articleType}
-                >
-                    <MenuItem value="commentary">Commentary</MenuItem>
-                    <MenuItem value="research">Research Article</MenuItem>
-                </Select>
-                {errors.articleType && (
-                    <Typography color="error" variant="body2" sx={{ mt: 1 }}>
-                        {errors.articleType}
-                    </Typography>
-                )}
-            </FormControl>
+                    error={!!errors.title}
+                    helperText={errors.title}
+                    required
+                    inputProps={{ "aria-label": "Research paper title" }}
+                />
 
-            <FormControl fullWidth variant="outlined" sx={{ mb: 2 }}>
-                <InputLabel id="journal-label">Select Journal</InputLabel>
-                <Select
-                    labelId="journal-label"
-                    value={formData.journal}
+                <StyledTextField
+                    fullWidth
+                    label="Author"
+                    name="author"
+                    value={formData.author}
                     onChange={handleInputChange}
-                    name="journal"
-                    label="Journal"
-                    error={!!errors.journal}
-                >
-                    <MenuItem value="globalJournalSurgery">Global Journal of Surgery</MenuItem>
-                    <MenuItem value="globalJournalPharma">Global Journal of Pharmaceuticals</MenuItem>
-                </Select>
-                {errors.journal && (
-                    <Typography color="error" variant="body2" sx={{ mt: 1 }}>
-                        {errors.journal}
-                    </Typography>
-                )}
-            </FormControl>
+                    error={!!errors.author}
+                    helperText={errors.author}
+                    required
+                    inputProps={{ "aria-label": "Author" }}
+                />
 
-            <StyledTextField
-                fullWidth
-                label="Country"
-                name="country"
-                value={formData.country}
-                onChange={handleInputChange}
-                error={!!errors.country}
-                helperText={errors.country}
-                required
-                inputProps={{ "aria-label": "Country" }}
-            />
+                <StyledTextField
+                    fullWidth
+                    label="Contact Number"
+                    name="contactNumber"
+                    value={formData.contactNumber}
+                    onChange={handleInputChange}
+                    error={!!errors.contactNumber}
+                    helperText={errors.contactNumber}
+                    required
+                    inputProps={{ "aria-label": "Contact number" }}
+                />
 
-            <Box sx={{ mb: 2 }}>
-                <div {...getRootProps()} style={{
-                    border: '2px dashed #ccc',
-                    padding: '20px',
-                    textAlign: 'center',
-                    cursor: 'pointer'
-                }}>
-                    <input {...getInputProps()} />
-                    {isDragActive ? (
-                        <Typography variant="body2">Drop the PDF here...</Typography>
-                    ) : (
-                        <Typography variant="body2">Drag 'n' drop a PDF file here, or click to select one</Typography>
+                <StyledTextField
+                    fullWidth
+                    label="Abstract"
+                    name="abstract"
+                    value={formData.abstract}
+                    onChange={handleInputChange}
+                    error={!!errors.abstract}
+                    helperText={errors.abstract}
+                    required
+                    multiline
+                    rows={4}
+                    inputProps={{ "aria-label": "Research paper abstract" }}
+                />
+
+                <FormControl fullWidth variant="outlined" sx={{ mb: 2 }}>
+                    <InputLabel id="article-type-label">Select Article Type</InputLabel>
+                    <Select
+                        labelId="article-type-label"
+                        value={formData.articleType}
+                        onChange={handleInputChange}
+                        name="articleType"
+                        label="Article Type"
+                        error={!!errors.articleType}
+                    >
+                        <MenuItem value="commentary">Commentary</MenuItem>
+                        <MenuItem value="research">Research Article</MenuItem>
+                    </Select>
+                    {errors.articleType && (
+                        <Typography color="error" variant="body2" sx={{ mt: 1 }}>
+                            {errors.articleType}
+                        </Typography>
                     )}
-                </div>
-                {formData.file && (
-                    <Typography variant="body2" sx={{ mt: 1 }}>
-                        File: {formData.file.name}
-                    </Typography>
-                )}
-                {errors.file && (
-                    <Typography color="error" variant="body2" sx={{ mt: 1 }}>
-                        {errors.file}
-                    </Typography>
-                )}
-            </Box>
+                </FormControl>
 
-            {uploadProgress > 0 && (
-                <Box sx={{ width: "100%", mb: 2 }}>
-                    <LinearProgress variant="determinate" value={uploadProgress} />
+                <FormControl fullWidth variant="outlined" sx={{ mb: 2 }}>
+                    <InputLabel id="journal-label">Select Journal</InputLabel>
+                    <Select
+                        labelId="journal-label"
+                        value={formData.journal}
+                        onChange={handleInputChange}
+                        name="journal"
+                        label="Journal"
+                        error={!!errors.journal}
+                    >
+                        <MenuItem value="globalJournalSurgery">Global Journal of Surgery</MenuItem>
+                        <MenuItem value="globalJournalPharma">Global Journal of Pharmaceuticals</MenuItem>
+                    </Select>
+                    {errors.journal && (
+                        <Typography color="error" variant="body2" sx={{ mt: 1 }}>
+                            {errors.journal}
+                        </Typography>
+                    )}
+                </FormControl>
+
+                <StyledTextField
+                    fullWidth
+                    label="Country"
+                    name="country"
+                    value={formData.country}
+                    onChange={handleInputChange}
+                    error={!!errors.country}
+                    helperText={errors.country}
+                    required
+                    inputProps={{ "aria-label": "Country" }}
+                />
+
+                <Box sx={{ mb: 2 }}>
+                    <div {...getRootProps()} style={{
+                        border: '2px dashed #ccc',
+                        padding: '20px',
+                        textAlign: 'center',
+                        cursor: 'pointer'
+                    }}>
+                        <input {...getInputProps()} />
+                        {isDragActive ? (
+                            <Typography variant="body2">Drop the PDF here...</Typography>
+                        ) : (
+                            <Typography variant="body2">Drag 'n' drop a PDF file here, or click to select one</Typography>
+                        )}
+                    </div>
+                    {formData.file && (
+                        <Typography variant="body2" sx={{ mt: 1 }}>
+                            File: {formData.file.name}
+                        </Typography>
+                    )}
+                    {errors.file && (
+                        <Typography color="error" variant="body2" sx={{ mt: 1 }}>
+                            {errors.file}
+                        </Typography>
+                    )}
                 </Box>
-            )}
 
-            <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                fullWidth
-                sx={{ mt: 2 }}
-            >
-                Submit Paper
-            </Button>
+                {uploadProgress > 0 && (
+                    <Box sx={{ width: "100%", mb: 2 }}>
+                        <LinearProgress variant="determinate" value={uploadProgress} />
+                    </Box>
+                )}
 
-            <Snackbar
-                open={snackbar.open}
-                autoHideDuration={6000}
-                onClose={handleSnackbarClose}
-                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-            >
-                <Alert
-                    onClose={handleSnackbarClose}
-                    severity={snackbar.severity}
-                    variant="filled"
-                    sx={{ width: "100%" }}
+                <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    sx={{ mt: 2 }}
                 >
-                    {snackbar.message}
-                </Alert>
-            </Snackbar>
-        </StyledForm>
+                    Submit Paper
+                </Button>
+
+                <Snackbar
+                    open={snackbar.open}
+                    autoHideDuration={6000}
+                    onClose={handleSnackbarClose}
+                    anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                >
+                    <Alert
+                        onClose={handleSnackbarClose}
+                        severity={snackbar.severity}
+                        variant="filled"
+                        sx={{ width: "100%" }}
+                    >
+                        {snackbar.message}
+                    </Alert>
+                </Snackbar>
+            </StyledForm>
+        </>
     );
 };
 
