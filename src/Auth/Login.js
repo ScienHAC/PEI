@@ -16,13 +16,18 @@ const Login = () => {
     const handleChange = (e) => {
         setFormData({
             ...formData,
-            [e.target.name]: e.target.value.trim().toLowerCase()
+            [e.target.name]: e.target.value
         });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
+        const finalData = {
+            ...formData,
+            email: formData.email.trim().toLowerCase(),
+            password: formData.password
+        };
         if (otpStep) {
             // Handle OTP verification
             try {
@@ -51,7 +56,7 @@ const Login = () => {
                 const response = await fetch(`${process.env.REACT_APP_hostURL}/auth/login`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData),
+                    body: JSON.stringify(finalData),
                     credentials: 'include',
                 });
 

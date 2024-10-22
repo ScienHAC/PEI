@@ -22,13 +22,21 @@ const Signup = () => {
     const handleChange = (e) => {
         setFormData({
             ...formData,
-            [e.target.name]: e.target.value.trim().toLowerCase()
+            [e.target.name]: e.target.value
         });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
+
+        const finalData = {
+            ...formData,
+            name: formData.name.trim().toLowerCase(),
+            email: formData.email.trim().toLowerCase(),
+            contact: formData.contact.trim(),
+            password: formData.password
+        };
 
         if (otpStep) {
             // Handle OTP verification
@@ -58,7 +66,7 @@ const Signup = () => {
                 const response = await fetch(`${process.env.REACT_APP_hostURL}/auth/signup`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData),
+                    body: JSON.stringify(finalData),
                     credentials: 'include',
                 });
 
