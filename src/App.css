@@ -345,26 +345,19 @@ label {
 
 
 /* Home.css */
-h2 {
+h2#home_pei_max {
     display: flex;
     align-items: center;
-    /* Vertically centers the image and text */
     justify-content: center;
-    /* Center-aligns content relative to the window */
     text-align: center;
     gap: 10px;
-    /* Adds a 10px gap between the text and image */
     font-size: 1.8rem;
     color: #333;
-    /* Adjust as needed for better contrast */
 }
 
 /* Image in the typing animation */
-h2 img {
+h2#home_pei_max img {
     max-width: 100%;
-    /* Ensure responsiveness */
     height: auto;
-    /* Maintain aspect ratio */
     vertical-align: middle;
-    /* Align image with the middle of the text */
 }
