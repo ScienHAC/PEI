@@ -20,7 +20,7 @@ function App() {
         <Header />
         <div id="main">
           <div id="main_body">
-            <br /><br />
+            <br />
             <AuthRoutes />
           </div>
         </div>

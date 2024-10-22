@@ -3,9 +3,8 @@ import React from 'react'
 const Home = () => {
     return (
         <>
-            <h2 id="home_pei_max" className='d-none d-lg-flex'>Welcome to PEI : <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=25&duration=3000&pause=1000&color=0066cc&vCenter=true&width=435&height=70&lines=Submit+Research+Paper;Explore+Our+Journals;Contribute+to+Knowledge;24%2F7+Support" alt="Typing SVG" /></h2>
+            <h2 id="home_pei_max" className='d-none d-lg-flex'>Welcome to PEI : <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=20&duration=3000&pause=1000&color=0066cc&vCenter=true&width=435&height=70&lines=Submit+Research+Paper;Explore+Our+Journals;Contribute+to+Knowledge;24%2F7+Support" alt="Typing SVG" /></h2>
             <h2 id="home_pei_min" className='d-lg-none'>Welcome to PEI : <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=20&duration=3000&pause=1000&color=0066cc&vCenter=true&width=435&height=70&lines=Submit+Research+Paper;Explore+Our+Journals;Contribute+to+Knowledge;24%2F7+Support" alt="Typing SVG" /></h2>
-            <br />
             <blockquote>
                 <a href="google.com">PIONEERING ENGINEERING INSIGHT</a>
                 (ISSN:0923-4748) is dedicated to publishing high-quality research in
