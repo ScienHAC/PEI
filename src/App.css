@@ -1,4 +1,5 @@
 @import '~font-awesome/css/font-awesome.css';
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
 
 * {
     box-sizing: border-box;
@@ -31,10 +32,28 @@ ul {
     align-items: center;
 }
 
+#info-bar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(to right, var(--dark), var(--gray-dark));
+    color: white;
+    z-index: 2;
+}
+
+#child-info-bar {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 
 #main {
     display: flex;
     flex-grow: 1;
+    background-color: var(--light);
     background-color: var(--light);
     align-items: center;
     justify-content: center;
@@ -53,48 +72,115 @@ ul {
     width: auto;
     height: 140px;
     background-color: var(--light);
+    width: 100%;
+    background-color: var(--light);
     border-bottom: 2px solid #22cfdb;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+.logo-min {
+    width: 9rem;
+    filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.15));
+}
+
+.logo-max {
+    width: 10vw;
+    filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2));
+}
+
+
+.jnhd-max {
+    font-size: 45px !important;
+    font-family: "Exo 2", sans-serif;
     text-align: center;
-    opacity: 1 !important;
-    padding: 40px;
+    color: #084C61 !important;
 }
 
-@media(min-width: 1024px) {
-    .jnhd {
-        font-size: 40px !important;
-        white-space: normal;
-        text-align: center;
-    }
-
-    .jndh {
-        font-size: 20px !important;
-        white-space: normal;
-        text-align: center;
-        font-weight: 400;
-    }
-}
-
-.jnhd {
-    font-size: 25px;
+.jndh-max {
+    font-size: 20px !important;
     white-space: normal;
     text-align: center;
-    color: var(--white);
+    font-weight: 400;
+    color: #6C757D;
 }
 
-.jndh {
-    font-size: 10px;
+.jnhd-min {
+    font-size: 45px;
     white-space: normal;
     text-align: center;
+    color: #084C61 !important;
+    font-family: "Exo 2", sans-serif;
+}
+
+@media(max-width: 600px) {
+    .jnhd-min {
+        font-size: 18px !important;
+    }
+
+    .logo-min {
+        left: -10px !important;
+    }
+
+    .logo-min {
+        width: 7rem;
+    }
+}
+
+.jndh-min {
+    font-size: 15px;
+    white-space: normal;
+    text-align: center;
+    color: #6C757D;
 }
 
 #topBar h2,
 #topBar p {
-    margin: 0;
+    margin: 10px 0;
     padding: 0 10px;
     /* Adds some padding to ensure text doesn't touch the sides */
+}
+
+#innerBar-max,
+#innerBar-min {
+    height: inherit;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+}
+
+#innerBar-max img,
+#innerBar-min img {
+    position: absolute;
+    left: 0;
+}
+
+#childBar-max,
+#childBar-min {
+    height: inherit;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#innerBar-max {
+    width: 55vw;
+}
+
+#childBar-max {
+    width: 45vw;
+}
+
+#innerBar-min {
+    width: 100vw;
+}
+
+#childBar-min {
+    width: 70vw;
 }
 
 ul>.nav-item {
@@ -110,6 +196,9 @@ ul {
     margin-bottom: 9px;
     width: 80vw;
     height: 100%;
+    background-color: var(--white);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 0 10px 0 10px;
     background-color: var(--white);
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     padding: 0 10px 0 10px;
@@ -150,7 +239,7 @@ table {
     align-self: last baseline;
     width: 100vw;
     height: 100px;
-    background-color: var(--dark);
+    background-color: #263238;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -254,6 +343,32 @@ label {
 
 .logo-max {
     width: 10vw;
+}
+
+.nav-link-custom {
+    color: var(--light) !important;
+}
+
+.navbar-custom {
+    background-color: #245a62 !important;
+}
+
+.navbar-light .navbar-nav .nav-link,
+.navbar-light .navbar-nav .active>.nav-link,
+.navbar-light .navbar-nav .nav-link.active,
+.navbar-light .navbar-nav .nav-link.show,
+.navbar-light .navbar-nav .show>.nav-link,
+.navbar-light .navbar-nav .nav-link.disabled {
+    color: var(--light) !important;
+}
+
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .active>.nav-link:hover,
+.navbar-light .navbar-nav .nav-link.active:hover,
+.navbar-light .navbar-nav .nav-link.show:hover,
+.navbar-light .navbar-nav .show>.nav-link:hover,
+.navbar-light .navbar-nav .nav-link.disabled:hover {
+    color: var(--cyan) !important;
 }
 
 .nav-link-custom {
