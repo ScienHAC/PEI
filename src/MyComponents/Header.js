@@ -118,12 +118,41 @@ export default function Header() {
                 <div className="d-flex ms-auto d-lg-none">
                     {isAuthenticated ? (
                         <>
-                            <button className="btn btn-outline-success mx-2" id="User_btn">
+                            <button
+                                className="btn btn-outline-success mx-2"
+                                id="User_btn"
+                                onClick={() => setShowUserDetails(!showUserDetails)}
+                                onMouseEnter={handleMouseEnter}
+                            >
                                 <i className="fa-regular fa-user"></i>
                             </button>
                             <button className="btn btn-outline-success mx-2" id="Logout_btn" onClick={handleLogout}>
                                 <i className="fa fa-sign-out" aria-hidden="true"></i>
                             </button>
+                            {showUserDetails && (
+                                <div
+                                    ref={userDetailsRef}
+                                    className="user-details-dropdown"
+                                    style={{
+                                        position: 'absolute',
+                                        top: '60px', // Adjust as needed
+                                        right: '20px', // Adjust as needed
+                                        backgroundColor: '#fff',
+                                        border: '1px solid #ccc',
+                                        padding: '10px',
+                                        borderRadius: '5px',
+                                        boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
+                                    }}
+                                    onMouseEnter={handleMouseEnter}
+                                    onMouseLeave={handleMouseLeave}
+                                >
+                                    <p><strong>User Dashboard</strong></p>
+                                    <p>Name: {user.name}</p>
+                                    <p>Email: {user.email}</p>
+                                    <Link to="/dashboard">Go to Dashboard</Link>
+                                    <Link to="/profile" style={{ display: 'block', marginTop: '5px' }}>View Profile</Link>
+                                </div>
+                            )}
                         </>
                     ) : (
                         <>
@@ -209,6 +238,7 @@ export default function Header() {
                                         <p>Name: {user.name}</p>
                                         <p>Email: {user.email}</p>
                                         <Link to="/dashboard">Go to Dashboard</Link>
+                                        <Link to="/profile" style={{ display: 'block', marginTop: '5px' }}>View Profile</Link>
                                     </div>
                                 )}
                             </>

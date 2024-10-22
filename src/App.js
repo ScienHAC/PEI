@@ -12,6 +12,7 @@ import Dashboard from './Pages/Dashboard';
 import Admin from './Admin/Admin';
 import { AuthProvider } from './Context/AuthContext';
 import useAuth from './Hooks/useAuth';
+import Profile from './Pages/Profile';
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function AuthRoutes() {
       {isAuthenticated ? (
         <>
           <Route path="/form" element={<Form />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/login" element={<Navigate to="/" replace />} />
@@ -60,7 +62,7 @@ function AuthRoutes() {
           <Route path="/signup" element={<Signup />} />
         </>
       )}
-      <Route path="*" element={<h1>Sorry, Page Not Found!</h1>} />
+      <Route path="*" element={<h1>404, Page Not Exist!!!</h1>} />
     </Routes>
   );
 }
