@@ -57,12 +57,12 @@ ul {
 }
 
 .logo-min {
-    width: 9rem;
+    width: 180px;
     filter: drop-shadow(1px 3px 5px rgba(0, 0, 0, 0.15));
 }
 
 .logo-max {
-    width: 10vw;
+    width: 180px;
     filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2));
 }
 
@@ -85,7 +85,7 @@ ul {
 }
 
 .jnhd-min {
-    font-size: 45px;
+    font-size: 40px;
     white-space: normal;
     text-align: center;
     color: #084C61 !important;
@@ -129,13 +129,14 @@ ul {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    position: relative;
+    flex-wrap: nowrap;
 }
 
 #innerBar-max img,
 #innerBar-min img {
-    position: absolute;
     left: 0;
+    position: absolute;
 }
 
 #childBar-max,
@@ -151,7 +152,7 @@ ul {
 #innerBar-max {
     width: 100%;
     /* Full width for better centering */
-    max-width: 1200px;
+    max-width: 1000px;
     /* Limit max width for large screens */
     margin: 0 auto;
     /* Center content on larger screens */
