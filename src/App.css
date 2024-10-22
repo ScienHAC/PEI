@@ -32,7 +32,6 @@ ul {
     align-items: center;
 }
 
-
 #main {
     display: flex;
     flex-grow: 1;
@@ -67,12 +66,13 @@ ul {
     filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2));
 }
 
-
 .jnhd-max {
     font-size: 45px !important;
     font-family: "Exo 2", sans-serif;
     text-align: center;
     color: #084C61 !important;
+    display: inline-block;
+    margin: 0 auto;
 }
 
 .jndh-max {
@@ -81,6 +81,7 @@ ul {
     text-align: center;
     font-weight: 400;
     color: #6C757D;
+    margin: 0 auto;
 }
 
 .jnhd-min {
@@ -89,9 +90,11 @@ ul {
     text-align: center;
     color: #084C61 !important;
     font-family: "Exo 2", sans-serif;
+    display: inline-block;
+    margin: 0 auto;
 }
 
-@media(max-width: 600px) {
+@media (max-width: 600px) {
     .jnhd-min {
         font-size: 18px !important;
     }
@@ -110,6 +113,7 @@ ul {
     white-space: normal;
     text-align: center;
     color: #6C757D;
+    margin: 0 auto;
 }
 
 #topBar h2,
@@ -123,9 +127,9 @@ ul {
 #innerBar-min {
     height: inherit;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-    position: relative;
+    gap: 10px;
 }
 
 #innerBar-max img,
@@ -137,20 +141,24 @@ ul {
 #childBar-max,
 #childBar-min {
     height: inherit;
-    margin-left: auto;
-    margin-right: auto;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    text-align: center;
 }
 
 #innerBar-max {
-    width: 55vw;
+    width: 100%;
+    /* Full width for better centering */
+    max-width: 1200px;
+    /* Limit max width for large screens */
+    margin: 0 auto;
+    /* Center content on larger screens */
 }
 
 #childBar-max {
-    width: 45vw;
+    flex-grow: 1;
 }
 
 #innerBar-min {
@@ -179,14 +187,12 @@ ul {
     padding: 0 10px 0 10px;
 }
 
-
 #main_body h2,
 blockquote,
 h3,
 table {
     color: rgb(19, 15, 15);
 }
-
 
 blockquote {
     border-left: 8px solid #b1b1b3;
@@ -226,7 +232,6 @@ table {
     padding: 0;
 }
 
-
 /* styles for login and signup pages */
 
 /* Add some padding and rounded corners to the form container */
@@ -259,7 +264,6 @@ label {
 }
 
 /* Loader Styling */
-
 
 .loader {
     display: inline-block;
