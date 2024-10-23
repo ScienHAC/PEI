@@ -75,11 +75,13 @@
 // export default Dashboard;
 
 import React, { useEffect, useState } from 'react';
+import useAuth from '../Hooks/useAuth';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEllipsisV, faFileAlt } from '@fortawesome/free-solid-svg-icons';
 import '../CSS/Dashboard.css'; // Assuming you will use custom CSS for styling
 
 const Dashboard = () => {
+    const { user } = useAuth();
     const [papers, setPapers] = useState([]);
     const [statusFilter, setStatusFilter] = useState('all');
     const [currentPage, setCurrentPage] = useState(1);
@@ -133,6 +135,8 @@ const Dashboard = () => {
 
     return (
         <div className="dashboard-container">
+            <p className="user-name">Welcome back, {user.name}</p>
+            <br />
             <div className="top-buttons">
                 <button
                     className={`filter-btn ${statusFilter === 'all' ? 'active' : ''}`}
