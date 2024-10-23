@@ -1,53 +1,108 @@
 import React, { useState } from 'react';
 import useAuth from '../Hooks/useAuth';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import '../CSS/Profile.css'; // Assuming you'll create a CSS file for styling
 
 const Profile = () => {
     const { user } = useAuth();
-    const [isEditing, setIsEditing] = useState(false);
+    const [isEditing, setIsEditing] = useState({ name: false, contact: false });
     const [newName, setNewName] = useState(user.name);
+    const [newContact, setNewContact] = useState(user.contact || '');
     const [message, setMessage] = useState('');
 
-    // Function to handle name update
-    const handleUpdateName = async () => {
+    // Function to handle the update
+    const handleUpdateUser = async () => {
         try {
-            const response = await fetch(`${process.env.REACT_APP_hostURL}/api/user/update-name`, {
+            const response = await fetch(`${process.env.REACT_APP_hostURL}/api/user/update`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ newName }),
+                body: JSON.stringify({ newName, newContact }),
                 credentials: 'include',
             });
 
             if (response.status === 200) {
-                setMessage('Name updated successfully!');
-                setIsEditing(false);
+                setMessage('Profile updated successfully!');
+                setIsEditing({ name: false, contact: false });
+            } else {
+                setMessage('Failed to update profile.');
             }
         } catch (error) {
-            console.error('Error updating name:', error);
-            setMessage('Failed to update name.');
+            console.error('Error updating profile:', error);
+            setMessage('Failed to update profile.');
         }
     };
 
     return (
-        <div>
-            <h1>Profile</h1>
-            <h2>Email: {user.email}</h2>
-            {!isEditing ? (
-                <>
-                    <h2>Name: {user.name}</h2>
-                    <button className="btn btn-outline-success mx-2" onClick={() => setIsEditing(true)}>Edit Name</button>
-                </>
-            ) : (
-                <div>
-                    <input
-                        type="text"
-                        value={newName}
-                        onChange={(e) => setNewName(e.target.value)}
-                    />
-                    <button className="btn btn-outline-success mx-2" onClick={handleUpdateName}>Save</button>
-                    <button className="btn btn-outline-success mx-2" onClick={() => setIsEditing(false)}>Cancel</button>
+        <div className="profile-container">
+            <div className="profile-card">
+                <div className="profile-icon">
+                    <FontAwesomeIcon icon={faUserCircle} size="6x" />
                 </div>
-            )}
-            {message && <p>{message}</p>}
+                <h1 className="profile-title">User Profile</h1>
+
+                <div className="user-details">
+                    <div className="user-info">
+                        <h3>Email:</h3>
+                        <p>{user.email}</p>
+                    </div>
+
+                    <div className="user-info">
+                        <h3>Name:</h3>
+                        {!isEditing.name ? (
+                            <div className="user-detail">
+                                <p>{user.name}</p>
+                                <FontAwesomeIcon
+                                    icon={faEdit}
+                                    className="edit-icon"
+                                    onClick={() => setIsEditing({ ...isEditing, name: true })}
+                                />
+                            </div>
+                        ) : (
+                            <div>
+                                <input
+                                    type="text"
+                                    value={newName}
+                                    onChange={(e) => setNewName(e.target.value)}
+                                    className="form-control"
+                                />
+                            </div>
+                        )}
+                    </div>
+
+                    <div className="user-info">
+                        <h3>Contact:</h3>
+                        {!isEditing.contact ? (
+                            <div className="user-detail">
+                                <p>{user.contact || 'Not Provided'}</p>
+                                <FontAwesomeIcon
+                                    icon={faEdit}
+                                    className="edit-icon"
+                                    onClick={() => setIsEditing({ ...isEditing, contact: true })}
+                                />
+                            </div>
+                        ) : (
+                            <div>
+                                <input
+                                    type="text"
+                                    value={newContact}
+                                    onChange={(e) => setNewContact(e.target.value)}
+                                    className="form-control"
+                                />
+                            </div>
+                        )}
+                    </div>
+
+                    {(isEditing.name || isEditing.contact) && (
+                        <div className="profile-actions">
+                            <button className="btn btn-success" onClick={handleUpdateUser}>Save</button>
+                            <button className="btn btn-danger" onClick={() => setIsEditing({ name: false, contact: false })}>Cancel</button>
+                        </div>
+                    )}
+
+                    {message && <p className="profile-message">{message}</p>}
+                </div>
+            </div>
         </div>
     );
 };
