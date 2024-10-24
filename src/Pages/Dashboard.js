@@ -202,6 +202,7 @@ const Dashboard = () => {
                                             <input
                                                 type="file"
                                                 accept="image/*"
+                                                className="rounded-file-input"
                                                 onChange={(e) => handleInputChange(e, paper._id, 'thumbnail')}
                                             />
                                         </div>
