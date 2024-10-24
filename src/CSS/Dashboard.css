@@ -86,15 +86,23 @@
     }
 }
 
+
 .dropdown-menu a {
     display: block;
-    padding: 5px 10px;
     text-decoration: none;
     color: black;
 }
 
-.dropdown-menu a:hover {
+.dropdown-menu .dropdown-element {
+    display: block;
+    padding: 5px 10px;
+    color: black;
+}
+
+.dropdown-menu a:hover,
+.dropdown-menu div:hover {
     background-color: #f0f0f0;
+    cursor: pointer;
 }
 
 .pagination {
