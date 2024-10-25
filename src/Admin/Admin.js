@@ -182,12 +182,16 @@ function DisplayDataAdmin() {
                                     zIndex: 10,
                                     minWidth: '150px'
                                 }}>
-                                    <div className='dropdown-element' onClick={() => handleMarkAsReviewed(paper._id)}>
+                                    <div className='dropdown-element'
+                                        onClick={() => paper.status === 'reviewed' ? null : handleMarkAsReviewed(paper._id)}>
                                         <FontAwesomeIcon icon={faCheck} className="menu-icon" style={{ color: 'green', fontWeight: 'bold' }} /> Mark as Reviewed
                                     </div>
-                                    <div className='dropdown-element' onClick={() => handleReject(paper._id)}>
+
+                                    <div className='dropdown-element'
+                                        onClick={() => paper.status === 'rejected' ? null : handleReject(paper._id)}>
                                         <span role="img" aria-label="reject">❌</span> Reject
                                     </div>
+
                                     <div className='dropdown-element'>
                                         <a href={`${process.env.REACT_APP_hostURL}/api/uploads/${paper.filePath}`} target="_blank" rel="noopener noreferrer" download>View Pdf</a>
                                     </div>
