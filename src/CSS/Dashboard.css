@@ -126,7 +126,7 @@
 }
 
 .page-btn.active {
-    background-color: var(--light);
+    background-color: #c7d4e3;
     cursor: pointer;
 }
 
