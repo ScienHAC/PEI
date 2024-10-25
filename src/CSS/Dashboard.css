@@ -117,8 +117,22 @@
     margin-right: 5px;
 }
 
-.page-btn.active {
+.page-btn.active:hover {
     background-color: #e0e0e0;
+}
+
+.page-btn:hover {
+    background-color: #e0e0e0;
+}
+
+.page-btn.active {
+    background-color: var(--light);
+    cursor: pointer;
+}
+
+.page-btn {
+    background-color: var(--light);
+    cursor: pointer;
 }
 
 /* add functionality to right option icon */
