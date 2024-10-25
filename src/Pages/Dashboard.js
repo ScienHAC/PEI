@@ -472,9 +472,12 @@ const Dashboard = () => {
 
             {/* Pagination */}
             <div className="pagination">
-                <button className="page-btn" onClick={handlePreviousPage} disabled={currentPage === 1}>
-                    Previous
-                </button>
+                {currentPage > 1 && (
+                    <button className="page-btn" onClick={handlePreviousPage} disabled={currentPage === 1}>
+                        Previous
+                    </button>
+                )}
+
                 {Array.from({ length: totalPages }, (_, index) => (
                     <button
                         key={index + 1}
@@ -484,9 +487,11 @@ const Dashboard = () => {
                         {index + 1}
                     </button>
                 ))}
-                <button className="page-btn" onClick={handleNextPage} disabled={currentPage === totalPages}>
-                    Next
-                </button>
+                {currentPage !== totalPages && (
+                    <button className="page-btn" onClick={handleNextPage} disabled={currentPage === totalPages}>
+                        Next
+                    </button>
+                )}
             </div>
 
             {/* Snackbar for notifications */}
