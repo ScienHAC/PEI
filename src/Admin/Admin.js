@@ -203,19 +203,19 @@ function DisplayDataAdmin() {
                             display: 'flex', flexDirection: 'column', gap: '4px', padding: '12px', border: '1px solid #e0e0e0', borderRadius: '6px', backgroundColor: '#f9f9f9', marginTop: '12px'
                         }}>
                             <span className="author-name" style={{ fontWeight: 'bold', fontSize: '1rem', color: '#333' }}>
-                                {paper.author || 'Unknown Author'}
+                                Author: {paper.author || 'Unknown Author'}
                             </span>
                             <span className="user-email" style={{ color: '#555' }}>
-                                {paper.email || 'Unknown Email'}
+                                Published by: {paper.email || 'Unknown Email'}
                             </span>
 
                             <div style={{ display: 'flex', fontSize: '0.9rem', color: '#777', gap: '8px' }}>
                                 <span className="user-createdAt">
-                                    Created: {paper.createdAt ? new Date(paper.createdAt).toLocaleDateString('en-GB') : 'Unknown creation'}
+                                    Created At: {paper.createdAt ? new Date(paper.createdAt).toLocaleDateString('en-GB') : 'Unknown creation'}
                                 </span>
                                 {paper.createdAt !== paper.updatedAt && (
                                     <span className="user-updatedAt">
-                                        Updated: {paper.updatedAt ? new Date(paper.updatedAt).toLocaleDateString('en-GB') : 'Unknown updation'}
+                                        Updated At: {paper.updatedAt ? new Date(paper.updatedAt).toLocaleDateString('en-GB') : 'Unknown updation'}
                                     </span>
                                 )}
                             </div>
