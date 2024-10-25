@@ -161,6 +161,9 @@ function DisplayDataAdmin() {
                                         <div className='dropdown-element' onClick={() => handleReject(paper._id)}>
                                             <FontAwesomeIcon icon={faTimes} className="menu-icon" /> Reject
                                         </div>
+                                        <div className='dropdown-element'>
+                                            <a href={`${process.env.REACT_APP_hostURL}/api/uploads/${paper.filePath}`} target="_blank" rel="noopener noreferrer" download>View Pdf</a>
+                                        </div>
                                     </div>
                                 )}
                             </div>
