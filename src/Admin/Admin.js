@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import useAuth from '../Hooks/useAuth';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEllipsisV, faImage, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faEllipsisV, faImage, faCheck } from '@fortawesome/free-solid-svg-icons';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import '../CSS/Dashboard.css';
@@ -158,41 +158,88 @@ function DisplayDataAdmin() {
                             <FontAwesomeIcon icon={faImage} className="placeholder-icon" />
                         )}
                     </div>
-                    <div className="right-details">
-                        <h3 className="paper-title" onClick={() => window.open(`/view/${paper._id}`, '_blank')}>
-                            {paper.title || 'No Title'}
-                        </h3>
-                        <p className="paper-abstract">
+
+                    <div className="right-details" style={{ padding: '16px', border: '1px solid #e0e0e0', borderRadius: '8px', backgroundColor: '#fafafa' }}>
+                        <div className="options-menu" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <h3 className="paper-title" onClick={() => window.open(`/view/${paper._id}`, '_blank')} style={{ margin: 0, fontSize: '1.2rem', fontWeight: 'bold', color: '#333', cursor: 'pointer' }}>
+                                {paper.title || 'No Title'}
+                            </h3>
+                            <FontAwesomeIcon
+                                icon={faEllipsisV}
+                                className="options-icon"
+                                onClick={() => toggleDropdown(paper._id)}
+                                style={{ cursor: 'pointer', color: '#666' }}
+                            />
+                            {dropdownOpen === paper._id && (
+                                <div className="dropdown-menu" onMouseLeave={hideDropdown} style={{
+                                    position: 'absolute',
+                                    backgroundColor: '#fff',
+                                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+                                    borderRadius: '4px',
+                                    padding: '8px',
+                                    right: 0,
+                                    top: '30px',
+                                    zIndex: 10,
+                                    minWidth: '150px'
+                                }}>
+                                    <div className='dropdown-element' onClick={() => handleMarkAsReviewed(paper._id)}>
+                                        <FontAwesomeIcon icon={faCheck} className="menu-icon" style={{ color: 'green', fontWeight: 'bold' }} /> Mark as Reviewed
+                                    </div>
+                                    <div className='dropdown-element' onClick={() => handleReject(paper._id)}>
+                                        <span role="img" aria-label="reject">❌</span> Reject
+                                    </div>
+                                    <div className='dropdown-element'>
+                                        <a href={`${process.env.REACT_APP_hostURL}/api/uploads/${paper.filePath}`} target="_blank" rel="noopener noreferrer" download>View Pdf</a>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
+
+                        <p className="paper-abstract" style={{ color: '#555', fontSize: '1rem', marginTop: '8px' }}>
                             {paper.abstract?.length > 100 ? paper.abstract.substring(0, 100) + '...' : paper.abstract || 'No Abstract'}
                         </p>
-                        <span className="author-name">{paper.author || 'Unknown Author'}</span>
-                        <span className="user-email">{paper.email || 'Unknown Email'}</span>
-                        <div className="paper-footer">
-                            <span className={`status-label status-${paper.status.toLowerCase().replace(/\s+/g, '-')}`}>
-                                {paper.status || 'Under Review'}
+
+                        <div className='flex-user-details' style={{
+                            display: 'flex', flexDirection: 'column', gap: '4px', padding: '12px', border: '1px solid #e0e0e0', borderRadius: '6px', backgroundColor: '#f9f9f9', marginTop: '12px'
+                        }}>
+                            <span className="author-name" style={{ fontWeight: 'bold', fontSize: '1rem', color: '#333' }}>
+                                {paper.author || 'Unknown Author'}
                             </span>
-                            <div className="options-menu">
-                                <FontAwesomeIcon
-                                    icon={faEllipsisV}
-                                    className="options-icon"
-                                    onClick={() => toggleDropdown(paper._id)}
-                                />
-                                {dropdownOpen === paper._id && (
-                                    <div className="dropdown-menu" onMouseLeave={hideDropdown}>
-                                        <div className='dropdown-element' onClick={() => handleMarkAsReviewed(paper._id)}>
-                                            <FontAwesomeIcon icon={faCheck} className="menu-icon" /> Mark as Reviewed
-                                        </div>
-                                        <div className='dropdown-element' onClick={() => handleReject(paper._id)}>
-                                            <FontAwesomeIcon icon={faTimes} className="menu-icon" /> Reject
-                                        </div>
-                                        <div className='dropdown-element'>
-                                            <a href={`${process.env.REACT_APP_hostURL}/api/uploads/${paper.filePath}`} target="_blank" rel="noopener noreferrer" download>View Pdf</a>
-                                        </div>
-                                    </div>
+                            <span className="user-email" style={{ color: '#555' }}>
+                                {paper.email || 'Unknown Email'}
+                            </span>
+
+                            <div style={{ display: 'flex', fontSize: '0.9rem', color: '#777', gap: '8px' }}>
+                                <span className="user-createdAt">
+                                    Created: {paper.createdAt ? new Date(paper.createdAt).toLocaleDateString('en-GB') : 'Unknown creation'}
+                                </span>
+                                {paper.createdAt !== paper.updatedAt && (
+                                    <span className="user-updatedAt">
+                                        Updated: {paper.updatedAt ? new Date(paper.updatedAt).toLocaleDateString('en-GB') : 'Unknown updation'}
+                                    </span>
                                 )}
                             </div>
+
+                            <span className={`status-label status-${paper.status.toLowerCase().replace(/\s+/g, '-')}`} style={{
+                                display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 'bold', fontSize: '1rem', marginTop: '8px'
+                            }}>
+                                {paper.status === 'reviewed' ? (
+                                    <>
+                                        <span style={{ color: 'green' }}>✔✔</span> Reviewed
+                                    </>
+                                ) : paper.status === 'rejected' ? (
+                                    <>
+                                        <span style={{ color: 'red' }}>❌</span> Rejected
+                                    </>
+                                ) : (
+                                    <>
+                                        <span style={{ color: 'gold' }}>●</span> Under Review
+                                    </>
+                                )}
+                            </span>
                         </div>
                     </div>
+
                 </div>
             ))}
 

@@ -64,14 +64,15 @@
 
 .options-menu {
     position: relative;
-    display: inline-block;
+    display: flex;
+    justify-content: space-between;
 }
 
 .dropdown-menu {
     display: none;
     position: absolute;
-    right: auto;
-    left: 0;
+    left: 100%;
+    transform: translateX(-10%);
     background-color: white;
     border: 1px solid #ccc;
     padding: 10px;
