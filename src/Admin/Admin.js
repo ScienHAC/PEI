@@ -24,6 +24,7 @@ const Admin = () => {
 
 function DisplayDataAdmin() {
     const [groupedPapers, setGroupedPapers] = useState([]);
+    const [reviewCounts, setReviewCounts] = useState({});
     const [statusFilter, setStatusFilter] = useState('all');
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState('');
@@ -51,6 +52,8 @@ function DisplayDataAdmin() {
             const data = await response.json();
             setGroupedPapers(data.papers);
             setTotalPages(Math.ceil(data.total / papersPerPage));
+            setReviewCounts(data.reviewCounts);
+
         } catch (error) {
             console.error('Error fetching grouped research papers:', error);
         }
@@ -115,6 +118,27 @@ function DisplayDataAdmin() {
     return (
         <div className="dashboard-container">
             <h1>Admin Dashboard</h1>
+
+            {/* Summary Section for Paper Counts */}
+            <div className="summary-section">
+                <div className="summary-item">
+                    <span className="summary-label">Total:</span>
+                    <span className="summary-count">{reviewCounts.total}</span>
+                </div>
+                <div className="summary-item">
+                    <span className="summary-label">Under Review:</span>
+                    <span className="summary-count">{reviewCounts.underReview}</span>
+                </div>
+                <div className="summary-item">
+                    <span className="summary-label">Reviewed:</span>
+                    <span className="summary-count">{reviewCounts.reviewed}</span>
+                </div>
+                <div className="summary-item">
+                    <span className="summary-label">Rejected:</span>
+                    <span className="summary-count">{reviewCounts.rejected}</span>
+                </div>
+            </div>
+
             <div className="top-buttons">
                 <button className={`filter-btn ${statusFilter === 'all' ? 'active' : ''}`} onClick={() => setStatusFilter('all')}>All</button>
                 <button className={`filter-btn ${statusFilter === 'under review' ? 'active' : ''}`} onClick={() => setStatusFilter('under review')}>Under Review</button>
