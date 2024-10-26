@@ -54,7 +54,7 @@ export default function Header() {
 
     const handleClickOutside = (event) => {
         if (userDetailsRef.current && !userDetailsRef.current.contains(event.target)) {
-            setShowUserDetails(false);
+            setShowUserDetails(true);
         }
     };
     useEffect(() => {
