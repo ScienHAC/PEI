@@ -152,13 +152,46 @@ function DisplayDataAdmin() {
                         </div>
                     </div>
 
-
+                    {/* Filter Buttons */}
                     <div className="top-buttons">
-                        <button className={`filter-btn ${statusFilter === 'all' ? 'active' : ''}`} onClick={() => setStatusFilter('all')}>All</button>
-                        <button className={`filter-btn ${statusFilter === 'under review' ? 'active' : ''}`} onClick={() => setStatusFilter('under review')}>Under Review</button>
-                        <button className={`filter-btn ${statusFilter === 'reviewed' ? 'active' : ''}`} onClick={() => setStatusFilter('reviewed')}>Reviewed</button>
-                        <button className={`filter-btn ${statusFilter === 'rejected' ? 'active' : ''}`} onClick={() => setStatusFilter('rejected')}>Rejected</button>
+                        <button
+                            className={`filter-btn ${statusFilter === 'all' ? 'active' : ''}`}
+                            onClick={() => {
+                                setStatusFilter('all');
+                                setCurrentPage(1);
+                            }}
+                        >
+                            All
+                        </button>
+                        <button
+                            className={`filter-btn ${statusFilter === 'under review' ? 'active' : ''}`}
+                            onClick={() => {
+                                setStatusFilter('under review');
+                                setCurrentPage(1);
+                            }}
+                        >
+                            Under Review
+                        </button>
+                        <button
+                            className={`filter-btn ${statusFilter === 'reviewed' ? 'active' : ''}`}
+                            onClick={() => {
+                                setStatusFilter('reviewed');
+                                setCurrentPage(1);
+                            }}
+                        >
+                            Reviewed
+                        </button>
+                        <button
+                            className={`filter-btn ${statusFilter === 'rejected' ? 'active' : ''}`}
+                            onClick={() => {
+                                setStatusFilter('rejected');
+                                setCurrentPage(1);
+                            }}
+                        >
+                            Rejected
+                        </button>
                     </div>
+
                 </>
             )}
 

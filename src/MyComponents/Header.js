@@ -73,8 +73,8 @@ export default function Header() {
         <>
             <div id='info-bar'>
                 <div id='child-info-bar'>
-                    <span><FontAwesomeIcon className="mx-2" icon={faEnvelope} />info@pei.com</span>
-                    <span><FontAwesomeIcon className="mx-2" icon={faPhone} />+(91) 99999 40157</span>
+                    <span><FontAwesomeIcon className="mx-2" icon={faEnvelope} />support@example.com</span>
+                    <span><FontAwesomeIcon className="mx-2" icon={faPhone} />+(91) 99999 XXXXX</span>
                 </div>
             </div>
             <div id="topBar">
