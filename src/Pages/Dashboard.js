@@ -246,18 +246,14 @@ const Dashboard = () => {
                                                 className="paper-title"
                                                 onClick={() => window.open(`/view/${paper._id}`, '_blank')}
                                                 style={{
-                                                    fontFamily: "'Roboto Slab', serif", // Scientific, modern serif font
-                                                    fontSize: '1.3rem',
-                                                    fontWeight: 'bold',
-                                                    color: '#2C3E50',
-                                                    textAlign: 'left',
-                                                    marginBottom: '8px',
-                                                    cursor: 'pointer',
-                                                    lineHeight: '1.5',
+                                                    maxWidth: '100%',
+                                                    whiteSpace: 'normal',
+                                                    overflowWrap: 'break-word',
                                                 }}
                                             >
                                                 {paper.title || 'No Title'}
                                             </h3>
+
                                             <div className="options-menu">
                                                 <FontAwesomeIcon
                                                     icon={faEllipsisV}
