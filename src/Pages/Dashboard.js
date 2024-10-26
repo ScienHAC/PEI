@@ -277,13 +277,13 @@ const Dashboard = () => {
                                         <p
                                             className="paper-abstract"
                                             style={{
-                                                fontFamily: "'Open Sans', sans-serif", // Clean, readable sans-serif font
+                                                fontFamily: "'Open Sans', sans-serif",
                                                 fontSize: '1rem',
                                                 color: '#5D6D7E',
                                                 textAlign: 'justify',
                                                 lineHeight: '1.6',
                                                 marginBottom: '16px',
-                                                backgroundColor: '#F8F9FA', // Light background for contrast
+                                                backgroundColor: '#F8F9FA',
                                                 padding: '10px',
                                                 borderRadius: '8px',
                                                 boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',

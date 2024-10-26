@@ -120,7 +120,6 @@ ul {
 #topBar p {
     margin: 10px 0;
     padding: 0 10px;
-    /* Adds some padding to ensure text doesn't touch the sides */
 }
 
 #innerBar-max,
@@ -151,11 +150,8 @@ ul {
 
 #innerBar-max {
     width: 100%;
-    /* Full width for better centering */
     max-width: 1000px;
-    /* Limit max width for large screens */
     margin: 0 auto;
-    /* Center content on larger screens */
 }
 
 #childBar-max {
@@ -243,21 +239,18 @@ table {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Center the text in the form */
 h1 {
     margin-bottom: 30px;
     text-align: center;
     color: #333;
 }
 
-/* Style the labels for a clean look */
 label {
     font-weight: bold;
     margin-bottom: 5px;
     display: block;
 }
 
-/* Add some margin to the button */
 .btn-form-auth {
     margin-top: 20px;
     padding: 12px 0;

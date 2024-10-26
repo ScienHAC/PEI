@@ -33,11 +33,11 @@ export const AuthProvider = ({ children }) => {
         } finally {
             setLoading(false);
         }
-    }, []); // Empty dependency array ensures function remains stable
+    }, []);
 
     // Use useEffect with the memoized function
     useEffect(() => {
-        refreshAuthStatus(); // Call only once on mount
+        refreshAuthStatus();
     }, [refreshAuthStatus]);
 
     return (

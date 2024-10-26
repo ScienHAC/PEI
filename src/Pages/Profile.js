@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import useAuth from '../Hooks/useAuth';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faUserCircle } from '@fortawesome/free-solid-svg-icons';
-import '../CSS/Profile.css'; // Assuming you'll create a CSS file for styling
+import '../CSS/Profile.css';
 
 const Profile = () => {
     const { user } = useAuth();

@@ -5,13 +5,13 @@ const Signup = () => {
     const navigate = useNavigate();
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
-    const [otpStep, setOtpStep] = useState(false); // State to manage OTP input visibility
+    const [otpStep, setOtpStep] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         password: '',
         contact: '',
-        otp: '' // Added for OTP
+        otp: ''
     });
 
     useEffect(() => {

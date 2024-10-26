@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 const ForgotPassword = () => {
     const navigate = useNavigate();
-    const [step, setStep] = useState(1); // Step 1: Enter Email, Step 2: Enter OTP and New Password
+    const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({
         email: '',
         otp: '',

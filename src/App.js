@@ -35,9 +35,8 @@ function App() {
 function AuthRoutes() {
   const { isAuthenticated, loading } = useAuth();
 
-  // If loading, show a loading spinner or message
   if (loading) {
-    return <i className="fa fa-sign-out" aria-hidden="true"></i>; // You can customize this as needed
+    return <i className="fa fa-sign-out" aria-hidden="true"></i>;
   }
 
   return (

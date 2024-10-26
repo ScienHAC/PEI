@@ -14,7 +14,7 @@ import {
     InputLabel,
     FormControl,
 } from "@mui/material";
-import { useDropzone } from "react-dropzone"; // Import dropzone
+import { useDropzone } from "react-dropzone";
 
 const StyledForm = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(3),
@@ -103,7 +103,7 @@ const ResearchPaperForm = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (validateForm()) {
-            const formDataToSend = new FormData(); // Create FormData object to handle files
+            const formDataToSend = new FormData();
 
             // Append all form fields to FormData
             formDataToSend.append("title", formData.title);
@@ -113,7 +113,7 @@ const ResearchPaperForm = () => {
             formDataToSend.append("articleType", formData.articleType);
             formDataToSend.append("journal", formData.journal);
             formDataToSend.append("country", formData.country);
-            formDataToSend.append("file", formData.file); // Append file
+            formDataToSend.append("file", formData.file);
 
             try {
                 const response = await fetch(`${process.env.REACT_APP_hostURL}/auth/submit-paper`, {
