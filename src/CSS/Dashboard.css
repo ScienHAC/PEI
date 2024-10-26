@@ -267,3 +267,26 @@ input[type="file"]:hover {
     font-size: 1.5em;
     color: #007bff;
 }
+
+
+/* month year style */
+.month-year-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #333;
+    margin: 20px 0;
+    font-weight: bold;
+}
+
+.month-year-header::before,
+.month-year-header::after {
+    content: "";
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(to right, #6a0dad, #42a5f5);
+    /* Example colors */
+    margin: 0 15px;
+}
