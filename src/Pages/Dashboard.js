@@ -241,7 +241,7 @@ const Dashboard = () => {
                                         )}
                                     </div>
                                     <div className="right-details">
-                                        <div className="paper-footer">
+                                        <div className="paper-header">
                                             <h3
                                                 className="paper-title"
                                                 onClick={() => window.open(`/view/${paper._id}`, '_blank')}

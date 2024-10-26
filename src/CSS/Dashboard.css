@@ -62,6 +62,12 @@
     align-items: center;
 }
 
+.paper-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .options-menu {
     position: relative;
     display: flex;
