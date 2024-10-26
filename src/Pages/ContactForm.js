@@ -19,7 +19,7 @@ function ContactForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch(`${process.env.REACT_APP_hostURL}/api/contact-us`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
