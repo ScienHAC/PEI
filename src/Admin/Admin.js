@@ -5,6 +5,8 @@ import { faEllipsisV, faImage, faCheck } from '@fortawesome/free-solid-svg-icons
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import '../CSS/Dashboard.css';
+import '../CSS/Loader.css';
+import Loader from '../MyComponents/Loader';
 
 const Admin = () => {
     const { isAdmin, user } = useAuth();
@@ -30,11 +32,16 @@ function DisplayDataAdmin() {
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
+    const [loading, setLoading] = useState(true);
+    const [paginationLoading, setPaginationLoading] = useState(true);
     const papersPerPage = 5;
     const [dropdownOpen, setDropdownOpen] = useState(null);
 
     // Fetch grouped papers with pagination
     const fetchGroupedPapers = useCallback(async () => {
+        if (currentPage === 1 || currentPage !== 1 || statusFilter !== 'all') {
+            setLoading(true);
+        }
         try {
             const response = await fetch(
                 `${process.env.REACT_APP_hostURL}/api/research/by-date?limit=${papersPerPage}&skip=${(currentPage - 1) * papersPerPage}&status=${statusFilter}`,
@@ -56,6 +63,9 @@ function DisplayDataAdmin() {
 
         } catch (error) {
             console.error('Error fetching grouped research papers:', error);
+        } finally {
+            setLoading(false);
+            setPaginationLoading(false);
         }
     }, [currentPage, statusFilter]);
 
@@ -118,134 +128,146 @@ function DisplayDataAdmin() {
     return (
         <div className="dashboard-container">
             <h1>Admin Dashboard</h1>
-
-            {/* Summary Section for Paper Counts */}
-            <div className="summary-section">
-                <div className="summary-item">
-                    <span className="summary-label">Total:</span>
-                    <span className="summary-count">{reviewCounts.total}</span>
-                </div>
-                <div className="summary-item">
-                    <span className="summary-label">Under Review:</span>
-                    <span className="summary-count">{reviewCounts.underReview}</span>
-                </div>
-                <div className="summary-item">
-                    <span className="summary-label">Reviewed:</span>
-                    <span className="summary-count">{reviewCounts.reviewed}</span>
-                </div>
-                <div className="summary-item">
-                    <span className="summary-label">Rejected:</span>
-                    <span className="summary-count">{reviewCounts.rejected}</span>
-                </div>
-            </div>
-
-            <div className="top-buttons">
-                <button className={`filter-btn ${statusFilter === 'all' ? 'active' : ''}`} onClick={() => setStatusFilter('all')}>All</button>
-                <button className={`filter-btn ${statusFilter === 'under review' ? 'active' : ''}`} onClick={() => setStatusFilter('under review')}>Under Review</button>
-                <button className={`filter-btn ${statusFilter === 'reviewed' ? 'active' : ''}`} onClick={() => setStatusFilter('reviewed')}>Reviewed</button>
-                <button className={`filter-btn ${statusFilter === 'rejected' ? 'active' : ''}`} onClick={() => setStatusFilter('rejected')}>Rejected</button>
-            </div>
-
-            {groupedPapers.map((paper) => (
-                <div className="paper-card" key={paper._id}>
-                    <div className="left-thumbnail">
-                        {paper.thumbnail ? (
-                            <img
-                                src={`${process.env.REACT_APP_hostURL}/api/uploads/thumbnails/${paper.thumbnail}`}
-                                alt="thumbnail"
-                            />
-                        ) : (
-                            <FontAwesomeIcon icon={faImage} className="placeholder-icon" />
-                        )}
+            {paginationLoading ? (
+                <Loader />
+            ) : (
+                <>
+                    {/* Summary Section for Paper Counts */}
+                    <div className="summary-section">
+                        <div className="summary-item">
+                            <span className="summary-label">Total:</span>
+                            <span className="summary-count">{reviewCounts.total}</span>
+                        </div>
+                        <div className="summary-item">
+                            <span className="summary-label">Under Review:</span>
+                            <span className="summary-count">{reviewCounts.underReview}</span>
+                        </div>
+                        <div className="summary-item">
+                            <span className="summary-label">Reviewed:</span>
+                            <span className="summary-count">{reviewCounts.reviewed}</span>
+                        </div>
+                        <div className="summary-item">
+                            <span className="summary-label">Rejected:</span>
+                            <span className="summary-count">{reviewCounts.rejected}</span>
+                        </div>
                     </div>
 
-                    <div className="right-details" style={{ padding: '16px', border: '1px solid #e0e0e0', borderRadius: '8px', backgroundColor: '#fafafa' }}>
-                        <div className="options-menu" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <h3 className="paper-title" onClick={() => window.open(`/view/${paper._id}`, '_blank')} style={{ margin: 0, fontSize: '1.2rem', fontWeight: 'bold', color: '#333', cursor: 'pointer' }}>
-                                {paper.title || 'No Title'}
-                            </h3>
-                            <FontAwesomeIcon
-                                icon={faEllipsisV}
-                                className="options-icon"
-                                onClick={() => toggleDropdown(paper._id)}
-                                style={{ cursor: 'pointer', color: '#666' }}
-                            />
-                            {dropdownOpen === paper._id && (
-                                <div className="dropdown-menu" onMouseLeave={hideDropdown} style={{
-                                    position: 'absolute',
-                                    backgroundColor: '#fff',
-                                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-                                    borderRadius: '4px',
-                                    padding: '8px',
-                                    right: 0,
-                                    top: '30px',
-                                    zIndex: 10,
-                                    minWidth: '150px'
-                                }}>
-                                    <div className='dropdown-element'
-                                        onClick={() => paper.status === 'reviewed' ? null : handleMarkAsReviewed(paper._id)}>
-                                        <FontAwesomeIcon icon={faCheck} className="menu-icon" style={{ color: 'green', fontWeight: 'bold' }} /> Mark as Reviewed
-                                    </div>
 
-                                    <div className='dropdown-element'
-                                        onClick={() => paper.status === 'rejected' ? null : handleReject(paper._id)}>
-                                        <span role="img" aria-label="reject">❌</span> Reject
-                                    </div>
+                    <div className="top-buttons">
+                        <button className={`filter-btn ${statusFilter === 'all' ? 'active' : ''}`} onClick={() => setStatusFilter('all')}>All</button>
+                        <button className={`filter-btn ${statusFilter === 'under review' ? 'active' : ''}`} onClick={() => setStatusFilter('under review')}>Under Review</button>
+                        <button className={`filter-btn ${statusFilter === 'reviewed' ? 'active' : ''}`} onClick={() => setStatusFilter('reviewed')}>Reviewed</button>
+                        <button className={`filter-btn ${statusFilter === 'rejected' ? 'active' : ''}`} onClick={() => setStatusFilter('rejected')}>Rejected</button>
+                    </div>
+                </>
+            )}
 
-                                    <div className='dropdown-element'>
-                                        <a href={`${process.env.REACT_APP_hostURL}/api/uploads/${paper.filePath}`} target="_blank" rel="noopener noreferrer" download>View Pdf</a>
-                                    </div>
-                                </div>
-                            )}
-                        </div>
-
-                        <p className="paper-abstract" style={{ color: '#555', fontSize: '1rem', marginTop: '8px' }}>
-                            {paper.abstract?.length > 100 ? paper.abstract.substring(0, 100) + '...' : paper.abstract || 'No Abstract'}
-                        </p>
-
-                        <div className='flex-user-details' style={{
-                            display: 'flex', flexDirection: 'column', gap: '4px', padding: '12px', border: '1px solid #e0e0e0', borderRadius: '6px', backgroundColor: '#f9f9f9', marginTop: '12px'
-                        }}>
-                            <span className="author-name" style={{ fontWeight: 'bold', fontSize: '1rem', color: '#333' }}>
-                                Author: {paper.author || 'Unknown Author'}
-                            </span>
-                            <span className="user-email" style={{ color: '#555' }}>
-                                Published by: {paper.email || 'Unknown Email'}
-                            </span>
-
-                            <div style={{ display: 'flex', fontSize: '0.9rem', color: '#777', gap: '8px' }}>
-                                <span className="user-createdAt">
-                                    Created At: {paper.createdAt ? new Date(paper.createdAt).toLocaleDateString('en-GB') : 'Unknown creation'}
-                                </span>
-                                {paper.createdAt !== paper.updatedAt && (
-                                    <span className="user-updatedAt">
-                                        Updated At: {paper.updatedAt ? new Date(paper.updatedAt).toLocaleDateString('en-GB') : 'Unknown updation'}
-                                    </span>
+            {loading ? (
+                <Loader />
+            ) : (
+                <>
+                    {groupedPapers.map((paper) => (
+                        <div className="paper-card" key={paper._id}>
+                            <div className="left-thumbnail">
+                                {paper.thumbnail ? (
+                                    <img
+                                        src={`${process.env.REACT_APP_hostURL}/api/uploads/thumbnails/${paper.thumbnail}`}
+                                        alt="thumbnail"
+                                    />
+                                ) : (
+                                    <FontAwesomeIcon icon={faImage} className="placeholder-icon" />
                                 )}
                             </div>
 
-                            <span className={`status-label status-${paper.status.toLowerCase().replace(/\s+/g, '-')}`} style={{
-                                display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 'bold', fontSize: '1rem', marginTop: '8px'
-                            }}>
-                                {paper.status === 'reviewed' ? (
-                                    <>
-                                        <span style={{ color: 'green' }}>✔✔</span> Reviewed
-                                    </>
-                                ) : paper.status === 'rejected' ? (
-                                    <>
-                                        <span style={{ color: 'red' }}>❌</span> Rejected
-                                    </>
-                                ) : (
-                                    <>
-                                        <span style={{ color: 'gold' }}>●</span> Under Review
-                                    </>
-                                )}
-                            </span>
-                        </div>
-                    </div>
+                            <div className="right-details" style={{ padding: '16px', border: '1px solid #e0e0e0', borderRadius: '8px', backgroundColor: '#fafafa' }}>
+                                <div className="options-menu" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                    <h3 className="paper-title" onClick={() => window.open(`/view/${paper._id}`, '_blank')} style={{ margin: 0, fontSize: '1.2rem', fontWeight: 'bold', color: '#333', cursor: 'pointer' }}>
+                                        {paper.title || 'No Title'}
+                                    </h3>
+                                    <FontAwesomeIcon
+                                        icon={faEllipsisV}
+                                        className="options-icon"
+                                        onClick={() => toggleDropdown(paper._id)}
+                                        style={{ cursor: 'pointer', color: '#666' }}
+                                    />
+                                    {dropdownOpen === paper._id && (
+                                        <div className="dropdown-menu" onMouseLeave={hideDropdown} style={{
+                                            position: 'absolute',
+                                            backgroundColor: '#fff',
+                                            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+                                            borderRadius: '4px',
+                                            padding: '8px',
+                                            right: 0,
+                                            top: '30px',
+                                            zIndex: 10,
+                                            minWidth: '150px'
+                                        }}>
+                                            <div className='dropdown-element'
+                                                onClick={() => paper.status === 'reviewed' ? null : handleMarkAsReviewed(paper._id)}>
+                                                <FontAwesomeIcon icon={faCheck} className="menu-icon" style={{ color: 'green', fontWeight: 'bold' }} /> Mark as Reviewed
+                                            </div>
 
-                </div>
-            ))}
+                                            <div className='dropdown-element'
+                                                onClick={() => paper.status === 'rejected' ? null : handleReject(paper._id)}>
+                                                <span role="img" aria-label="reject">❌</span> Reject
+                                            </div>
+
+                                            <div className='dropdown-element'>
+                                                <a href={`${process.env.REACT_APP_hostURL}/api/uploads/${paper.filePath}`} target="_blank" rel="noopener noreferrer" download>View Pdf</a>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+
+                                <p className="paper-abstract" style={{ color: '#555', fontSize: '1rem', marginTop: '8px' }}>
+                                    {paper.abstract?.length > 100 ? paper.abstract.substring(0, 100) + '...' : paper.abstract || 'No Abstract'}
+                                </p>
+
+                                <div className='flex-user-details' style={{
+                                    display: 'flex', flexDirection: 'column', gap: '4px', padding: '12px', border: '1px solid #e0e0e0', borderRadius: '6px', backgroundColor: '#f9f9f9', marginTop: '12px'
+                                }}>
+                                    <span className="author-name" style={{ fontWeight: 'bold', fontSize: '1rem', color: '#333' }}>
+                                        Author: {paper.author || 'Unknown Author'}
+                                    </span>
+                                    <span className="user-email" style={{ color: '#555' }}>
+                                        Published by: {paper.email || 'Unknown Email'}
+                                    </span>
+
+                                    <div style={{ display: 'flex', fontSize: '0.9rem', color: '#777', gap: '8px' }}>
+                                        <span className="user-createdAt">
+                                            Created At: {paper.createdAt ? new Date(paper.createdAt).toLocaleDateString('en-GB') : 'Unknown creation'}
+                                        </span>
+                                        {paper.createdAt !== paper.updatedAt && (
+                                            <span className="user-updatedAt">
+                                                Updated At: {paper.updatedAt ? new Date(paper.updatedAt).toLocaleDateString('en-GB') : 'Unknown updation'}
+                                            </span>
+                                        )}
+                                    </div>
+
+                                    <span className={`status-label status-${paper.status.toLowerCase().replace(/\s+/g, '-')}`} style={{
+                                        display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 'bold', fontSize: '1rem', marginTop: '8px'
+                                    }}>
+                                        {paper.status === 'reviewed' ? (
+                                            <>
+                                                <span style={{ color: 'green' }}>✔✔</span> Reviewed
+                                            </>
+                                        ) : paper.status === 'rejected' ? (
+                                            <>
+                                                <span style={{ color: 'red' }}>❌</span> Rejected
+                                            </>
+                                        ) : (
+                                            <>
+                                                <span style={{ color: 'gold' }}>●</span> Under Review
+                                            </>
+                                        )}
+                                    </span>
+                                </div>
+                            </div>
+
+                        </div>
+                    ))}
+                </>
+            )}
 
             {/* Pagination */}
             <div className="pagination">

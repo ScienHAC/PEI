@@ -5,6 +5,7 @@ import { faEllipsisV, faImage } from '@fortawesome/free-solid-svg-icons';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import '../CSS/Dashboard.css';
+import Loader from '../MyComponents/Loader';
 
 const Dashboard = () => {
     const { user } = useAuth();
@@ -16,6 +17,7 @@ const Dashboard = () => {
     const [updatedPapers, setUpdatedPapers] = useState({});
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState('');
+    const [loading, setLoading] = useState(true);
     const papersPerPage = 5;
 
     useEffect(() => {
@@ -35,6 +37,8 @@ const Dashboard = () => {
                 setPapers(data);
             } catch (error) {
                 console.error('Error fetching research papers:', error);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -144,112 +148,124 @@ const Dashboard = () => {
     return (
         <div className="dashboard-container">
             <p className="user-name">Welcome back, {user.name}</p>
-            <br />
+            <h1>Dashboard</h1>
+            {loading ? (
+                <Loader />
+            ) : (
+                <>
 
-            {/* Summary Section for Paper Counts */}
-            <div className="summary-section">
-                <div className="summary-item">
-                    <span className="summary-label">Total:</span>
-                    <span className="summary-count">{totalPapers}</span>
-                </div>
-                <div className="summary-item">
-                    <span className="summary-label">Under Review:</span>
-                    <span className="summary-count">{totalUnderReview}</span>
-                </div>
-                <div className="summary-item">
-                    <span className="summary-label">Reviewed:</span>
-                    <span className="summary-count">{totalReviewed}</span>
-                </div>
-                <div className="summary-item">
-                    <span className="summary-label">Rejected:</span>
-                    <span className="summary-count">{totalRejected}</span>
-                </div>
-            </div>
+                    {/* Summary Section for Paper Counts */}
+                    <div className="summary-section">
+                        <div className="summary-item">
+                            <span className="summary-label">Total:</span>
+                            <span className="summary-count">{totalPapers}</span>
+                        </div>
+                        <div className="summary-item">
+                            <span className="summary-label">Under Review:</span>
+                            <span className="summary-count">{totalUnderReview}</span>
+                        </div>
+                        <div className="summary-item">
+                            <span className="summary-label">Reviewed:</span>
+                            <span className="summary-count">{totalReviewed}</span>
+                        </div>
+                        <div className="summary-item">
+                            <span className="summary-label">Rejected:</span>
+                            <span className="summary-count">{totalRejected}</span>
+                        </div>
+                    </div>
 
-            <div className="top-buttons">
-                <button className={`filter-btn ${statusFilter === 'all' ? 'active' : ''}`} onClick={() => setStatusFilter('all')}>All</button>
-                <button className={`filter-btn ${statusFilter === 'under review' ? 'active' : ''}`} onClick={() => setStatusFilter('under review')}>Under Review</button>
-                <button className={`filter-btn ${statusFilter === 'reviewed' ? 'active' : ''}`} onClick={() => setStatusFilter('reviewed')}>Reviewed</button>
-                <button className={`filter-btn ${statusFilter === 'rejected' ? 'active' : ''}`} onClick={() => setStatusFilter('rejected')}>Rejected</button>
-            </div>
+                    <div className="top-buttons">
+                        <button className={`filter-btn ${statusFilter === 'all' ? 'active' : ''}`} onClick={() => setStatusFilter('all')}>All</button>
+                        <button className={`filter-btn ${statusFilter === 'under review' ? 'active' : ''}`} onClick={() => setStatusFilter('under review')}>Under Review</button>
+                        <button className={`filter-btn ${statusFilter === 'reviewed' ? 'active' : ''}`} onClick={() => setStatusFilter('reviewed')}>Reviewed</button>
+                        <button className={`filter-btn ${statusFilter === 'rejected' ? 'active' : ''}`} onClick={() => setStatusFilter('rejected')}>Rejected</button>
+                    </div>
+                </>
+            )}
 
             <div className="paper-list">
-                {currentPapers.map((paper) => (
-                    paper && paper._id && (
-                        <div className="paper-card" key={paper._id}>
-                            <div className="left-thumbnail">
-                                {paper.thumbnail ? (
-                                    <img
-                                        src={`${process.env.REACT_APP_hostURL}/api/uploads/thumbnails/${paper.thumbnail}`}
-                                        alt="thumbnail"
-                                    />
-                                ) : (
-                                    <FontAwesomeIcon icon={faImage} className="placeholder-icon" />
-                                )}
-                            </div>
-                            <div className="right-details">
-                                <h3 className="paper-title" onClick={() => window.open(`/view/${paper._id}`, '_blank')}>
-                                    {paper.title || 'No Title'}
-                                </h3>
-                                <p className="paper-abstract">
-                                    {paper.abstract?.length > 100 ? paper.abstract.substring(0, 100) + '...' : paper.abstract || 'No Abstract'}
-                                </p>
-                                <div className="paper-footer">
-                                    <span className="author-name">{paper.author || 'Unknown Author'}</span>
-                                    <div className="options-menu">
-                                        <FontAwesomeIcon
-                                            icon={faEllipsisV}
-                                            className="options-icon"
-                                            onClick={() => toggleDropdown(paper._id)}
-                                        />
-                                        {dropdownOpen === paper._id && (
-                                            <div className="dropdown-menu" onMouseLeave={hideDropdown}>
-                                                <div className='dropdown-element'>
-                                                    <a href={`${process.env.REACT_APP_hostURL}/api/uploads/${paper.filePath}`} target="_blank" rel="noopener noreferrer">View Pdf</a>
+                {loading ? (
+                    <Loader />
+                ) : (
+                    <>
+                        {currentPapers.map((paper) => (
+                            paper && paper._id && (
+                                <div className="paper-card" key={paper._id}>
+                                    <div className="left-thumbnail">
+                                        {paper.thumbnail ? (
+                                            <img
+                                                src={`${process.env.REACT_APP_hostURL}/api/uploads/thumbnails/${paper.thumbnail}`}
+                                                alt="thumbnail"
+                                            />
+                                        ) : (
+                                            <FontAwesomeIcon icon={faImage} className="placeholder-icon" />
+                                        )}
+                                    </div>
+                                    <div className="right-details">
+                                        <h3 className="paper-title" onClick={() => window.open(`/view/${paper._id}`, '_blank')}>
+                                            {paper.title || 'No Title'}
+                                        </h3>
+                                        <p className="paper-abstract">
+                                            {paper.abstract?.length > 100 ? paper.abstract.substring(0, 100) + '...' : paper.abstract || 'No Abstract'}
+                                        </p>
+                                        <div className="paper-footer">
+                                            <span className="author-name">{paper.author || 'Unknown Author'}</span>
+                                            <div className="options-menu">
+                                                <FontAwesomeIcon
+                                                    icon={faEllipsisV}
+                                                    className="options-icon"
+                                                    onClick={() => toggleDropdown(paper._id)}
+                                                />
+                                                {dropdownOpen === paper._id && (
+                                                    <div className="dropdown-menu" onMouseLeave={hideDropdown}>
+                                                        <div className='dropdown-element'>
+                                                            <a href={`${process.env.REACT_APP_hostURL}/api/uploads/${paper.filePath}`} target="_blank" rel="noopener noreferrer">View Pdf</a>
+                                                        </div>
+                                                        <div onClick={() => toggleEdit(paper._id)} className="dropdown-element">Edit</div>
+                                                        <div className='dropdown-element'>
+                                                            <a href={`${process.env.REACT_APP_hostURL}/api/uploads/${paper.filePath}`} download>Download</a>
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+
+                                        {/* Edit Form */}
+                                        {editOpen === paper._id && (
+                                            <div className="edit-form">
+                                                <div>
+                                                    <label>Title:</label>
+                                                    <input
+                                                        type="text"
+                                                        value={updatedPapers[paper._id]?.title || paper.title || ''}
+                                                        onChange={(e) => handleInputChange(e, paper._id, 'title')}
+                                                    />
                                                 </div>
-                                                <div onClick={() => toggleEdit(paper._id)} className="dropdown-element">Edit</div>
-                                                <div className='dropdown-element'>
-                                                    <a href={`${process.env.REACT_APP_hostURL}/api/uploads/${paper.filePath}`} download>Download</a>
+                                                <div>
+                                                    <label>Abstract:</label>
+                                                    <textarea
+                                                        value={updatedPapers[paper._id]?.abstract || paper.abstract || ''}
+                                                        onChange={(e) => handleInputChange(e, paper._id, 'abstract')}
+                                                    />
                                                 </div>
+                                                <div>
+                                                    <label>Thumbnail:</label>
+                                                    <input
+                                                        type="file"
+                                                        accept="image/*"
+                                                        className="rounded-file-input"
+                                                        onChange={(e) => handleInputChange(e, paper._id, 'thumbnail')}
+                                                    />
+                                                </div>
+                                                <button className="btn btn-success" onClick={() => handleSave(paper)}>Save</button>
                                             </div>
                                         )}
                                     </div>
                                 </div>
-
-                                {/* Edit Form */}
-                                {editOpen === paper._id && (
-                                    <div className="edit-form">
-                                        <div>
-                                            <label>Title:</label>
-                                            <input
-                                                type="text"
-                                                value={updatedPapers[paper._id]?.title || paper.title || ''}
-                                                onChange={(e) => handleInputChange(e, paper._id, 'title')}
-                                            />
-                                        </div>
-                                        <div>
-                                            <label>Abstract:</label>
-                                            <textarea
-                                                value={updatedPapers[paper._id]?.abstract || paper.abstract || ''}
-                                                onChange={(e) => handleInputChange(e, paper._id, 'abstract')}
-                                            />
-                                        </div>
-                                        <div>
-                                            <label>Thumbnail:</label>
-                                            <input
-                                                type="file"
-                                                accept="image/*"
-                                                className="rounded-file-input"
-                                                onChange={(e) => handleInputChange(e, paper._id, 'thumbnail')}
-                                            />
-                                        </div>
-                                        <button className="btn btn-success" onClick={() => handleSave(paper)}>Save</button>
-                                    </div>
-                                )}
-                            </div>
-                        </div>
-                    )
-                ))}
+                            )
+                        ))}
+                    </>
+                )}
             </div>
 
             {/* Pagination */}
@@ -287,7 +303,6 @@ const Dashboard = () => {
                     {snackbarMessage}
                 </Alert>
             </Snackbar>
-
         </div>
     );
 };
