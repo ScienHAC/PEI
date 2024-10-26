@@ -13,6 +13,7 @@ import Admin from './Admin/Admin';
 import { AuthProvider } from './Context/AuthContext';
 import useAuth from './Hooks/useAuth';
 import Profile from './Pages/Profile';
+import ViewPaper from './Pages/ViewPaper.js';
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function AuthRoutes() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/view/:paperId" element={<ViewPaper />} />
           <Route path="/login" element={<Navigate to="/" replace />} />
           <Route path="/signup" element={<Navigate to="/" replace />} />
         </>
