@@ -241,14 +241,74 @@ const Dashboard = () => {
                                         )}
                                     </div>
                                     <div className="right-details">
-                                        <h3 className="paper-title" onClick={() => window.open(`/view/${paper._id}`, '_blank')}>
+                                        <h3
+                                            className="paper-title"
+                                            onClick={() => window.open(`/view/${paper._id}`, '_blank')}
+                                            style={{
+                                                fontFamily: "'Roboto Slab', serif", // Scientific, modern serif font
+                                                fontSize: '1.3rem',
+                                                fontWeight: 'bold',
+                                                color: '#2C3E50',
+                                                textAlign: 'left',
+                                                marginBottom: '8px',
+                                                cursor: 'pointer',
+                                                lineHeight: '1.5',
+                                            }}
+                                        >
                                             {paper.title || 'No Title'}
                                         </h3>
-                                        <p className="paper-abstract">
-                                            {paper.abstract?.length > 100 ? paper.abstract.substring(0, 100) + '...' : paper.abstract || 'No Abstract'}
+
+                                        <p
+                                            className="paper-abstract"
+                                            style={{
+                                                fontFamily: "'Open Sans', sans-serif", // Clean, readable sans-serif font
+                                                fontSize: '1rem',
+                                                color: '#5D6D7E',
+                                                textAlign: 'justify',
+                                                lineHeight: '1.6',
+                                                marginBottom: '16px',
+                                                backgroundColor: '#F8F9FA', // Light background for contrast
+                                                padding: '10px',
+                                                borderRadius: '8px',
+                                                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                                            }}
+                                        >
+                                            {paper.abstract?.length > 100
+                                                ? paper.abstract.substring(0, 100) + '...'
+                                                : paper.abstract || 'No Abstract'}
                                         </p>
+
+                                        <div style={{ display: 'flex', fontSize: '0.9rem', color: '#777', gap: '8px' }}>
+                                            <span className="user-createdAt">
+                                                Created At: {paper.createdAt ? new Date(paper.createdAt).toLocaleDateString('en-GB') : 'Unknown creation'}
+                                            </span>
+                                            {paper.createdAt !== paper.updatedAt && (
+                                                <span className="user-updatedAt">
+                                                    Updated At: {paper.updatedAt ? new Date(paper.updatedAt).toLocaleDateString('en-GB') : 'Unknown updation'}
+                                                </span>
+                                            )}
+                                        </div>
+                                        {statusFilter === 'all' ? (
+                                            <span className={`status-label status-${paper.status.toLowerCase().replace(/\s+/g, '-')}`} style={{
+                                                display: 'flex', alignItems: 'center', gap: '6px', fontSize: '1rem', marginTop: '8px'
+                                            }}>
+                                                {paper.status === 'reviewed' ? (
+                                                    <>
+                                                        <span style={{ color: 'green' }}>✔✔</span> Reviewed
+                                                    </>
+                                                ) : paper.status === 'rejected' ? (
+                                                    <>
+                                                        <span style={{ color: 'red' }}>❌</span> Rejected
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <span style={{ color: 'gold' }}>●</span> Under Review
+                                                    </>
+                                                )}
+                                            </span>
+                                        ) : null}
                                         <div className="paper-footer">
-                                            <span className="author-name">{paper.author || 'Unknown Author'}</span>
+                                            <span className="author-name">Author: {paper.author || 'Unknown Author'}</span>
                                             <div className="options-menu">
                                                 <FontAwesomeIcon
                                                     icon={faEllipsisV}
