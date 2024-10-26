@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from '@fortawesome/free-solid-svg-icons';
+import Loader from '../MyComponents/Loader';
 
 const ViewPaper = () => {
     const { paperId } = useParams();
@@ -18,6 +19,7 @@ const ViewPaper = () => {
                         'Content-Type': 'application/json'
                     },
                 });
+
                 if (!response.ok) {
                     throw new Error(`Error: ${response.status}`);
                 }
@@ -33,7 +35,7 @@ const ViewPaper = () => {
         fetchPaperDetails();
     }, [paperId]);
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <Loader />;
     if (!paper) return <div>Sorry, paper not found.</div>;
 
     return (
