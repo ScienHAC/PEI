@@ -232,8 +232,8 @@ const ResearchPaperForm = () => {
                         label="Article Type"
                         error={!!errors.articleType}
                     >
-                        <MenuItem value="commentary">Commentary</MenuItem>
-                        <MenuItem value="research">Research Article</MenuItem>
+                        <MenuItem value="Commentary">Commentary</MenuItem>
+                        <MenuItem value="Research">Research Article</MenuItem>
                     </Select>
                     {errors.articleType && (
                         <Typography color="error" variant="body2" sx={{ mt: 1 }}>
@@ -252,8 +252,8 @@ const ResearchPaperForm = () => {
                         label="Journal"
                         error={!!errors.journal}
                     >
-                        <MenuItem value="globalJournalSurgery">Global Journal of Surgery</MenuItem>
-                        <MenuItem value="globalJournalPharma">Global Journal of Pharmaceuticals</MenuItem>
+                        <MenuItem value="Global Journal Surgery">Global Journal of Surgery</MenuItem>
+                        <MenuItem value="Global Journal Pharma">Global Journal of Pharmaceuticals</MenuItem>
                     </Select>
                     {errors.journal && (
                         <Typography color="error" variant="body2" sx={{ mt: 1 }}>
