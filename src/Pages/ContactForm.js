@@ -109,7 +109,7 @@ function ContactForm() {
         </MuiAlert>
       </Snackbar>
 
-      <style jsx>{`
+      <style>{`
         .contact-form-container {
           max-width: 600px;
           margin: 0 auto;
