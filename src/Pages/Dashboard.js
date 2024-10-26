@@ -241,22 +241,42 @@ const Dashboard = () => {
                                         )}
                                     </div>
                                     <div className="right-details">
-                                        <h3
-                                            className="paper-title"
-                                            onClick={() => window.open(`/view/${paper._id}`, '_blank')}
-                                            style={{
-                                                fontFamily: "'Roboto Slab', serif", // Scientific, modern serif font
-                                                fontSize: '1.3rem',
-                                                fontWeight: 'bold',
-                                                color: '#2C3E50',
-                                                textAlign: 'left',
-                                                marginBottom: '8px',
-                                                cursor: 'pointer',
-                                                lineHeight: '1.5',
-                                            }}
-                                        >
-                                            {paper.title || 'No Title'}
-                                        </h3>
+                                        <div className="paper-footer">
+                                            <h3
+                                                className="paper-title"
+                                                onClick={() => window.open(`/view/${paper._id}`, '_blank')}
+                                                style={{
+                                                    fontFamily: "'Roboto Slab', serif", // Scientific, modern serif font
+                                                    fontSize: '1.3rem',
+                                                    fontWeight: 'bold',
+                                                    color: '#2C3E50',
+                                                    textAlign: 'left',
+                                                    marginBottom: '8px',
+                                                    cursor: 'pointer',
+                                                    lineHeight: '1.5',
+                                                }}
+                                            >
+                                                {paper.title || 'No Title'}
+                                            </h3>
+                                            <div className="options-menu">
+                                                <FontAwesomeIcon
+                                                    icon={faEllipsisV}
+                                                    className="options-icon"
+                                                    onClick={() => toggleDropdown(paper._id)}
+                                                />
+                                                {dropdownOpen === paper._id && (
+                                                    <div className="dropdown-menu" onMouseLeave={hideDropdown}>
+                                                        <div className='dropdown-element'>
+                                                            <a href={`${process.env.REACT_APP_hostURL}/api/uploads/${paper.filePath}`} target="_blank" rel="noopener noreferrer">View Pdf</a>
+                                                        </div>
+                                                        <div onClick={() => toggleEdit(paper._id)} className="dropdown-element">Edit</div>
+                                                        <div className='dropdown-element'>
+                                                            <a href={`${process.env.REACT_APP_hostURL}/api/uploads/${paper.filePath}`} download>Download</a>
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
 
                                         <p
                                             className="paper-abstract"
@@ -278,6 +298,8 @@ const Dashboard = () => {
                                                 : paper.abstract || 'No Abstract'}
                                         </p>
 
+                                        <span className="author-name">Author: {paper.author || 'Unknown Author'}</span>
+
                                         <div style={{ display: 'flex', fontSize: '0.9rem', color: '#777', gap: '8px' }}>
                                             <span className="user-createdAt">
                                                 Created At: {paper.createdAt ? new Date(paper.createdAt).toLocaleDateString('en-GB') : 'Unknown creation'}
@@ -288,6 +310,7 @@ const Dashboard = () => {
                                                 </span>
                                             )}
                                         </div>
+
                                         {statusFilter === 'all' ? (
                                             <span className={`status-label status-${paper.status.toLowerCase().replace(/\s+/g, '-')}`} style={{
                                                 display: 'flex', alignItems: 'center', gap: '6px', fontSize: '1rem', marginTop: '8px'
@@ -307,27 +330,6 @@ const Dashboard = () => {
                                                 )}
                                             </span>
                                         ) : null}
-                                        <div className="paper-footer">
-                                            <span className="author-name">Author: {paper.author || 'Unknown Author'}</span>
-                                            <div className="options-menu">
-                                                <FontAwesomeIcon
-                                                    icon={faEllipsisV}
-                                                    className="options-icon"
-                                                    onClick={() => toggleDropdown(paper._id)}
-                                                />
-                                                {dropdownOpen === paper._id && (
-                                                    <div className="dropdown-menu" onMouseLeave={hideDropdown}>
-                                                        <div className='dropdown-element'>
-                                                            <a href={`${process.env.REACT_APP_hostURL}/api/uploads/${paper.filePath}`} target="_blank" rel="noopener noreferrer">View Pdf</a>
-                                                        </div>
-                                                        <div onClick={() => toggleEdit(paper._id)} className="dropdown-element">Edit</div>
-                                                        <div className='dropdown-element'>
-                                                            <a href={`${process.env.REACT_APP_hostURL}/api/uploads/${paper.filePath}`} download>Download</a>
-                                                        </div>
-                                                    </div>
-                                                )}
-                                            </div>
-                                        </div>
 
                                         {/* Edit Form */}
                                         {editOpen === paper._id && (
