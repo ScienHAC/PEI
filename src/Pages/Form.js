@@ -184,6 +184,43 @@ const ResearchPaperForm = () => {
                     inputProps={{ "aria-label": "Research paper title" }}
                 />
 
+                {/* add multiple author code */}
+
+                {/* <Alert severity="info" sx={{ mb: 2 }}>
+                    You can add authors by pressing "Enter" and add multiple authors.
+                </Alert>
+
+                <Autocomplete
+                    multiple
+                    freeSolo
+                    options={[]}  // No suggestions provided
+                    renderInput={(params) => (
+                        <StyledTextField
+                            {...params}
+                            label="Authors"
+                            error={!!errors.authors}
+                            helperText={errors.authors}
+                            // Remove the required attribute
+                            inputProps={{ ...params.inputProps, "aria-label": "Authors" }}
+                        />
+                    )}
+                    value={formData.authors}
+                    onChange={(event, newValue) => {
+                        const filteredAuthors = newValue.filter((author) => author.trim() !== "");
+                        setFormData({ ...formData, authors: filteredAuthors });
+                        setErrors({ ...errors, authors: "" });
+                    }}
+                    onKeyDown={(event) => {
+                        if (event.key === 'Enter' && event.target.value.trim() !== "") {
+                            event.preventDefault();
+                            const newAuthor = event.target.value.trim();
+                            if (!formData.authors.includes(newAuthor)) {
+                                setFormData({ ...formData, authors: [...formData.authors, newAuthor] });
+                            }
+                        }
+                    }}
+                /> */}
+
                 <StyledTextField
                     fullWidth
                     label="Author"
