@@ -14,6 +14,7 @@ import { AuthProvider } from './Context/AuthContext';
 import useAuth from './Hooks/useAuth';
 import Profile from './Pages/Profile';
 import ViewPaper from './Pages/ViewPaper.js';
+import ContactForm from './Pages/ContactForm.js';
 
 function App() {
   return (
@@ -54,6 +55,7 @@ function AuthRoutes() {
           <Route path="/view/:paperId" element={<ViewPaper />} />
           <Route path="/login" element={<Navigate to="/" replace />} />
           <Route path="/signup" element={<Navigate to="/" replace />} />
+          <Route path="/contact" element={<ContactForm />} />
         </>
       ) : (
         <>
