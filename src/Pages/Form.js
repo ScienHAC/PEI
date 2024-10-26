@@ -7,6 +7,7 @@ import {
     Paper,
     LinearProgress,
     Snackbar,
+    // Autocomplete,
     Alert,
     styled,
     MenuItem,
@@ -49,6 +50,7 @@ const ResearchPaperForm = () => {
     const [formData, setFormData] = useState({
         title: "",
         author: "",
+        // authors: [],
         contactNumber: "",
         abstract: "",
         articleType: "",
@@ -56,6 +58,7 @@ const ResearchPaperForm = () => {
         country: "",
         file: null,
     });
+
     const [errors, setErrors] = useState({});
     const [uploadProgress, setUploadProgress] = useState(0);
     const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
@@ -88,6 +91,7 @@ const ResearchPaperForm = () => {
         const newErrors = {};
         if (!formData.title.trim()) newErrors.title = "Title is required";
         if (!formData.author.trim()) newErrors.author = "Author is required";
+        // if (!formData.authors) newErrors.authors = "Author is required";
         if (!formData.contactNumber.trim()) newErrors.contactNumber = "Contact number is required";
         if (!formData.abstract.trim()) newErrors.abstract = "Abstract is required";
         if (!formData.articleType) newErrors.articleType = "Article type is required";
@@ -108,6 +112,7 @@ const ResearchPaperForm = () => {
             // Append all form fields to FormData
             formDataToSend.append("title", formData.title);
             formDataToSend.append("author", formData.author);
+            // formDataToSend.append("authors", formData.authors);
             formDataToSend.append("contactNumber", formData.contactNumber);
             formDataToSend.append("abstract", formData.abstract);
             formDataToSend.append("articleType", formData.articleType);
@@ -128,9 +133,13 @@ const ResearchPaperForm = () => {
                         message: "Research paper submitted successfully!",
                         severity: "success",
                     });
+
+                    console.log(formData);
+
                     setFormData({
                         title: "",
                         author: "",
+                        // authors: [],
                         contactNumber: "",
                         abstract: "",
                         articleType: "",
@@ -219,6 +228,7 @@ const ResearchPaperForm = () => {
                             }
                         }
                     }}
+
                 /> */}
 
                 <StyledTextField
