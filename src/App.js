@@ -16,6 +16,7 @@ import Profile from './Pages/Profile';
 import ViewPaper from './Pages/ViewPaper.js';
 import ContactForm from './Pages/ContactForm.js';
 import HomeLoader from './Components/HomeLoader.js';
+import Archives from './Pages/Archives.js';
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function AuthRoutes() {
       <Route path="/about" element={<About />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/contact" element={<ContactForm />} />
+      <Route path="/archives" element={<Archives />} />
       {isAuthenticated ? (
         <>
           <Route path="/form" element={<Form />} />
