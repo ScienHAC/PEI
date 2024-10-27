@@ -4,6 +4,7 @@ import Header from './Components/Header';
 import Footer from './Components/Footer';
 import Home from './Pages/Home';
 import { About } from './Pages/About';
+import BackToTopButton from './Components/BackToTopButton.js';
 import Form from './Pages/Form';
 import Login from './Auth/Login';
 import Signup from './Auth/Signup';
@@ -29,6 +30,7 @@ function App() {
             <AuthRoutes />
           </div>
         </div>
+        <BackToTopButton />
         <Footer name="PEI" />
       </Router>
     </AuthProvider>
