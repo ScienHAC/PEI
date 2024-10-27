@@ -15,6 +15,7 @@ import useAuth from './Hooks/useAuth';
 import Profile from './Pages/Profile';
 import ViewPaper from './Pages/ViewPaper.js';
 import ContactForm from './Pages/ContactForm.js';
+import Loader from './MyComponents/Loader';
 
 function App() {
   return (
@@ -38,7 +39,7 @@ function AuthRoutes() {
   const { isAuthenticated, loading } = useAuth();
 
   if (loading) {
-    return <i className="fa fa-sign-out" aria-hidden="true"></i>;
+    return <Loader />;
   }
 
   return (
