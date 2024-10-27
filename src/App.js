@@ -46,6 +46,7 @@ function AuthRoutes() {
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
+      <Route path="/contact" element={<ContactForm />} />
       {isAuthenticated ? (
         <>
           <Route path="/form" element={<Form />} />
@@ -55,7 +56,6 @@ function AuthRoutes() {
           <Route path="/view/:paperId" element={<ViewPaper />} />
           <Route path="/login" element={<Navigate to="/" replace />} />
           <Route path="/signup" element={<Navigate to="/" replace />} />
-          <Route path="/contact" element={<ContactForm />} />
         </>
       ) : (
         <>
