@@ -175,7 +175,7 @@ export default function Header() {
                             <Link className="nav-link" to="/about">About</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="google.com">Abstracting & Indexing</Link>
+                            <Link className="nav-link" to="/abstracting-indexing">Abstracting & Indexing</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link disabled" to="/current-issue">Current Issue</Link>
@@ -184,7 +184,7 @@ export default function Header() {
                             <Link className="nav-link" to="/archives">Archives</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="google.com">Editorial Board</Link>
+                            <Link className="nav-link" to="/editorial-board">Editorial Board</Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/contact">Contact Us</Link>

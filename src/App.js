@@ -20,6 +20,8 @@ import HomeLoader from './Components/HomeLoader.js';
 import Archives from './Pages/Archives.js';
 import VolumePage from './Pages/VolumePage.js';
 import CurrentIssue from './Pages/CurrentIssue.js';
+import AbstractingandIndexing from './Pages/AbstractingandIndexing.js';
+import EditorialBoard from './Pages/EditorialBoard.js';
 
 function App() {
   return (
@@ -56,6 +58,8 @@ function AuthRoutes() {
       <Route path="/archives" element={<Archives />} />
       <Route path="/archives/:quarter/:volumeNumber" element={<VolumePage />} />
       <Route path="/current-issue" element={<CurrentIssue />} />
+      <Route path="/abstracting-indexing" element={<AbstractingandIndexing />} />
+      <Route path="/editorial-board" element={<EditorialBoard />} />
       {isAuthenticated ? (
         <>
           <Route path="/form" element={<Form />} />
