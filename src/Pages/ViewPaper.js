@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from '@fortawesome/free-solid-svg-icons';
-import Loader from '../MyComponents/Loader';
+import Loader from '../Components/Loader';
 
 const ViewPaper = () => {
     const { paperId } = useParams();

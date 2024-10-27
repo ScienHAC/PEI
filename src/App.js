@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import './App.css';
-import Header from './MyComponents/Header';
-import Footer from './MyComponents/Footer';
+import Header from './Components/Header';
+import Footer from './Components/Footer';
 import Home from './Pages/Home';
 import { About } from './Pages/About';
 import Form from './Pages/Form';
@@ -15,7 +15,7 @@ import useAuth from './Hooks/useAuth';
 import Profile from './Pages/Profile';
 import ViewPaper from './Pages/ViewPaper.js';
 import ContactForm from './Pages/ContactForm.js';
-import HomeLoader from './MyComponents/HomeLoader.js';
+import HomeLoader from './Components/HomeLoader.js';
 
 function App() {
   return (

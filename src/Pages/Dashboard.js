@@ -5,7 +5,7 @@ import { faEllipsisV, faImage } from '@fortawesome/free-solid-svg-icons';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import '../CSS/Dashboard.css';
-import Loader from '../MyComponents/Loader';
+import Loader from '../Components/Loader';
 
 const Dashboard = () => {
     const { user } = useAuth();
