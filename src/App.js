@@ -18,6 +18,8 @@ import ViewPaper from './Pages/ViewPaper.js';
 import ContactForm from './Pages/ContactForm.js';
 import HomeLoader from './Components/HomeLoader.js';
 import Archives from './Pages/Archives.js';
+import VolumePage from './Pages/VolumePage.js';
+import CurrentIssue from './Pages/CurrentIssue.js';
 
 function App() {
   return (
@@ -52,6 +54,8 @@ function AuthRoutes() {
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/contact" element={<ContactForm />} />
       <Route path="/archives" element={<Archives />} />
+      <Route path="/archives/:quarter/:volumeNumber" element={<VolumePage />} />
+      <Route path="/current-issue" element={<CurrentIssue />} />
       {isAuthenticated ? (
         <>
           <Route path="/form" element={<Form />} />

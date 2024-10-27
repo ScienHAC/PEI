@@ -1,0 +1,107 @@
+.volume-page {
+    padding: 20px;
+    background-color: #f5f5f5;
+    font-family: Arial, sans-serif;
+}
+
+.volume-heading {
+    font-size: 2rem;
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.volume-subheading {
+    font-size: 1.5rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.volume-list {
+    list-style: none;
+    padding: 0;
+}
+
+.volume-item {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.quarter-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.volume-group {
+    margin-top: 10px;
+}
+
+.group-title {
+    font-size: 1.1rem;
+    color: #007bff;
+    font-weight: bold;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.paper-list {
+    list-style: none;
+    padding: 0;
+}
+
+.paper-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: #fafafa;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    min-height: 200px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.paper-details {
+    flex: 1;
+    padding-bottom: 10px;
+}
+
+.paper-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.paper-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.pdf-link {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.pdf-link:hover {
+    text-decoration: underline;
+}
+
+.no-data {
+    text-align: center;
+    font-size: 1.2rem;
+    color: #666;
+}
