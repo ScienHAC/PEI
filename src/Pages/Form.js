@@ -279,8 +279,15 @@ const ResearchPaperForm = () => {
                         label="Article Type"
                         error={!!errors.articleType}
                     >
-                        <MenuItem value="Commentary">Commentary</MenuItem>
-                        <MenuItem value="Research">Research Article</MenuItem>
+                        <MenuItem value="Research Article">Research Article</MenuItem>
+                        <MenuItem value="Review Article">Review Article</MenuItem>
+                        <MenuItem value="Technical Note">Technical Note</MenuItem>
+                        <MenuItem value="Case Study">Case Study</MenuItem>
+                        <MenuItem value="Methodology">Methodology Article</MenuItem>
+                        <MenuItem value="Design Study">Design Study</MenuItem>
+                        <MenuItem value="Project Report">Project Report</MenuItem>
+                        <MenuItem value="Short Communication">Short Communication</MenuItem>
+
                     </Select>
                     {errors.articleType && (
                         <Typography color="error" variant="body2" sx={{ mt: 1 }}>
@@ -299,8 +306,19 @@ const ResearchPaperForm = () => {
                         label="Journal"
                         error={!!errors.journal}
                     >
-                        <MenuItem value="Global Journal Surgery">Global Journal of Surgery</MenuItem>
-                        <MenuItem value="Global Journal Pharma">Global Journal of Pharmaceuticals</MenuItem>
+                        <MenuItem value="Journal of Mechanical Engineering">Journal of Mechanical Engineering</MenuItem>
+                        <MenuItem value="Journal of Electrical Engineering">Journal of Electrical Engineering</MenuItem>
+                        <MenuItem value="Journal of Civil Engineering">Journal of Civil Engineering</MenuItem>
+                        <MenuItem value="Journal of Computer Engineering">Journal of Computer Engineering</MenuItem>
+                        <MenuItem value="Journal of Chemical Engineering">Journal of Chemical Engineering</MenuItem>
+                        <MenuItem value="Journal of Aerospace Engineering">Journal of Aerospace Engineering</MenuItem>
+                        <MenuItem value="Journal of Environmental Engineering">Journal of Environmental Engineering</MenuItem>
+                        <MenuItem value="Journal of Industrial Engineering">Journal of Industrial Engineering</MenuItem>
+                        <MenuItem value="Journal of Materials Engineering">Journal of Materials Engineering</MenuItem>
+                        <MenuItem value="Journal of Biomedical Engineering">Journal of Biomedical Engineering</MenuItem>
+                        <MenuItem value="Journal of Software Engineering">Journal of Software Engineering</MenuItem>
+                        <MenuItem value="Journal of Robotics Engineering">Journal of Robotics Engineering</MenuItem>
+
                     </Select>
                     {errors.journal && (
                         <Typography color="error" variant="body2" sx={{ mt: 1 }}>
