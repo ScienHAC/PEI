@@ -229,7 +229,7 @@ const Dashboard = () => {
                     <>
                         {currentPapers.map((paper) => (
                             paper && paper._id && (
-                                <div className="paper-card" key={paper._id}>
+                                <div className="paper-card flex-row" key={paper._id}>
                                     <div className="left-thumbnail">
                                         {paper.thumbnail ? (
                                             <img

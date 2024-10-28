@@ -215,7 +215,7 @@ function DisplayDataAdmin() {
                         <div key={monthYear}>
                             <h2 className="month-year-header">{monthYear}</h2>
                             {papers.map((paper) => (
-                                <div className="paper-card" key={paper._id}>
+                                <div className="paper-card flex-row" key={paper._id}>
                                     <div className="left-thumbnail">
                                         {paper.thumbnail ? (
                                             <img
