@@ -19,14 +19,14 @@ const Footer = ({ name }) => {
             <div style={{
                 width: '80vw',
                 display: 'flex',
-                justifyContent: 'space-between',
+                justifyContent: 'center',
                 alignItems: 'center',
                 padding: '15px 100px',
                 borderBottom: '1px solid rgba(255, 255, 255, 0.2)'
             }}>
                 {/* Logo on the left */}
                 <div style={{ flex: '1', display: 'flex', alignItems: 'center', paddingLeft: '20px' }}>
-                    <img src={pei_logo} alt="PEI Logo" style={{ width: '100px', height: 'auto' }} />
+                    <img src={pei_logo} alt="PEI Logo" style={{ width: '100px', height: 'auto', transform: 'scale(1.5)' }} />
                 </div>
 
                 {/* Privacy Policy and other details in the middle */}
