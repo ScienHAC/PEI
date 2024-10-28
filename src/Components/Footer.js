@@ -1,4 +1,3 @@
-// Footer.js
 import React from "react";
 import { Link } from "react-router-dom";
 import pei_logo from '../Images/PEI_LOGO.png';
@@ -22,7 +21,7 @@ const Footer = ({ name }) => {
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                padding: '15px 0',
+                padding: '15px 100px',
                 borderBottom: '1px solid rgba(255, 255, 255, 0.2)'
             }}>
                 {/* Logo on the left */}
