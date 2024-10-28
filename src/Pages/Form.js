@@ -7,7 +7,7 @@ import {
     Paper,
     LinearProgress,
     Snackbar,
-    // Autocomplete,
+    Autocomplete,
     Alert,
     styled,
     MenuItem,
@@ -49,8 +49,8 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
 const ResearchPaperForm = () => {
     const [formData, setFormData] = useState({
         title: "",
-        author: "",
-        // authors: [],
+        // author: "",
+        author: [],
         contactNumber: "",
         abstract: "",
         articleType: "",
@@ -90,8 +90,8 @@ const ResearchPaperForm = () => {
     const validateForm = () => {
         const newErrors = {};
         if (!formData.title.trim()) newErrors.title = "Title is required";
-        if (!formData.author.trim()) newErrors.author = "Author is required";
-        // if (!formData.authors) newErrors.authors = "Author is required";
+        // if (!formData.author.trim()) newErrors.author = "Author is required";
+        if (!formData.author) newErrors.author = "Author is required";
         if (!formData.contactNumber.trim()) newErrors.contactNumber = "Contact number is required";
         if (!formData.abstract.trim()) newErrors.abstract = "Abstract is required";
         if (!formData.articleType) newErrors.articleType = "Article type is required";
@@ -111,8 +111,8 @@ const ResearchPaperForm = () => {
 
             // Append all form fields to FormData
             formDataToSend.append("title", formData.title);
-            formDataToSend.append("author", formData.author);
-            // formDataToSend.append("authors", formData.authors);
+            // formDataToSend.append("author", formData.author);
+            formDataToSend.append("author", formData.author.join(', '));
             formDataToSend.append("contactNumber", formData.contactNumber);
             formDataToSend.append("abstract", formData.abstract);
             formDataToSend.append("articleType", formData.articleType);
@@ -138,8 +138,8 @@ const ResearchPaperForm = () => {
 
                     setFormData({
                         title: "",
-                        author: "",
-                        // authors: [],
+                        // author: "",
+                        author: [],
                         contactNumber: "",
                         abstract: "",
                         articleType: "",
@@ -195,7 +195,7 @@ const ResearchPaperForm = () => {
 
                 {/* add multiple author code */}
 
-                {/* <Alert severity="info" sx={{ mb: 2 }}>
+                <Alert severity="info" sx={{ mb: 2 }}>
                     You can add authors by pressing "Enter" and add multiple authors.
                 </Alert>
 
@@ -206,32 +206,31 @@ const ResearchPaperForm = () => {
                     renderInput={(params) => (
                         <StyledTextField
                             {...params}
-                            label="Authors"
-                            error={!!errors.authors}
-                            helperText={errors.authors}
-                            // Remove the required attribute
-                            inputProps={{ ...params.inputProps, "aria-label": "Authors" }}
+                            label="Author"  // Updated to singular for consistency if preferred
+                            error={!!errors.author}  // Adjusted error to use 'author' key
+                            helperText={errors.author}
+                            inputProps={{ ...params.inputProps, "aria-label": "Author" }}
                         />
                     )}
-                    value={formData.authors}
+                    value={formData.author}
                     onChange={(event, newValue) => {
                         const filteredAuthors = newValue.filter((author) => author.trim() !== "");
-                        setFormData({ ...formData, authors: filteredAuthors });
-                        setErrors({ ...errors, authors: "" });
+                        setFormData({ ...formData, author: filteredAuthors });  // Use 'author' in formData
+                        setErrors({ ...errors, author: "" });
                     }}
                     onKeyDown={(event) => {
                         if (event.key === 'Enter' && event.target.value.trim() !== "") {
                             event.preventDefault();
                             const newAuthor = event.target.value.trim();
-                            if (!formData.authors.includes(newAuthor)) {
-                                setFormData({ ...formData, authors: [...formData.authors, newAuthor] });
+                            if (!formData.author.includes(newAuthor)) {
+                                setFormData({ ...formData, author: [...formData.author, newAuthor] });  // Append to 'author'
                             }
                         }
                     }}
+                />
 
-                /> */}
 
-                <StyledTextField
+                {/* <StyledTextField
                     fullWidth
                     label="Author"
                     name="author"
@@ -241,7 +240,7 @@ const ResearchPaperForm = () => {
                     helperText={errors.author}
                     required
                     inputProps={{ "aria-label": "Author" }}
-                />
+                /> */}
 
                 <StyledTextField
                     fullWidth
