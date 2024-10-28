@@ -2,6 +2,7 @@ import React from 'react';
 
 const About = () => {
     const containerStyle = {
+        maxWidth: '800px',
         padding: '40px',
         backgroundColor: '#f9f9f9',
         borderRadius: '10px',
