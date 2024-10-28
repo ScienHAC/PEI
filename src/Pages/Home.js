@@ -82,20 +82,20 @@ const Slider = () => {
         {
             title: 'Featured Paper on AI',
             text: 'Exploring the latest breakthroughs in artificial intelligence.',
-            link: '/paper/1',
-            img: 'https://picsum.photos/800/350?random',
+            link: 'https://www.sciencealert.com/new-ai-breakthrough-can-finally-detect-parasitic-worm-infections',
+            img: 'https://plus.unsplash.com/premium_photo-1683121710572-7723bd2e235d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YXJ0aWZpY2lhbCUyMGludGVsbGlnZW5jZXxlbnwwfHwwfHx8MA%3D%3D',
         },
         {
             title: 'Latest Issue',
             text: 'Discover the most recent articles in engineering research.',
-            link: '/issue/latest',
-            img: 'https://picsum.photos/800/350?random',
+            link: 'https://www.sciencedaily.com/news/matter_energy/engineering/',
+            img: 'https://eitfaridabad.com/wp-content/uploads/2024/05/EIT-blog-image-2.jpg',
         },
         {
             title: 'Special Edition on Robotics',
             text: 'Advancements in robotics and automation.',
-            link: '/issue/robotics',
-            img: 'https://picsum.photos/800/350?random',
+            link: 'https://www.twi-global.com/technical-knowledge/faqs/what-is-industrial-automation-and-robotics',
+            img: 'https://worldskills2022se.com/application/files/thumbnails/large/6416/6818/4256/mobile-robotics-thumb.jpg',
         },
     ];
 
@@ -122,7 +122,10 @@ const Slider = () => {
 
     return (
         <div className="slider-container">
-            <div className="slider">
+            <div
+                className="slider"
+                style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+            >
                 {slides.map((slide, index) => (
                     <div
                         key={index}
@@ -131,7 +134,7 @@ const Slider = () => {
                         <img src={slide.img} alt={slide.title} className="slide-image" />
                         <h4>{slide.title}</h4>
                         <p>{slide.text}</p>
-                        <a href={slide.link} className="read-more">Read More</a>
+                        <a href={slide.link} target="_blank" rel="noopener noreferrer" className="read-more mb-3">Read More</a>
                     </div>
                 ))}
             </div>

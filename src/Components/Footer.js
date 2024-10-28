@@ -33,7 +33,7 @@ const Footer = ({ name }) => {
                 <div style={{ flex: '2', textAlign: 'center' }}>
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
                         <Link to="/privacy-policy" style={linkStyle}>Privacy Policy</Link>
-                        <span style={{ color: '#a8a8a8' }}>Terms & Conditions</span>
+                        <Link to='/terms-conditions' style={linkStyle}>Terms & Conditions</Link>
                     </div>
                 </div>
 
