@@ -62,6 +62,7 @@ const ResearchPaperForm = () => {
     const [errors, setErrors] = useState({});
     const [uploadProgress, setUploadProgress] = useState(0);
     const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
+    const [suggestions, setSuggestions] = useState([]);
 
     // useDropzone hook for drag-and-drop functionality
     const onDrop = useCallback((acceptedFiles) => {
@@ -202,32 +203,43 @@ const ResearchPaperForm = () => {
                 <Autocomplete
                     multiple
                     freeSolo
-                    options={[]}  // No suggestions provided
+                    options={suggestions}
                     renderInput={(params) => (
                         <StyledTextField
                             {...params}
-                            label="Author"  // Updated to singular for consistency if preferred
-                            error={!!errors.author}  // Adjusted error to use 'author' key
+                            label="Author"
+                            error={!!errors.author}
                             helperText={errors.author}
                             inputProps={{ ...params.inputProps, "aria-label": "Author" }}
                         />
                     )}
                     value={formData.author}
                     onChange={(event, newValue) => {
-                        const filteredAuthors = newValue.filter((author) => author.trim() !== "");
-                        setFormData({ ...formData, author: filteredAuthors });  // Use 'author' in formData
+                        const filteredAuthors = newValue
+                            .map((author) => author.trim())
+                            .filter((author) => author !== "");
+                        setFormData({ ...formData, author: filteredAuthors });
                         setErrors({ ...errors, author: "" });
+                    }}
+                    onInputChange={(event, newInputValue) => {
+                        if (newInputValue.trim() !== "") {
+                            const filteredSuggestions = [newInputValue];
+                            setSuggestions(filteredSuggestions);
+                        } else {
+                            setSuggestions([]);
+                        }
                     }}
                     onKeyDown={(event) => {
                         if (event.key === 'Enter' && event.target.value.trim() !== "") {
                             event.preventDefault();
                             const newAuthor = event.target.value.trim();
                             if (!formData.author.includes(newAuthor)) {
-                                setFormData({ ...formData, author: [...formData.author, newAuthor] });  // Append to 'author'
+                                setFormData({ ...formData, author: [...formData.author, newAuthor] });
                             }
                         }
                     }}
                 />
+
 
 
                 {/* <StyledTextField
