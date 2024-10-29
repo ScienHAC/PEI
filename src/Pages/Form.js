@@ -67,20 +67,22 @@ const ResearchPaperForm = () => {
     // useDropzone hook for drag-and-drop functionality
     const onDrop = useCallback((acceptedFiles) => {
         const file = acceptedFiles[0];
-        if (file && file.type === "application/pdf") {
+        if (file && (file.type === "application/pdf" || file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document")) {
             setFormData({ ...formData, file });
             setErrors({ ...errors, file: "" });
         } else {
-            setErrors({ ...errors, file: "Please upload a PDF file." });
+            setErrors({ ...errors, file: "Please upload a PDF or DOCX file." });
         }
     }, [formData, errors]);
 
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         accept: {
-            'application/pdf': ['.pdf']
+            'application/pdf': ['.pdf'],
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx']
         },
         onDrop,
     });
+
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -359,9 +361,9 @@ const ResearchPaperForm = () => {
                     }}>
                         <input {...getInputProps()} />
                         {isDragActive ? (
-                            <Typography variant="body2">Drop the PDF here...</Typography>
+                            <Typography variant="body2">Drop the file here...</Typography>
                         ) : (
-                            <Typography variant="body2">Drag 'n' drop a PDF file here, or click to select one</Typography>
+                            <Typography variant="body2">Drag 'n' drop a PDF or DOCX file here, or click to select one</Typography>
                         )}
                     </div>
                     {formData.file && (
