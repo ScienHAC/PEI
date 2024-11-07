@@ -24,6 +24,8 @@ import AbstractingandIndexing from './Pages/AbstractingandIndexing.js';
 import EditorialBoard from './Pages/EditorialBoard.js';
 import PrivacyPolicy from './Pages/PrivacyPolicy.js';
 import TermsandConditions from './Pages/TermsandConditions.js';
+import InvitePage from './Pages/InvitePage.js';
+import ReviewerPage from './Pages/ReviewerPage.js';
 
 function App() {
   return (
@@ -69,6 +71,7 @@ function AuthRoutes() {
           <Route path="/form" element={<Form />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/reviewer" element={<ReviewerPage />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/view/:paperId" element={<ViewPaper />} />
           <Route path="/login" element={<Navigate to="/" replace />} />
@@ -82,6 +85,7 @@ function AuthRoutes() {
           <Route path="/signup" element={<Signup />} />
         </>
       )}
+      <Route path="/reviewer/invite/:inviteid" element={<InvitePage />} />
       <Route path="*" element={<h1>404, Page Not Exist!!!</h1>} />
     </Routes>
   );
