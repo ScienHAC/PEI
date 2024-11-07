@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 const ReviewerPage = () => {
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
-
     // Function to handle sending the invite
     const sendInvite = async () => {
         const inviteData = { email };

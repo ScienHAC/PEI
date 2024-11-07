@@ -47,7 +47,7 @@ function App() {
 
 
 function AuthRoutes() {
-  const { isAuthenticated, loading } = useAuth();
+  const { isAuthenticated, loading, role } = useAuth();
 
   if (loading) {
     return <HomeLoader />;
@@ -71,7 +71,9 @@ function AuthRoutes() {
           <Route path="/form" element={<Form />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/admin" element={<Admin />} />
-          <Route path="/reviewer" element={<ReviewerPage />} />
+          {(role === 'admin' || role === 'reviewer') && (
+            <Route path="/reviewer/dashboard" element={<ReviewerPage />} />
+          )}
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/view/:paperId" element={<ViewPaper />} />
           <Route path="/login" element={<Navigate to="/" replace />} />
