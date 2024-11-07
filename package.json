@@ -17,6 +17,7 @@
     "@testing-library/user-event": "^13.5.0",
     "aos": "^2.3.4",
     "axios": "^1.7.7",
+    "darkreader": "^4.9.96",
     "font-awesome": "^4.7.0",
     "mammoth": "^1.8.0",
     "pdfjs-dist": "^3.4.120",

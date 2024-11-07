@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import pei_logo from '../Images/PEI_LOGO.png';
+import * as DarkReader from 'darkreader';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { faSun, faMoon, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import useAuth from '../Hooks/useAuth';
 export default function Header() {
     const { isAuthenticated, refreshAuthStatus, isAdmin, user } = useAuth();
@@ -10,6 +11,29 @@ export default function Header() {
     const location = useLocation();
     const userDetailsRef = useRef(null);
     const [showUserDetails, setShowUserDetails] = useState(false);
+    const [isDarkMode, setIsDarkMode] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
+
+    useEffect(() => {
+        if (isDarkMode) {
+            DarkReader.enable({
+                brightness: 100,
+                contrast: 90,
+                sepia: 10,
+            });
+        } else {
+            DarkReader.disable();
+        }
+
+        return () => {
+            DarkReader.disable();
+        };
+    }, [isDarkMode]);
+
+    const toggleDarkMode = () => {
+        setIsDarkMode(!isDarkMode);
+    };
+
     const refreshAuth = useCallback(() => {
         refreshAuthStatus();
     }, [refreshAuthStatus]);
@@ -116,6 +140,29 @@ export default function Header() {
                 {/* Buttons that stay outside the collapsible part */}
 
                 <div className="d-flex ms-auto d-lg-none">
+                    <button
+                        className={`btn mx-2 ${isDarkMode ? 'btn-dark' : 'btn-outline-secondary'}`}
+                        onClick={toggleDarkMode}
+                        onMouseEnter={() => setIsHovered(true)}
+                        onMouseLeave={() => setIsHovered(false)}
+                        style={{
+                            backgroundColor: isDarkMode ? (isHovered ? '#444' : '#333') : (isHovered ? '#b3e0fc' : '#e3f2fd'),
+                            color: isDarkMode ? (isHovered ? 'lightgray' : 'white') : (isHovered ? 'blue' : 'black'),
+                            transition: 'background-color 0.3s, color 0.3s',
+                            padding: '10px 20px',
+                            borderRadius: '5px',
+                            border: isDarkMode ? 'none' : '1px solid #ccc',
+                        }}
+                    >
+                        <FontAwesomeIcon
+                            icon={isDarkMode ? faSun : faMoon}
+                            style={{
+                                transition: 'color 0.3s',
+                                color: isDarkMode ? (isHovered ? 'yellow' : 'yellow') : (isHovered ? 'darkblue' : 'black'),
+                                fontSize: '1.5rem',
+                            }}
+                        />
+                    </button>
                     {isAuthenticated ? (
                         <>
                             <button
@@ -203,6 +250,29 @@ export default function Header() {
 
                     {/* Buttons on the right for larger screens */}
                     <div className="d-none d-lg-flex">
+                        <button
+                            className={`btn mx-2 ${isDarkMode ? 'btn-dark' : 'btn-outline-secondary'}`}
+                            onClick={toggleDarkMode}
+                            onMouseEnter={() => setIsHovered(true)}
+                            onMouseLeave={() => setIsHovered(false)}
+                            style={{
+                                backgroundColor: isDarkMode ? (isHovered ? '#444' : '#333') : (isHovered ? '#b3e0fc' : '#e3f2fd'),
+                                color: isDarkMode ? (isHovered ? 'lightgray' : 'white') : (isHovered ? 'blue' : 'black'),
+                                transition: 'background-color 0.3s, color 0.3s',
+                                padding: '10px 20px',
+                                borderRadius: '5px',
+                                border: isDarkMode ? 'none' : '1px solid #ccc',
+                            }}
+                        >
+                            <FontAwesomeIcon
+                                icon={isDarkMode ? faSun : faMoon}
+                                style={{
+                                    transition: 'color 0.3s',
+                                    color: isDarkMode ? (isHovered ? 'yellow' : 'yellow') : (isHovered ? 'darkblue' : 'black'),
+                                    fontSize: '1.5rem',
+                                }}
+                            />
+                        </button>
                         {isAuthenticated ? (
                             <>
                                 <button
