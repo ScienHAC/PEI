@@ -108,7 +108,7 @@ export default function Header() {
                     <div id='childBar-max'>
                         <h2 className="jnhd-max">Pioneering Engineering Insight</h2>
                         <p className="jndh-max">
-                            ISSN: 0923-4748
+                            ISSN: XXXX-XXXX
                         </p>
                     </div>
                 </div>
