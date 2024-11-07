@@ -7,6 +7,7 @@ export const AuthProvider = ({ children }) => {
         user: null,
         isAuthenticated: false,
         isAdmin: false,
+        role: null,
     });
     const [loading, setLoading] = useState(true);
     // Memoize the function with useCallback to avoid infinite calls
@@ -24,6 +25,7 @@ export const AuthProvider = ({ children }) => {
                     user: data.user,
                     isAuthenticated: data.isAuthenticated,
                     isAdmin: data.user.isAdmin,
+                    role: data.user.role,
                 });
             } else {
                 setAuthState({ user: null, isAuthenticated: false, isAdmin: false });
