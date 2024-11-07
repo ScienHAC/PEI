@@ -15,6 +15,7 @@ export default function Header() {
     const [isHovered, setIsHovered] = useState(false);
 
     useEffect(() => {
+        DarkReader.setFetchMethod(window.fetch);
         if (isDarkMode) {
             DarkReader.enable({
                 brightness: 100,
