@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSun, faMoon, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import useAuth from '../Hooks/useAuth';
 export default function Header() {
-    const { isAuthenticated, refreshAuthStatus, isAdmin, user } = useAuth();
+    const { isAuthenticated, refreshAuthStatus, isAdmin, user, role } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const userDetailsRef = useRef(null);
@@ -197,7 +197,11 @@ export default function Header() {
                                     <p><strong>User Dashboard</strong></p>
                                     <p>Name: {user.name}</p>
                                     <p>Email: {user.email}</p>
-                                    <Link to="/dashboard">Go to Dashboard</Link>
+                                    {role === 'reviewer' ? (
+                                        <Link to="/reviewer/dashboard">Go to Dashboard</Link>
+                                    ) : (
+                                        <Link to="/dashboard">Go to Dashboard</Link>
+                                    )}
                                     <Link to="/profile" style={{ display: 'block', marginTop: '5px' }}>View Profile</Link>
                                 </div>
                             )}
@@ -237,9 +241,15 @@ export default function Header() {
                         <li className="nav-item">
                             <Link className="nav-link" to="/contact">Contact Us</Link>
                         </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/form">Research Archive</Link>
-                        </li>
+                        {role === 'reviewer' ? (
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/reviewer/dashboard">Dashboard</Link>
+                            </li>
+                        ) : (
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/form">Research Archive</Link>
+                            </li>
+                        )}
                         {isAdmin ? (
                             <li className="nav-item">
                                 <Link className="nav-link" to="/admin">Admin</Link>
@@ -308,7 +318,11 @@ export default function Header() {
                                         <p><strong>User Dashboard</strong></p>
                                         <p>Name: {user.name}</p>
                                         <p>Email: {user.email}</p>
-                                        <Link to="/dashboard">Go to Dashboard</Link>
+                                        {role === 'reviewer' ? (
+                                            <Link to="/reviewer/dashboard">Go to Dashboard</Link>
+                                        ) : (
+                                            <Link to="/dashboard">Go to Dashboard</Link>
+                                        )}
                                         <Link to="/profile" style={{ display: 'block', marginTop: '5px' }}>View Profile</Link>
                                     </div>
                                 )}

@@ -1,31 +1,37 @@
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import './App.css';
-import Header from './Components/Header';
-import Footer from './Components/Footer';
-import Home from './Pages/Home';
-import { About } from './Pages/About';
-import BackToTopButton from './Components/BackToTopButton.js';
-import Form from './Pages/Form';
-import Login from './Auth/Login';
-import Signup from './Auth/Signup';
-import ForgotPassword from './Auth/ForgotPassword';
-import Dashboard from './Pages/Dashboard';
-import Admin from './Admin/Admin';
-import { AuthProvider } from './Context/AuthContext';
-import useAuth from './Hooks/useAuth';
-import Profile from './Pages/Profile';
-import ViewPaper from './Pages/ViewPaper.js';
-import ContactForm from './Pages/ContactForm.js';
-import HomeLoader from './Components/HomeLoader.js';
-import Archives from './Pages/Archives.js';
-import VolumePage from './Pages/VolumePage.js';
-import CurrentIssue from './Pages/CurrentIssue.js';
-import AbstractingandIndexing from './Pages/AbstractingandIndexing.js';
-import EditorialBoard from './Pages/EditorialBoard.js';
-import PrivacyPolicy from './Pages/PrivacyPolicy.js';
-import TermsandConditions from './Pages/TermsandConditions.js';
-import InvitePage from './Pages/InvitePage.js';
-import ReviewerPage from './Pages/ReviewerPage.js';
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
+import "./App.css";
+import Header from "./Components/Header";
+import Footer from "./Components/Footer";
+import Home from "./Pages/Home";
+import { About } from "./Pages/About";
+import BackToTopButton from "./Components/BackToTopButton.js";
+import Form from "./Pages/Form";
+import Login from "./Auth/Login";
+import Signup from "./Auth/Signup";
+import ForgotPassword from "./Auth/ForgotPassword";
+import Dashboard from "./Pages/Dashboard";
+import Admin from "./Admin/Admin";
+import { AuthProvider } from "./Context/AuthContext";
+import useAuth from "./Hooks/useAuth";
+import Profile from "./Pages/Profile";
+import ViewPaper from "./Pages/ViewPaper.js";
+import ContactForm from "./Pages/ContactForm.js";
+import HomeLoader from "./Components/HomeLoader.js";
+import Archives from "./Pages/Archives.js";
+import VolumePage from "./Pages/VolumePage.js";
+import CurrentIssue from "./Pages/CurrentIssue.js";
+import AbstractingandIndexing from "./Pages/AbstractingandIndexing.js";
+import EditorialBoard from "./Pages/EditorialBoard.js";
+import PrivacyPolicy from "./Pages/PrivacyPolicy.js";
+import TermsandConditions from "./Pages/TermsandConditions.js";
+import InvitePage from "./Pages/InvitePage.js";
+import ReviewerPage from "./Pages/ReviewerPage.js";
+import ReviewerDashboard from "./Pages/ReviewerDashboard.js";
 
 function App() {
   return (
@@ -45,7 +51,6 @@ function App() {
   );
 }
 
-
 function AuthRoutes() {
   const { isAuthenticated, loading, role } = useAuth();
 
@@ -62,19 +67,28 @@ function AuthRoutes() {
       <Route path="/archives" element={<Archives />} />
       <Route path="/archives/:quarter/:volumeNumber" element={<VolumePage />} />
       <Route path="/current-issue" element={<CurrentIssue />} />
-      <Route path="/abstracting-indexing" element={<AbstractingandIndexing />} />
+      <Route
+        path="/abstracting-indexing"
+        element={<AbstractingandIndexing />}
+      />
       <Route path="/editorial-board" element={<EditorialBoard />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route path="/terms-and-conditions" element={<TermsandConditions />} />
       {isAuthenticated ? (
         <>
-          <Route path="/form" element={<Form />} />
+          {role === "reviewer" ? (
+            <Route path="/reviewer/dashboard" element={<ReviewerDashboard />} />
+          ) : (
+            <>
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/form" element={<Form />} />
+            </>
+          )}
           <Route path="/profile" element={<Profile />} />
           <Route path="/admin" element={<Admin />} />
-          {(role === 'admin') && (
-            <Route path="/reviewer/dashboard" element={<ReviewerPage />} />
+          {role === "admin" && (
+            <Route path="/reviewer/page" element={<ReviewerPage />} />
           )}
-          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/view/:paperId" element={<ViewPaper />} />
           <Route path="/login" element={<Navigate to="/" replace />} />
           <Route path="/signup" element={<Navigate to="/" replace />} />
@@ -93,7 +107,4 @@ function AuthRoutes() {
   );
 }
 
-
 export default App;
-
-
