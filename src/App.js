@@ -71,7 +71,7 @@ function AuthRoutes() {
           <Route path="/form" element={<Form />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/admin" element={<Admin />} />
-          {(role === 'admin' || role === 'reviewer') && (
+          {(role === 'admin') && (
             <Route path="/reviewer/dashboard" element={<ReviewerPage />} />
           )}
           <Route path="/dashboard" element={<Dashboard />} />
