@@ -87,7 +87,7 @@ function AuthRoutes() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/admin" element={<Admin />} />
           {role === "admin" && (
-            <Route path="/reviewer/page" element={<ReviewerPage />} />
+            <Route path="/reviewer/page/:id" element={<ReviewerPage />} />
           )}
           <Route path="/view/:paperId" element={<ViewPaper />} />
           <Route path="/login" element={<Navigate to="/" replace />} />

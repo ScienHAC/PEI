@@ -232,12 +232,28 @@ function DisplayDataAdmin() {
                                             <h3 className="paper-title" onClick={() => window.open(`/view/${paper._id}`, '_blank')} style={{ margin: 0, fontSize: '1.2rem', fontWeight: 'bold', color: '#333', cursor: 'pointer' }}>
                                                 {paper.title || 'No Title'}
                                             </h3>
-                                            <FontAwesomeIcon
-                                                icon={faEllipsisV}
-                                                className="options-icon"
-                                                onClick={() => toggleDropdown(paper._id)}
-                                                style={{ cursor: 'pointer', color: '#666' }}
-                                            />
+                                            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                                                <button
+                                                    className="view-discussion-button"
+                                                    onClick={() => window.open(`/reviewer/page/${paper._id}`, '_blank')}
+                                                    style={{
+                                                        padding: '6px 12px',
+                                                        backgroundColor: '#007bff',
+                                                        color: '#fff',
+                                                        border: 'none',
+                                                        borderRadius: '4px',
+                                                        cursor: 'pointer',
+                                                        fontSize: '0.9rem'
+                                                    }}>
+                                                    View Discussion
+                                                </button>
+                                                <FontAwesomeIcon
+                                                    icon={faEllipsisV}
+                                                    className="options-icon"
+                                                    onClick={() => toggleDropdown(paper._id)}
+                                                    style={{ cursor: 'pointer', color: '#666' }}
+                                                />
+                                            </div>
                                             {dropdownOpen === paper._id && (
                                                 <div className="dropdown-menu" onMouseLeave={hideDropdown} style={{
                                                     position: 'absolute',
