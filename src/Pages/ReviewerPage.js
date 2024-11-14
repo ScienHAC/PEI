@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 const ReviewerPage = () => {
+    const { id: paperId } = useParams();
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
-    // Function to handle sending the invite
+
     const sendInvite = async () => {
-        const inviteData = { email };
+        const inviteData = { email, paperId };
 
         try {
             const response = await fetch(`${process.env.REACT_APP_hostURL}/api/reviewer/send-invite`, {

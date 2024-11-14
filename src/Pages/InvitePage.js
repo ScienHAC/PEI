@@ -72,6 +72,7 @@ const InvitePage = () => {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
+                            autoComplete="new-password"
                         />
                     </div>
                     <div>
@@ -81,6 +82,7 @@ const InvitePage = () => {
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             required
+                            autoComplete="new-password"
                         />
                     </div>
                     {error && <p>{error}</p>}
