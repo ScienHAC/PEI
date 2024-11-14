@@ -89,8 +89,8 @@ const InvitePage = () => {
                             </div>
                         </>
                     )}
-                    {error && <p>{error}</p>}
                     <button type="submit">{isReviewer ? "Accept Invite" : "Set Password & Accept Invite"}</button>
+                    {error && <p>{error}</p>}
                 </form>
             ) : (
                 <p>{error || 'Validating your invite...'}</p>
