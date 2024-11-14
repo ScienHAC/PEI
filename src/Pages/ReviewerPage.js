@@ -51,7 +51,7 @@ const ReviewerPage = () => {
             const data = await response.json();
 
             if (response.ok) {
-                setMessage("Invite sent successfully!");
+                setMessage(data.message);
             } else {
                 setMessage(data.message || "Error sending invite.");
             }
