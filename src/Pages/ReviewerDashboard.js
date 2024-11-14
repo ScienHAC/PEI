@@ -13,7 +13,9 @@ const ReviewerDashboard = () => {
     useEffect(() => {
         const fetchAssignedPapers = async () => {
             try {
-                const response = await fetch(`${process.env.REACT_APP_hostURL}/api/reviewer/papers?status=${selectedStatus}`);
+                const response = await fetch(`${process.env.REACT_APP_hostURL}/api/reviewer/papers?status=${selectedStatus}`, {
+                    credentials: 'include'
+                });
                 if (!response.ok) throw new Error('Failed to fetch papers');
                 const data = await response.json();
                 setAssignedPapers(data.papers);
@@ -27,7 +29,9 @@ const ReviewerDashboard = () => {
     const handleSelectPaper = async (paper) => {
         setCurrentPaper(paper);
         try {
-            const response = await fetch(`${process.env.REACT_APP_hostURL}/api/reviewer/comments?paperId=${paper._id}`);
+            const response = await fetch(`${process.env.REACT_APP_hostURL}/api/reviewer/comments?paperId=${paper._id}`, {
+                credentials: 'include'
+            });
             if (!response.ok) throw new Error('Failed to fetch comments');
             const data = await response.json();
             setComments(data.comments);
@@ -44,8 +48,9 @@ const ReviewerDashboard = () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     paperId: currentPaper._id,
-                    comment: newComment
-                })
+                    commentText: newComment
+                }),
+                credentials: 'include'
             });
             if (!response.ok) throw new Error('Failed to add comment');
             const data = await response.json();
@@ -60,13 +65,13 @@ const ReviewerDashboard = () => {
         <div className="reviewer-dashboard">
             <div className="top-banner">
                 <button onClick={() => setSelectedStatus('assigned')} className={selectedStatus === 'assigned' ? 'active' : ''}>Assigned</button>
-                <button onClick={() => setSelectedStatus('complete')} className={selectedStatus === 'complete' ? 'active' : ''}>Complete</button>
+                <button onClick={() => setSelectedStatus('completed')} className={selectedStatus === 'completed' ? 'active' : ''}>Completed</button>
                 <button onClick={() => setSelectedStatus('all')} className={selectedStatus === 'all' ? 'active' : ''}>All</button>
             </div>
-            <div className="paper-list">
+            <div className="paper-list-reviewer">
                 <h3>Papers Assigned to You</h3>
                 {assignedPapers.map((paper) => (
-                    <div key={paper._id} className="paper-item" onClick={() => handleSelectPaper(paper)}>
+                    <div key={paper._id} className="paper-item-reviewer" onClick={() => handleSelectPaper(paper)}>
                         <p>{paper.title}</p>
                     </div>
                 ))}
@@ -77,8 +82,8 @@ const ReviewerDashboard = () => {
                         <h4>Comments for: {currentPaper.title}</h4>
                         <div className="comments-container">
                             {comments.map((comment, index) => (
-                                <div key={index} className="comment-item">
-                                    <p>{comment.text}</p>
+                                <div key={index} className={`comment-item ${comment.role}`}>
+                                    <p>{comment.commentText}</p>
                                     <span className="comment-date">{new Date(comment.createdAt).toLocaleString()}</span>
                                 </div>
                             ))}
