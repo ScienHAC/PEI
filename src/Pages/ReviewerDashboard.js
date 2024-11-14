@@ -72,7 +72,7 @@ const ReviewerDashboard = () => {
                 <h3>Papers Assigned to You</h3>
                 {assignedPapers.map((paper) => (
                     <div key={paper._id} className="paper-item-reviewer" onClick={() => handleSelectPaper(paper)}>
-                        <p>{paper.title}</p>
+                        <p>{paper.paperData.title}</p>
                     </div>
                 ))}
             </div>
