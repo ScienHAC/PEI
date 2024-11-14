@@ -35,12 +35,6 @@ const InvitePage = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // If reviewer exists, just accept the invite without password
-        if (isReviewer) {
-            navigate('/login');
-            return;
-        }
-
         if (password !== confirmPassword) {
             setError('Passwords do not match');
             return;
