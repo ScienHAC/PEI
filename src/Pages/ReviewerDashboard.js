@@ -5,6 +5,7 @@ import {
     faEdit,
     faEye,
     faTimes,
+    faImage,
 } from "@fortawesome/free-solid-svg-icons";
 import Loader from "../Components/Loader";
 import "../CSS/ReviewerDashboard.css";
@@ -134,6 +135,16 @@ const ReviewerDashboard = () => {
                     {displayedPapers.map((paper) => (
                         <div key={paper._id} className="paper-item-reviewer">
                             <div className="paper-details">
+                                <div className="left-thumbnail">
+                                    {paper.paperData.thumbnail ? (
+                                        <img
+                                            src={`${process.env.REACT_APP_hostURL}/api/uploads/thumbnails/${paper.paperData.thumbnail}`}
+                                            alt="thumbnail"
+                                        />
+                                    ) : (
+                                        <FontAwesomeIcon icon={faImage} className="placeholder-icon" />
+                                    )}
+                                </div>
                                 <p>{paper.paperData.title}</p>
                                 <button
                                     onClick={() =>
