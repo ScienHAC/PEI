@@ -284,7 +284,7 @@ function DisplayDataAdmin() {
                                         </div>
 
                                         <p className="paper-abstract" style={{ color: '#555', fontSize: '1rem', marginTop: '8px' }}>
-                                            {paper.abstract?.length > 100 ? paper.abstract.substring(0, 100) + '...' : paper.abstract || 'No Abstract'}
+                                            <b>Abstract:</b> {paper.abstract?.length > 100 ? paper.abstract.substring(0, 100) + '...' : paper.abstract || 'No Abstract'}
                                         </p>
 
                                         <div className='flex-user-details' style={{
