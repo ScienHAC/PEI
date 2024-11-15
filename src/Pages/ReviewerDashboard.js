@@ -52,8 +52,8 @@ const ReviewerDashboard = () => {
                 }),
                 credentials: 'include'
             });
-            if (!response.ok) throw new Error('Failed to add comment');
-            const data = await response.json();
+            const data = await response.json(); // Keep only this instance of data assignment
+            if (!response.ok) throw new Error(data.message);
             setComments([...comments, data.comment]);
             setNewComment('');
         } catch (error) {
@@ -79,7 +79,7 @@ const ReviewerDashboard = () => {
             <div className="comment-section">
                 {currentPaper ? (
                     <div>
-                        <h4>Comments for: {currentPaper.title}</h4>
+                        <h4>Feedback for: {currentPaper.paperData.title}</h4>
                         <div className="comments-container">
                             {comments.map((comment, index) => (
                                 <div key={index} className={`comment-item ${comment.role}`}>
