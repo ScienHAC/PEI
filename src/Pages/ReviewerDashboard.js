@@ -21,6 +21,10 @@ const ReviewerDashboard = () => {
     const [commentLoading, setCommentLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [showcomments, setShowComments] = useState(false);
+    const [reviewCounts, setReviewCounts] = useState({
+        assigned: 0,
+        completed: 0,
+    });
     const { user } = useAuth();
     const papersPerPage = 5;
 
@@ -36,7 +40,13 @@ const ReviewerDashboard = () => {
                 );
                 if (!response.ok) throw new Error("Failed to fetch papers");
                 const data = await response.json();
-                setAssignedPapers(data.papers.reverse()); // Newest papers on top
+                const { total, totalAssigned, totalCompleted, papers } = data;
+                setAssignedPapers(papers.reverse());
+                setReviewCounts({
+                    total: total,
+                    assigned: totalAssigned,
+                    completed: totalCompleted,
+                });
             } catch (error) {
                 console.error("Error fetching papers:", error);
             } finally {
@@ -104,9 +114,29 @@ const ReviewerDashboard = () => {
 
     return (
         <div className="reviewer-dashboard">
-            <h2>Reviewer Console</h2>
-            <h3>Welcome, {user.name}</h3>
+            <h2 style={{ alignSelf: "flex-start" }}>Reviewer Console</h2>
+            <h3 style={{ marginBottom: "20px" }}>Welcome, {user.name}</h3>
+            <div className="summary-section" style={{ width: "100%" }}>
+                <div className="summary-item">
+                    <span className="summary-label">Total:</span>
+                    <span className="summary-count">{reviewCounts.total}</span>
+                </div>
+                <div className="summary-item">
+                    <span className="summary-label">Assigned:</span>
+                    <span className="summary-count">{reviewCounts.assigned}</span>
+                </div>
+                <div className="summary-item">
+                    <span className="summary-label">Completed:</span>
+                    <span className="summary-count">{reviewCounts.completed}</span>
+                </div>
+            </div>
             <div className="top-banner">
+                <button
+                    onClick={() => setSelectedStatus("all")}
+                    className={selectedStatus === "all" ? "active" : ""}
+                >
+                    All
+                </button>
                 <button
                     onClick={() => setSelectedStatus("assigned")}
                     className={selectedStatus === "assigned" ? "active" : ""}
@@ -119,12 +149,6 @@ const ReviewerDashboard = () => {
                 >
                     Completed
                 </button>
-                <button
-                    onClick={() => setSelectedStatus("all")}
-                    className={selectedStatus === "all" ? "active" : ""}
-                >
-                    All
-                </button>
             </div>
 
             {loading ? (
@@ -135,57 +159,162 @@ const ReviewerDashboard = () => {
                     {displayedPapers.map((paper) => (
                         <div key={paper._id} className="paper-item-reviewer">
                             <div className="paper-details">
-                                <div className="left-thumbnail">
-                                    {paper.paperData.thumbnail ? (
-                                        <img
-                                            src={`${process.env.REACT_APP_hostURL}/api/uploads/thumbnails/${paper.paperData.thumbnail}`}
-                                            alt="thumbnail"
-                                        />
-                                    ) : (
-                                        <FontAwesomeIcon icon={faImage} className="placeholder-icon" />
-                                    )}
-                                </div>
-                                <p>{paper.paperData.title}</p>
-                                <button
-                                    onClick={() =>
-                                        window.open(`/view/${paper.paperData._id}`, "_blank")
-                                    }
-                                >
-                                    View paper
-                                </button>
-                                <p className="abstract">
-                                    {paper.paperData.abstract.length > 100
-                                        ? `${paper.paperData.abstract.substring(0, 100)}...`
-                                        : paper.paperData.abstract}
-                                    {paper.paperData.abstract.length > 100 && (
-                                        <span
-                                            className="view-more"
+                                <div className="paper-card flex-row" key={paper._id}>
+                                    <div className="left-thumbnail">
+                                        {paper.paperData.thumbnail ? (
+                                            <img
+                                                src={`${process.env.REACT_APP_hostURL}/api/uploads/thumbnails/${paper.paperData.thumbnail}`}
+                                                alt="thumbnail"
+                                            />
+                                        ) : (
+                                            <FontAwesomeIcon
+                                                icon={faImage}
+                                                className="placeholder-icon"
+                                            />
+                                        )}
+                                    </div>
+                                    <div
+                                        className="right-details"
+                                        style={{
+                                            padding: "16px",
+                                            border: "1px solid #e0e0e0",
+                                            borderRadius: "8px",
+                                            backgroundColor: "#fafafa",
+                                        }}
+                                    >
+                                        <div
+                                            className="flex-div"
+                                            style={{
+                                                display: "flex",
+                                                justifyContent: "space-between",
+                                            }}
+                                        >
+                                            <p
+                                                className="paper-title"
+                                                onClick={() =>
+                                                    window.open(`/view/${paper.paperData._id}`, "_blank")
+                                                }
+                                            >
+                                                {paper.paperData.title}
+                                            </p>
+                                            {paper.comments.length !== 0 ? (
+                                                <div className="viewEdit-review">
+                                                    <button
+                                                        className="view-review btn btn-primary"
+                                                        onClick={() => handleSelectPaper(paper)}
+                                                    >
+                                                        <FontAwesomeIcon icon={faEye} /> View Review
+                                                    </button>
+                                                </div>
+                                            ) : (
+                                                <button
+                                                    className="btn btn-secondary"
+                                                    onClick={() => handleSelectPaper(paper)}
+                                                >
+                                                    <FontAwesomeIcon icon={faEdit} /> Add Feedback
+                                                </button>
+                                            )}
+                                        </div>
+                                        <p className="abstract">
+                                            <b>Abstract:</b>{" "}
+                                            {currentPaper && currentPaper.showFullAbstract
+                                                ? paper.paperData.abstract
+                                                : paper.paperData.abstract.length > 100
+                                                    ? `${paper.paperData.abstract.substring(0, 100)}...`
+                                                    : paper.paperData.abstract}
+                                            {paper.paperData.abstract.length > 100 && (
+                                                <span
+                                                    className="view-more"
+                                                    onClick={() => {
+                                                        if (currentPaper) {
+                                                            // Toggle showFullAbstract only if currentPaper exists
+                                                            setCurrentPaper((prev) => ({
+                                                                ...prev,
+                                                                showFullAbstract: !prev.showFullAbstract,
+                                                            }));
+                                                        } else {
+                                                            // If currentPaper is null, set it to an initial state with showFullAbstract
+                                                            setCurrentPaper({
+                                                                ...paper,
+                                                                showFullAbstract: true,
+                                                            });
+                                                        }
+                                                    }}
+                                                >
+                                                    {currentPaper && currentPaper.showFullAbstract
+                                                        ? " Show Less"
+                                                        : " Read More"}
+                                                </span>
+                                            )}
+                                        </p>
+                                        <div
+                                            className="flex-user-details"
+                                            style={{
+                                                display: "flex",
+                                                flexDirection: "column",
+                                                gap: "4px",
+                                                padding: "12px",
+                                                border: "1px solid #e0e0e0",
+                                                borderRadius: "6px",
+                                                backgroundColor: "#f9f9f9",
+                                                marginTop: "12px",
+                                            }}
+                                        >
+                                            <span
+                                                className="author-name"
+                                                style={{
+                                                    fontWeight: "bold",
+                                                    fontSize: "1rem",
+                                                    color: "#333",
+                                                }}
+                                            >
+                                                Author: {paper.paperData.author || "Unknown Author"}
+                                            </span>
+                                            <span className="user-email" style={{ color: "#555" }}>
+                                                Published by: {paper.email || "Unknown Email"}
+                                            </span>
+
+                                            <div
+                                                style={{
+                                                    display: "flex",
+                                                    fontSize: "0.9rem",
+                                                    color: "#777",
+                                                    gap: "8px",
+                                                }}
+                                            >
+                                                <span className="user-createdAt">
+                                                    Created At:{" "}
+                                                    {paper.paperData.createdAt
+                                                        ? new Date(
+                                                            paper.paperData.createdAt
+                                                        ).toLocaleDateString("en-GB")
+                                                        : "Unknown creation"}
+                                                </span>
+                                                {paper.paperData.createdAt !==
+                                                    paper.paperData.updatedAt && (
+                                                        <span className="user-updatedAt">
+                                                            Updated At:{" "}
+                                                            {paper.paperData.updatedAt
+                                                                ? new Date(
+                                                                    paper.paperData.updatedAt
+                                                                ).toLocaleDateString("en-GB")
+                                                                : "Unknown updation"}
+                                                        </span>
+                                                    )}
+                                            </div>
+                                        </div>
+
+                                        <button
+                                            className="btn btn-link"
                                             onClick={() =>
-                                                setCurrentPaper({
-                                                    ...paper,
-                                                    showFullAbstract: !paper.showFullAbstract,
-                                                })
+                                                window.open(`/view/${paper.paperData._id}`, "_blank")
                                             }
                                         >
-                                            {paper.showFullAbstract ? " Show Less" : " Read More"}
-                                        </span>
-                                    )}
-                                </p>
+                                            View paper
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                            {paper.comments.length !== 0 ? (
-                                <>
-                                    <button className="view-review">
-                                        <FontAwesomeIcon icon={faEye} /> View Review
-                                    </button>
-                                    <button className="edit-review">
-                                        <FontAwesomeIcon icon={faEdit} /> Edit Review
-                                    </button>
-                                </>
-                            ) : (
-                                <button onClick={() => handleSelectPaper(paper)}>
-                                    Add Feedback
-                                </button>
-                            )}
                         </div>
                     ))}
                 </div>
@@ -252,7 +381,7 @@ const ReviewerDashboard = () => {
                                 <textarea
                                     value={newComment}
                                     onChange={(e) => setNewComment(e.target.value)}
-                                    placeholder="Add a comment..."
+                                    placeholder="Add Feedback here..."
                                 ></textarea>
                                 <button onClick={handleAddComment} className="post-btn">
                                     <FontAwesomeIcon icon={faPaperPlane} /> Post

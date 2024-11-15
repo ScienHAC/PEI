@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
 /* Main container */
 .reviewer-dashboard {
     display: flex;
@@ -5,6 +7,7 @@
     align-items: center;
     padding: 20px;
     font-family: Arial, sans-serif;
+    color: #333;
 }
 
 /* Top banner with status buttons */
@@ -31,14 +34,9 @@
 /* Paper list section */
 .paper-list-reviewer {
     width: 100%;
-    max-width: 600px;
     margin-bottom: 20px;
-}
-
-.paper-list-reviewer h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
-    color: #333;
+    border-top: 1px solid #ddd;
+    padding: 10px 0;
 }
 
 .paper-item-reviewer {
@@ -47,19 +45,30 @@
     margin: 5px 0;
     border-radius: 5px;
     transition: background-color 0.3s ease;
+    border-bottom: 1px solid #ddd;
 }
 
 .paper-item-reviewer:hover {
     background-color: #e0e0e0;
 }
 
+.paper-item-reviewer button {
+    cursor: pointer;
+}
+
 /* Comment section */
 .comment-section {
-    width: 100%;
-    max-width: 600px;
-    background-color: aqua;
-    border-radius: 20px;
+    position: fixed;
+    top: 250px;
+    right: 80px;
+    width: 600px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
     padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    max-height: 80vh;
 }
 
 .comment-section h4 {
@@ -78,10 +87,12 @@
 }
 
 .comment-item {
-    margin-bottom: 10px;
-    padding: 10px;
-    background-color: #fafafa;
-    border-radius: 5px;
+    position: relative;
+    padding: 15px;
+    margin-bottom: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #f9f9f9;
 }
 
 .comment-item p {
@@ -95,18 +106,40 @@
     margin-top: 5px;
 }
 
+.comment-role {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    background-color: #d4edda;
+    color: #155724;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.comment-item.admin {
+    border-left: 4px solid red;
+}
+
+.comment-item.reviewer {
+    border-left: 4px solid green;
+}
+
 /* Comment input area */
 .comment-input {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    margin-top: 20px;
 }
 
 .comment-input textarea {
     width: 100%;
-    height: 60px;
+    height: 80px;
     padding: 10px;
-    font-size: 14px;
+    font-size: 16px;
+    /* Increased font size for feedback */
     border-radius: 5px;
     border: 1px solid #ccc;
     resize: none;
@@ -129,42 +162,12 @@
     background-color: #1565c0;
 }
 
-.reviewer-dashboard {
-    font-family: Arial, sans-serif;
-    color: #333;
+.viewEdit-review {
+    display: flex;
+    justify-content: end;
 }
 
-.top-banner button {
-    margin-right: 10px;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.paper-list-reviewer {
-    border-top: 1px solid #ddd;
-    padding: 10px 0;
-}
-
-.paper-item-reviewer {
-    border-bottom: 1px solid #ddd;
-    padding: 10px 0;
-}
-
-.comment-item.admin {
-    border-left: 4px solid red;
-}
-
-.comment-item.reviewer {
-    border-left: 4px solid green;
-}
-
-.reviewer-name {
-    font-size: 24px;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
+/* Feedback modal */
 .feedback-modal {
     position: fixed;
     bottom: 10%;
@@ -203,7 +206,6 @@
     padding: 15px;
     z-index: 1000;
 }
-
 
 .comment-box {
     background-color: #ffffff;
@@ -255,6 +257,34 @@
     background-color: #0056b3;
 }
 
-.paper-item-reviewer button {
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 30px;
     cursor: pointer;
+}
+
+.abstract {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    /* This adds better line spacing */
+    font-size: 18px;
+    /* Adjust the font size as needed */
+    color: #333;
+    /* Dark gray for text for better readability */
+}
+
+.view-more {
+    color: #007bff;
+    /* Link color for "Read More" / "Show Less" */
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.view-more:hover {
+    text-decoration: underline;
+    /* Adds an underline when hovered */
 }
