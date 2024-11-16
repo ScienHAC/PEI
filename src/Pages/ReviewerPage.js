@@ -5,9 +5,13 @@ import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import "../CSS/ReviewerPage.css";
+import Loader from "../Components/Loader";
+import useAuth from "../Hooks/useAuth";
 
 const ReviewerPage = () => {
     const { id: paperId } = useParams();
+    const { user } = useAuth();
     const [paperExists, setPaperExists] = useState(null);
     const [email, setEmail] = useState("");
     const [reviewers, setReviewers] = useState([]);
@@ -19,9 +23,11 @@ const ReviewerPage = () => {
     const [feedbackMessage, setFeedbackMessage] = useState(false);
     const [activeCommentId, setActiveCommentId] = useState(null);
     const [emailCommentid, setEmailCommentId] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const checkPaperExists = async () => {
+            setLoading(true);
             try {
                 const response = await fetch(
                     `${process.env.REACT_APP_hostURL}/api/reviewer/status/${paperId}`,
@@ -41,6 +47,8 @@ const ReviewerPage = () => {
             } catch (error) {
                 console.error("Error checking paper ID:", error);
                 setPaperExists(false);
+            } finally {
+                setLoading(false);
             }
         };
 
@@ -48,6 +56,7 @@ const ReviewerPage = () => {
     }, [paperId]);
 
     const fetchComments = useCallback(async () => {
+        setLoading(true);
         try {
             const response = await fetch(
                 `${process.env.REACT_APP_hostURL}/api/reviewer/comments/admin/all?paperId=${paperId}`,
@@ -62,10 +71,13 @@ const ReviewerPage = () => {
             setFeedbackMessage(hasNoFeedback);
         } catch (error) {
             console.error("Error fetching comments:", error);
+        } finally {
+            setLoading(false);
         }
     }, [paperId]);
 
     const addComment = async (commentText) => {
+        setLoading(true);
         try {
             const response = await fetch(
                 `${process.env.REACT_APP_hostURL}/api/reviewer/comments/admin/add`,
@@ -92,6 +104,8 @@ const ReviewerPage = () => {
             console.error("Error adding comment:", error);
             setMessage("Error adding comment");
             setSnackbarOpen(true);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -167,13 +181,21 @@ const ReviewerPage = () => {
         emailToNameMap[reviewer.email] = reviewer.name || "Unknown Reviewer";
     });
 
+    if (loading) {
+        return <Loader />;
+    }
+
     return (
-        <div>
+        <div className="discussion-page-container" id="discussion-page">
             {paperExists === true ? (
-                <div>
-                    <h1>Discussion Page</h1>
-                    <h2>Title: {paper?.title || "Unknown Title"}</h2>
+                <div className="discussion-content" id="discussion-content">
+                    <h1 className="discussion-title" id="discussion-title">Discussion Page</h1>
+                    <h2 className="paper-title" id="paper-title">Title: {paper?.title || "Unknown Title"}</h2>
+                    <p className="paper-author" id="paper-author">Author: {paper?.author || "Unknown Author"}, Email: {paper?.email || "Unknown Email"}</p>
+                    <p className="paper-date" id="paper-date">Published On: {paper?.createdAt ? new Date(paper.createdAt).toLocaleDateString() : "Unknown Date"}</p>
+
                     <Box
+                        className="invite-section" id="invite-section"
                         sx={{
                             display: "flex",
                             alignItems: "center",
@@ -188,6 +210,7 @@ const ReviewerPage = () => {
                         }}
                     >
                         <Autocomplete
+                            className="reviewer-autocomplete" id="reviewer-autocomplete"
                             options={reviewers.map((reviewer) => reviewer.email)}
                             renderInput={(params) => (
                                 <TextField {...params} label="Select or Enter Email" fullWidth />
@@ -195,11 +218,10 @@ const ReviewerPage = () => {
                             value={email}
                             onInputChange={handleEmailChange}
                             freeSolo
-                            sx={{
-                                flex: 1,
-                            }}
+                            sx={{ flex: 1 }}
                         />
                         <Button
+                            className="send-invite-button" id="send-invite-button"
                             variant="contained"
                             color="primary"
                             onClick={sendInvite}
@@ -211,19 +233,21 @@ const ReviewerPage = () => {
                     </Box>
 
                     <Snackbar
+                        className="snackbar" id="snackbar"
                         open={snackbarOpen}
                         autoHideDuration={3000}
                         onClose={() => setSnackbarOpen(false)}
                         message={message}
                         anchorOrigin={{ vertical: "top", horizontal: "center" }}
                     />
-                    <div>
-                        <h2>{!feedbackMessage && "Comments"}</h2>
+                    <div className="comments-section" id="comments-section">
+                        <h2 className="comments-header" id="comments-header">{!feedbackMessage && "Comments"}</h2>
                         {comments.length > 0 ? (
-                            comments.map((comment) => (
+                            comments.slice().reverse().map((comment) => (
                                 Array.isArray(comment.comments) && comment.comments.length > 0 && (
-                                    <div key={comment._id}>
+                                    <div key={comment._id} className="comment-box" id={`comment-${comment._id}`}>
                                         <Box
+                                            className="comment-content" id="comment-content"
                                             sx={{
                                                 border: "1px solid #ddd",
                                                 padding: 2,
@@ -231,13 +255,12 @@ const ReviewerPage = () => {
                                                 borderRadius: 2,
                                             }}
                                         >
-                                            <div style={{ display: "flex", justifyContent: "space-between", wordBreak: "break-word" }}>
-                                                <p key={comment.paperId} className="t">
+                                            <div className="comment-header" id="comment-header" style={{ display: "flex", justifyContent: "space-between", wordBreak: "break-word" }}>
+                                                <p key={comment.paperId} className="comment-author" id={`comment-author-${comment._id}`}>
                                                     Feedback by: {emailToNameMap[comment.email] || "Unknown"} ({comment.email})
                                                 </p>
                                                 <button
-                                                    className="btn btn-outline-info"
-                                                    style={{ maxHeight: "45px" }}
+                                                    className="toggle-suggestion-button btn btn-outline-info" style={{ maxHeight: "45px" }} id={`toggle-suggestion-${comment._id}`}
                                                     onClick={() => {
                                                         if (activeCommentId === comment._id) {
                                                             setActiveCommentId(null);
@@ -252,20 +275,37 @@ const ReviewerPage = () => {
                                                 </button>
                                             </div>
                                             {comment.comments.length > 0
-                                                ? comment.comments.map((innerComment) => (
-                                                    <div key={innerComment._id}>
-                                                        <p>
-                                                            <strong>
-                                                                {innerComment.role === "admin" ? "Admin" : "Reviewer"}:
-                                                            </strong>{" "}
-                                                        </p>
-                                                        <p>{innerComment.commentText}</p>
-                                                    </div>
-                                                ))
-                                                : ""}
+                                                ? comment.comments.map((innerComment) => {
+                                                    const roleClass = innerComment.role === "admin"
+                                                        ? (innerComment.userId === user.id ? "inner-comment you" : "inner-comment admin")
+                                                        : "inner-comment reviewer";
+
+                                                    return (
+                                                        <div
+                                                            key={innerComment._id}
+                                                            className={roleClass}
+                                                            id={`inner-comment-${innerComment._id}`}
+                                                        >
+                                                            <p
+                                                                className={`inner-comment-role ${roleClass}`}
+                                                                id={`inner-comment-role-${innerComment._id}`}
+                                                            >
+                                                                <strong>{innerComment.role === "admin" ? (innerComment.userId === user.id ? "You" : "Admin") : "Reviewer"}:</strong>
+                                                            </p>
+                                                            <p
+                                                                className="inner-comment-text"
+                                                                id={`inner-comment-text-${innerComment._id}`}
+                                                            >
+                                                                {innerComment.commentText}
+                                                            </p>
+                                                        </div>
+                                                    );
+                                                })
+                                                : ""
+                                            }
                                         </Box>
                                         {activeCommentId === comment._id && (
-                                            <Box sx={{ marginTop: 4 }}>
+                                            <Box className="comment-input-section" id="comment-input-section" sx={{ marginTop: 4 }}>
                                                 <TextField
                                                     id="comment-input"
                                                     name="comment-input"
@@ -277,6 +317,7 @@ const ReviewerPage = () => {
                                                     onChange={(e) => setNewComment(e.target.value)}
                                                 />
                                                 <Button
+                                                    className="submit-comment-button" id="submit-comment-button"
                                                     variant="contained"
                                                     color="primary"
                                                     onClick={() => addComment(newComment)}
@@ -293,7 +334,7 @@ const ReviewerPage = () => {
                         ) : (
                             ""
                         )}
-                        <p>{feedbackMessage ? "Paper has no Feedback yet" : ""}</p>
+                        <p className="no-comments-message" id="no-comments-message">{feedbackMessage ? "Paper has no Feedback yet" : ""}</p>
                     </div>
                 </div>
             ) : (
