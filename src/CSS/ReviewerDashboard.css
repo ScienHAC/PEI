@@ -139,7 +139,6 @@
     height: 80px;
     padding: 10px;
     font-size: 16px;
-    /* Increased font size for feedback */
     border-radius: 5px;
     border: 1px solid #ccc;
     resize: none;
@@ -270,21 +269,16 @@
 .abstract {
     font-family: 'Roboto', sans-serif;
     line-height: 1.6;
-    /* This adds better line spacing */
     font-size: 18px;
-    /* Adjust the font size as needed */
     color: #333;
-    /* Dark gray for text for better readability */
 }
 
 .view-more {
     color: #007bff;
-    /* Link color for "Read More" / "Show Less" */
     cursor: pointer;
     text-decoration: none;
 }
 
 .view-more:hover {
     text-decoration: underline;
-    /* Adds an underline when hovered */
 }

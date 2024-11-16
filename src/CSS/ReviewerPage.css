@@ -1,11 +1,9 @@
-/* General container for the discussion page */
 .discussion-page-container {
     background-color: #f5f5f5;
     font-family: Arial, sans-serif;
     padding: 20px;
 }
 
-/* Title of the page */
 #discussion-title {
     font-size: 32px;
     font-weight: 700;
@@ -13,14 +11,12 @@
     margin-bottom: 20px;
 }
 
-/* Paper title styling */
 #paper-title {
     font-size: 28px;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
-/* Paper author and email styling */
 #paper-author,
 #paper-date {
     font-size: 16px;
@@ -28,7 +24,6 @@
     margin-bottom: 5px;
 }
 
-/* Section for invite */
 #invite-section {
     background-color: #fff;
     border-radius: 8px;
@@ -36,7 +31,6 @@
     margin-bottom: 30px;
 }
 
-/* Comment section styling */
 #comments-section {
     background-color: #fff;
     padding: 20px;
@@ -44,7 +38,6 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Comment Box Styling */
 .comment-box {
     border: 1px solid #ddd;
     padding: 10px;
@@ -54,7 +47,6 @@
     transition: all 0.3s ease;
 }
 
-/* Increase container size and add scroll */
 .comment-content {
     max-width: 100%;
     max-height: 250px;
@@ -65,7 +57,6 @@
     box-sizing: border-box;
 }
 
-/* Button for adding suggestion (fixed at the bottom) */
 #toggle-suggestion-button {
     padding: 10px 20px;
     border: 1px solid #4CAF50;
@@ -85,7 +76,6 @@
     color: white;
 }
 
-/* Comment header styling */
 .comment-header {
     display: flex;
     justify-content: space-between;
@@ -93,20 +83,17 @@
     margin-bottom: 20px;
 }
 
-/* Reviewer and Admin distinction */
 .inner-comment-role {
     font-weight: bold;
     margin-bottom: 5px;
     padding-right: 10px;
     border-right: 3px solid #ddd;
-    /* Adding a right border for distinction */
 }
 
 .inner-comment-text {
     padding-left: 10px;
 }
 
-/* Highlighting Reviewer and Admin Comments */
 .inner-comment-role.admin {
     color: red;
 }
@@ -115,7 +102,6 @@
     color: green;
 }
 
-/* Comments Title */
 #comments-header {
     font-size: 24px;
     font-weight: bold;
@@ -123,27 +109,21 @@
     margin-bottom: 15px;
 }
 
-/* No Comments Message */
 #no-comments-message {
     font-size: 18px;
     color: #888;
 }
 
-/* Reviewer's comment background color */
 .comment-box.reviewer {
     background-color: #e0f7e0;
-    /* Light green for reviewer */
     border-left: 4px solid green;
 }
 
-/* Admin's comment background color */
 .comment-box.admin {
     background-color: #ffebeb;
-    /* Light red for admin */
     border-left: 4px solid red;
 }
 
-/* Autocomplete and invite button styles */
 #reviewer-autocomplete {
     width: 100%;
 }
@@ -160,21 +140,18 @@
     background-color: #ccc;
 }
 
-/* Snackbar styling */
 #snackbar {
     font-size: 14px;
     color: #fff;
     background-color: #333;
 }
 
-/* Add a modern feel with a shadow and rounded edges */
 #discussion-content,
 #comments-section {
     border-radius: 12px;
     box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Comment container's scrollable area */
 .comment-content {
     overflow-y: auto;
     max-height: 300px;
@@ -183,7 +160,6 @@
     border-radius: 8px;
 }
 
-/* General styling for all inner comments */
 .inner-comment {
     padding: 10px;
     margin-bottom: 10px;
@@ -191,10 +167,8 @@
     border-left: 5px solid;
 }
 
-/* Specific styles for different roles */
 .inner-comment.admin {
     background-color: #ffe6e6;
-    /* Light red for admin */
     border-left-color: red;
     color: red;
 }
@@ -211,63 +185,49 @@
     color: #1e90ff;
 }
 
-/* General container for the discussion page */
 .discussion-page-container {
     background-color: #f0f2f5;
-    /* Subtle, clean background */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    /* Modern font */
     padding: 20px;
     color: #333;
 }
 
-/* Title of the page */
 #discussion-title {
     font-size: 32px;
     font-weight: 700;
     color: #2c3e50;
-    /* Dark blue-gray for a professional look */
     margin-bottom: 20px;
 }
 
-/* Paper title styling */
 #paper-title {
     font-size: 26px;
     font-weight: bold;
     margin-bottom: 10px;
     color: #34495e;
-    /* Slightly darker shade */
 }
 
-/* Paper author and email styling */
 #paper-author,
 #paper-date {
     font-size: 16px;
     color: #7f8c8d;
-    /* Soft gray for subtlety */
     margin-bottom: 5px;
 }
 
-/* Section for invite */
 #invite-section {
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    /* Softer shadow for depth */
     margin-bottom: 30px;
     padding: 15px;
 }
 
-/* Comment section styling */
 #comments-section {
     background-color: #ffffff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    /* Subtle shadow */
 }
 
-/* Comment Box Styling */
 .comment-box {
     border: 1px solid #e0e0e0;
     padding: 15px;
@@ -277,7 +237,6 @@
     transition: all 0.3s ease;
 }
 
-/* Increase container size and add scroll */
 .comment-content {
     max-width: 100%;
     max-height: 250px;
@@ -288,14 +247,12 @@
     box-sizing: border-box;
 }
 
-/* Button for adding suggestion (fixed at the bottom) */
 #toggle-suggestion-button {
     padding: 10px 20px;
     border: 1px solid #1abc9c;
     border-radius: 20px;
     background-color: transparent;
     color: #1abc9c;
-    /* Matches the border */
     cursor: pointer;
     font-size: 14px;
     transition: background-color 0.3s ease;
@@ -310,14 +267,12 @@
     color: white;
 }
 
-/* Comment header styling */
 .comment-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-/* Reviewer and Admin distinction */
 .inner-comment-role {
     font-weight: bold;
     margin-bottom: 5px;
@@ -329,18 +284,14 @@
     padding-left: 10px;
 }
 
-/* Highlighting Reviewer and Admin Comments */
 .inner-comment-role.admin {
     color: #e74c3c;
-    /* Softer red for admin */
 }
 
 .inner-comment-role.reviewer {
     color: #27ae60;
-    /* Calmer green for reviewer */
 }
 
-/* Comments Title */
 #comments-header {
     font-size: 24px;
     font-weight: bold;
@@ -348,27 +299,22 @@
     margin-bottom: 15px;
 }
 
-/* No Comments Message */
 #no-comments-message {
     font-size: 18px;
     color: #95a5a6;
 }
 
-/* Reviewer's comment background color */
 .comment-box.reviewer {
     background-color: #eafaf1;
-    /* Light green tint for reviewer */
     border-left: 4px solid #27ae60;
 }
 
 /* Admin's comment background color */
 .comment-box.admin {
     background-color: #fceceb;
-    /* Light pink tint for admin */
     border-left: 4px solid #e74c3c;
 }
 
-/* Autocomplete and invite button styles */
 #reviewer-autocomplete {
     width: 100%;
     border: 1px solid #dcdcdc;
@@ -378,7 +324,6 @@
 
 #send-invite-button {
     background-color: #3498db;
-    /* Professional blue */
     color: white;
     font-size: 14px;
     padding: 8px 15px;
@@ -387,11 +332,9 @@
 
 #send-invite-button:disabled {
     background-color: #b0c4de;
-    /* Light steel blue for disabled */
     color: #ffffff;
 }
 
-/* Center the feedback text vertically */
 .comment-author {
     display: flex;
     align-items: center;
@@ -401,7 +344,6 @@
     color: #444;
 }
 
-/* Style for the suggestion button */
 .toggle-suggestion-button {
     display: flex;
     align-items: center;
@@ -416,13 +358,11 @@
     cursor: pointer;
 }
 
-/* Hover effect for the suggestion button */
 .toggle-suggestion-button:hover {
     background-color: #d0e7f4;
     color: #0056b3;
 }
 
-/* Ensure consistent height alignment */
 .toggle-suggestion-button {
     max-height: 45px;
     line-height: normal;
