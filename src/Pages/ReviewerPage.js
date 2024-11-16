@@ -16,6 +16,7 @@ const ReviewerPage = () => {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
     const [paper, setPaper] = useState({});
+    const [feedbackMessage, setFeedbackMessage] = useState(false);
 
     useEffect(() => {
         const checkPaperExists = async () => {
@@ -29,6 +30,8 @@ const ReviewerPage = () => {
                 );
 
                 if (response.ok) {
+                    const data = await response.json();
+                    setPaper(data.researchPaper);
                     setPaperExists(true);
                 } else {
                     setPaperExists(false);
@@ -52,10 +55,10 @@ const ReviewerPage = () => {
                         credentials: "include",
                     }
                 );
-
                 const data = await response.json();
-                setPaper(data.papers);
                 setComments(data.paperAssignment || []);
+                const hasNoFeedback = !data.paperAssignment || data.paperAssignment.every((comment) => comment.comments.length === 0);
+                setFeedbackMessage(hasNoFeedback);
             } catch (error) {
                 console.error("Error fetching comments:", error);
             }
@@ -163,7 +166,7 @@ const ReviewerPage = () => {
             {paperExists === true ? (
                 <div>
                     <h1>Discussion Page</h1>
-                    <h2>Title: {paper.paperId?.title || "Unknown Title"}</h2>
+                    <h2>Title: {paper?.title || "Unknown Title"}</h2>
                     <Box
                         sx={{
                             display: "flex",
@@ -209,44 +212,45 @@ const ReviewerPage = () => {
                         anchorOrigin={{ vertical: "top", horizontal: "center" }}
                     />
                     <div>
-                        <h2>Comments</h2>
+                        <h2>{!feedbackMessage && "Comments"}</h2>
                         {comments.length > 0 ? (
                             comments.map((comment) => (
-                                <Box
-                                    key={comment._id}
-                                    sx={{
-                                        border: "1px solid #ddd",
-                                        padding: 2,
-                                        marginBottom: 2,
-                                        borderRadius: 2,
-                                    }}
-                                >
-                                    <p key={comment.paperId} className="t">
-                                        Feedback by: {emailToNameMap[comment.email] || "Unknown"} ({comment.email})
-                                    </p>
-                                    {comment.comments.length > 0
-                                        ? comment.comments.map((innerComment) => (
-                                            <div key={innerComment._id}>
-                                                <p>
-                                                    <strong>
-                                                        {innerComment.role === "admin"
-                                                            ? "Admin"
-                                                            : "Reviewer"}
-                                                        :
-                                                    </strong>{" "}
-                                                </p>
-                                                <p>{innerComment.commentText}</p>
-                                            </div>
-                                        ))
-                                        : ""}
-                                    {comment.isSuggestion && (
-                                        <span style={{ color: "blue" }}>Suggestion</span>
-                                    )}
-                                </Box>
+                                comment.comments.length > 0 && (
+                                    <div key={comment._id}>
+                                        <Box
+                                            sx={{
+                                                border: "1px solid #ddd",
+                                                padding: 2,
+                                                marginBottom: 2,
+                                                borderRadius: 2,
+                                            }}
+                                        >
+                                            <p key={comment.paperId} className="t">
+                                                Feedback by: {emailToNameMap[comment.email] || "Unknown"} ({comment.email})
+                                            </p>
+                                            {comment.comments.length > 0
+                                                ? comment.comments.map((innerComment) => (
+                                                    <div key={innerComment._id}>
+                                                        <p>
+                                                            <strong>
+                                                                {innerComment.role === "admin"
+                                                                    ? "Admin"
+                                                                    : "Reviewer"}
+                                                                :
+                                                            </strong>{" "}
+                                                        </p>
+                                                        <p>{innerComment.commentText}</p>
+                                                    </div>
+                                                ))
+                                                : ""}
+                                        </Box>
+                                    </div>
+                                )
                             ))
                         ) : (
-                            <p>No comments available</p>
+                            ""
                         )}
+                        <p>{feedbackMessage ? "Paper has no Feedback yet" : ""}</p>
                     </div>
 
                     <Box sx={{ marginTop: 4 }}>
