@@ -9,13 +9,17 @@ const VolumePage = () => {
     const [volumeData, setVolumeData] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    const formatVolumeNumber = (num) => {
+        return `Volume ${num.replace('volume', '').trim()}`;
+    };
+
     useEffect(() => {
         const fetchVolumeData = async () => {
             try {
                 const year = quarter.split('-').pop();
                 const response = await axios.get(`${process.env.REACT_APP_hostURL}/api/archives/volumes/${year}`);
-                const volume = response.data.volumes ? response.data.volumes : [];
-                setVolumeData(volume);
+                const data = response.data.volumes ? response.data.volumes : [];
+                setVolumeData(data);
             } catch (error) {
                 console.error("Error fetching volume data:", error);
             } finally {
@@ -26,27 +30,33 @@ const VolumePage = () => {
         fetchVolumeData();
     }, [quarter, volumeNumber]);
 
-    const formatVolumeNumber = (num) => {
-        return `Volume ${num.replace('volume', '').trim()}`;
-    };
-
     if (loading) return <Loader />;
+
+    // Filter volumeData to only include the matching volume
+    const filteredVolumes = volumeData
+        .map((volume) => ({
+            ...volume,
+            volumes: volume.volumes.filter(
+                (volGroup) => volGroup.volume === formatVolumeNumber(volumeNumber)
+            ),
+        }))
+        .filter((volume) => volume.volumes.length > 0);
 
     return (
         <div className="volume-page">
             <h1 className="volume-heading">{`${formatVolumeNumber(volumeNumber)} for Quarter: ${quarter}`}</h1>
-            {volumeData && volumeData.length > 0 ? (
+            {filteredVolumes.length > 0 ? (
                 <div>
                     <h2 className="volume-subheading">Papers in this Volume:</h2>
                     <ul className="volume-list">
-                        {volumeData.map((volume, volIndex) => (
+                        {filteredVolumes.map((volume, volIndex) => (
                             <li key={volIndex} className="volume-item">
                                 <h3 className="quarter-title">{`${volume.quarter}`}</h3>
-                                {volume.volumes.slice().reverse().map((volGroup, groupIndex) => (
+                                {volume.volumes.map((volGroup, groupIndex) => (
                                     <div key={groupIndex} className="volume-group">
                                         <h4 className="group-title">{volGroup.volume}</h4>
                                         <ul className="paper-list">
-                                            {volGroup.papers.slice().reverse().map((paper, paperIndex) => (
+                                            {volGroup.papers.map((paper, paperIndex) => (
                                                 <li key={paperIndex} className="paper-card">
                                                     <div className="paper-details">
                                                         <h5 className="paper-title">{paper.title}</h5>
