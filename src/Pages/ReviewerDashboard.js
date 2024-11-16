@@ -10,6 +10,7 @@ import {
 import Loader from "../Components/Loader";
 import "../CSS/ReviewerDashboard.css";
 import useAuth from "../Hooks/useAuth";
+import Snackbar from "@mui/material/Snackbar";
 
 const ReviewerDashboard = () => {
     const [assignedPapers, setAssignedPapers] = useState([]);
@@ -21,6 +22,8 @@ const ReviewerDashboard = () => {
     const [commentLoading, setCommentLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [showcomments, setShowComments] = useState(false);
+    const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [message, setMessage] = useState("");
     const [reviewCounts, setReviewCounts] = useState({
         assigned: 0,
         completed: 0,
@@ -97,6 +100,8 @@ const ReviewerDashboard = () => {
             if (!response.ok) throw new Error(data.message);
             setComments([...comments, data.comment]);
             setNewComment("");
+            setMessage("Feedback added successfully");
+            setSnackbarOpen(true);
         } catch (error) {
             console.error("Error adding comment:", error);
         }
@@ -391,6 +396,13 @@ const ReviewerDashboard = () => {
                     ) : null}
                 </div>
             )}
+            <Snackbar
+                open={snackbarOpen}
+                autoHideDuration={3000}
+                onClose={() => setSnackbarOpen(false)}
+                message={message}
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            />
         </div>
     );
 };

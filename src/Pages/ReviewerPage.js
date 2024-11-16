@@ -153,13 +153,17 @@ const ReviewerPage = () => {
             console.error("Error:", error);
         }
     };
-    console.log(paper);
+    const emailToNameMap = {};
+    reviewers.forEach(reviewer => {
+        emailToNameMap[reviewer.email] = reviewer.name || "Unknown Reviewer";
+    });
+
     return (
         <div>
             {paperExists === true ? (
                 <div>
                     <h1>Discussion Page</h1>
-                    <h2>Title: </h2>
+                    <h2>Title: {paper.paperId?.title || "Unknown Title"}</h2>
                     <Box
                         sx={{
                             display: "flex",
@@ -207,7 +211,7 @@ const ReviewerPage = () => {
                     <div>
                         <h2>Comments</h2>
                         {comments.length > 0 ? (
-                            comments.map((comment, index) => (
+                            comments.map((comment) => (
                                 <Box
                                     key={comment._id}
                                     sx={{
@@ -217,16 +221,27 @@ const ReviewerPage = () => {
                                         borderRadius: 2,
                                     }}
                                 >
-                                    <p key={comment.paperId} className="t">Commented by: {comment.email}</p>
-                                    {comment.comments.length > 0 ? comment.comments.map((comment, index) => (
-                                        <div key={comment._id}>
-                                            <p>
-                                                <strong>{comment.role === "admin" ? "Admin" : "Reviewer"}:</strong>{" "}
-                                            </p>
-                                            <p>{comment.commentText}</p>
-                                        </div>
-                                    )) : ""}
-                                    {comment.isSuggestion && <span style={{ color: "blue" }}>Suggestion</span>}
+                                    <p key={comment.paperId} className="t">
+                                        Feedback by: {emailToNameMap[comment.email] || "Unknown"} ({comment.email})
+                                    </p>
+                                    {comment.comments.length > 0
+                                        ? comment.comments.map((innerComment) => (
+                                            <div key={innerComment._id}>
+                                                <p>
+                                                    <strong>
+                                                        {innerComment.role === "admin"
+                                                            ? "Admin"
+                                                            : "Reviewer"}
+                                                        :
+                                                    </strong>{" "}
+                                                </p>
+                                                <p>{innerComment.commentText}</p>
+                                            </div>
+                                        ))
+                                        : ""}
+                                    {comment.isSuggestion && (
+                                        <span style={{ color: "blue" }}>Suggestion</span>
+                                    )}
                                 </Box>
                             ))
                         ) : (
