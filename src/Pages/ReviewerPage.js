@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import Snackbar from "@mui/material/Snackbar";
 import Autocomplete from "@mui/material/Autocomplete";
@@ -17,6 +17,8 @@ const ReviewerPage = () => {
     const [newComment, setNewComment] = useState("");
     const [paper, setPaper] = useState({});
     const [feedbackMessage, setFeedbackMessage] = useState(false);
+    const [activeCommentId, setActiveCommentId] = useState(null);
+    const [emailCommentid, setEmailCommentId] = useState(null);
 
     useEffect(() => {
         const checkPaperExists = async () => {
@@ -45,42 +47,43 @@ const ReviewerPage = () => {
         checkPaperExists();
     }, [paperId]);
 
-    useEffect(() => {
-        const fetchComments = async () => {
-            try {
-                const response = await fetch(
-                    `${process.env.REACT_APP_hostURL}/api/reviewer/comments/admin/all?paperId=${paperId}`,
-                    {
-                        method: "GET",
-                        credentials: "include",
-                    }
-                );
-                const data = await response.json();
-                setComments(data.paperAssignment || []);
-                const hasNoFeedback = !data.paperAssignment || data.paperAssignment.every((comment) => comment.comments.length === 0);
-                setFeedbackMessage(hasNoFeedback);
-            } catch (error) {
-                console.error("Error fetching comments:", error);
-            }
-        };
-        fetchComments();
-    }, [paperId, paperExists]);
+    const fetchComments = useCallback(async () => {
+        try {
+            const response = await fetch(
+                `${process.env.REACT_APP_hostURL}/api/reviewer/comments/admin/all?paperId=${paperId}`,
+                {
+                    method: "GET",
+                    credentials: "include",
+                }
+            );
+            const data = await response.json();
+            setComments(data.paperAssignment || []);
+            const hasNoFeedback = !data.paperAssignment || data.paperAssignment.every((comment) => comment.comments.length === 0);
+            setFeedbackMessage(hasNoFeedback);
+        } catch (error) {
+            console.error("Error fetching comments:", error);
+        }
+    }, [paperId]);
 
     const addComment = async (commentText) => {
         try {
             const response = await fetch(
-                `${process.env.REACT_APP_hostURL}/api/reviewer/comments`,
+                `${process.env.REACT_APP_hostURL}/api/reviewer/comments/admin/add`,
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ paperId, commentText }),
+                    body: JSON.stringify({ paperId, commentText, email: emailCommentid }),
                     credentials: "include",
                 }
             );
 
             const data = await response.json();
             if (response.ok) {
+                fetchComments();
                 setComments((prevComments) => [...prevComments, data.comment]);
+                setNewComment("");
+                setMessage("Suggestion added successfully!");
+                setSnackbarOpen(true);
             } else {
                 setMessage(data.message || "Failed to add comment");
                 setSnackbarOpen(true);
@@ -92,6 +95,9 @@ const ReviewerPage = () => {
         }
     };
 
+    useEffect(() => {
+        fetchComments();
+    }, [paperId, paperExists, fetchComments]);
 
 
     useEffect(() => {
@@ -215,7 +221,7 @@ const ReviewerPage = () => {
                         <h2>{!feedbackMessage && "Comments"}</h2>
                         {comments.length > 0 ? (
                             comments.map((comment) => (
-                                comment.comments.length > 0 && (
+                                Array.isArray(comment.comments) && comment.comments.length > 0 && (
                                     <div key={comment._id}>
                                         <Box
                                             sx={{
@@ -225,18 +231,32 @@ const ReviewerPage = () => {
                                                 borderRadius: 2,
                                             }}
                                         >
-                                            <p key={comment.paperId} className="t">
-                                                Feedback by: {emailToNameMap[comment.email] || "Unknown"} ({comment.email})
-                                            </p>
+                                            <div style={{ display: "flex", justifyContent: "space-between", wordBreak: "break-word" }}>
+                                                <p key={comment.paperId} className="t">
+                                                    Feedback by: {emailToNameMap[comment.email] || "Unknown"} ({comment.email})
+                                                </p>
+                                                <button
+                                                    className="btn btn-outline-info"
+                                                    style={{ maxHeight: "45px" }}
+                                                    onClick={() => {
+                                                        if (activeCommentId === comment._id) {
+                                                            setActiveCommentId(null);
+                                                            setEmailCommentId(null);
+                                                        } else {
+                                                            setActiveCommentId(comment._id);
+                                                            setEmailCommentId(comment.email);
+                                                        }
+                                                    }}
+                                                >
+                                                    {activeCommentId === comment._id ? "Close Suggestion" : "Add Suggestion"}
+                                                </button>
+                                            </div>
                                             {comment.comments.length > 0
                                                 ? comment.comments.map((innerComment) => (
                                                     <div key={innerComment._id}>
                                                         <p>
                                                             <strong>
-                                                                {innerComment.role === "admin"
-                                                                    ? "Admin"
-                                                                    : "Reviewer"}
-                                                                :
+                                                                {innerComment.role === "admin" ? "Admin" : "Reviewer"}:
                                                             </strong>{" "}
                                                         </p>
                                                         <p>{innerComment.commentText}</p>
@@ -244,6 +264,29 @@ const ReviewerPage = () => {
                                                 ))
                                                 : ""}
                                         </Box>
+                                        {activeCommentId === comment._id && (
+                                            <Box sx={{ marginTop: 4 }}>
+                                                <TextField
+                                                    id="comment-input"
+                                                    name="comment-input"
+                                                    fullWidth
+                                                    multiline
+                                                    rows={4}
+                                                    placeholder="Add your comment or suggestion"
+                                                    value={newComment}
+                                                    onChange={(e) => setNewComment(e.target.value)}
+                                                />
+                                                <Button
+                                                    variant="contained"
+                                                    color="primary"
+                                                    onClick={() => addComment(newComment)}
+                                                    disabled={!newComment.trim()}
+                                                    sx={{ marginTop: 2 }}
+                                                >
+                                                    Add Suggestion
+                                                </Button>
+                                            </Box>
+                                        )}
                                     </div>
                                 )
                             ))
@@ -252,28 +295,6 @@ const ReviewerPage = () => {
                         )}
                         <p>{feedbackMessage ? "Paper has no Feedback yet" : ""}</p>
                     </div>
-
-                    <Box sx={{ marginTop: 4 }}>
-                        <TextField
-                            fullWidth
-                            multiline
-                            rows={4}
-                            placeholder="Add your comment or suggestion"
-                            value={newComment}
-                            onChange={(e) => setNewComment(e.target.value)}
-                        />
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={() => addComment(newComment)}
-                            disabled={!newComment.trim()}
-                            sx={{ marginTop: 2 }}
-                        >
-                            Add Comment
-                        </Button>
-                    </Box>
-
-
                 </div>
             ) : (
                 <h1>404 page not found!!!</h1>

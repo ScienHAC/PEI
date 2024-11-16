@@ -23,6 +23,7 @@ const ReviewerDashboard = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [showcomments, setShowComments] = useState(false);
     const [snackbarOpen, setSnackbarOpen] = useState(false);
+    const [postState, setPostState] = useState(false);
     const [message, setMessage] = useState("");
     const [reviewCounts, setReviewCounts] = useState({
         assigned: 0,
@@ -58,7 +59,7 @@ const ReviewerDashboard = () => {
         };
 
         fetchAssignedPapers();
-    }, [selectedStatus]);
+    }, [selectedStatus, postState]);
 
     const handleSelectPaper = async (paper) => {
         setShowComments(true);
@@ -102,6 +103,11 @@ const ReviewerDashboard = () => {
             setNewComment("");
             setMessage("Feedback added successfully");
             setSnackbarOpen(true);
+            setCurrentPaper((prev) => ({
+                ...prev,
+                comments: [...prev.comments, data.comment],
+            }));
+            setPostState(true);
         } catch (error) {
             console.error("Error adding comment:", error);
         }
