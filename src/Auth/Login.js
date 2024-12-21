@@ -6,6 +6,7 @@ const Login = () => {
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
     const [otpStep, setOtpStep] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
     const [formData, setFormData] = useState({
         email: '',
@@ -78,6 +79,10 @@ const Login = () => {
         setTimeout(() => setMessage(''), 2000);
     };
 
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
     return (
         <>
             <br />
@@ -100,15 +105,36 @@ const Login = () => {
                                 />
 
                                 <label htmlFor="password">Password</label>
-                                <input
-                                    type="password"
-                                    id="password"
-                                    name="password"
-                                    value={formData.password}
-                                    onChange={handleChange}
-                                    className="form-control mb-3"
-                                    required
-                                />
+                                <div className="password-container" style={{ position: 'relative' }}>
+                                    <input
+                                        type={showPassword ? 'text' : 'password'}
+                                        id="password"
+                                        name="password"
+                                        value={formData.password}
+                                        onChange={handleChange}
+                                        className="form-control mb-3"
+                                        required
+                                        style={{ paddingLeft: 'auto' }}
+                                    />
+
+                                    {/* Eye icon to toggle visibility on the left */}
+                                    <span
+                                        className="toggle-password"
+                                        onClick={togglePasswordVisibility}
+                                        style={{
+                                            cursor: 'pointer',
+                                            position: 'absolute',
+                                            right: '10px',
+                                            top: '10px',
+                                        }}
+                                    >
+                                        {showPassword ? (
+                                            <i className="fa fa-eye-slash" style={{ fontSize: '20px' }}></i>
+                                        ) : (
+                                            <i className="fa fa-eye" style={{ fontSize: '20px' }}></i>
+                                        )}
+                                    </span>
+                                </div>
                             </>
                         )}
 
