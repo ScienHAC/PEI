@@ -512,6 +512,8 @@ const ReviewerPage = () => {
                                                         padding: 2,
                                                         marginBottom: 2,
                                                         borderRadius: 2,
+                                                        display: 'flex',
+                                                        flexDirection: 'column',
                                                     }}
                                                 >
                                                     <div
@@ -551,44 +553,46 @@ const ReviewerPage = () => {
                                                                 : "Add Suggestion"}
                                                         </button>
                                                     </div>
-                                                    {comment.comments.length > 0
-                                                        ? comment.comments.map((innerComment) => {
-                                                            const roleClass =
-                                                                innerComment.role === "admin"
-                                                                    ? innerComment.userId === user.id
-                                                                        ? "inner-comment you"
-                                                                        : "inner-comment admin"
-                                                                    : "inner-comment reviewer";
+                                                    <div id="scroll-comment-box" style={{ overflowY: 'auto', flexGrow: 1 }}>
+                                                        {comment.comments.length > 0
+                                                            ? comment.comments.map((innerComment) => {
+                                                                const roleClass =
+                                                                    innerComment.role === "admin"
+                                                                        ? innerComment.userId === user.id
+                                                                            ? "inner-comment you"
+                                                                            : "inner-comment admin"
+                                                                        : "inner-comment reviewer";
 
-                                                            return (
-                                                                <div
-                                                                    key={innerComment._id}
-                                                                    className={roleClass}
-                                                                    id={`inner-comment-${innerComment._id}`}
-                                                                >
-                                                                    <p
-                                                                        className={`inner-comment-role ${roleClass}`}
-                                                                        id={`inner-comment-role-${innerComment._id}`}
+                                                                return (
+                                                                    <div
+                                                                        key={innerComment._id}
+                                                                        className={roleClass}
+                                                                        id={`inner-comment-${innerComment._id}`}
                                                                     >
-                                                                        <strong>
-                                                                            {innerComment.role === "admin"
-                                                                                ? innerComment.userId === user.id
-                                                                                    ? "You"
-                                                                                    : "Admin"
-                                                                                : "Reviewer"}
-                                                                            :
-                                                                        </strong>
-                                                                    </p>
-                                                                    <p
-                                                                        className="inner-comment-text"
-                                                                        id={`inner-comment-text-${innerComment._id}`}
-                                                                    >
-                                                                        {innerComment.commentText}
-                                                                    </p>
-                                                                </div>
-                                                            );
-                                                        })
-                                                        : ""}
+                                                                        <p
+                                                                            className={`inner-comment-role ${roleClass}`}
+                                                                            id={`inner-comment-role-${innerComment._id}`}
+                                                                        >
+                                                                            <strong>
+                                                                                {innerComment.role === "admin"
+                                                                                    ? innerComment.userId === user.id
+                                                                                        ? "You"
+                                                                                        : "Admin"
+                                                                                    : "Reviewer"}
+                                                                                :
+                                                                            </strong>
+                                                                        </p>
+                                                                        <p
+                                                                            className="inner-comment-text"
+                                                                            id={`inner-comment-text-${innerComment._id}`}
+                                                                        >
+                                                                            {innerComment.commentText}
+                                                                        </p>
+                                                                    </div>
+                                                                );
+                                                            })
+                                                            : ""}
+                                                    </div>
                                                 </Box>
                                                 {activeCommentId === comment._id && (
                                                     <Box
