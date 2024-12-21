@@ -11,6 +11,7 @@ import useAuth from "../Hooks/useAuth";
 
 const ReviewerPage = () => {
     const { id: paperId } = useParams();
+    const [showBox, setShowBox] = useState(false);
     const { user } = useAuth();
     const [paperExists, setPaperExists] = useState(null);
     const [email, setEmail] = useState("");
@@ -24,6 +25,10 @@ const ReviewerPage = () => {
     const [activeCommentId, setActiveCommentId] = useState(null);
     const [emailCommentid, setEmailCommentId] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [invited, setInvited] = useState(false);
+    const [loadData, setLoadData] = useState(true);
+    const [reviewerStatuses, setReviewerStatuses] = useState([]);
+    const [mergedData, setMergedData] = useState([]);
 
     useEffect(() => {
         const checkPaperExists = async () => {
@@ -55,6 +60,44 @@ const ReviewerPage = () => {
         checkPaperExists();
     }, [paperId]);
 
+    useEffect(() => {
+        const fetchReviewerStatuses = async () => {
+            try {
+                const response = await fetch(`${process.env.REACT_APP_hostURL}/api/reviewer/check-status`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ paperId }),
+                    credentials: 'include',
+                });
+
+                const data = await response.json();
+                const sortedStatuses = [...data.reviewersStatus].sort((a, b) => {
+                    const statusOrder = { 'not invited': 0, 'not accepted': 1, 'accepted': 2 };
+                    return statusOrder[a.status] - statusOrder[b.status];
+                });
+
+                setReviewerStatuses(sortedStatuses);
+            } catch (error) {
+                console.error("Error fetching reviewer statuses:", error);
+            }
+        };
+        fetchReviewerStatuses();
+    }, [paperId, showBox, invited, reviewerStatuses]);
+
+    const getButtonStyles = (status) => {
+        switch (status) {
+            case 'not invited':
+                return { backgroundColor: '#ff5733', color: 'white', label: 'Invite', disabled: false };
+            case 'not accepted':
+                return { backgroundColor: '#28a745', color: 'white', label: 'Re-Invite', disabled: false };
+            case 'accepted':
+                return { backgroundColor: '#007bff', color: 'white', label: 'Invited', disabled: true };
+            default:
+                return { backgroundColor: '#ccc', color: 'black', label: 'Unknown', disabled: true };
+        }
+    };
+
+
     const fetchComments = useCallback(async () => {
         setLoading(true);
         try {
@@ -67,7 +110,9 @@ const ReviewerPage = () => {
             );
             const data = await response.json();
             setComments(data.paperAssignment || []);
-            const hasNoFeedback = !data.paperAssignment || data.paperAssignment.every((comment) => comment.comments.length === 0);
+            const hasNoFeedback =
+                !data.paperAssignment ||
+                data.paperAssignment.every((comment) => comment.comments.length === 0);
             setFeedbackMessage(hasNoFeedback);
         } catch (error) {
             console.error("Error fetching comments:", error);
@@ -113,23 +158,39 @@ const ReviewerPage = () => {
         fetchComments();
     }, [paperId, paperExists, fetchComments]);
 
-
     useEffect(() => {
         const fetchReviewers = async () => {
             try {
-                const response = await fetch(`${process.env.REACT_APP_hostURL}/api/reviewer/exist/all`, {
-                    method: "GET",
-                    credentials: "include",
-                });
+                const response = await fetch(
+                    `${process.env.REACT_APP_hostURL}/api/reviewer/exist/all`,
+                    {
+                        method: "GET",
+                        credentials: "include",
+                    }
+                );
                 const data = await response.json();
                 setReviewers(data);
+                setLoadData(false);
             } catch (error) {
                 console.error("Error fetching reviewers:", error);
             }
         };
 
         fetchReviewers();
-    }, []);
+    }, [showBox, invited]);
+
+    useEffect(() => {
+        if (reviewerStatuses.length > 0 && reviewers.length > 0) {
+            const merged = reviewerStatuses.map((status) => {
+                const matchingReviewer = reviewers.find((reviewer) => reviewer.email === status.email);
+                return {
+                    ...status,
+                    name: matchingReviewer ? matchingReviewer.name : "N/A",
+                };
+            });
+            setMergedData(merged);
+        }
+    }, [reviewerStatuses, reviewers]);
 
     const validateEmail = (email) => {
         // Regex for email validation
@@ -145,14 +206,14 @@ const ReviewerPage = () => {
         }
     };
 
-    const sendInvite = async () => {
-        if (!validateEmail(email)) {
+    const sendInvite = async (emailValue) => {
+        if (!validateEmail(emailValue)) {
             setMessage("Invalid email address.");
             setSnackbarOpen(true);
             return;
         }
 
-        const inviteData = { email: email.trim().toLowerCase(), paperId };
+        const inviteData = { email: emailValue.trim().toLowerCase(), paperId };
 
         try {
             const response = await fetch(
@@ -168,6 +229,7 @@ const ReviewerPage = () => {
             const data = await response.json();
             setMessage(data.message || "Invite sent successfully.");
             setSnackbarOpen(true);
+            setInvited(true);
 
             if (response.ok) setEmail("");
         } catch (error) {
@@ -177,9 +239,26 @@ const ReviewerPage = () => {
         }
     };
     const emailToNameMap = {};
-    reviewers.forEach(reviewer => {
+    reviewers.forEach((reviewer) => {
         emailToNameMap[reviewer.email] = reviewer.name || "Unknown Reviewer";
     });
+
+    const handleInputClick = () => {
+        setLoadData(true);
+        if (reviewers.length >= 1) {
+            setShowBox(true);
+            setLoadData(false);
+        }
+    };
+
+
+    const handleInviteClick = async (emailValue) => {
+        sendInvite(emailValue);
+    };
+
+    const handleCloseBox = () => {
+        setShowBox(false);
+    };
 
     if (loading) {
         return <Loader />;
@@ -189,13 +268,26 @@ const ReviewerPage = () => {
         <div className="discussion-page-container" id="discussion-page">
             {paperExists === true ? (
                 <div className="discussion-content" id="discussion-content">
-                    <h1 className="discussion-title" id="discussion-title">Discussion Page</h1>
-                    <h2 className="paper-title" id="paper-title">Title: {paper?.title || "Unknown Title"}</h2>
-                    <p className="paper-author" id="paper-author">Author: {paper?.author || "Unknown Author"}, Email: {paper?.email || "Unknown Email"}</p>
-                    <p className="paper-date" id="paper-date">Published On: {paper?.createdAt ? new Date(paper.createdAt).toLocaleDateString() : "Unknown Date"}</p>
+                    <h1 className="discussion-title" id="discussion-title">
+                        Discussion Page
+                    </h1>
+                    <h2 className="paper-title" id="paper-title">
+                        Title: {paper?.title || "Unknown Title"}
+                    </h2>
+                    <p className="paper-author" id="paper-author">
+                        Author: {paper?.author || "Unknown Author"}, Email:{" "}
+                        {paper?.email || "Unknown Email"}
+                    </p>
+                    <p className="paper-date" id="paper-date">
+                        Published On:{" "}
+                        {paper?.createdAt
+                            ? new Date(paper.createdAt).toLocaleDateString()
+                            : "Unknown Date"}
+                    </p>
 
                     <Box
-                        className="invite-section" id="invite-section"
+                        className="invite-section"
+                        id="invite-section"
                         sx={{
                             display: "flex",
                             alignItems: "center",
@@ -210,30 +302,185 @@ const ReviewerPage = () => {
                         }}
                     >
                         <Autocomplete
-                            className="reviewer-autocomplete" id="reviewer-autocomplete"
-                            options={reviewers.map((reviewer) => reviewer.email)}
+                            className="reviewer-autocomplete"
+                            id="reviewer-autocomplete"
+                            options={[]}
                             renderInput={(params) => (
-                                <TextField {...params} label="Select or Enter Email" fullWidth />
+                                <TextField
+                                    {...params}
+                                    label="Select or Enter Email"
+                                    fullWidth
+                                />
                             )}
                             value={email}
                             onInputChange={handleEmailChange}
+                            onOpen={handleInputClick}
                             freeSolo
                             sx={{ flex: 1 }}
                         />
                         <Button
-                            className="send-invite-button" id="send-invite-button"
+                            className="send-invite-button"
+                            id="send-invite-button"
                             variant="contained"
                             color="primary"
-                            onClick={sendInvite}
+                            onClick={() => sendInvite(email)}
                             disabled={!email}
                             sx={{ whiteSpace: "nowrap" }}
                         >
                             Send Invite
                         </Button>
+
+                        {/* Modal box that appears when showBox is true */}
+                        {showBox && (
+                            <div
+                                style={{
+                                    position: "absolute",
+                                    top: "65%",
+                                    left: "50%",
+                                    transform: "translate(-50%, -50%)",
+                                    backgroundColor: "white",
+                                    color: "black",
+                                    padding: "0 20px 20px 20px",
+                                    borderRadius: "8px",
+                                    zIndex: 9999,
+                                    width: "50vw",
+                                    maxHeight: "800px",
+                                    overflowY: "auto",
+                                    opacity: 0.95,
+                                }}
+                            >
+                                {loadData && <span className="loader"></span>}
+                                <div
+                                    style={{
+                                        display: 'flex',
+                                        justifyContent: 'flex-end',
+                                        alignItems: 'flex-start',
+                                        width: '100%',
+                                    }}
+                                >
+                                    <button
+                                        style={{
+                                            top: "10px",
+                                            right: "10px",
+                                            background: "transparent",
+                                            border: "none",
+                                            color: "black",
+                                            fontSize: "40px",
+                                            cursor: "pointer",
+                                            borderRadius: "50%",
+                                            outline: "none",
+                                        }}
+                                        onClick={handleCloseBox}
+                                        onMouseEnter={(e) => (e.target.style.color = "#ff5733")}
+                                        onMouseLeave={(e) => (e.target.style.color = "black")}
+                                    >
+                                        &times;
+                                    </button>
+                                </div>
+
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        gap: "10px",
+                                        alignItems: "center",
+                                        marginBottom: "15px",
+                                    }}
+                                >
+                                    {/* Autocomplete inside the modal */}
+                                    <Autocomplete
+                                        className="reviewer-autocomplete-box"
+                                        id="reviewer-autocomplete-modal-box"
+                                        options={[]}
+                                        renderInput={(params) => (
+                                            <TextField
+                                                {...params}
+                                                label="Select or Enter Email"
+                                                fullWidth
+                                            />
+                                        )}
+                                        value={email}
+                                        onInputChange={handleEmailChange}
+                                        onOpen={handleInputClick}
+                                        freeSolo
+                                        sx={{ flex: 1 }}
+                                    />
+                                    <Button
+                                        className="send-invite-button-box"
+                                        id="send-invite-button-modal-box"
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={() => sendInvite(email)}
+                                        disabled={!email}
+                                        sx={{ whiteSpace: "nowrap" }}
+                                    >
+                                        Send Invite
+                                    </Button>
+                                </div>
+
+                                {/* Displaying the reviewers' information */}
+                                <div
+                                    style={{
+                                        maxHeight: "450px",
+                                        overflowY: "auto",
+                                    }}
+                                >
+                                    {mergedData.map((reviewer, index) => {
+                                        const { backgroundColor, color, label, disabled } = getButtonStyles(reviewer.status);
+
+                                        return (
+                                            <div
+                                                key={`${reviewer.email}-${index}`}
+                                                style={{
+                                                    marginBottom: "15px",
+                                                    display: "flex",
+                                                    flexDirection: "row",
+                                                    border: "1px solid #ccc",
+                                                    padding: "10px",
+                                                    borderRadius: "8px",
+                                                    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                                                    justifyContent: "space-between",
+                                                }}
+                                            >
+                                                <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                                                    <p>
+                                                        <strong>Name:</strong> {reviewer.name || "N/A"}
+                                                    </p>
+                                                    <p>
+                                                        <strong>Email:</strong> {reviewer.email}
+                                                    </p>
+                                                </div>
+                                                <button
+                                                    className="btn"
+                                                    onClick={() => handleInviteClick(reviewer.email)}
+                                                    style={{
+                                                        width: "120px",
+                                                        height: "40px",
+                                                        backgroundColor,
+                                                        color,
+                                                        border: "none",
+                                                        borderRadius: "5px",
+                                                        cursor: disabled ? "not-allowed" : "pointer",
+                                                        display: "flex",
+                                                        justifyContent: "center",
+                                                        alignItems: "center",
+                                                        fontSize: "14px",
+                                                        opacity: disabled ? 0.6 : 1,
+                                                    }}
+                                                    disabled={disabled}
+                                                >
+                                                    {label}
+                                                </button>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        )}
                     </Box>
 
                     <Snackbar
-                        className="snackbar" id="snackbar"
+                        className="snackbar"
+                        id="snackbar"
                         open={snackbarOpen}
                         autoHideDuration={3000}
                         onClose={() => setSnackbarOpen(false)}
@@ -241,100 +488,144 @@ const ReviewerPage = () => {
                         anchorOrigin={{ vertical: "top", horizontal: "center" }}
                     />
                     <div className="comments-section" id="comments-section">
-                        <h2 className="comments-header" id="comments-header">{!feedbackMessage && "Comments"}</h2>
-                        {comments.length > 0 ? (
-                            comments.slice().reverse().map((comment) => (
-                                Array.isArray(comment.comments) && comment.comments.length > 0 && (
-                                    <div key={comment._id} className="comment-box" id={`comment-${comment._id}`}>
-                                        <Box
-                                            className="comment-content" id="comment-content"
-                                            sx={{
-                                                border: "1px solid #ddd",
-                                                padding: 2,
-                                                marginBottom: 2,
-                                                borderRadius: 2,
-                                            }}
-                                        >
-                                            <div className="comment-header" id="comment-header" style={{ display: "flex", justifyContent: "space-between", wordBreak: "break-word" }}>
-                                                <p key={comment.paperId} className="comment-author" id={`comment-author-${comment._id}`}>
-                                                    Feedback by: {emailToNameMap[comment.email] || "Unknown"} ({comment.email})
-                                                </p>
-                                                <button
-                                                    className="toggle-suggestion-button btn btn-outline-info" style={{ maxHeight: "45px" }} id={`toggle-suggestion-${comment._id}`}
-                                                    onClick={() => {
-                                                        if (activeCommentId === comment._id) {
-                                                            setActiveCommentId(null);
-                                                            setEmailCommentId(null);
-                                                        } else {
-                                                            setActiveCommentId(comment._id);
-                                                            setEmailCommentId(comment.email);
-                                                        }
+                        <h2 className="comments-header" id="comments-header">
+                            {!feedbackMessage && "Comments"}
+                        </h2>
+                        {comments.length > 0
+                            ? comments
+                                .slice()
+                                .reverse()
+                                .map(
+                                    (comment) =>
+                                        Array.isArray(comment.comments) &&
+                                        comment.comments.length > 0 && (
+                                            <div
+                                                key={comment._id}
+                                                className="comment-box"
+                                                id={`comment-${comment._id}`}
+                                            >
+                                                <Box
+                                                    className="comment-content"
+                                                    id="comment-content"
+                                                    sx={{
+                                                        border: "1px solid #ddd",
+                                                        padding: 2,
+                                                        marginBottom: 2,
+                                                        borderRadius: 2,
                                                     }}
                                                 >
-                                                    {activeCommentId === comment._id ? "Close Suggestion" : "Add Suggestion"}
-                                                </button>
-                                            </div>
-                                            {comment.comments.length > 0
-                                                ? comment.comments.map((innerComment) => {
-                                                    const roleClass = innerComment.role === "admin"
-                                                        ? (innerComment.userId === user.id ? "inner-comment you" : "inner-comment admin")
-                                                        : "inner-comment reviewer";
-
-                                                    return (
-                                                        <div
-                                                            key={innerComment._id}
-                                                            className={roleClass}
-                                                            id={`inner-comment-${innerComment._id}`}
+                                                    <div
+                                                        className="comment-header"
+                                                        id="comment-header"
+                                                        style={{
+                                                            display: "flex",
+                                                            justifyContent: "space-between",
+                                                            wordBreak: "break-word",
+                                                        }}
+                                                    >
+                                                        <p
+                                                            key={comment.paperId}
+                                                            className="comment-author"
+                                                            id={`comment-author-${comment._id}`}
                                                         >
-                                                            <p
-                                                                className={`inner-comment-role ${roleClass}`}
-                                                                id={`inner-comment-role-${innerComment._id}`}
-                                                            >
-                                                                <strong>{innerComment.role === "admin" ? (innerComment.userId === user.id ? "You" : "Admin") : "Reviewer"}:</strong>
-                                                            </p>
-                                                            <p
-                                                                className="inner-comment-text"
-                                                                id={`inner-comment-text-${innerComment._id}`}
-                                                            >
-                                                                {innerComment.commentText}
-                                                            </p>
-                                                        </div>
-                                                    );
-                                                })
-                                                : ""
-                                            }
-                                        </Box>
-                                        {activeCommentId === comment._id && (
-                                            <Box className="comment-input-section" id="comment-input-section" sx={{ marginTop: 4 }}>
-                                                <TextField
-                                                    id="comment-input"
-                                                    name="comment-input"
-                                                    fullWidth
-                                                    multiline
-                                                    rows={4}
-                                                    placeholder="Add your comment or suggestion"
-                                                    value={newComment}
-                                                    onChange={(e) => setNewComment(e.target.value)}
-                                                />
-                                                <Button
-                                                    className="submit-comment-button" id="submit-comment-button"
-                                                    variant="contained"
-                                                    color="primary"
-                                                    onClick={() => addComment(newComment)}
-                                                    disabled={!newComment.trim()}
-                                                    sx={{ marginTop: 2 }}
-                                                >
-                                                    Add Suggestion
-                                                </Button>
-                                            </Box>
-                                        )}
-                                    </div>
+                                                            Feedback by:{" "}
+                                                            {emailToNameMap[comment.email] || "Unknown"} (
+                                                            {comment.email})
+                                                        </p>
+                                                        <button
+                                                            className="toggle-suggestion-button btn btn-outline-info"
+                                                            style={{ maxHeight: "45px" }}
+                                                            id={`toggle-suggestion-${comment._id}`}
+                                                            onClick={() => {
+                                                                if (activeCommentId === comment._id) {
+                                                                    setActiveCommentId(null);
+                                                                    setEmailCommentId(null);
+                                                                } else {
+                                                                    setActiveCommentId(comment._id);
+                                                                    setEmailCommentId(comment.email);
+                                                                }
+                                                            }}
+                                                        >
+                                                            {activeCommentId === comment._id
+                                                                ? "Close Suggestion"
+                                                                : "Add Suggestion"}
+                                                        </button>
+                                                    </div>
+                                                    {comment.comments.length > 0
+                                                        ? comment.comments.map((innerComment) => {
+                                                            const roleClass =
+                                                                innerComment.role === "admin"
+                                                                    ? innerComment.userId === user.id
+                                                                        ? "inner-comment you"
+                                                                        : "inner-comment admin"
+                                                                    : "inner-comment reviewer";
+
+                                                            return (
+                                                                <div
+                                                                    key={innerComment._id}
+                                                                    className={roleClass}
+                                                                    id={`inner-comment-${innerComment._id}`}
+                                                                >
+                                                                    <p
+                                                                        className={`inner-comment-role ${roleClass}`}
+                                                                        id={`inner-comment-role-${innerComment._id}`}
+                                                                    >
+                                                                        <strong>
+                                                                            {innerComment.role === "admin"
+                                                                                ? innerComment.userId === user.id
+                                                                                    ? "You"
+                                                                                    : "Admin"
+                                                                                : "Reviewer"}
+                                                                            :
+                                                                        </strong>
+                                                                    </p>
+                                                                    <p
+                                                                        className="inner-comment-text"
+                                                                        id={`inner-comment-text-${innerComment._id}`}
+                                                                    >
+                                                                        {innerComment.commentText}
+                                                                    </p>
+                                                                </div>
+                                                            );
+                                                        })
+                                                        : ""}
+                                                </Box>
+                                                {activeCommentId === comment._id && (
+                                                    <Box
+                                                        className="comment-input-section"
+                                                        id="comment-input-section"
+                                                        sx={{ marginTop: 4 }}
+                                                    >
+                                                        <TextField
+                                                            id="comment-input"
+                                                            name="comment-input"
+                                                            fullWidth
+                                                            multiline
+                                                            rows={4}
+                                                            placeholder="Add your comment or suggestion"
+                                                            value={newComment}
+                                                            onChange={(e) => setNewComment(e.target.value)}
+                                                        />
+                                                        <Button
+                                                            className="submit-comment-button"
+                                                            id="submit-comment-button"
+                                                            variant="contained"
+                                                            color="primary"
+                                                            onClick={() => addComment(newComment)}
+                                                            disabled={!newComment.trim()}
+                                                            sx={{ marginTop: 2 }}
+                                                        >
+                                                            Add Suggestion
+                                                        </Button>
+                                                    </Box>
+                                                )}
+                                            </div>
+                                        )
                                 )
-                            ))
-                        ) : (
-                            ""
-                        )}
-                        <p className="no-comments-message" id="no-comments-message">{feedbackMessage ? "Paper has no Feedback yet" : ""}</p>
+                            : ""}
+                        <p className="no-comments-message" id="no-comments-message">
+                            {feedbackMessage ? "Paper has no Feedback yet" : ""}
+                        </p>
                     </div>
                 </div>
             ) : (
