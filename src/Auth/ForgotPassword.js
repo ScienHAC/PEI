@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 const ForgotPassword = () => {
     const navigate = useNavigate();
+    const [showPassword, setShowPassword] = useState(false);
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({
         email: '',
@@ -68,6 +69,10 @@ const ForgotPassword = () => {
         setTimeout(() => setMessage(''), 2000);
     };
 
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
+    };
+
     return (
         <>
             <br />
@@ -106,15 +111,34 @@ const ForgotPassword = () => {
                                 />
 
                                 <label htmlFor="newPassword">New Password</label>
-                                <input
-                                    type="password"
-                                    id="newPassword"
-                                    name="newPassword"
-                                    value={formData.newPassword}
-                                    onChange={handleChange}
-                                    className="form-control mb-3"
-                                    required
-                                />
+                                <div className="password-container" style={{ position: 'relative' }}>
+                                    <input
+                                        type={showPassword ? 'text' : 'password'}
+                                        id="newPassword"
+                                        name="newPassword"
+                                        value={formData.newPassword}
+                                        onChange={handleChange}
+                                        className="form-control mb-3"
+                                        required
+                                    />
+                                    {/* Eye icon to toggle visibility on the left */}
+                                    <span
+                                        className="toggle-password"
+                                        onClick={togglePasswordVisibility}
+                                        style={{
+                                            cursor: 'pointer',
+                                            position: 'absolute',
+                                            right: '10px',
+                                            top: '10px',
+                                        }}
+                                    >
+                                        {showPassword ? (
+                                            <i className="fa fa-eye-slash" style={{ fontSize: '20px' }}></i>
+                                        ) : (
+                                            <i className="fa fa-eye" style={{ fontSize: '20px' }}></i>
+                                        )}
+                                    </span>
+                                </div>
                             </>
                         )}
 
