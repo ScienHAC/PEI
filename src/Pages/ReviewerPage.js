@@ -347,7 +347,7 @@ const ReviewerPage = () => {
                                     zIndex: 9999,
                                     width: "50vw",
                                     maxHeight: "800px",
-                                    overflowY: "auto",
+                                    // overflowY: "auto",
                                     opacity: 0.95,
                                 }}
                             >
