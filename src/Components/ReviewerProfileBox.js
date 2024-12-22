@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ReviewerProfileBox = ({ email, paperId }) => {
+const ReviewerProfileBox = ({ email }) => {
     return (
         <div
             style={{
@@ -20,7 +20,6 @@ const ReviewerProfileBox = ({ email, paperId }) => {
             <div>
                 <h3>Reviewer Profile</h3>
                 <p><strong>Email:</strong> {email}</p>
-                <p> {paperId}</p>
             </div>
         </div>
     )
