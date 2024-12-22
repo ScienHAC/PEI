@@ -8,6 +8,7 @@ import Box from "@mui/material/Box";
 import "../CSS/ReviewerPage.css";
 import Loader from "../Components/Loader";
 import useAuth from "../Hooks/useAuth";
+import ProfileBox from "../Components/ReviewerProfileBox";
 
 const ReviewerPage = () => {
     const { id: paperId } = useParams();
@@ -29,6 +30,7 @@ const ReviewerPage = () => {
     const [loadData, setLoadData] = useState(true);
     const [reviewerStatuses, setReviewerStatuses] = useState([]);
     const [mergedData, setMergedData] = useState([]);
+    const [hoveredReviewer, setHoveredReviewer] = useState(null);
 
     useEffect(() => {
         const checkPaperExists = async () => {
@@ -441,13 +443,16 @@ const ReviewerPage = () => {
                                                     justifyContent: "space-between",
                                                 }}
                                             >
-                                                <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                                                <div key={reviewer.email} style={{ display: "flex", flexDirection: "column", justifyContent: "center" }} onMouseEnter={() => setHoveredReviewer(reviewer.email)} onMouseLeave={() => setHoveredReviewer(null)}>
                                                     <p>
                                                         <strong>Name:</strong> {reviewer.name || "N/A"}
                                                     </p>
                                                     <p>
                                                         <strong>Email:</strong> {reviewer.email}
                                                     </p>
+                                                    {hoveredReviewer === reviewer.email && (
+                                                        <ProfileBox />
+                                                    )}
                                                 </div>
                                                 <button
                                                     className="btn"
