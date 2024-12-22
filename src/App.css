@@ -376,3 +376,14 @@ h2#home_pei_max img {
 ::-webkit-scrollbar-thumb:hover {
     background-color: #555;
 }
+
+.modal-header .btn-close {
+    cursor: pointer;
+    height: 10px;
+    width: 30px;
+    border-radius: 10px;
+}
+
+.modal-header .btn-close:hover {
+    opacity: 0.8; 
+}

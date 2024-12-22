@@ -1,30 +1,39 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import PrivacyPolicy from "../Pages/PrivacyPolicy";
+import TermsandConditions from "../Pages/TermsandConditions";
+import { Modal, Button } from "react-bootstrap";
 
 const Signup = () => {
     const navigate = useNavigate();
-    const [message, setMessage] = useState('');
+    const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
     const [otpStep, setOtpStep] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        password: '',
-        contact: '',
-        otp: ''
+        name: "",
+        email: "",
+        password: "",
+        contact: "",
+        otp: "",
     });
+    const [termsChecked, setTermsChecked] = useState(false);
+    const [showPrivacyModal, setShowPrivacyModal] = useState(false);
+    const [showTermsModal, setShowTermsModal] = useState(false);
 
     useEffect(() => {
-        // Show message if the page is refreshed
-        setMessage('Please complete your signup process.');
+        setMessage("Please complete your signup process.");
     }, []);
 
     const handleChange = (e) => {
         setFormData({
             ...formData,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
         });
+    };
+
+    const handleCheckboxChange = (e) => {
+        setTermsChecked(e.target.checked);
     };
 
     const handleSubmit = async (e) => {
@@ -36,57 +45,57 @@ const Signup = () => {
             name: formData.name.trim().toLowerCase(),
             email: formData.email.trim().toLowerCase(),
             contact: formData.contact.trim(),
-            password: formData.password
+            password: formData.password,
         };
 
         if (otpStep) {
-            // Handle OTP verification
             try {
-                const response = await fetch(`${process.env.REACT_APP_hostURL}/auth/verify-otp-signup`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(formData),
-                    credentials: 'include',
-                });
+                const response = await fetch(
+                    `${process.env.REACT_APP_hostURL}/auth/verify-otp-signup`,
+                    {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(formData),
+                        credentials: "include",
+                    }
+                );
 
                 const result = await response.json();
 
                 if (response.ok) {
-                    setMessage('OTP verified successfully!');
-                    navigate('/', { replace: true });
+                    setMessage("OTP verified successfully!");
+                    navigate("/", { replace: true });
                 } else {
-                    setMessage(result.message || 'Verification failed. Please try again.');
+                    setMessage(result.message || "Verification failed. Please try again.");
                 }
             } catch (error) {
-                console.error('Error:', error);
-                setMessage('An error occurred during OTP verification. Please try again.');
+                console.error("Error:", error);
+                setMessage("An error occurred during OTP verification. Please try again.");
             }
         } else {
-            // Handle user signup
             try {
                 const response = await fetch(`${process.env.REACT_APP_hostURL}/auth/signup`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(finalData),
-                    credentials: 'include',
+                    credentials: "include",
                 });
 
                 const result = await response.json();
 
                 if (response.ok) {
-                    setOtpStep(true); // Switch to OTP step
-                    setMessage('Signup successful! Please check your email for the OTP.');
+                    setOtpStep(true);
+                    setMessage("Signup successful! Please check your email for the OTP.");
                 } else {
-                    setMessage(result.message || 'Signup failed. Please try again.');
+                    setMessage(result.message || "Signup failed. Please try again.");
                 }
-
             } catch (error) {
-                console.error('Error:', error);
-                setMessage('An error occurred during signup. Please try again.');
+                console.error("Error:", error);
+                setMessage("An error occurred during signup. Please try again.");
             }
         }
         setLoading(false);
-        setTimeout(() => setMessage(''), 2000);
+        setTimeout(() => setMessage(""), 2000);
     };
 
     const togglePasswordVisibility = () => {
@@ -95,10 +104,9 @@ const Signup = () => {
 
     return (
         <>
-            <br />
             <div className="container d-flex justify-content-center align-items-center min-vh-100">
                 <div className="col-12 col-sm-8 col-md-6 col-lg-4">
-                    <h1>{otpStep ? 'Verify OTP' : 'Signup'}</h1>
+                    <h1>{otpStep ? "Verify OTP" : "Signup"}</h1>
                     <form onSubmit={handleSubmit}>
                         {!otpStep && !loading && (
                             <>
@@ -125,38 +133,35 @@ const Signup = () => {
                                 />
 
                                 <label htmlFor="password">Password</label>
-                                <div className="password-container" style={{ position: 'relative' }}>
+                                <div className="password-container" style={{ position: "relative" }}>
                                     <input
-                                        type={showPassword ? 'text' : 'password'}
+                                        type={showPassword ? "text" : "password"}
                                         id="password"
                                         name="password"
                                         value={formData.password}
                                         onChange={handleChange}
                                         className="form-control mb-3"
                                         required
-                                        style={{ paddingLeft: 'auto' }}
                                     />
-
-                                    {/* Eye icon to toggle visibility on the left */}
                                     <span
                                         className="toggle-password"
                                         onClick={togglePasswordVisibility}
                                         style={{
-                                            cursor: 'pointer',
-                                            position: 'absolute',
-                                            right: '10px',
-                                            top: '10px',
+                                            cursor: "pointer",
+                                            position: "absolute",
+                                            right: "10px",
+                                            top: "10px",
                                         }}
                                     >
                                         {showPassword ? (
-                                            <i className="fa fa-eye-slash" style={{ fontSize: '20px' }}></i>
+                                            <i className="fa fa-eye-slash" style={{ fontSize: "20px" }}></i>
                                         ) : (
-                                            <i className="fa fa-eye" style={{ fontSize: '20px' }}></i>
+                                            <i className="fa fa-eye" style={{ fontSize: "20px" }}></i>
                                         )}
                                     </span>
                                 </div>
 
-                                <label htmlFor="contactNo">Contact No</label>
+                                <label htmlFor="contact">Contact No</label>
                                 <input
                                     type="tel"
                                     id="contact"
@@ -164,8 +169,39 @@ const Signup = () => {
                                     value={formData.contact}
                                     onChange={handleChange}
                                     className="form-control mb-3"
+                                    inputMode="numeric"
+                                    pattern="[0-9]*"
                                     required
                                 />
+
+                                <div className="form-check">
+                                    <input
+                                        type="checkbox"
+                                        className="form-check-input"
+                                        id="termsCheckbox"
+                                        checked={termsChecked}
+                                        onChange={handleCheckboxChange}
+                                        style={{ cursor: 'pointer' }}
+                                    />
+                                    <label className="form-check-label" htmlFor="termsCheckbox">
+                                        I agree to the{" "}
+                                        <button
+                                            type="button"
+                                            className="btn btn-link p-0"
+                                            onClick={() => setShowPrivacyModal(true)}
+                                        >
+                                            Privacy Policy
+                                        </button>{" "}
+                                        and{" "}
+                                        <button
+                                            type="button"
+                                            className="btn btn-link p-0"
+                                            onClick={() => setShowTermsModal(true)}
+                                        >
+                                            Terms and Conditions
+                                        </button>
+                                    </label>
+                                </div>
                             </>
                         )}
 
@@ -184,22 +220,57 @@ const Signup = () => {
                             </>
                         )}
                         {!loading && (
-                            <button type="submit" className="btn btn-outline-success btn-block btn-form-auth">
-                                {otpStep ? 'Verify OTP' : 'Sign Up'}
+                            <button
+                                type="submit"
+                                className="btn btn-outline-success btn-block btn-form-auth"
+                                disabled={!termsChecked}
+                                style={{
+                                    cursor: termsChecked ? 'pointer' : 'not-allowed',
+                                }}
+                            >
+                                {otpStep ? "Verify OTP" : "Sign Up"}
                             </button>
                         )}
                     </form>
 
-                    {/* Loader container */}
                     <div className="d-flex justify-content-center align-items-center mt-4">
                         {loading && <span className="loader"></span>}
                     </div>
                     {message && <p>{message}</p>}
                 </div>
             </div>
+
+            {/* Privacy Policy Modal */}
+            <Modal show={showPrivacyModal} onHide={() => setShowPrivacyModal(false)} size="lg">
+                <Modal.Header closeButton>
+                    <Modal.Title>Privacy Policy</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <PrivacyPolicy />
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowPrivacyModal(false)}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+
+            {/* Terms and Conditions Modal */}
+            <Modal show={showTermsModal} onHide={() => setShowTermsModal(false)} size="lg">
+                <Modal.Header closeButton>
+                    <Modal.Title>Terms and Conditions</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <TermsandConditions />
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowTermsModal(false)}>
+                        Close
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </>
     );
 };
 
 export default Signup;
-
