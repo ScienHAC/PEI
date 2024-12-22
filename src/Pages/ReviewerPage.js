@@ -451,7 +451,7 @@ const ReviewerPage = () => {
                                                         <strong>Email:</strong> {reviewer.email}
                                                     </p>
                                                     {hoveredReviewer === reviewer.email && (
-                                                        <ProfileBox />
+                                                        <ProfileBox email={reviewer.email} paperId={paperId} />
                                                     )}
                                                 </div>
                                                 <button

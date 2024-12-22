@@ -1,9 +1,9 @@
 import React from 'react'
 
-const ReviewerProfileBox = () => {
+const ReviewerProfileBox = ({ email, paperId }) => {
     return (
         <div>
-            <h1>hello</h1>
+            <h1>{email}{paperId}</h1>
         </div>
     )
 }
