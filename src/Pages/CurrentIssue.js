@@ -46,44 +46,46 @@ const CurrentIssue = () => {
                     <h2 className="current-issue-subheading">Latest Volume Data for Year: {latestYear}</h2>
                     <ul className="current-issue-list">
                         {currentVolumeData.map((volume, volIndex) => (
-                            <li key={volIndex} className="current-issue-item" style={{ listStyle: 'none' }}>
-                                <h3 className="quarter-title">{`${volume.quarter}`}</h3>
-                                {volume.volumes.slice().reverse().map((volGroup, groupIndex) => (
-                                    <div key={groupIndex} className="volume-group">
-                                        <h4 className="group-title">{volGroup.volume}</h4>
-                                        <ul className="paper-list">
-                                            {volGroup.papers.slice().reverse().map((paper, paperIndex) => (
-                                                <li key={paperIndex} className="paper-card">
-                                                    <div className="paper-details">
-                                                        <h5 className="paper-title">{paper.title}</h5>
-                                                        <p><strong>Author:</strong> {paper.author}</p>
-                                                        <p><strong>Abstract:</strong> {paper.abstract}</p>
-                                                        <p><strong>Published on:</strong> {new Date(paper.createdAt).toLocaleDateString()}</p>
-                                                    </div>
-                                                    <div className="paper-actions">
-                                                        <a
-                                                            href={`${process.env.REACT_APP_hostURL}/api/uploads/${paper.filePath}`}
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                            className="pdf-link"
-                                                        >
-                                                            View PDF
-                                                        </a>
-                                                        <a
-                                                            href={`${process.env.REACT_APP_hostURL}/api/uploads/${paper.filePath}`}
-                                                            download
-                                                            className="pdf-link"
-                                                        >
-                                                            Download PDF
-                                                        </a>
-                                                    </div>
-                                                </li>
-                                            ))}
+                            volume.volumes.length > 0 && (
+                                <li key={volIndex} className="current-issue-item" style={{ listStyle: 'none' }}>
+                                    <h3 className="quarter-title">{`${volume.quarter}`}</h3>
+                                    {volume.volumes.slice().reverse().map((volGroup, groupIndex) => (
+                                        <div key={groupIndex} className="volume-group">
+                                            <h4 className="group-title">{volGroup.volume}</h4>
+                                            <ul className="paper-list">
+                                                {volGroup.papers.slice().reverse().map((paper, paperIndex) => (
+                                                    <li key={paperIndex} className="paper-card">
+                                                        <div className="paper-details">
+                                                            <h5 className="paper-title">{paper.title}</h5>
+                                                            <p><strong>Author:</strong> {paper.author}</p>
+                                                            <p><strong>Abstract:</strong> {paper.abstract}</p>
+                                                            <p><strong>Published on:</strong> {new Date(paper.createdAt).toLocaleDateString()}</p>
+                                                        </div>
+                                                        <div className="paper-actions">
+                                                            <a
+                                                                href={`${process.env.REACT_APP_hostURL}/api/uploads/${paper.filePath}`}
+                                                                target="_blank"
+                                                                rel="noopener noreferrer"
+                                                                className="pdf-link"
+                                                            >
+                                                                View PDF
+                                                            </a>
+                                                            <a
+                                                                href={`${process.env.REACT_APP_hostURL}/api/uploads/${paper.filePath}`}
+                                                                download
+                                                                className="pdf-link"
+                                                            >
+                                                                Download PDF
+                                                            </a>
+                                                        </div>
+                                                    </li>
+                                                ))}
 
-                                        </ul>
-                                    </div>
-                                ))}
-                            </li>
+                                            </ul>
+                                        </div>
+                                    ))}
+                                </li>
+                            )
                         ))}
                     </ul>
                 </div>
