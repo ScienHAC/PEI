@@ -85,31 +85,37 @@ const Archives = () => {
                                 {volumesData.map(({ quarter, volumes }) => (
                                     <div key={quarter} style={{ padding: '10px' }}>
                                         <h3 style={{ fontSize: '16px', fontWeight: 'bold', color: '#333' }}>{quarter}</h3>
-                                        <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', flexWrap: 'wrap' }}>
-                                            {volumes.map((volume, index) => (
-                                                <button
-                                                    key={index}
-                                                    onClick={() => handleVolumeClick(quarter.replace(/\s+/g, '-').toLowerCase(), volume.volume)}
-                                                    style={{
-                                                        padding: '10px 15px',
-                                                        fontSize: '14px',
-                                                        cursor: 'pointer',
-                                                        backgroundColor: '#28A745',
-                                                        color: 'white',
-                                                        border: 'none',
-                                                        borderRadius: '5px',
-                                                        transition: 'background-color 0.3s, transform 0.3s',
-                                                        boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-                                                    }}
-                                                    onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#218838'}
-                                                    onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#28A745'}
-                                                    onFocus={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-                                                    onBlur={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                                                >
-                                                    {volume.volume}
-                                                </button>
-                                            ))}
-                                        </div>
+                                        {volumes.length > 0 ? (
+                                            <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', flexWrap: 'wrap' }}>
+                                                {volumes.map((volume, index) => (
+                                                    <button
+                                                        key={index}
+                                                        onClick={() => handleVolumeClick(quarter.replace(/\s+/g, '-').toLowerCase(), volume.volume)}
+                                                        style={{
+                                                            padding: '10px 15px',
+                                                            fontSize: '14px',
+                                                            cursor: 'pointer',
+                                                            backgroundColor: '#28A745',
+                                                            color: 'white',
+                                                            border: 'none',
+                                                            borderRadius: '5px',
+                                                            transition: 'background-color 0.3s, transform 0.3s',
+                                                            boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
+                                                        }}
+                                                        onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#218838'}
+                                                        onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#28A745'}
+                                                        onFocus={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                                                        onBlur={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                                                    >
+                                                        {volume.volume}
+                                                    </button>
+                                                ))}
+                                            </div>
+                                        ) : (
+                                            <div style={{ padding: '10px', textAlign: 'center', color: '#333' }}>
+                                                No Paper Published.
+                                            </div>
+                                        )}
                                     </div>
                                 ))}
                             </div>
