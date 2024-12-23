@@ -6,9 +6,12 @@ const InvitePage = () => {
     const [isValid, setIsValid] = useState(false);
     const [isReviewer, setIsReviewer] = useState(false);
     const [error, setError] = useState('');
+    const [affiliation, setAffiliation] = useState('');
+    const [areaOfSpecialization, setAreaOfSpecialization] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [inviteData, setInviteData] = useState({});
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -42,12 +45,18 @@ const InvitePage = () => {
             return;
         }
 
+        const body = {
+            password,
+            affiliation,
+            areaOfSpecialization
+        };
+
         try {
-            const response = await fetch(`${process.env.REACT_APP_hostURL}/api/reviewer/set-password/${inviteid}`, {
+            const response = await fetch(`${process.env.REACT_APP_hostURL}/api/reviewer/set-password-and-details/${inviteid}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 credentials: 'include',
-                body: JSON.stringify({ password }),
+                body: JSON.stringify(body),
             });
 
             const data = await response.json();
@@ -60,6 +69,34 @@ const InvitePage = () => {
         } catch (error) {
             setError('Error submitting password');
         }
+    };
+
+    const handleReject = async () => {
+        const confirmReject = window.confirm('Are you sure you want to reject this invite?');
+
+        if (confirmReject) {
+            try {
+                const response = await fetch(`${process.env.REACT_APP_hostURL}/api/reviewer/reject-invite/${inviteid}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                });
+
+                const data = await response.json();
+
+                if (response.status === 200) {
+                    navigate('/');
+                } else {
+                    setError(data.message);
+                }
+            } catch (error) {
+                setError('Error rejecting the invite');
+            }
+        }
+    };
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword);
     };
 
     return (
@@ -83,6 +120,26 @@ const InvitePage = () => {
                     {!isReviewer && (
                         <>
                             <div style={styles.inputGroup}>
+                                <label style={styles.label}>Affiliation:</label>
+                                <input
+                                    type="text"
+                                    value={affiliation}
+                                    onChange={(e) => setAffiliation(e.target.value)}
+                                    required
+                                    style={styles.input}
+                                />
+                            </div>
+                            <div style={styles.inputGroup}>
+                                <label style={styles.label}>Area of Specialization:</label>
+                                <input
+                                    type="text"
+                                    value={areaOfSpecialization}
+                                    onChange={(e) => setAreaOfSpecialization(e.target.value)}
+                                    required
+                                    style={styles.input}
+                                />
+                            </div>
+                            <div style={styles.inputGroup}>
                                 <label style={styles.label}>Password:</label>
                                 <input
                                     type="password"
@@ -93,21 +150,41 @@ const InvitePage = () => {
                                     style={styles.input}
                                 />
                             </div>
-                            <div style={styles.inputGroup}>
+                            <div className="password-container" style={{ ...styles.inputGroup, position: 'relative' }}>
                                 <label style={styles.label}>Confirm Password:</label>
                                 <input
-                                    type="password"
+                                    type={showPassword ? 'text' : 'password'}
                                     value={confirmPassword}
                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                     required
                                     autoComplete="new-password"
                                     style={styles.input}
                                 />
+                                {/* Eye icon to toggle visibility on the left */}
+                                <span
+                                    className="toggle-password"
+                                    onClick={togglePasswordVisibility}
+                                    style={{
+                                        cursor: 'pointer',
+                                        position: 'absolute',
+                                        right: '10px',
+                                        top: '36px',
+                                    }}
+                                >
+                                    {showPassword ? (
+                                        <i className="fa fa-eye-slash" style={{ fontSize: '20px' }}></i>
+                                    ) : (
+                                        <i className="fa fa-eye" style={{ fontSize: '20px' }}></i>
+                                    )}
+                                </span>
                             </div>
                         </>
                     )}
                     <button type="submit" style={styles.submitButton}>
                         {isReviewer ? "Accept Invite" : "Set Password & Accept Invite"}
+                    </button>
+                    <button type="button" onClick={handleReject} style={styles.rejectButton} className="btn btn-danger">
+                        Reject
                     </button>
                     {error && <p style={styles.error}>{error}</p>}
                 </form>
@@ -179,6 +256,15 @@ const styles = {
         border: 'none',
         borderRadius: '5px',
         cursor: 'pointer',
+    },
+    rejectButton: {
+        backgroundColor: '#dc3545',
+        color: '#fff',
+        padding: '10px 20px',
+        border: 'none',
+        borderRadius: '5px',
+        cursor: 'pointer',
+        marginLeft: '10px',
     },
     error: {
         marginTop: '10px',

@@ -89,11 +89,13 @@ const ReviewerPage = () => {
     const getButtonStyles = (status) => {
         switch (status) {
             case 'not invited':
-                return { backgroundColor: '#ff5733', color: 'white', label: 'Invite', disabled: false };
+                return { backgroundColor: '#007bff', color: 'white', label: 'Invite', disabled: false };
             case 'not accepted':
-                return { backgroundColor: '#28a745', color: 'white', label: 'Re-Invite', disabled: false };
+                return { backgroundColor: '#0069d9', color: 'white', label: 'Re-Invite', disabled: false };
             case 'accepted':
-                return { backgroundColor: '#007bff', color: 'white', label: 'Invited', disabled: true };
+                return { backgroundColor: '#28a745', color: 'white', label: 'Invited', disabled: true };
+            case 'rejected':
+                return { backgroundColor: '#ff5733', color: 'white', label: 'Rejected', disabled: true };
             default:
                 return { backgroundColor: '#ccc', color: 'black', label: 'Unknown', disabled: true };
         }
