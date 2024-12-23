@@ -64,7 +64,7 @@ const ReviewerProfileBox = ({ email }) => {
             <h3>Reviewer Profile</h3>
 
             <p>
-                <strong>Name:</strong> {profileData.reviewerName}
+                <strong>Name:</strong> {profileData?.reviewerName}
             </p>
             <p>
                 <strong>Email:</strong> {email}
