@@ -8,8 +8,9 @@ const ReviewerProfileBox = ({ email }) => {
     useEffect(() => {
         const fetchProfileData = async () => {
             try {
+                const encodedEmail = encodeURIComponent(email);
                 const response = await fetch(
-                    `${process.env.REACT_APP_hostURL}/api/reviewer/profile-data?email=${email}`,
+                    `${process.env.REACT_APP_hostURL}/api/reviewer/profile-data?email=${encodedEmail}`,
                     {
                         method: 'GET',
                         credentials: 'include',
