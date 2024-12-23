@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import '../CSS/ReviewerProfileBox.css';
 
 const ReviewerProfileBox = ({ email }) => {
     const [profileData, setProfileData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [expanded, setExpanded] = useState(false);
 
     useEffect(() => {
         const fetchProfileData = async () => {
@@ -22,7 +24,6 @@ const ReviewerProfileBox = ({ email }) => {
                 }
 
                 const data = await response.json();
-
                 setProfileData(data);
                 setLoading(false);
             } catch (err) {
@@ -36,53 +37,16 @@ const ReviewerProfileBox = ({ email }) => {
 
     if (loading) {
         return (
-            <div
-                style={{
-                    position: 'fixed',
-                    maxWidth: '320px',
-                    backgroundColor: 'white',
-                    border: '1px solid #ddd',
-                    borderRadius: '8px',
-                    padding: '10px',
-                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-                    zIndex: 10,
-                    maxHeight: '200px',
-                    overflowY: 'auto',
-                    left: '-30px',
-                }}
-            >
+            <div className="profile-box">
                 <h3>Reviewer Profile</h3>
-                <div
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        height: '100%',
-                    }}
-                >
-                    <span className="loader"></span>
-                </div>
+                <div className="loader"></div>
             </div>
         );
     }
 
     if (error) {
         return (
-            <div
-                style={{
-                    position: 'fixed',
-                    maxWidth: '320px',
-                    backgroundColor: 'white',
-                    border: '1px solid #ddd',
-                    borderRadius: '8px',
-                    padding: '10px',
-                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-                    zIndex: 10,
-                    maxHeight: '200px',
-                    overflowY: 'auto',
-                    left: '-30px',
-                }}
-            >
+            <div className="profile-box">
                 <h3>Reviewer Profile</h3>
                 <p>Error: {error}</p>
             </div>
@@ -90,29 +54,40 @@ const ReviewerProfileBox = ({ email }) => {
     }
 
     return (
-        <div
-            style={{
-                position: 'fixed',
-                maxWidth: '320px',
-                backgroundColor: 'white',
-                border: '1px solid #ddd',
-                borderRadius: '8px',
-                padding: '10px',
-                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-                zIndex: 10,
-                maxHeight: '200px',
-                overflowY: 'auto',
-                left: '-30px',
-            }}
-        >
-            <div>
-                <h3>Reviewer Profile</h3>
-                <p><strong>Email:</strong> {email}</p>
-                <p><strong>Total Papers Assigned:</strong> {profileData.totalPaperAssigned}</p>
-                <p><strong>Total Papers Accepted:</strong> {profileData.totalPaperAccepted}</p>
-                <p><strong>Total Papers Not Accepted:</strong> {profileData.totalPaperNotAccepted}</p>
-                <p><strong>Total Pending Paper Feedback:</strong> {profileData.totalPendingPaperFeedback}</p>
-                <p><strong>Total Paper Feedback:</strong> {profileData.totalPaperFeedback}</p>
+        <div className={`profile-box ${expanded ? 'expanded' : ''}`}>
+            <button
+                className={`expand-btn ${expanded ? 'minimized' : ''}`}
+                onClick={() => setExpanded(!expanded)}
+            >
+                {expanded ? '-' : '+'}
+            </button>
+            <h3>Reviewer Profile</h3>
+
+            <p>
+                <strong>Email:</strong> {email}
+            </p>
+
+            <div className="grid-container">
+                <div className="tile pending">
+                    <strong>Total Pending Paper Feedback:</strong>
+                    <div className="number">{profileData.totalPendingPaperFeedback}</div>
+                </div>
+                <div className="tile accepted">
+                    <strong>Total Papers Accepted:</strong>
+                    <div className="number">{profileData.totalPaperAccepted}</div>
+                </div>
+                <div className="tile not-accepted">
+                    <strong>Total Papers Not Accepted:</strong>
+                    <div className="number">{profileData.totalPaperNotAccepted}</div>
+                </div>
+                <div className="tile assigned">
+                    <strong>Total Papers Assigned:</strong>
+                    <div className="number">{profileData.totalPaperAssigned}</div>
+                </div>
+                <div className="tile pending">
+                    <strong>Total Paper Feedback:</strong>
+                    <div className="number">{profileData.totalPaperFeedback}</div>
+                </div>
             </div>
         </div>
     );

@@ -443,7 +443,7 @@ const ReviewerPage = () => {
                                                     justifyContent: "space-between",
                                                 }}
                                             >
-                                                <div key={reviewer.email} style={{ display: "flex", flexDirection: "column", justifyContent: "center" }} onMouseEnter={() => setHoveredReviewer(reviewer.email)} onMouseLeave={() => setHoveredReviewer(null)}>
+                                                <div key={reviewer.email} style={{ display: "flex", flexDirection: "column", justifyContent: "center", cursor: 'pointer' }} onMouseEnter={() => setHoveredReviewer(reviewer.email)} onMouseLeave={() => setHoveredReviewer(null)}>
                                                     <p>
                                                         <strong>Name:</strong> {reviewer.name || "N/A"}
                                                     </p>
