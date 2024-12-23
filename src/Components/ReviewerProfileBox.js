@@ -52,7 +52,16 @@ const ReviewerProfileBox = ({ email }) => {
                 }}
             >
                 <h3>Reviewer Profile</h3>
-                <p>Loading profile data...</p>
+                <div
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: '100%',
+                    }}
+                >
+                    <span className="loader"></span>
+                </div>
             </div>
         );
     }
