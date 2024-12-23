@@ -68,24 +68,28 @@ const ReviewerProfileBox = ({ email }) => {
             </p>
 
             <div className="grid-container">
-                <div className="tile pending">
-                    <strong>Total Pending Paper Feedback:</strong>
-                    <div className="number">{profileData.totalPendingPaperFeedback}</div>
+                <div className="tile assigned">
+                    <strong>Total Papers Assigned:</strong>
+                    <div className="number">{profileData.totalPaperAssigned}</div>
+                </div>
+                <div className="tile not-accepted">
+                    <strong>Total Papers <span className="interactive-text">(Invite Link)</span> Awaiting Reviewer Response:</strong>
+                    <div className="number">{profileData.totalPaperNotAccepted}</div>
                 </div>
                 <div className="tile accepted">
                     <strong>Total Papers Accepted:</strong>
                     <div className="number">{profileData.totalPaperAccepted}</div>
                 </div>
-                <div className="tile not-accepted">
-                    <strong>Total Papers Not Accepted:</strong>
-                    <div className="number">{profileData.totalPaperNotAccepted}</div>
-                </div>
-                <div className="tile assigned">
-                    <strong>Total Papers Assigned:</strong>
-                    <div className="number">{profileData.totalPaperAssigned}</div>
+                <div className="tile rejected">
+                    <strong>Total Papers Rejected by Reviewers:</strong>
+                    <div className="number">{profileData.totalRejectedPaper}</div>
                 </div>
                 <div className="tile pending">
-                    <strong>Total Paper Feedback:</strong>
+                    <strong>Total Pending Paper Feedback:</strong>
+                    <div className="number">{profileData.totalPendingPaperFeedback}</div>
+                </div>
+                <div className="tile feedback">
+                    <strong>Total Paper Feedback Provided:</strong>
                     <div className="number">{profileData.totalPaperFeedback}</div>
                 </div>
             </div>
