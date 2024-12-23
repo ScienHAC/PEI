@@ -64,7 +64,16 @@ const ReviewerProfileBox = ({ email }) => {
             <h3>Reviewer Profile</h3>
 
             <p>
+                <strong>Name:</strong> {profileData.reviewerName}
+            </p>
+            <p>
                 <strong>Email:</strong> {email}
+            </p>
+            <p>
+                <strong>affiliation:</strong> {profileData.reviewerAffiliation || 'N/A'}
+            </p>
+            <p>
+                <strong>Area Of Specialization:</strong> {profileData.reviewerAreaOfSpecialization || 'N/A'}
             </p>
 
             <div className="grid-container">
