@@ -305,6 +305,7 @@ const ReviewerPage = () => {
                             margin: "0 auto",
                             wordBreak: "break-word",
                         }}
+                        onMouseLeave={() => setHoveredReviewer(null)}
                     >
                         <Autocomplete
                             className="reviewer-autocomplete"
@@ -446,7 +447,7 @@ const ReviewerPage = () => {
                                                     justifyContent: "space-between",
                                                 }}
                                             >
-                                                <div key={reviewer.email} style={{ display: "flex", flexDirection: "column", justifyContent: "center", cursor: 'pointer' }} onMouseEnter={() => setHoveredReviewer(reviewer.email)} onMouseLeave={() => setHoveredReviewer(null)}>
+                                                <div key={reviewer.email} style={{ display: "flex", flexDirection: "column", justifyContent: "center", cursor: 'pointer', position: 'relative' }} onMouseEnter={() => setHoveredReviewer(reviewer.email)}>
                                                     <p>
                                                         <strong>Name:</strong> {reviewer.name || "N/A"}
                                                     </p>

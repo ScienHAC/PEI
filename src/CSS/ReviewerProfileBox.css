@@ -14,13 +14,13 @@
     left: 5vw;
     background: #f9f9f9;
     transform: translateX(-50%);
-    transition: all 0.3s ease-in-out;
 }
 
 .profile-box.expanded {
     max-width: 500px;
     height: 500px;
     max-height: 500px;
+    transition: all 0.3s ease-in-out;
 }
 
 .profile-box h3 {
