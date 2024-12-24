@@ -184,6 +184,12 @@ ul {
     padding: 0 10px 0 10px;
 }
 
+@media (max-width: 992px) {
+    #main_body {
+        width: 100vw;
+    }
+}
+
 #main_body h2,
 blockquote,
 h3,
@@ -385,5 +391,5 @@ h2#home_pei_max img {
 }
 
 .modal-header .btn-close:hover {
-    opacity: 0.8; 
+    opacity: 0.8;
 }
