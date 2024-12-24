@@ -1,7 +1,7 @@
 /* ReviewerProfileBox.css */
 
 .profile-box {
-    position: fixed;
+    position: absolute;
     max-width: 320px;
     background-color: white;
     border: 1px solid #ddd;
