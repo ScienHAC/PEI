@@ -303,6 +303,7 @@ const ReviewerPage = () => {
                             width: "100%",
                             maxWidth: "600px",
                             margin: "0 auto",
+                            wordBreak: "break-word",
                         }}
                     >
                         <Autocomplete
