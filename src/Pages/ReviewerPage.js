@@ -455,7 +455,7 @@ const ReviewerPage = () => {
                                                         <strong>Email:</strong> {reviewer.email}
                                                     </p>
                                                     {hoveredReviewer === reviewer.email && (
-                                                        <ProfileBox email={reviewer.email} />
+                                                        <ProfileBox email={reviewer.email} onMouseLeave={() => setHoveredReviewer(null)} />
                                                     )}
                                                 </div>
                                                 <button

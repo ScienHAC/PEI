@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../CSS/ReviewerProfileBox.css';
 
-const ReviewerProfileBox = ({ email }) => {
+const ReviewerProfileBox = ({ email, onMouseLeave }) => {
     const [profileData, setProfileData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -54,7 +54,7 @@ const ReviewerProfileBox = ({ email }) => {
     }
 
     return (
-        <div className={`profile-box ${expanded ? 'expanded' : ''}`}>
+        <div onMouseLeave={onMouseLeave} className={`profile-box ${expanded ? 'expanded' : ''}`}>
             <button
                 className={`expand-btn ${expanded ? 'minimized' : ''}`}
                 onClick={() => setExpanded(!expanded)}
