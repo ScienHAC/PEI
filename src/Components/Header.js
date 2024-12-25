@@ -11,10 +11,14 @@ export default function Header() {
     const location = useLocation();
     const userDetailsRef = useRef(null);
     const [showUserDetails, setShowUserDetails] = useState(false);
-    const [isDarkMode, setIsDarkMode] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
+    const [isDarkMode, setIsDarkMode] = useState(() => {
+        return JSON.parse(localStorage.getItem('isDarkMode')) || false;
+    });
 
     useEffect(() => {
+        localStorage.setItem('isDarkMode', JSON.stringify(isDarkMode));
+
         DarkReader.setFetchMethod(window.fetch);
         if (isDarkMode) {
             DarkReader.enable({
