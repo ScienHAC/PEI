@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import CurrentIssue from '../Pages/CurrentIssue';
 import { Link } from 'react-router-dom';
+import Loader from '../Components/Loader';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import '../CSS/Home.css';
 
 const Home = () => {
+    const [isWindowScrolled, setIsWindowScrolled] = useState(false);
     useEffect(() => {
         AOS.init({ duration: 800, easing: 'ease-in-out', once: false });
 
@@ -16,6 +18,7 @@ const Home = () => {
                     el.classList.remove('aos-animate');
                 }
             });
+            setIsWindowScrolled(true);
         };
 
         window.addEventListener('scroll', handleScroll);
@@ -62,15 +65,15 @@ const Home = () => {
             <div style={{
                 width: '100%',
                 padding: '20px',
-                border: '1px solid rgba(0, 0, 0, 0.1)',
+                // border: '1px solid rgba(0, 0, 0, 0.1)',
                 borderRadius: '8px',
                 backgroundColor: '#ffffff',
-                boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
+                // boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
                 margin: '20px 0',
                 color: 'rgb(19, 15, 15)',
             }}>
-                <h3 style={{ fontSize: '1.5rem', color: '#333', borderBottom: '2px solid #0066cc', paddingBottom: '5px' }}>Current Issue</h3>
-                <CurrentIssue />
+                <div style={{ fontSize: '1.5rem', color: '#333', borderBottom: '2px solid #0066cc', paddingBottom: '5px' }}></div>
+                {isWindowScrolled ? <CurrentIssue /> : <Loader />}
             </div>
         </div>
     );
