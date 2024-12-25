@@ -448,15 +448,17 @@ const ReviewerPage = () => {
                                                 }}
                                             >
                                                 <div key={reviewer.email} style={{ display: "flex", flexDirection: "column", justifyContent: "center", cursor: 'pointer', position: 'relative' }} onMouseEnter={() => setHoveredReviewer(reviewer.email)}>
-                                                    <p>
-                                                        <strong>Name:</strong> {reviewer.name || "N/A"}
-                                                    </p>
-                                                    <p>
-                                                        <strong>Email:</strong> {reviewer.email}
-                                                    </p>
-                                                    {hoveredReviewer === reviewer.email && (
+                                                    {hoveredReviewer === reviewer.email ? (
                                                         <ProfileBox email={reviewer.email} onMouseLeave={() => setHoveredReviewer(null)} />
-                                                    )}
+                                                    ) :
+                                                        <>
+                                                            <p>
+                                                                <strong>Name:</strong> {reviewer.name || "N/A"}
+                                                            </p>
+                                                            <p>
+                                                                <strong>Email:</strong> {reviewer.email}
+                                                            </p>
+                                                        </>}
                                                 </div>
                                                 <button
                                                     className="btn"
