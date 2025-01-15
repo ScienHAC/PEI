@@ -1,3 +1,65 @@
+// import React from 'react';
+
+// const EditorialBoard = () => {
+//     const containerStyle = {
+//         padding: '20px',
+//         backgroundColor: '#f9f9f9',
+//         borderRadius: '8px',
+//         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+//         maxWidth: '800px',
+//         margin: '20px auto',
+//     };
+
+//     const headerStyle = {
+//         fontFamily: 'Roboto Slab, serif',
+//         fontSize: '2.5rem',
+//         color: '#333',
+//         textAlign: 'center',
+//         marginBottom: '20px',
+//     };
+
+//     const listStyle = {
+//         listStyleType: 'none',
+//         padding: '0',
+//     };
+
+//     const listItemStyle = {
+//         fontSize: '1.2rem',
+//         color: '#555',
+//         padding: '8px 0',
+//         borderBottom: '1px solid #ddd',
+//     };
+
+//     const boardMembers = [
+//         { name: 'Dr. Pankaj Agarwal', title: 'Editor-In-Chief', email: 'dean.soet@krmangalam.edu.in' },
+//         { name: 'Dr Shweta Bansal', title: 'Editor', email: 'claire@example.com' },
+//         { name: 'Dr Aman Jatain', title: 'Editor', email: 'andrew@example.com' },
+//         { name: 'Dr Rupesh Kumar Tipu', title: 'Editor', email: 'simone@example.com' },
+//         { name: 'Dr. Digvijay Singh', title: 'Editor', email: 'bhavik@example.com' },
+//         { name: 'Dr Imran Siraj', title: 'Editor', email: 'quentin@example.com' },
+//     ];
+
+//     return (
+//         <div style={containerStyle}>
+//             <h1 style={headerStyle}>Editorial Board</h1>
+//             <ul style={listStyle}>
+//                 {boardMembers.map((member, index) => (
+//                     <li key={index} style={listItemStyle}>
+//                         <strong>{member.title}: </strong>
+//                         {member.name}
+//                         <br />
+//                         <a href={`mailto:${member.email}`} style={{ color: '#007bff', textDecoration: 'none' }}>
+//                             {member.email}
+//                         </a>
+//                     </li>
+//                 ))}
+//             </ul>
+//         </div>
+//     );
+// };
+
+// export default EditorialBoard;
+
 import React from 'react';
 
 const EditorialBoard = () => {
@@ -18,6 +80,12 @@ const EditorialBoard = () => {
         marginBottom: '20px',
     };
 
+    const sectionHeaderStyle = {
+        fontSize: '1.8rem',
+        color: '#555',
+        margin: '20px 0 10px',
+    };
+
     const listStyle = {
         listStyleType: 'none',
         padding: '0',
@@ -30,31 +98,59 @@ const EditorialBoard = () => {
         borderBottom: '1px solid #ddd',
     };
 
-    const boardMembers = [
-        { name: 'Samuel Westwood', title: 'Editor-In-Chief', email: 'samuel@example.com' },
-        { name: 'Andrew Chan', title: 'Editor', email: 'andrew@example.com' },
-        { name: 'Simone Reppermund', title: 'Editor', email: 'simone@example.com' },
-        { name: 'Bhavik Patel', title: 'Editor', email: 'bhavik@example.com' },
-        { name: 'Quentin Hanley', title: 'Editor', email: 'quentin@example.com' },
-        { name: 'Claire Turner', title: 'Editor', email: 'claire@example.com' },
-        { name: 'Weiguang Cui', title: 'Editor', email: 'weiguang@example.com' },
+    const linkStyle = {
+        color: '#007bff',
+        textDecoration: 'none',
+    };
+
+    const editorInChief = [
+        { name: 'Dr. Pankaj Agarwal', title: 'Editor-in-Chief', affiliation: 'KR Mangalam University, Gurugram, India', email: 'dean.soet@krmangalam.edu.in' },
     ];
+
+    const editors = [
+        { name: 'Dr Shweta Bansal', title: 'Editor', affiliation: 'KR Mangalam University, Gurugram, India', email: 'claire@example.com' },
+        { name: 'Dr Aman Jatain', title: 'Editor', affiliation: 'KR Mangalam University, Gurugram, India', email: 'andrew@example.com' },
+        { name: 'Dr Rupesh Kumar Tipu', title: 'Editor', affiliation: 'KR Mangalam University, Gurugram, India', email: 'simone@example.com' },
+        { name: 'Dr. Digvijay Singh', title: 'Editor', affiliation: 'KR Mangalam University, Gurugram, India', email: 'bhavik@example.com' },
+        { name: 'Dr Imran Siraj', title: 'Editor', affiliation: 'KR Mangalam University, Gurugram, India', email: 'quentin@example.com' },
+    ];
+
+    const editorialBoard = [
+        { name: 'Prof. (Dr.) Jenq-Haur Wang', affiliation: 'National Taiwan University, Taiwan (Computer Science)', email: 'jhwang@ntut.edu.tw' },
+        { name: 'Prof. (Dr.) Chuan-Ming Liu', affiliation: 'National Taipei University of Technology, Taiwan (Computer Science)', email: 'cmliu@ntut.edu.tw' },
+        { name: 'Prof. (Dr.) Maria Jose Escalona', affiliation: 'University of Seville, Spain (Software Engineering)', email: 'andreas.hinderks@iwt2.org' },
+        { name: 'Prof. (Dr.) Michael Bosnjak', affiliation: 'University of Trier, Germany (Psychology)', email: 'bosnjak@uni-trierde' },
+        { name: 'Prof. (Dr.) Hasan Koten', affiliation: 'Istanbul Medeniyet University, Turkey (Mechanical Engineering)', email: 'hasan.koten@medeniyet.edu.tr' },
+        { name: 'Dr. Umesh Kumar', affiliation: 'Air Radiators Pty Ltd, Lara, Australia (Mechanical Engineering)', email: 'Farooq_ahmad2@rediffmail.com' },
+        { name: 'Prof. (Dr.) Ágota Drégelyi-Kiss', affiliation: 'Óbuda University, Hungary (Mechanical Engineering)', email: '' },
+        { name: 'Mr. Farooque Ahmad', affiliation: 'Jazan University, Saudi Arabia (Mechanical Engineering)', email: '' },
+    ];
+
+    const renderMembers = (members) => (
+        members.map((member, index) => (
+            <li key={index} style={listItemStyle}>
+                <strong>{member.name}</strong>
+                <br />
+                {member.affiliation}
+                <br />
+                {member.email && (
+                    <a href={`mailto:${member.email}`} style={linkStyle}>{member.email}</a>
+                )}
+            </li>
+        ))
+    );
 
     return (
         <div style={containerStyle}>
             <h1 style={headerStyle}>Editorial Board</h1>
-            <ul style={listStyle}>
-                {boardMembers.map((member, index) => (
-                    <li key={index} style={listItemStyle}>
-                        <strong>{member.title}: </strong>
-                        {member.name}
-                        <br />
-                        <a href={`mailto:${member.email}`} style={{ color: '#007bff', textDecoration: 'none' }}>
-                            {member.email}
-                        </a>
-                    </li>
-                ))}
-            </ul>
+            <h2 style={sectionHeaderStyle}>Editor-in-Chief</h2>
+            <ul style={listStyle}>{renderMembers(editorInChief)}</ul>
+
+            <h2 style={sectionHeaderStyle}>Editors</h2>
+            <ul style={listStyle}>{renderMembers(editors)}</ul>
+
+            <h2 style={sectionHeaderStyle}>Editorial Board</h2>
+            <ul style={listStyle}>{renderMembers(editorialBoard)}</ul>
         </div>
     );
 };
