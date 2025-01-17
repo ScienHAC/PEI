@@ -110,6 +110,14 @@ const ResearchPaperForm = () => {
     // ** Handle form submission**
     const handleSubmit = async (event) => {
         event.preventDefault();
+        if (formData.author.length === 0) {
+            setSnackbar({
+                open: true,
+                message: "Please add at least one author before submitting.",
+                severity: "error",
+            });
+            return;
+        }
         if (validateForm()) {
             const formDataToSend = new FormData();
 
@@ -200,7 +208,7 @@ const ResearchPaperForm = () => {
                 {/* add multiple author code */}
 
                 <Alert severity="info" sx={{ mb: 2 }}>
-                    You can add authors by pressing "Enter" and add multiple authors.
+                    Press 'Enter' to add authors. You can add multiple authors.
                 </Alert>
 
                 <Autocomplete
@@ -214,6 +222,7 @@ const ResearchPaperForm = () => {
                             error={!!errors.author}
                             helperText={errors.author}
                             inputProps={{ ...params.inputProps, "aria-label": "Author" }}
+                            required
                         />
                     )}
                     value={formData.author}
