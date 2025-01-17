@@ -46,11 +46,11 @@ const EditorialBoard = () => {
     ];
 
     const editors = [
-        { name: 'Dr Shweta Bansal', title: 'Editor', affiliation: 'KR Mangalam University, Gurugram, India', email: 'claire@example.com' },
-        { name: 'Dr Aman Jatain', title: 'Editor', affiliation: 'KR Mangalam University, Gurugram, India', email: 'andrew@example.com' },
-        { name: 'Dr Rupesh Kumar Tipu', title: 'Editor', affiliation: 'KR Mangalam University, Gurugram, India', email: 'simone@example.com' },
-        { name: 'Dr. Digvijay Singh', title: 'Editor', affiliation: 'KR Mangalam University, Gurugram, India', email: 'bhavik@example.com' },
-        { name: 'Dr Imran Siraj', title: 'Editor', affiliation: 'KR Mangalam University, Gurugram, India', email: 'quentin@example.com' },
+        { name: 'Dr Shweta Bansal', title: 'Editor', affiliation: 'KR Mangalam University, Gurugram, India', email: 'shweta.bansal@krmangalam.edu.in' },
+        { name: 'Dr Aman Jatain', title: 'Editor', affiliation: 'KR Mangalam University, Gurugram, India', email: 'aman.jatain@krmangalam.edu.in' },
+        { name: 'Dr Rupesh Kumar Tipu', title: 'Editor', affiliation: 'KR Mangalam University, Gurugram, India', email: 'rupesh.kumar@krmangalam.edu.in' },
+        { name: 'Dr. Digvijay Singh', title: 'Editor', affiliation: 'KR Mangalam University, Gurugram, India', email: 'digvijay.singh@krmangalam.edu.in' },
+        { name: 'Dr Imran Siraj', title: 'Editor', affiliation: 'KR Mangalam University, Gurugram, India', email: 'imran.siraj@krmangalam.edu.in' },
     ];
 
     const editorialBoard = [
