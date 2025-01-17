@@ -16,6 +16,9 @@ import {
     FormControl,
 } from "@mui/material";
 import { useDropzone } from "react-dropzone";
+import { Country } from "../Components/CountryNames";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/material.css";
 import TemplatePaper from "../template/TemplatePaper.pdf";
 
 const StyledForm = styled(Paper)(({ theme }) => ({
@@ -87,8 +90,13 @@ const ResearchPaperForm = () => {
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
-        setFormData({ ...formData, [name]: value });
-        setErrors({ ...errors, [name]: "" });
+        setFormData((prev) => ({ ...prev, [name]: value }));
+        setErrors((prev) => ({ ...prev, [name]: "" }));
+    };
+
+    const handlePhoneChange = (value, data, event, formattedValue) => {
+        setFormData((prev) => ({ ...prev, contactNumber: formattedValue || value }));
+        setErrors((prev) => ({ ...prev, contactNumber: "" }));
     };
 
     const validateForm = () => {
@@ -222,7 +230,6 @@ const ResearchPaperForm = () => {
                             error={!!errors.author}
                             helperText={errors.author}
                             inputProps={{ ...params.inputProps, "aria-label": "Author" }}
-                            required
                         />
                     )}
                     value={formData.author}
@@ -266,17 +273,29 @@ const ResearchPaperForm = () => {
                     inputProps={{ "aria-label": "Author" }}
                 /> */}
 
-                <StyledTextField
-                    fullWidth
-                    label="Contact Number"
-                    name="contactNumber"
+                <PhoneInput
+                    country={"in"}
                     value={formData.contactNumber}
-                    onChange={handleInputChange}
-                    error={!!errors.contactNumber}
-                    helperText={errors.contactNumber}
-                    required
-                    inputProps={{ "aria-label": "Contact number" }}
+                    onChange={(value, data, event, formattedValue) => handlePhoneChange(value, data, event, formattedValue)}
+                    inputProps={{
+                        name: "contactNumber",
+                        required: true,
+                    }}
+                    enableSearch
+                    countryCodeEditable={false}
+                    containerStyle={{ width: "100%", marginBottom: "16px" }}
+                    inputStyle={{
+                        width: "100%",
+                        height: "45px",
+                        fontSize: "16px",
+                    }}
                 />
+
+                {errors.contactNumber && (
+                    <Typography color="error" variant="body2">
+                        {errors.contactNumber}
+                    </Typography>
+                )}
 
                 <StyledTextField
                     fullWidth
@@ -350,16 +369,38 @@ const ResearchPaperForm = () => {
                     )}
                 </FormControl>
 
-                <StyledTextField
+                <Autocomplete
                     fullWidth
-                    label="Country"
-                    name="country"
-                    value={formData.country}
-                    onChange={handleInputChange}
-                    error={!!errors.country}
-                    helperText={errors.country}
-                    required
-                    inputProps={{ "aria-label": "Country" }}
+                    options={Country}
+                    getOptionLabel={(option) => option}
+                    renderInput={(params) => (
+                        <StyledTextField
+                            {...params}
+                            label="Country"
+                            name="country"
+                            error={!!errors.country}
+                            helperText={errors.country}
+                            required
+                            inputProps={{
+                                ...params.inputProps,
+                                "aria-label": "Search Country",
+                                autoComplete: "off",
+                            }}
+                        />
+                    )}
+                    onChange={(event, value) => {
+                        setFormData({ ...formData, country: value || "" });
+                        setErrors({ ...errors, country: "" });
+                    }}
+                    value={formData.country || null}
+                    disableClearable
+                    ListboxProps={{
+                        style: {
+                            maxHeight: "200px",
+                            overflowY: "auto",
+                        },
+                    }}
+                    noOptionsText="No countries found"
                 />
 
                 <Box sx={{ mb: 2 }}>
