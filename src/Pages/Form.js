@@ -208,7 +208,7 @@ const ResearchPaperForm = () => {
                 {/* add multiple author code */}
 
                 <Alert severity="info" sx={{ mb: 2 }}>
-                    Press 'Enter' to add authors. You can add multiple authors.
+                    Press "Enter" to add authors. You can add multiple authors.
                 </Alert>
 
                 <Autocomplete
