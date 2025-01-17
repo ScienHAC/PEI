@@ -16,6 +16,7 @@ import {
     FormControl,
 } from "@mui/material";
 import { useDropzone } from "react-dropzone";
+import TemplatePaper from "../template/TemplatePaper.pdf";
 
 const StyledForm = styled(Paper)(({ theme }) => ({
     padding: theme.spacing(3),
@@ -383,6 +384,12 @@ const ResearchPaperForm = () => {
                         <LinearProgress variant="determinate" value={uploadProgress} />
                     </Box>
                 )}
+
+                <div className="d-flex justify-content-end">
+                    <a href={TemplatePaper} className="btn btn-link" target="_blank" rel="noreferrer">
+                        View Template/Instructions
+                    </a>
+                </div>
 
                 <Button
                     type="submit"
