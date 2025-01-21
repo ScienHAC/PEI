@@ -36,7 +36,7 @@ import ReviewerDashboard from "./Pages/ReviewerDashboard.js";
 function App() {
   return (
     <AuthProvider>
-      <Router>
+      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
         <Header />
         <div id="main">
           <div id="main_body">
