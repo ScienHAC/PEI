@@ -19,6 +19,11 @@ export const AuthProvider = ({ children }) => {
                 credentials: 'include',
             });
 
+            if (response.status === 401 || response.status === 204) {
+                setAuthState({ user: null, isAuthenticated: false, isAdmin: false, role: '' });
+                return;
+            }
+
             if (response.ok) {
                 const data = await response.json();
                 setAuthState({
