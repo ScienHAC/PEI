@@ -58,7 +58,7 @@ export default function Header() {
     const handleLogout = () => {
         // Logout user
         fetch(`${process.env.REACT_APP_hostURL}/auth/logout`, {
-            method: 'GET',
+            method: 'POST',
             credentials: 'include',
         })
             .then((response) => {
