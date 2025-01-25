@@ -21,7 +21,6 @@ import useAuth from "./Hooks/useAuth";
 import Profile from "./Pages/Profile";
 import ViewPaper from "./Pages/ViewPaper.js";
 import ContactForm from "./Pages/ContactForm.js";
-import HomeLoader from "./Components/HomeLoader.js";
 import Archives from "./Pages/Archives.js";
 import VolumePage from "./Pages/VolumePage.js";
 import CurrentIssue from "./Pages/CurrentIssue.js";
@@ -52,11 +51,7 @@ function App() {
 }
 
 function AuthRoutes() {
-  const { isAuthenticated, loading, role } = useAuth();
-
-  if (loading) {
-    return <HomeLoader />;
-  }
+  const { isAuthenticated, role } = useAuth();
 
   return (
     <Routes>
