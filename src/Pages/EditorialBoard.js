@@ -60,8 +60,8 @@ const EditorialBoard = () => {
         { name: 'Prof. (Dr.) Michael Bosnjak', affiliation: 'University of Trier, Germany (Psychology)', email: 'bosnjak@uni-trierde' },
         { name: 'Prof. (Dr.) Hasan Koten', affiliation: 'Istanbul Medeniyet University, Turkey (Mechanical Engineering)', email: 'hasan.koten@medeniyet.edu.tr' },
         { name: 'Dr. Umesh Kumar', affiliation: 'Air Radiators Pty Ltd, Lara, Australia (Mechanical Engineering)', email: 'Farooq_ahmad2@rediffmail.com' },
-        { name: 'Prof. (Dr.) Ágota Drégelyi-Kiss', affiliation: 'Óbuda University, Hungary (Mechanical Engineering)', email: '' },
-        { name: 'Mr. Farooque Ahmad', affiliation: 'Jazan University, Saudi Arabia (Mechanical Engineering)', email: '' },
+        { name: 'Prof. (Dr.) Ágota Drégelyi-Kiss', affiliation: 'Óbuda University, Hungary (Mechanical Engineering)', email: 'dregelyi.agota@bgk.uni-obuda.hu' },
+        { name: 'Mr. Farooque Ahmad', affiliation: 'Jazan University, Saudi Arabia (Mechanical Engineering)', email: 'farooq_ahmad2@rediffmail.com' },
     ];
 
     const renderMembers = (members) => (
