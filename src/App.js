@@ -44,7 +44,7 @@ function App() {
           </div>
         </div>
         <BackToTopButton />
-        <Footer name="PEI" />
+        <Footer name="ITME" />
       </Router>
     </AuthProvider>
   );

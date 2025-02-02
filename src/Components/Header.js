@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import pei_logo from '../Images/PEI_LOGO.png';
+import itme_logo from '../Images/ITME_LOGO.png';
 import * as DarkReader from 'darkreader';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -102,16 +102,16 @@ export default function Header() {
         <>
             <div id='info-bar'>
                 <div id='child-info-bar'>
-                    <span><FontAwesomeIcon className="mx-2" icon={faEnvelope} />support@example.com</span>
-                    <span><FontAwesomeIcon className="mx-2" icon={faPhone} />+(91) 99999 XXXXX</span>
+                    <span><FontAwesomeIcon className="mx-2" icon={faEnvelope} />support@krmangalam.edu.in</span>
+                    <span><FontAwesomeIcon className="mx-2" icon={faPhone} />+(91) 90693 60400</span>
                 </div>
             </div>
             <div id="topBar">
                 {/* for wider screen */}
                 <div id="innerBar-max" className='d-none d-lg-flex'>
-                    <img className="logo-max" src={pei_logo} alt="Logo" />
+                    <img className="logo-max" src={itme_logo} alt="Logo" />
                     <div id='childBar-max'>
-                        <h2 className="jnhd-max">Pioneering Engineering Insight</h2>
+                        <h2 className="jnhd-max">Innovations and Trends in Multidisciplinary Engineering</h2>
                         <p className="jndh-max">
                             ISSN: XXXX-XXXX
                         </p>
@@ -119,9 +119,9 @@ export default function Header() {
                 </div>
                 {/* for mobile pr lower screen */}
                 <div id="innerBar-min" className='d-lg-none'>
-                    <img className="logo-min" src={pei_logo} alt="Logo" />
+                    <img className="logo-min" src={itme_logo} alt="Logo" />
                     <div id='childBar-min'>
-                        <h2 className="jnhd-min">Pioneering Engineering Insight</h2>
+                        <h2 className="jnhd-min">Innovations and Trends in Multidisciplinary Engineering</h2>
                         <p className="jndh-min">
                             ISSN: 0923-4748
                         </p>
@@ -225,7 +225,7 @@ export default function Header() {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav me-auto nav-link-custom">
                         <li className="nav-item active">
-                            <Link className="nav-link" to="/">Welcome to PEI<span className="sr-only">(current)</span></Link>
+                            <Link className="nav-link" to="/">Welcome to ITME<span className="sr-only">(current)</span></Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/about">About</Link>

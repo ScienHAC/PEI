@@ -38,18 +38,18 @@ const About = () => {
 
     return (
         <div style={containerStyle}>
-            <h1 style={headerStyle}>About Pioneering Engineering Insight (PEI)</h1>
+            <h1 style={headerStyle}>About Innovations and Trends in Multidisciplinary Engineering (ITME)</h1>
             <p style={paragraphStyle}>
-                Pioneering Engineering Insight (PEI) is an international, peer-reviewed online journal published bi-monthly. Our mission is to provide a platform for genuine and reliable contributions to the scientific community through our Scholarly Open Access Initiative.
+                Innovations and Trends in Multidisciplinary Engineering (ITME) is an international, peer-reviewed online journal published bi-monthly. Our mission is to provide a platform for genuine and reliable contributions to the scientific community through our Scholarly Open Access Initiative.
             </p>
             <p style={paragraphStyle}>
-                PEI is committed to upholding the highest standards of quality and integrity in the research publication process. With a distinguished editorial board comprising eminent professionals, we ensure rapid and thorough peer review. This process not only enhances the quality of published research but also fosters academic collaboration.
+                ITME is committed to upholding the highest standards of quality and integrity in the research publication process. With a distinguished editorial board comprising eminent professionals, we ensure rapid and thorough peer review. This process not only enhances the quality of published research but also fosters academic collaboration.
             </p>
             <p style={paragraphStyle}>
-                Conferences affiliated with PEI serve as a perfect platform for global networking, bringing together renowned speakers and scientists from around the world. These events feature enlightening interactive sessions, world-class exhibitions, and poster presentations, creating an exciting and memorable experience for participants.
+                Conferences affiliated with ITME serve as a perfect platform for global networking, bringing together renowned speakers and scientists from around the world. These events feature enlightening interactive sessions, world-class exhibitions, and poster presentations, creating an exciting and memorable experience for participants.
             </p>
             <p style={paragraphStyle}>
-                As a highly-selective, peer-reviewed journal, PEI covers a broad spectrum of topics across various branches of engineering, science, and related fields. We provide numerous benefits aimed at strengthening research skills and advancing academic careers, including:
+                As a highly-selective, peer-reviewed journal, ITME covers a broad spectrum of topics across various branches of engineering, science, and related fields. We provide numerous benefits aimed at strengthening research skills and advancing academic careers, including:
             </p>
             <ul style={listStyle}>
                 <li style={listItemStyle}><strong>Fast, Quality & Easy Paper Publishing Process</strong>: Our streamlined process allows researchers to share their findings quickly and efficiently.</li>

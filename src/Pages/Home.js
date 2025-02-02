@@ -28,14 +28,14 @@ const Home = () => {
     return (
         <div style={{ maxWidth: '1200px', margin: 'auto', padding: '20px', fontSize: '1.1rem', lineHeight: '1.6' }}>
             <h2 id="home_pei_max" className="d-none d-lg-flex" style={{ fontSize: '2rem', textAlign: 'center', color: '#333' }}>
-                Welcome to PEI :
+                Welcome to ITME :
                 <img
                     src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=20&duration=3000&pause=1000&color=0066cc&vCenter=true&width=435&height=70&lines=Submit+Research+Paper;Explore+Our+Journals;Contribute+in+Research;24%2F7+Support"
                     alt="Typing SVG"
                 />
             </h2>
             <h2 id="home_pei_min" className="d-lg-none" style={{ fontSize: '1.5rem', textAlign: 'center', color: '#333' }}>
-                Welcome to PEI :
+                Welcome to ITME :
                 <img
                     src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=20&duration=3000&pause=1000&color=0066cc&vCenter=true&width=300&height=70&lines=Submit+Research+Paper;Explore+Our+Journals;Contribute+to+Knowledge;24%2F7+Support"
                     alt="Typing SVG"
@@ -43,7 +43,7 @@ const Home = () => {
             </h2>
 
             <blockquote style={{ borderLeft: '5px solid rgba(0, 0, 0, 0.1)', padding: '20px', color: 'rgb(19, 15, 15)', fontSize: '1.1rem', marginTop: '20px' }}>
-                <Link to="/" style={{ fontStyle: 'italic', textDecoration: 'underline', fontWeight: 'bold' }}>PIONEERING ENGINEERING INSIGHT</Link>
+                <Link to="/" style={{ fontStyle: 'italic', textDecoration: 'underline', fontWeight: 'bold' }}>INNOVATIONS AND TRENDS IN MULTIDISCIPLINARY ENGINEERING</Link>
                 (ISSN:XXXX-XXXX) is dedicated to publishing high-quality research in the field of Engineering. We provide a platform for scholars, researchers, and practitioners to share insights and drive advancements in technology and engineering management.
             </blockquote>
 
@@ -52,7 +52,7 @@ const Home = () => {
             <h3 style={{ fontSize: '1.8rem', color: 'rgb(19, 15, 15)', marginTop: '30px', textAlign: 'center' }}>Journal Insights</h3>
 
             <div className="grid" style={{ maxWidth: '900px', margin: '65px auto', gap: '90px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))' }}>
-                {['We Publish', 'Article Preparation', 'Peer Review', 'PEI Vision'].map((title, index) => (
+                {['We Publish', 'Article Preparation', 'Peer Review', 'ITME Vision'].map((title, index) => (
                     <div style={cardStyle} key={index} data-aos="fade-up">
                         <h4 style={cardHeaderStyle}>{title}</h4>
                         <p style={cardTextStyle}>
@@ -167,9 +167,9 @@ const getCardText = (title) => {
         case 'Article Preparation':
             return 'As part of the submission process, authors are requested to follow the guidelines before submission of manuscripts.';
         case 'Peer Review':
-            return 'PEI follows a double-blind peer review process where author and reviewer details are maintained confidential.';
-        case 'PEI Vision':
-            return 'We at PEI aim to promote scientific knowledge globally by publishing high-quality, peer-reviewed content.';
+            return 'ITME follows a double-blind peer review process where author and reviewer details are maintained confidential.';
+        case 'ITME Vision':
+            return 'We at ITME aim to promote scientific knowledge globally by publishing high-quality, peer-reviewed content.';
         default:
             return '';
     }

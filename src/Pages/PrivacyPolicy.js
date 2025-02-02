@@ -5,7 +5,7 @@ const PrivacyPolicy = () => {
         <div style={styles.privacyPolicy}>
             <h1 style={styles.header}>Privacy Policy</h1>
             <p style={styles.intro}>
-                At PEI (Pioneering Engineering Insight), we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your personal information when you interact with our website.
+                At ITME (Innovations and Trends in Multidisciplinary Engineering), we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your personal information when you interact with our website.
             </p>
 
             <section style={styles.policySection}>
@@ -66,7 +66,7 @@ const PrivacyPolicy = () => {
 
             <section style={styles.policySection}>
                 <h2 style={styles.sectionHeader}>Contact Information</h2>
-                <p>If you have any questions or concerns, please contact us at <a href="mailto:info@pei.com" style={styles.link}>info@pei.com</a>.</p>
+                <p>If you have any questions or concerns, please contact us at <a href="mailto:itme@krmangalam.edu.in" style={styles.link}>itme@krmangalam.edu.in</a>.</p>
             </section>
         </div>
     );

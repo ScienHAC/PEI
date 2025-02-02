@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import pei_logo from '../Images/PEI_LOGO.png';
+import itme_logo from '../Images/ITME_LOGO.png';
 
 const Footer = ({ name }) => {
     return (
@@ -26,7 +26,7 @@ const Footer = ({ name }) => {
             }}>
                 {/* Logo on the left */}
                 <div style={{ flex: '1', display: 'flex', alignItems: 'center', paddingLeft: '20px' }}>
-                    <img src={pei_logo} alt="PEI Logo" style={{ width: '100px', height: 'auto', transform: 'scale(1.5)' }} />
+                    <img src={itme_logo} alt="ITME Logo" style={{ width: '100px', height: 'auto', transform: 'scale(1.5)' }} />
                 </div>
 
                 {/* Privacy Policy and other details in the middle */}
@@ -40,14 +40,14 @@ const Footer = ({ name }) => {
                 {/* Contact details on the right */}
                 <div style={{ flex: '1', textAlign: 'right', paddingRight: '20px' }}>
                     <Link to="/contact" style={linkStyle}>Contact Us</Link>
-                    <span style={{ color: '#a8a8a8', display: 'block', marginBottom: '5px' }}>Phone: +123 456 7890</span>
-                    <a href="mailto:editor@pei.com" style={linkStyle}>Email: editor@pei.com</a>
+                    <span style={{ color: '#a8a8a8', display: 'block', marginBottom: '5px' }}>Phone: +91 90693 60400</span>
+                    <a href="mailto:itme@krmangalam.edu.in" style={linkStyle}>Email: itme@krmangalam.edu.in</a>
                 </div>
             </div>
 
             {/* Bottom Section with Copyright */}
             <div style={{ paddingTop: '10px' }}>
-                <p style={{ color: '#a8a8a8', margin: 0 }}>Copyright ©️ {name} 2024. All rights reserved.</p>
+                <p style={{ color: '#a8a8a8', margin: 0 }}>Copyright ©️ {name} 2025. All rights reserved.</p>
             </div>
         </footer>
     );
