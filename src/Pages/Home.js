@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import CurrentIssue from '../Pages/CurrentIssue';
 import { Link } from 'react-router-dom';
 import Loader from '../Components/Loader';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import '../CSS/Home.css';
@@ -81,6 +82,8 @@ const Home = () => {
 
 const Slider = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [isHovered, setIsHovered] = useState(false);
+
     const slides = [
         {
             title: 'Featured Paper on AI',
@@ -117,14 +120,22 @@ const Slider = () => {
     };
 
     useEffect(() => {
-        const interval = setInterval(() => {
-            nextSlide();
-        }, 3000);
+        let interval;
+        if (!isHovered) {
+            interval = setInterval(() => {
+                nextSlide();
+            }, 3000);
+        }
         return () => clearInterval(interval);
-    }, [nextSlide]);
+    }, [nextSlide, isHovered]);
 
     return (
-        <div className="slider-container">
+        <div
+            className="slider-container"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            data-aos="fade-up"
+        >
             <div
                 className="slider"
                 style={{ transform: `translateX(-${currentIndex * 100}%)` }}
@@ -137,14 +148,25 @@ const Slider = () => {
                         <img src={slide.img} alt={slide.title} className="slide-image" />
                         <h4>{slide.title}</h4>
                         <p>{slide.text}</p>
-                        <a href={slide.link} target="_blank" rel="noopener noreferrer" className="read-more mb-3">Read More</a>
+                        <a
+                            href={slide.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="read-more"
+                        >
+                            Read More
+                        </a>
                     </div>
                 ))}
             </div>
 
             <div className="buttons">
-                <span className="prev" onClick={prevSlide}>&#10094;</span>
-                <span className="next" onClick={nextSlide}>&#10095;</span>
+                <span className="prev" onClick={prevSlide}>
+                    <ChevronLeft size={24} />
+                </span>
+                <span className="next" onClick={nextSlide}>
+                    <ChevronRight size={24} />
+                </span>
             </div>
 
             <div className="dotsContainer">
@@ -153,7 +175,7 @@ const Slider = () => {
                         key={index}
                         className={`dot ${index === currentIndex ? 'active' : ''}`}
                         onClick={() => goToSlide(index)}
-                    ></div>
+                    />
                 ))}
             </div>
         </div>

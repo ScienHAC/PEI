@@ -23,6 +23,7 @@
     "darkreader": "^4.9.96",
     "font-awesome": "^4.7.0",
     "google-libphonenumber": "^3.2.40",
+    "lucide-react": "^0.474.0",
     "mammoth": "^1.8.0",
     "pdfjs-dist": "^3.4.120",
     "react": "^18.3.1",

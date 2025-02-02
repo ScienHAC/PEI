@@ -1,0 +1,105 @@
+/* General Footer Styles */
+.footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #1c1c1e;
+    color: #fff;
+    padding: 20px;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.footer-top {
+    width: 80vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    flex-wrap: wrap;
+    /* in case items need to wrap */
+}
+
+/* Logo styles */
+.footer-logo {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.footer-logo-img {
+    width: 100px;
+    height: auto;
+    transform: scale(1.5);
+}
+
+/* Policy links styles */
+.footer-policy {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+/* Contact details styles */
+.footer-contact {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 10px;
+}
+
+.footer-contact-text {
+    color: #a8a8a8;
+    margin-bottom: 5px;
+}
+
+/* Link styles */
+.footer-link {
+    color: #a8a8a8;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* Bottom copyright */
+.footer-bottom {
+    padding-top: 10px;
+}
+
+.footer-bottom p {
+    color: #a8a8a8;
+    margin: 0;
+}
+
+/* Responsive Styles for Mobile */
+@media (max-width: 768px) {
+    .footer-top {
+        flex-direction: row;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-logo,
+    .footer-policy,
+    .footer-contact {
+        flex: 1 1 100%;
+        padding: 10px 0;
+        text-align: center;
+        align-items: center;
+    }
+
+    /* Ensure the contact section is centered */
+    .footer-contact {
+        align-items: center;
+    }
+}

@@ -1,65 +1,50 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import itme_logo from '../Images/ITME_LOGO.png';
+import itme_logo from "../Images/ITME_LOGO.png";
+import "../CSS/Footer.css"; // if you extract styles to a separate file
 
 const Footer = ({ name }) => {
     return (
-        <footer style={{
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: '#1c1c1e',
-            color: '#fff',
-            padding: '20px',
-            fontSize: '0.9rem',
-            textAlign: 'center'
-        }}>
+        <footer className="footer">
             {/* Top Section with logo, policy, and contact details */}
-            <div style={{
-                width: '80vw',
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                padding: '15px 100px',
-                borderBottom: '1px solid rgba(255, 255, 255, 0.2)'
-            }}>
-                {/* Logo on the left */}
-                <div style={{ flex: '1', display: 'flex', alignItems: 'center', paddingLeft: '20px' }}>
-                    <img src={itme_logo} alt="ITME Logo" style={{ width: '100px', height: 'auto', transform: 'scale(1.5)' }} />
+            <div className="footer-top">
+                {/* Logo at the top/left */}
+                <div className="footer-logo">
+                    <img src={itme_logo} alt="ITME Logo" className="footer-logo-img" />
                 </div>
 
-                {/* Privacy Policy and other details in the middle */}
-                <div style={{ flex: '2', textAlign: 'center' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        <Link to="/privacy-policy" style={linkStyle}>Privacy Policy</Link>
-                        <Link to='/terms-and-conditions' style={linkStyle}>Terms & Conditions</Link>
-                    </div>
+                {/* Privacy Policy and Terms */}
+                <div className="footer-policy">
+                    <Link to="/privacy-policy" className="footer-link">
+                        Privacy Policy
+                    </Link>
+                    <Link to="/terms-and-conditions" className="footer-link">
+                        Terms &amp; Conditions
+                    </Link>
                 </div>
 
-                {/* Contact details on the right */}
-                <div style={{ flex: '1', textAlign: 'right', paddingRight: '20px' }}>
-                    <Link to="/contact" style={linkStyle}>Contact Us</Link>
-                    <span style={{ color: '#a8a8a8', display: 'block', marginBottom: '5px' }}>Phone: +91 90693 60400</span>
-                    <a href="mailto:itme@krmangalam.edu.in" style={linkStyle}>Email: itme@krmangalam.edu.in</a>
+                {/* Contact details */}
+                <div className="footer-contact">
+                    <Link to="/contact" className="footer-link">
+                        Contact Us
+                    </Link>
+                    <span className="footer-contact-text">
+                        Phone: +91 90693 60400
+                    </span>
+                    <a href="mailto:itme@krmangalam.edu.in" className="footer-link">
+                        Email: itme@krmangalam.edu.in
+                    </a>
                 </div>
             </div>
 
             {/* Bottom Section with Copyright */}
-            <div style={{ paddingTop: '10px' }}>
-                <p style={{ color: '#a8a8a8', margin: 0 }}>Copyright ©️ {name} 2025. All rights reserved.</p>
+            <div className="footer-bottom">
+                <p className="footer-copyright">
+                    Copyright ©️ {name} 2025. All rights reserved.
+                </p>
             </div>
         </footer>
     );
-};
-
-// Link style with transition for smooth color change
-const linkStyle = {
-    color: '#a8a8a8',
-    textDecoration: 'none',
-    transition: 'color 0.3s ease',
-    marginBottom: '5px',
-    display: 'block'
 };
 
 export default Footer;
