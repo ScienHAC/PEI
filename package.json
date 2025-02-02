@@ -18,6 +18,7 @@
     "@testing-library/user-event": "^13.5.0",
     "aos": "^2.3.4",
     "axios": "^1.7.7",
+    "bootstrap": "^5.3.3",
     "country-flag-icons": "^1.5.14",
     "country-list": "^2.3.0",
     "darkreader": "^4.9.96",

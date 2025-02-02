@@ -1,5 +1,5 @@
-@import '~font-awesome/css/font-awesome.css';
-@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
+@import "~font-awesome/css/font-awesome.css";
+@import url("https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap");
 
 * {
     box-sizing: border-box;
@@ -70,7 +70,7 @@ ul {
     font-size: 45px !important;
     font-family: "Exo 2", sans-serif;
     text-align: center;
-    color: #084C61 !important;
+    color: #084c61 !important;
     display: inline-block;
     margin: 0 auto;
 }
@@ -80,7 +80,7 @@ ul {
     white-space: normal;
     text-align: center;
     font-weight: 400;
-    color: #6C757D;
+    color: #6c757d;
     margin: 0 auto;
 }
 
@@ -88,7 +88,7 @@ ul {
     font-size: 40px;
     white-space: normal;
     text-align: center;
-    color: #084C61 !important;
+    color: #084c61 !important;
     font-family: "Exo 2", sans-serif;
     display: inline-block;
     margin: 0 auto;
@@ -106,13 +106,17 @@ ul {
     .logo-min {
         width: 7rem;
     }
+
+    #info-bar {
+        font-size: 12px;
+    }
 }
 
 .jndh-min {
     font-size: 15px;
     white-space: normal;
     text-align: center;
-    color: #6C757D;
+    color: #6c757d;
     margin: 0 auto;
 }
 
@@ -134,7 +138,7 @@ ul {
 
 #innerBar-max img,
 #innerBar-min img {
-    left: 0;
+    left: -99px;
     position: absolute;
 }
 
@@ -187,6 +191,12 @@ ul {
 @media (max-width: 992px) {
     #main_body {
         width: 100vw;
+    }
+
+    #innerBar-max img,
+    #innerBar-min img {
+        left: 0px;
+        position: absolute;
     }
 }
 
@@ -288,7 +298,7 @@ label {
 .loader::after {
     inset: 8px;
     transform: rotate3d(90, 90, 0, 180deg);
-    border-color: #00A3E0;
+    border-color: #00a3e0;
 }
 
 @keyframes rotate {
@@ -342,7 +352,6 @@ label {
     color: var(--cyan) !important;
 }
 
-
 /* Home.css */
 h2#home_pei_max {
     display: flex;
@@ -361,7 +370,6 @@ h2#home_pei_max img {
     height: auto;
     vertical-align: middle;
 }
-
 
 /* Style the scrollbar in WebKit Browsers */
 ::-webkit-scrollbar {
@@ -392,4 +400,8 @@ h2#home_pei_max img {
 
 .modal-header .btn-close:hover {
     opacity: 0.8;
+}
+
+ul.dropdown-menu {
+    display: none;
 }

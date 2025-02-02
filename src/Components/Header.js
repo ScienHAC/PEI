@@ -225,7 +225,9 @@ export default function Header() {
                 <div className="collapse navbar-collapse" id="navbarNav">
                     <ul className="navbar-nav me-auto nav-link-custom">
                         <li className="nav-item active">
-                            <Link className="nav-link" to="/">Welcome to ITME<span className="sr-only">(current)</span></Link>
+                            <Link className="nav-link" to="/">
+                                Welcome to ITME <span className="sr-only">(current)</span>
+                            </Link>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/about">About</Link>
@@ -233,19 +235,36 @@ export default function Header() {
                         <li className="nav-item">
                             <Link className="nav-link" to="/abstracting-indexing">Abstracting & Indexing</Link>
                         </li>
-                        <li className="nav-item">
-                            <Link className="nav-link disabled" to="/current-issue">Current Issue</Link>
+
+                        {/* Dropdown for Archives & Editorial Board */}
+                        <li className="nav-item dropdown">
+                            <button
+                                className="nav-link dropdown-toggle"
+                                id="navbarDropdown"
+                                data-bs-toggle="dropdown"
+                                aria-expanded="false"
+                            >
+                                Publications
+                            </button>
+                            <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li>
+                                    <Link className="dropdown-item" to="/current-issue">Current Issue</Link>
+                                </li>
+                                <li>
+                                    <Link className="dropdown-item" to="/archives">Archives</Link>
+                                </li>
+                                <li>
+                                    <Link className="dropdown-item" to="/editorial-board">Editorial Board</Link>
+                                </li>
+                            </ul>
                         </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/archives">Archives</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/editorial-board">Editorial Board</Link>
-                        </li>
+
                         <li className="nav-item">
                             <Link className="nav-link" to="/contact">Contact Us</Link>
                         </li>
-                        {role === 'reviewer' ? (
+
+                        {/* Role-Based Links */}
+                        {role === "reviewer" ? (
                             <li className="nav-item">
                                 <Link className="nav-link" to="/reviewer/dashboard">Dashboard</Link>
                             </li>
@@ -254,15 +273,13 @@ export default function Header() {
                                 <Link className="nav-link" to="/form">Research Archive</Link>
                             </li>
                         )}
-                        {isAdmin ? (
+
+                        {isAdmin && (
                             <li className="nav-item">
                                 <Link className="nav-link" to="/admin">Admin</Link>
                             </li>
-                        ) : (
-                            null
                         )}
                     </ul>
-
                     {/* Buttons on the right for larger screens */}
                     <div className="d-none d-lg-flex">
                         <button
