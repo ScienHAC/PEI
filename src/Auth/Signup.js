@@ -104,7 +104,7 @@ const Signup = () => {
 
     return (
         <>
-            <div className="container d-flex justify-content-center align-items-center min-vh-100">
+            <div className="container d-flex justify-content-center align-items-center">
                 <div className="col-12 col-sm-8 col-md-6 col-lg-4">
                     <h1>{otpStep ? "Verify OTP" : "Signup"}</h1>
                     <form onSubmit={handleSubmit}>
