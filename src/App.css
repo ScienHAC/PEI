@@ -405,3 +405,18 @@ h2#home_pei_max img {
 ul.dropdown-menu {
     display: none;
 }
+
+.developer-button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.developer-button:hover {
+    background-color: #0056b3;
+}

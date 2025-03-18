@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const About = () => {
+    const [isHovered, setIsHovered] = useState(false);
+
     const containerStyle = {
         maxWidth: '800px',
         padding: '40px',
@@ -36,6 +39,18 @@ const About = () => {
         marginBottom: '10px',
     };
 
+
+    const buttonStyle = {
+        backgroundColor: isHovered ? '#0056b3' : '#007bff',
+        color: '#fff',
+        padding: '12px 24px',
+        borderRadius: '5px',
+        textDecoration: 'none',
+        fontSize: '1rem',
+        fontWeight: 'bold',
+        transition: 'background-color 0.3s ease',
+    };
+
     return (
         <div style={containerStyle}>
             <h1 style={headerStyle}>About Innovations and Trends in Multidisciplinary Engineering (ITME)</h1>
@@ -58,6 +73,18 @@ const About = () => {
             <p style={paragraphStyle}>
                 Our infrastructure, facilities, and dedicated associates significantly impact the academic community and society at large.
             </p>
+
+            {/* 🔵 Button for Developer Team */}
+            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '40px' }}>
+                <Link
+                    to="/developers"
+                    style={buttonStyle}
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                >
+                    Meet Our Developer Team
+                </Link>
+            </div>
         </div>
     );
 };
