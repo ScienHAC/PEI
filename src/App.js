@@ -33,6 +33,7 @@ import TermsandConditions from "./Pages/TermsandConditions.js";
 import InvitePage from "./Pages/InvitePage.js";
 import ReviewerPage from "./Pages/ReviewerPage.js";
 import ReviewerDashboard from "./Pages/ReviewerDashboard.js";
+import DeveloperTeam from './Components/DeveloperTeam.js';
 
 function App() {
   return (
@@ -59,6 +60,7 @@ function AuthRoutes() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
+      <Route path="/developers" element={<DeveloperTeam />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/contact" element={<ContactForm />} />
       <Route path="/archives" element={<Archives />} />
