@@ -45,7 +45,7 @@ const Home = () => {
 
             <blockquote style={{ borderLeft: '5px solid rgba(0, 0, 0, 0.1)', padding: '20px', color: 'rgb(19, 15, 15)', fontSize: '1.1rem', marginTop: '20px' }}>
                 <Link to="/" style={{ fontStyle: 'italic', textDecoration: 'underline', fontWeight: 'bold' }}>INNOVATIONS AND TRENDS IN MULTIDISCIPLINARY ENGINEERING</Link>
-                (ISSN:XXXX-XXXX) is dedicated to publishing high-quality research in the field of Engineering. We provide a platform for scholars, researchers, and practitioners to share insights and drive advancements in technology and engineering management.
+                (ISSN: 0923-4748) is dedicated to publishing high-quality research in the field of Engineering. We provide a platform for scholars, researchers, and practitioners to share insights and drive advancements in technology and engineering management.
             </blockquote>
 
             <Slider />
