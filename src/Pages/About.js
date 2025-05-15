@@ -53,9 +53,9 @@ const About = () => {
 
     return (
         <div style={containerStyle}>
-            <h1 style={headerStyle}>About Innovations and Trends in Multidisciplinary Engineering (ITME)</h1>
+            <h1 style={headerStyle}>About Innovations in Tribology and Materials Engineering (ITME)</h1>
             <p style={paragraphStyle}>
-                Innovations and Trends in Multidisciplinary Engineering (ITME) is an international, peer-reviewed online journal published bi-monthly. Our mission is to provide a platform for genuine and reliable contributions to the scientific community through our Scholarly Open Access Initiative.
+                Innovations in Tribology and Materials Engineering (ITME) is an international, peer-reviewed online journal published bi-monthly. Our mission is to provide a platform for genuine and reliable contributions to the scientific community through our Scholarly Open Access Initiative.
             </p>
             <p style={paragraphStyle}>
                 ITME is committed to upholding the highest standards of quality and integrity in the research publication process. With a distinguished editorial board comprising eminent professionals, we ensure rapid and thorough peer review. This process not only enhances the quality of published research but also fosters academic collaboration.

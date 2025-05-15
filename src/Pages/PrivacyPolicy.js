@@ -5,7 +5,7 @@ const PrivacyPolicy = () => {
         <div style={styles.privacyPolicy}>
             <h1 style={styles.header}>Privacy Policy</h1>
             <p style={styles.intro}>
-                At ITME (Innovations and Trends in Multidisciplinary Engineering), we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your personal information when you interact with our website.
+                At ITME (Innovations in Tribology and Materials Engineering), we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your personal information when you interact with our website.
             </p>
 
             <section style={styles.policySection}>
