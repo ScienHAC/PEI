@@ -26,6 +26,34 @@ const Home = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    // Card style that will be applied to all cards
+    const cardStyle = {
+        padding: '20px',
+        backgroundColor: '#f8f9fa',
+        border: '1px solid rgba(0, 0, 0, 0.1)',
+        borderRadius: '8px',
+        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+    };
+
+    const cardHeaderStyle = {
+        fontSize: '1.2rem',
+        color: '#084c61',
+        borderBottom: '2px solid #084c61',
+        paddingBottom: '8px',
+        marginBottom: '15px',
+        textAlign: 'center'
+    };
+
+    const cardContentStyle = {
+        color: '#444',
+        lineHeight: '1.6',
+        fontSize: '0.95rem',
+        flex: 1
+    };
+
     return (
         <div style={{ maxWidth: '1200px', margin: 'auto', padding: '20px', fontSize: '1.1rem', lineHeight: '1.6' }}>
             <h2 id="home_pei_max" className="d-none d-lg-flex" style={{ fontSize: '2rem', textAlign: 'center', color: '#333' }}>
@@ -57,61 +85,25 @@ const Home = () => {
                 </span>
             </h3>
 
-            {/* 3 cards in the first row, 2 cards in the second row layout */}
-            <div style={{ maxWidth: '1000px', margin: '30px auto' }}>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '25px', marginBottom: '25px' }} data-aos="fade-up">
+            {/* Using grid with responsive columns */}
+            <div className="card-container" style={{ maxWidth: '1000px', margin: '30px auto' }}>
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+                    gap: '25px',
+                    marginBottom: '25px'
+                }} data-aos="fade-up">
                     {[
-                        { title: 'We Publish', icon: '📝' },
-                        { title: 'Research Focus', icon: '🔍' },
-                        { title: 'Peer Review', icon: '👁️' }
-                    ].map((item, index) => (
-                        <div style={{
-                            padding: '20px',
-                            backgroundColor: '#f8f9fa',
-                            border: '1px solid rgba(0, 0, 0, 0.1)',
-                            borderRadius: '8px',
-                            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)',
-                            height: '100%'
-                        }} key={index} data-aos-delay={index * 100}>
-                            <div style={{ fontSize: '2rem', textAlign: 'center', marginBottom: '10px' }}>{item.icon}</div>
-                            <h4 style={{
-                                fontSize: '1.2rem',
-                                color: '#084c61',
-                                borderBottom: '2px solid #084c61',
-                                paddingBottom: '8px',
-                                marginBottom: '15px',
-                                textAlign: 'center'
-                            }}>{item.title}</h4>
-                            <p style={{ color: '#444', lineHeight: '1.6', fontSize: '0.95rem' }}>
-                                {getCardText(item.title)}
-                            </p>
-                        </div>
-                    ))}
-                </div>
-
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '25px' }} data-aos="fade-up">
-                    {[
+                        { title: 'Publication Scope', icon: '📚' },
+                        { title: 'Submission Process', icon: '📤' },
+                        { title: 'Review Workflow', icon: '👁️' },
                         { title: 'Author Benefits', icon: '🎯' },
-                        { title: 'Submission Process', icon: '📤' }
+                        { title: 'Publication Timeline', icon: '⏱️' }
                     ].map((item, index) => (
-                        <div style={{
-                            padding: '20px',
-                            backgroundColor: '#f8f9fa',
-                            border: '1px solid rgba(0, 0, 0, 0.1)',
-                            borderRadius: '8px',
-                            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.05)',
-                            height: '100%'
-                        }} key={index} data-aos-delay={index * 100}>
+                        <div style={cardStyle} key={index} data-aos-delay={index * 100}>
                             <div style={{ fontSize: '2rem', textAlign: 'center', marginBottom: '10px' }}>{item.icon}</div>
-                            <h4 style={{
-                                fontSize: '1.2rem',
-                                color: '#084c61',
-                                borderBottom: '2px solid #084c61',
-                                paddingBottom: '8px',
-                                marginBottom: '15px',
-                                textAlign: 'center'
-                            }}>{item.title}</h4>
-                            <p style={{ color: '#444', lineHeight: '1.6', fontSize: '0.95rem' }}>
+                            <h4 style={cardHeaderStyle}>{item.title}</h4>
+                            <p style={cardContentStyle}>
                                 {getCardText(item.title)}
                             </p>
                         </div>
@@ -184,7 +176,7 @@ const Home = () => {
                     Join our community of researchers and contribute to advancements in engineering and materials science.
                 </p>
                 <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
-                    <Link to="/form" style={{
+                    <Link to="/signup" style={{
                         padding: '12px 30px',
                         backgroundColor: '#084c61',
                         color: 'white',
@@ -192,7 +184,7 @@ const Home = () => {
                         borderRadius: '5px',
                         fontWeight: 'bold',
                         boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-                    }}>Submit Research</Link>
+                    }}>Register as Author</Link>
                     <Link to="/contact" style={{
                         padding: '12px 30px',
                         backgroundColor: 'transparent',
@@ -312,16 +304,16 @@ const Slider = () => {
 
 const getCardText = (title) => {
     switch (title) {
-        case 'We Publish':
-            return 'Original research papers, review articles, and special editions highlighting advancements in tribology and materials engineering.';
-        case 'Research Focus':
-            return 'Sustainable materials, bio-inspired materials, energy materials, and advanced computational materials science for next-generation applications.';
-        case 'Peer Review':
-            return 'Our double-blind review process is completed within two weeks, ensuring unbiased and high-quality assessments of all submissions.';
-        case 'Author Benefits':
-            return 'No publication fees, rapid review process, open access distribution, and free digital copies for authors.';
+        case 'Publication Scope':
+            return 'ITME publishes original research papers, review articles, and case studies in tribology, materials engineering, sustainable materials, and advanced manufacturing technologies.';
         case 'Submission Process':
-            return 'Submit manuscripts electronically in Word format via email to imran.siraj@krmangalm.edu.in with proper formatting following our guidelines.';
+            return 'Authors must first register an account, then navigate to Research Archive to complete submission details and upload their manuscript following our formatting guidelines.';
+        case 'Review Workflow':
+            return 'All submissions undergo initial screening followed by a double-blind peer review process by at least two experts, with decision notifications typically sent within two weeks.';
+        case 'Author Benefits':
+            return 'No publication fees, open access distribution, indexing in major databases, free digital copies, and promotion of published articles through our academic networks.';
+        case 'Publication Timeline':
+            return 'After acceptance, manuscripts undergo copyediting, typesetting, and proofreading before publication in the next available issue (June or December) or as online first articles.';
         default:
             return '';
     }
