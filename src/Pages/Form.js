@@ -14,6 +14,7 @@ import {
     Select,
     InputLabel,
     FormControl,
+    CircularProgress,
 } from "@mui/material";
 import { useDropzone } from "react-dropzone";
 import { Country } from "../Components/CountryNames";
@@ -53,7 +54,6 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
 const ResearchPaperForm = () => {
     const [formData, setFormData] = useState({
         title: "",
-        // author: "",
         author: [],
         contactNumber: "",
         abstract: "",
@@ -65,6 +65,7 @@ const ResearchPaperForm = () => {
 
     const [errors, setErrors] = useState({});
     const [uploadProgress, setUploadProgress] = useState(0);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
     const [suggestions, setSuggestions] = useState([]);
 
@@ -74,6 +75,10 @@ const ResearchPaperForm = () => {
         if (file && (file.type === "application/pdf" || file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document")) {
             setFormData({ ...formData, file });
             setErrors({ ...errors, file: "" });
+
+            // Show file size info
+            const fileSizeMB = (file.size / (1024 * 1024)).toFixed(2);
+            console.log(`File selected: ${file.name} (${fileSizeMB} MB)`);
         } else {
             setErrors({ ...errors, file: "Please upload a PDF or DOCX file." });
         }
@@ -85,8 +90,8 @@ const ResearchPaperForm = () => {
             'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx']
         },
         onDrop,
+        disabled: isSubmitting, // Disable during submission
     });
-
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -102,22 +107,21 @@ const ResearchPaperForm = () => {
     const validateForm = () => {
         const newErrors = {};
         if (!formData.title.trim()) newErrors.title = "Title is required";
-        // if (!formData.author.trim()) newErrors.author = "Author is required";
-        if (!formData.author) newErrors.author = "Author is required";
+        if (!formData.author || formData.author.length === 0) newErrors.author = "At least one author is required";
         if (!formData.contactNumber.trim()) newErrors.contactNumber = "Contact number is required";
         if (!formData.abstract.trim()) newErrors.abstract = "Abstract is required";
         if (!formData.articleType) newErrors.articleType = "Article type is required";
         if (!formData.journal) newErrors.journal = "Journal is required";
         if (!formData.country.trim()) newErrors.country = "Country is required";
-        if (!formData.file) newErrors.file = "Please upload a PDF file";
+        if (!formData.file) newErrors.file = "Please upload a PDF or DOCX file";
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
 
-
-    // ** Handle form submission**
+    // Handle form submission with file upload progress
     const handleSubmit = async (event) => {
         event.preventDefault();
+
         if (formData.author.length === 0) {
             setSnackbar({
                 open: true,
@@ -126,39 +130,57 @@ const ResearchPaperForm = () => {
             });
             return;
         }
-        if (validateForm()) {
-            const formDataToSend = new FormData();
 
-            // Append all form fields to FormData
-            formDataToSend.append("title", formData.title);
-            // formDataToSend.append("author", formData.author);
-            formDataToSend.append("author", formData.author.join(', '));
-            formDataToSend.append("contactNumber", formData.contactNumber);
-            formDataToSend.append("abstract", formData.abstract);
-            formDataToSend.append("articleType", formData.articleType);
-            formDataToSend.append("journal", formData.journal);
-            formDataToSend.append("country", formData.country);
-            formDataToSend.append("file", formData.file);
+        if (!validateForm()) {
+            setSnackbar({
+                open: true,
+                message: "Please fill in all required fields correctly.",
+                severity: "error",
+            });
+            return;
+        }
 
-            try {
-                const response = await fetch(`${process.env.REACT_APP_hostURL}/auth/submit-paper`, {
-                    method: "POST",
-                    body: formDataToSend,
-                    credentials: "include",
-                });
+        setIsSubmitting(true);
+        setUploadProgress(0);
 
-                if (response.ok) {
+        const formDataToSend = new FormData();
+        formDataToSend.append("title", formData.title);
+        formDataToSend.append("author", formData.author.join(', '));
+        formDataToSend.append("contactNumber", formData.contactNumber);
+        formDataToSend.append("abstract", formData.abstract);
+        formDataToSend.append("articleType", formData.articleType);
+        formDataToSend.append("journal", formData.journal);
+        formDataToSend.append("country", formData.country);
+        formDataToSend.append("file", formData.file);
+
+        try {
+            // Show file size info to user
+            const fileSizeMB = (formData.file.size / (1024 * 1024)).toFixed(2);
+            console.log(`Uploading file: ${formData.file.name} (${fileSizeMB} MB)`);
+
+            const xhr = new XMLHttpRequest();
+
+            // Track upload progress
+            xhr.upload.onprogress = (event) => {
+                if (event.lengthComputable) {
+                    const percentComplete = (event.loaded / event.total) * 100;
+                    setUploadProgress(percentComplete);
+                }
+            };
+
+            // Handle completion
+            xhr.onload = () => {
+                if (xhr.status === 200 || xhr.status === 201) {
+                    const response = JSON.parse(xhr.responseText);
                     setSnackbar({
                         open: true,
-                        message: "Research paper submitted successfully!",
+                        message: response.message || "Research paper submitted successfully! You will receive a confirmation email shortly.",
                         severity: "success",
                     });
 
-                    console.log(formData);
-
+                    // Reset form
                     setFormData({
                         title: "",
-                        // author: "",
                         author: [],
                         contactNumber: "",
                         abstract: "",
@@ -169,28 +191,84 @@ const ResearchPaperForm = () => {
                     });
                     setUploadProgress(0);
                 } else {
-                    const errorData = await response.json();
+                    const errorData = JSON.parse(xhr.responseText);
                     setSnackbar({
                         open: true,
-                        message: errorData.message || "Failed to submit the research paper",
+                        message: errorData.message || "Failed to submit the research paper. Please try again.",
                         severity: "error",
                     });
                 }
-            } catch (error) {
+                setIsSubmitting(false);
+            };
+
+            // Handle errors
+            xhr.onerror = () => {
                 setSnackbar({
                     open: true,
-                    message: "An error occurred. Please try again.",
+                    message: "Network error occurred. Please check your connection and try again.",
                     severity: "error",
                 });
-                console.error("Submission error:", error);
-            }
+                setIsSubmitting(false);
+                setUploadProgress(0);
+            };
+
+            // Handle timeout
+            xhr.ontimeout = () => {
+                setSnackbar({
+                    open: true,
+                    message: "Upload timeout. Please try again with a smaller file or check your connection.",
+                    severity: "error",
+                });
+                setIsSubmitting(false);
+                setUploadProgress(0);
+            };
+
+            // Set timeout (10 minutes for large files)
+            xhr.timeout = 600000;
+
+            // Open connection and send
+            xhr.open("POST", `${process.env.REACT_APP_hostURL}/auth/submit-paper`, true);
+            xhr.withCredentials = true;
+            xhr.send(formDataToSend);
+
+        } catch (error) {
+            console.error("Submission error:", error);
+            setSnackbar({
+                open: true,
+                message: "An unexpected error occurred. Please try again.",
+                severity: "error",
+            });
+            setIsSubmitting(false);
+            setUploadProgress(0);
         }
     };
-    //** end of this submission function**
 
     const handleSnackbarClose = (event, reason) => {
         if (reason === "clickaway") return;
         setSnackbar({ ...snackbar, open: false });
+    };
+
+    const getFileSizeDisplay = () => {
+        if (formData.file) {
+            const fileSizeMB = (formData.file.size / (1024 * 1024)).toFixed(2);
+            let sizeColor = "green";
+            let sizeWarning = "";
+
+            if (formData.file.size > 50 * 1024 * 1024) { // > 50MB
+                sizeColor = "red";
+                sizeWarning = " (Large file - upload may take longer)";
+            } else if (formData.file.size > 10 * 1024 * 1024) { // > 10MB
+                sizeColor = "orange";
+                sizeWarning = " (Medium file size)";
+            }
+
+            return (
+                <Typography variant="body2" sx={{ mt: 1, color: sizeColor }}>
+                    File: {formData.file.name} ({fileSizeMB} MB){sizeWarning}
+                </Typography>
+            );
+        }
+        return null;
     };
 
     return (
@@ -210,10 +288,9 @@ const ResearchPaperForm = () => {
                     error={!!errors.title}
                     helperText={errors.title}
                     required
+                    disabled={isSubmitting}
                     inputProps={{ "aria-label": "Research paper title" }}
                 />
-
-                {/* add multiple author code */}
 
                 <Alert severity="info" sx={{ mb: 2 }}>
                     Press "Enter" to add authors. You can add multiple authors.
@@ -223,6 +300,7 @@ const ResearchPaperForm = () => {
                     multiple
                     freeSolo
                     options={suggestions}
+                    disabled={isSubmitting}
                     renderInput={(params) => (
                         <StyledTextField
                             {...params}
@@ -259,24 +337,11 @@ const ResearchPaperForm = () => {
                     }}
                 />
 
-
-
-                {/* <StyledTextField
-                    fullWidth
-                    label="Author"
-                    name="author"
-                    value={formData.author}
-                    onChange={handleInputChange}
-                    error={!!errors.author}
-                    helperText={errors.author}
-                    required
-                    inputProps={{ "aria-label": "Author" }}
-                /> */}
-
                 <PhoneInput
                     country={"in"}
                     value={formData.contactNumber}
                     onChange={(value, data, event, formattedValue) => handlePhoneChange(value, data, event, formattedValue)}
+                    disabled={isSubmitting}
                     inputProps={{
                         name: "contactNumber",
                         required: true,
@@ -288,6 +353,7 @@ const ResearchPaperForm = () => {
                         width: "100%",
                         height: "45px",
                         fontSize: "16px",
+                        opacity: isSubmitting ? 0.6 : 1,
                     }}
                 />
 
@@ -306,12 +372,13 @@ const ResearchPaperForm = () => {
                     error={!!errors.abstract}
                     helperText={errors.abstract}
                     required
+                    disabled={isSubmitting}
                     multiline
                     rows={4}
                     inputProps={{ "aria-label": "Research paper abstract" }}
                 />
 
-                <FormControl fullWidth variant="outlined" sx={{ mb: 2 }}>
+                <FormControl fullWidth variant="outlined" sx={{ mb: 2 }} disabled={isSubmitting}>
                     <InputLabel id="article-type-label">Select Article Type</InputLabel>
                     <Select
                         labelId="article-type-label"
@@ -329,7 +396,6 @@ const ResearchPaperForm = () => {
                         <MenuItem value="Design Study">Design Study</MenuItem>
                         <MenuItem value="Project Report">Project Report</MenuItem>
                         <MenuItem value="Short Communication">Short Communication</MenuItem>
-
                     </Select>
                     {errors.articleType && (
                         <Typography color="error" variant="body2" sx={{ mt: 1 }}>
@@ -338,7 +404,7 @@ const ResearchPaperForm = () => {
                     )}
                 </FormControl>
 
-                <FormControl fullWidth variant="outlined" sx={{ mb: 2 }}>
+                <FormControl fullWidth variant="outlined" sx={{ mb: 2 }} disabled={isSubmitting}>
                     <InputLabel id="journal-label">Select Journal</InputLabel>
                     <Select
                         labelId="journal-label"
@@ -360,7 +426,6 @@ const ResearchPaperForm = () => {
                         <MenuItem value="Journal of Biomedical Engineering">Journal of Biomedical Engineering</MenuItem>
                         <MenuItem value="Journal of Software Engineering">Journal of Software Engineering</MenuItem>
                         <MenuItem value="Journal of Robotics Engineering">Journal of Robotics Engineering</MenuItem>
-
                     </Select>
                     {errors.journal && (
                         <Typography color="error" variant="body2" sx={{ mt: 1 }}>
@@ -373,6 +438,7 @@ const ResearchPaperForm = () => {
                     fullWidth
                     options={Country}
                     getOptionLabel={(option) => option}
+                    disabled={isSubmitting}
                     renderInput={(params) => (
                         <StyledTextField
                             {...params}
@@ -408,20 +474,25 @@ const ResearchPaperForm = () => {
                         border: '2px dashed #ccc',
                         padding: '20px',
                         textAlign: 'center',
-                        cursor: 'pointer'
+                        cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                        opacity: isSubmitting ? 0.6 : 1,
+                        backgroundColor: isSubmitting ? '#f5f5f5' : 'transparent'
                     }}>
                         <input {...getInputProps()} />
                         {isDragActive ? (
                             <Typography variant="body2">Drop the file here...</Typography>
                         ) : (
-                            <Typography variant="body2">Drag 'n' drop a PDF or DOCX file here, or click to select one</Typography>
+                            <Typography variant="body2">
+                                {isSubmitting
+                                    ? "Uploading... Please wait"
+                                    : "Drag 'n' drop a PDF or DOCX file here, or click to select one"
+                                }
+                            </Typography>
                         )}
                     </div>
-                    {formData.file && (
-                        <Typography variant="body2" sx={{ mt: 1 }}>
-                            File: {formData.file.name}
-                        </Typography>
-                    )}
+
+                    {getFileSizeDisplay()}
+
                     {errors.file && (
                         <Typography color="error" variant="body2" sx={{ mt: 1 }}>
                             {errors.file}
@@ -429,14 +500,37 @@ const ResearchPaperForm = () => {
                     )}
                 </Box>
 
-                {uploadProgress > 0 && (
+                {/* Upload Progress Bar */}
+                {isSubmitting && (
                     <Box sx={{ width: "100%", mb: 2 }}>
-                        <LinearProgress variant="determinate" value={uploadProgress} />
+                        <Box sx={{ display: 'flex', alignItems: 'center', mb: 1 }}>
+                            <CircularProgress size={20} sx={{ mr: 1 }} />
+                            <Typography variant="body2" color="primary">
+                                Uploading... {Math.round(uploadProgress)}%
+                            </Typography>
+                        </Box>
+                        <LinearProgress
+                            variant="determinate"
+                            value={uploadProgress}
+                            sx={{ height: 8, borderRadius: 4 }}
+                        />
+                        <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
+                            Please don't close this page while uploading
+                        </Typography>
                     </Box>
                 )}
 
                 <div className="d-flex justify-content-end">
-                    <a href={TemplatePaper} className="btn btn-link" target="_blank" rel="noreferrer">
+                    <a
+                        href={TemplatePaper}
+                        className="btn btn-link"
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{
+                            pointerEvents: isSubmitting ? 'none' : 'auto',
+                            opacity: isSubmitting ? 0.6 : 1
+                        }}
+                    >
                         View Template/Instructions
                     </a>
                 </div>
@@ -446,9 +540,21 @@ const ResearchPaperForm = () => {
                     variant="contained"
                     color="primary"
                     fullWidth
-                    sx={{ mt: 2 }}
+                    disabled={isSubmitting}
+                    sx={{
+                        mt: 2,
+                        position: 'relative',
+                        minHeight: '48px'
+                    }}
                 >
-                    Submit Paper
+                    {isSubmitting ? (
+                        <>
+                            <CircularProgress size={24} sx={{ mr: 1 }} />
+                            Uploading Paper... {Math.round(uploadProgress)}%
+                        </>
+                    ) : (
+                        "Submit Paper"
+                    )}
                 </Button>
 
                 <Snackbar
