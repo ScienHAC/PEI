@@ -1,5 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import { HelmetProvider } from 'react-helmet-async';
 import {
   BrowserRouter as Router,
   Route,
@@ -37,19 +38,21 @@ import DeveloperTeam from './Components/DeveloperTeam.js';
 
 function App() {
   return (
-    <AuthProvider>
-      <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-        <Header />
-        <div id="main">
-          <div id="main_body">
-            <br />
-            <AuthRoutes />
+    <HelmetProvider>
+      <AuthProvider>
+        <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+          <Header />
+          <div id="main">
+            <div id="main_body">
+              <br />
+              <AuthRoutes />
+            </div>
           </div>
-        </div>
-        <BackToTopButton />
-        <Footer name="ITME" />
-      </Router>
-    </AuthProvider>
+          <BackToTopButton />
+          <Footer name="ITME" />
+        </Router>
+      </AuthProvider>
+    </HelmetProvider>
   );
 }
 

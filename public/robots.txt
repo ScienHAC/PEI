@@ -1,3 +1,16 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /admin
+Disallow: /login
+Disallow: /signup
+Disallow: /dashboard
+Disallow: /profile
+Disallow: /reviewer/
+Disallow: /form
+
+# Sitemap
+Sitemap: https://itme.krmangalam.edu.in/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1
