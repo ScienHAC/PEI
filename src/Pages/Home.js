@@ -163,7 +163,7 @@ const Home = () => {
                         color: '#333',
                         lineHeight: '1.6'
                     }}>
-                        <span style={{ fontWeight: 'bold', color: '#084c61' }}>Innovations in Tribology and Materials Engineering</span> is a double-blind, peer-reviewed journal published bi-annually in June and December. We provide a platform for interdisciplinary research in engineering materials with no publication fees and a rapid review process.
+                        <span style={{ fontWeight: 'bold', color: '#084c61' }}>Innovations in Tribology and Materials Engineering</span> is a double-blind, peer-reviewed journal published quarterly (March, June, September, December). We provide a platform for interdisciplinary research in engineering materials with no publication fees and a rapid review process.
                     </p>
 
                     <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
@@ -184,7 +184,7 @@ const Home = () => {
                             e.currentTarget.style.transform = '';
                             e.currentTarget.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.1)';
                         }}>Submit Research</Link>
-                        <Link to="/issues" style={{
+                        <Link to="/archives" style={{
                             padding: '12px 28px',
                             backgroundColor: 'transparent',
                             color: '#084c61',
@@ -211,7 +211,7 @@ const Home = () => {
                     maxWidth: '400px'
                 }}>
                     {[
-                        { label: 'Issues Per Year', value: '2', icon: <BookOpen size={24} color="#084c61" /> },
+                        { label: 'Issues Per Year', value: '4', icon: <BookOpen size={24} color="#084c61" /> },
                         { label: 'Acceptance Rate', value: '~30%', icon: <Award size={24} color="#084c61" /> },
                         { label: 'Review Time', value: '2 Weeks', icon: <Clock size={24} color="#084c61" /> },
                         { label: 'Active Reviewers', value: '50+', icon: <Users size={24} color="#084c61" /> }
@@ -269,7 +269,7 @@ const Home = () => {
                 textAlign: 'center'
             }}>
                 {[
-                    { label: 'Issues Per Year', value: '2', icon: <BookOpen size={24} color="#084c61" /> },
+                    { label: 'Issues Per Year', value: '4', icon: <BookOpen size={24} color="#084c61" /> },
                     { label: 'Acceptance Rate', value: '~30%', icon: <Award size={24} color="#084c61" /> },
                     { label: 'Review Time', value: '2 Weeks', icon: <Clock size={24} color="#084c61" /> },
                     { label: 'Active Reviewers', value: '50+', icon: <Users size={24} color="#084c61" /> }
@@ -819,7 +819,7 @@ const getCardText = (title) => {
         case 'Author Benefits':
             return 'No publication fees, open access distribution, indexing in major databases, free digital copies, and promotion of published articles through our academic networks.';
         case 'Publication Timeline':
-            return 'After acceptance, manuscripts undergo copyediting, typesetting, and proofreading before publication in the next available issue (June or December) or as online first articles.';
+            return 'After acceptance, manuscripts undergo copyediting, typesetting, and proofreading before publication in the next available quarterly issue (March, June, September, or December) or as online first articles.';
         default:
             return '';
     }

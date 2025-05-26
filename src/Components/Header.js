@@ -102,7 +102,7 @@ export default function Header() {
         <>
             <div id='info-bar'>
                 <div id='child-info-bar'>
-                    <span><FontAwesomeIcon className="mx-2" icon={faEnvelope} />support@krmangalam.edu.in</span>
+                    <span><FontAwesomeIcon className="mx-2" icon={faEnvelope} />support.itme@krmangalam.edu.in</span>
                     <span><FontAwesomeIcon className="mx-2" icon={faPhone} />+(91) 90693 60400</span>
                 </div>
             </div>

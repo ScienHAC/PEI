@@ -31,9 +31,14 @@ const Footer = ({ name }) => {
                     <span className="footer-contact-text">
                         Phone: +91 90693 60400
                     </span>
-                    <a href="mailto:itme@krmangalam.edu.in" className="footer-link">
-                        Email: itme@krmangalam.edu.in
-                    </a>
+                    <span className="footer-contact-text">
+                        <a href="mailto:support.itme@krmangalam.edu.in" className="footer-link">
+                            support.itme@krmangalam.edu.in
+                        </a>
+                        <a href="mailto:editor.itme@krmangalam.edu.in" className="footer-link">
+                            editor.itme@krmangalam.edu.in
+                        </a>
+                    </span>
                 </div>
             </div>
 
