@@ -5,6 +5,7 @@ const ForgotPassword = () => {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [step, setStep] = useState(1);
+    const [resendLoading, setResendLoading] = useState(false);
     const [formData, setFormData] = useState({
         email: '',
         otp: '',
@@ -18,6 +19,28 @@ const ForgotPassword = () => {
             ...formData,
             [e.target.name]: e.target.value.trim()
         });
+    };
+
+    const handleResendOTP = async () => {
+        setResendLoading(true);
+        try {
+            const response = await fetch(`${process.env.REACT_APP_hostURL}/auth/resend-otp-forgot`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: formData.email,
+                    type: 'forgot'
+                }),
+            });
+
+            const result = await response.json();
+            setMessage(result.message);
+        } catch (error) {
+            console.error('Error:', error);
+            setMessage('Failed to resend OTP. Please try again.');
+        }
+        setResendLoading(false);
+        setTimeout(() => setMessage(''), 3000);
     };
 
     const handleSubmit = async (e) => {
@@ -110,6 +133,19 @@ const ForgotPassword = () => {
                                     required
                                 />
 
+                                {/* Resend OTP Button */}
+                                <div className="d-flex justify-content-between align-items-center mb-3">
+                                    <button
+                                        type="button"
+                                        className="btn btn-link p-0"
+                                        onClick={handleResendOTP}
+                                        disabled={resendLoading}
+                                        style={{ fontSize: '14px' }}
+                                    >
+                                        {resendLoading ? 'Sending...' : 'Resend OTP'}
+                                    </button>
+                                </div>
+
                                 <label htmlFor="newPassword">New Password</label>
                                 <div className="password-container" style={{ position: 'relative' }}>
                                     <input
@@ -121,7 +157,6 @@ const ForgotPassword = () => {
                                         className="form-control mb-3"
                                         required
                                     />
-                                    {/* Eye icon to toggle visibility on the left */}
                                     <span
                                         className="toggle-password"
                                         onClick={togglePasswordVisibility}

@@ -8,6 +8,7 @@ const Signup = () => {
     const navigate = useNavigate();
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
+    const [resendLoading, setResendLoading] = useState(false);
     const [otpStep, setOtpStep] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState({
@@ -34,6 +35,28 @@ const Signup = () => {
 
     const handleCheckboxChange = (e) => {
         setTermsChecked(e.target.checked);
+    };
+
+    const handleResendOTP = async () => {
+        setResendLoading(true);
+        try {
+            const response = await fetch(`${process.env.REACT_APP_hostURL}/auth/resend-otp-signup`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: formData.email.trim().toLowerCase(),
+                    type: 'signup'
+                }),
+            });
+
+            const result = await response.json();
+            setMessage(result.message);
+        } catch (error) {
+            console.error('Error:', error);
+            setMessage('Failed to resend OTP. Please try again.');
+        }
+        setResendLoading(false);
+        setTimeout(() => setMessage(''), 3000);
     };
 
     const handleSubmit = async (e) => {
@@ -217,15 +240,29 @@ const Signup = () => {
                                     className="form-control mb-3"
                                     required
                                 />
+
+                                {/* Resend OTP Button */}
+                                <div className="d-flex justify-content-between align-items-center mb-3">
+                                    <button
+                                        type="button"
+                                        className="btn btn-link p-0"
+                                        onClick={handleResendOTP}
+                                        disabled={resendLoading}
+                                        style={{ fontSize: '14px' }}
+                                    >
+                                        {resendLoading ? 'Sending...' : 'Resend OTP'}
+                                    </button>
+                                </div>
                             </>
                         )}
+
                         {!loading && (
                             <button
                                 type="submit"
                                 className="btn btn-outline-success btn-block btn-form-auth"
-                                disabled={!termsChecked}
+                                disabled={!otpStep && !termsChecked}
                                 style={{
-                                    cursor: termsChecked ? 'pointer' : 'not-allowed',
+                                    cursor: (!otpStep && !termsChecked) ? 'not-allowed' : 'pointer',
                                 }}
                             >
                                 {otpStep ? "Verify OTP" : "Sign Up"}

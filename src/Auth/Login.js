@@ -5,6 +5,7 @@ const Login = () => {
     const navigate = useNavigate();
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
+    const [resendLoading, setResendLoading] = useState(false);
     const [otpStep, setOtpStep] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
 
@@ -21,6 +22,28 @@ const Login = () => {
         });
     };
 
+    const handleResendOTP = async () => {
+        setResendLoading(true);
+        try {
+            const response = await fetch(`${process.env.REACT_APP_hostURL}/auth/resend-otp-login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: formData.email.trim().toLowerCase(),
+                    type: 'login'
+                }),
+            });
+
+            const result = await response.json();
+            setMessage(result.message);
+        } catch (error) {
+            console.error('Error:', error);
+            setMessage('Failed to resend OTP. Please try again.');
+        }
+        setResendLoading(false);
+        setTimeout(() => setMessage(''), 3000);
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
@@ -29,6 +52,7 @@ const Login = () => {
             email: formData.email.trim().toLowerCase(),
             password: formData.password
         };
+
         if (otpStep) {
             // Handle OTP verification
             try {
@@ -65,7 +89,7 @@ const Login = () => {
 
                 if (response.ok) {
                     setOtpStep(true); // Switch to OTP step
-                    setMessage('Login successful!');
+                    setMessage('Login successful! Check your email for OTP.');
                 } else {
                     setMessage(result.message || 'Login failed. Please try again.');
                 }
@@ -138,7 +162,7 @@ const Login = () => {
                             </>
                         )}
 
-                        {/* OTP Field */}
+                        {/* OTP Field with Resend Button */}
                         {otpStep && (
                             <>
                                 <label htmlFor="otp">Enter OTP</label>
@@ -151,16 +175,29 @@ const Login = () => {
                                     className="form-control mb-3"
                                     required
                                 />
+
+                                {/* Resend OTP Button */}
+                                <div className="d-flex justify-content-between align-items-center mb-3">
+                                    <button
+                                        type="button"
+                                        className="btn btn-link p-0"
+                                        onClick={handleResendOTP}
+                                        disabled={resendLoading}
+                                        style={{ fontSize: '14px' }}
+                                    >
+                                        {resendLoading ? 'Sending...' : 'Resend OTP'}
+                                    </button>
+                                </div>
                             </>
                         )}
 
-                        {/*  Submit Button  */}
+                        {/* Submit Button */}
                         {!loading && (
                             <button type="submit" className="btn btn-outline-success btn-block btn-form-auth">
                                 {otpStep ? 'Verify OTP' : 'Login'}
                             </button>
                         )}
-                        <button className="btn btn-link" onClick={() => navigate('/forgot-password')}>
+                        <button type="button" className="btn btn-link" onClick={() => navigate('/forgot-password')}>
                             Forgot Password?
                         </button>
                     </form>
@@ -173,7 +210,6 @@ const Login = () => {
                     {message && <p>{message}</p>}
                 </div>
             </div>
-
         </>
     );
 };
