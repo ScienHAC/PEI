@@ -2,7 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 const SEO = ({
-    title = "ITME - Innovations in Tribology and Materials Engineering",
+    title = "ITME - Innovative Trends in Multidisciplinary Engineering",
     description = "International peer-reviewed journal publishing high-quality research in tribology, materials engineering, and interdisciplinary domains. Open access, rapid review process.",
     keywords = "ITME Journal, Tribology, Materials Engineering, Research Publication, Peer Review, Open Access, Engineering Research, Academic Journal",
     url = "",

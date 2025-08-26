@@ -111,7 +111,7 @@ export default function Header() {
                 <div id="innerBar-max" className='d-none d-lg-flex'>
                     <img className="logo-max" src={itme_logo} alt="Logo" />
                     <div id='childBar-max'>
-                        <h2 className="jnhd-max">Innovations in Tribology and Materials Engineering</h2>
+                        <h2 className="jnhd-max">INNOVATIVE TRENDS IN MULTIDISCIPLINARY ENGINEERING</h2>
                         <p className="jndh-max">
                             ISSN: 0923-4748
                         </p>
@@ -121,7 +121,7 @@ export default function Header() {
                 <div id="innerBar-min" className='d-lg-none'>
                     <img className="logo-min" src={itme_logo} alt="Logo" />
                     <div id='childBar-min'>
-                        <h2 className="jnhd-min">Innovations in Tribology and Materials Engineering</h2>
+                        <h2 className="jnhd-min">INNOVATIVE TRENDS IN MULTIDISCIPLINARY ENGINEERING</h2>
                         <p className="jndh-min">
                             ISSN: 0923-4748
                         </p>

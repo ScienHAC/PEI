@@ -163,7 +163,7 @@ const Home = () => {
                         color: '#333',
                         lineHeight: '1.6'
                     }}>
-                        <span style={{ fontWeight: 'bold', color: '#084c61' }}>Innovations in Tribology and Materials Engineering</span> is a double-blind, peer-reviewed journal published quarterly (March, June, September, December). We provide a platform for interdisciplinary research in engineering materials with no publication fees and a rapid review process.
+                        <span style={{ fontWeight: 'bold', color: '#084c61' }}>Innovative Trends in Multidisciplinary Engineering</span> is a double-blind, peer-reviewed journal published quarterly (March, June, September, December). We provide a platform for interdisciplinary research in engineering materials with no publication fees and a rapid review process.
                     </p>
 
                     <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap' }}>

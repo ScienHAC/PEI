@@ -165,7 +165,7 @@ const About = () => {
                     zIndex: 0
                 }} />
                 <div style={{ position: 'relative', zIndex: 1 }}>
-                    <h1 style={headerStyle}>Innovations in Tribology and Materials Engineering</h1>
+                    <h1 style={headerStyle}>INNOVATIVE TRENDS IN MULTIDISCIPLINARY ENGINEERING</h1>
                     <p style={subHeaderStyle}>
                         An international, peer-reviewed online journal advancing research excellence in tribology, materials engineering, and interdisciplinary sciences through our Scholarly Open Access Initiative
                     </p>
@@ -223,7 +223,7 @@ const About = () => {
                 </h2>
                 <div style={{ fontSize: '1.2rem', lineHeight: '1.8', textAlign: 'justify' }}>
                     <p style={{ marginBottom: '20px' }}>
-                        <strong style={{ color: '#084c61' }}>Innovations in Tribology and Materials Engineering (ITME)</strong> is an international, peer-reviewed online journal published quarterly. Our mission is to provide a platform for genuine and reliable contributions to the scientific community through our Scholarly Open Access Initiative.
+                        <strong style={{ color: '#084c61' }}>Innovative Trends in Multidisciplinary Engineering (ITME)</strong> is an international, peer-reviewed online journal published quarterly. Our mission is to provide a platform for genuine and reliable contributions to the scientific community through our Scholarly Open Access Initiative.
                     </p>
                     <p style={{ marginBottom: '20px' }}>
                         ITME is committed to upholding the highest standards of quality and integrity in the research publication process. With a distinguished editorial board comprising eminent professionals, we ensure rapid and thorough peer review. This process not only enhances the quality of published research but also fosters academic collaboration across various branches of engineering, science, and related fields.
