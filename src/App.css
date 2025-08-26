@@ -330,6 +330,10 @@ label {
     color: var(--light) !important;
 }
 
+.nav-link-custom {
+    color: var(--light) !important;
+}
+
 .navbar-custom {
     background-color: #245a62 !important;
 }

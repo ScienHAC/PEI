@@ -145,8 +145,8 @@ const About = () => {
     ];
 
     const stats = [
-        { value: '4', label: 'Issues Per Year', icon: <BookOpen size={30} />, subtitle: 'Quarterly Publication' },
-        { value: '~30%', label: 'Acceptance Rate', icon: <Award size={30} />, subtitle: 'Highly Selective' },
+        { value: '2', label: 'Issues Per Year', icon: <BookOpen size={30} />, subtitle: 'Quarterly Publication' },
+        { value: '15%', label: 'Acceptance Rate', icon: <Award size={30} />, subtitle: 'Highly Selective' },
         { value: '2 Weeks', label: 'Review Time', icon: <Clock size={30} />, subtitle: 'Rapid Process' },
         { value: '50+', label: 'Global Reviewers', icon: <Users size={30} />, subtitle: 'International Board' }
     ];

@@ -211,8 +211,8 @@ const Home = () => {
                     maxWidth: '400px'
                 }}>
                     {[
-                        { label: 'Issues Per Year', value: '4', icon: <BookOpen size={24} color="#084c61" /> },
-                        { label: 'Acceptance Rate', value: '~30%', icon: <Award size={24} color="#084c61" /> },
+                        { label: 'Issues Per Year', value: '2', icon: <BookOpen size={24} color="#084c61" /> },
+                        { label: 'Acceptance Rate', value: '15%', icon: <Award size={24} color="#084c61" /> },
                         { label: 'Review Time', value: '2 Weeks', icon: <Clock size={24} color="#084c61" /> },
                         { label: 'Active Reviewers', value: '50+', icon: <Users size={24} color="#084c61" /> }
                     ].map((metric, index) => (
@@ -269,8 +269,8 @@ const Home = () => {
                 textAlign: 'center'
             }}>
                 {[
-                    { label: 'Issues Per Year', value: '4', icon: <BookOpen size={24} color="#084c61" /> },
-                    { label: 'Acceptance Rate', value: '~30%', icon: <Award size={24} color="#084c61" /> },
+                    { label: 'Issues Per Year', value: '2', icon: <BookOpen size={24} color="#084c61" /> },
+                    { label: 'Acceptance Rate', value: '15%', icon: <Award size={24} color="#084c61" /> },
                     { label: 'Review Time', value: '2 Weeks', icon: <Clock size={24} color="#084c61" /> },
                     { label: 'Active Reviewers', value: '50+', icon: <Users size={24} color="#084c61" /> }
                 ].map((metric, index) => (

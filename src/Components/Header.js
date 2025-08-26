@@ -3,7 +3,7 @@ import itme_logo from '../Images/ITME_LOGO.png';
 import * as DarkReader from 'darkreader';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSun, faMoon, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
+import { faSun, faMoon, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import useAuth from '../Hooks/useAuth';
 export default function Header() {
     const { isAuthenticated, refreshAuthStatus, isAdmin, user, role } = useAuth();
@@ -103,7 +103,7 @@ export default function Header() {
             <div id='info-bar'>
                 <div id='child-info-bar'>
                     <span><FontAwesomeIcon className="mx-2" icon={faEnvelope} />support.itme@krmangalam.edu.in</span>
-                    <span><FontAwesomeIcon className="mx-2" icon={faPhone} />+(91) 90693 60400</span>
+                    <span>K.R. Mangalam University</span>
                 </div>
             </div>
             <div id="topBar">
@@ -113,7 +113,7 @@ export default function Header() {
                     <div id='childBar-max'>
                         <h2 className="jnhd-max">INNOVATIVE TRENDS IN MULTIDISCIPLINARY ENGINEERING</h2>
                         <p className="jndh-max">
-                            ISSN: 0923-4748
+                            ISSN: XXXX XXXX
                         </p>
                     </div>
                 </div>
@@ -123,7 +123,7 @@ export default function Header() {
                     <div id='childBar-min'>
                         <h2 className="jnhd-min">INNOVATIVE TRENDS IN MULTIDISCIPLINARY ENGINEERING</h2>
                         <p className="jndh-min">
-                            ISSN: 0923-4748
+                            ISSN: XXXX XXXX
                         </p>
                     </div>
                 </div>
@@ -270,7 +270,7 @@ export default function Header() {
                             </li>
                         ) : (
                             <li className="nav-item">
-                                <Link className="nav-link" to="/form">Research Archive</Link>
+                                <Link className="nav-link" to="/form">Submit Manuscript</Link>
                             </li>
                         )}
 
