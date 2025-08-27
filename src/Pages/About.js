@@ -170,7 +170,7 @@ const About = () => {
                         An international, peer-reviewed online journal advancing research excellence in tribology, materials engineering, and interdisciplinary sciences through our Scholarly Open Access Initiative
                     </p>
                     <div style={{ marginTop: '30px', display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
-                        <span style={{
+                        {/* <span style={{
                             backgroundColor: 'rgba(255,255,255,0.2)',
                             padding: '8px 20px',
                             borderRadius: '25px',
@@ -178,7 +178,7 @@ const About = () => {
                             fontWeight: '500'
                         }}>
                             ISSN: XXXX-XXXX
-                        </span>
+                        </span> */}
                         <span style={{
                             backgroundColor: 'rgba(255,255,255,0.2)',
                             padding: '8px 20px',
@@ -198,6 +198,69 @@ const About = () => {
                             Open Access
                         </span>
                     </div>
+                </div>
+            </div>
+
+            {/* About K.R. Mangalam University Content */}
+            <div style={sectionStyle} data-aos="fade-up" data-aos-delay="50">
+                <h2 style={{
+                    fontSize: '2.2rem',
+                    color: '#084c61',
+                    marginBottom: '25px',
+                    textAlign: 'center',
+                    position: 'relative'
+                }}>
+                    About K.R. Mangalam University
+                    <div style={{
+                        position: 'absolute',
+                        bottom: '-10px',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        width: '60px',
+                        height: '3px',
+                        backgroundColor: '#084c61'
+                    }} />
+                </h2>
+                <div style={{ fontSize: '1.2rem', lineHeight: '1.8', textAlign: 'justify' }}>
+                    <p style={{ marginBottom: '20px' }}>
+                        <strong style={{ color: '#084c61' }}>K.R. Mangalam University (KRMU), Gurugram,</strong> is a leading multidisciplinary university established in 2013 with a vision to shape future leaders through innovative education, research, and global exposure. The university is committed to academic excellence, experiential learning, and industry integration, providing a vibrant platform for students to develop professional competencies, research skills, and ethical values. With its state-of-the-art campus, distinguished faculty, and strong industry collaborations, KRMU empowers students to pursue cutting-edge research and contribute meaningfully to society.
+                    </p>
+                </div>
+            </div>
+
+            {/* About SOET Content */}
+            <div style={sectionStyle} data-aos="fade-up" data-aos-delay="75">
+                <h2 style={{
+                    fontSize: '2.2rem',
+                    color: '#084c61',
+                    marginBottom: '25px',
+                    textAlign: 'center',
+                    position: 'relative'
+                }}>
+                    About the School of Engineering & Technology (SOET)
+                    <div style={{
+                        position: 'absolute',
+                        bottom: '-10px',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        width: '60px',
+                        height: '3px',
+                        backgroundColor: '#084c61'
+                    }} />
+                </h2>
+                <div style={{ fontSize: '1.2rem', lineHeight: '1.8', textAlign: 'justify' }}>
+                    <p style={{ marginBottom: '20px' }}>
+                        <strong style={{ color: '#084c61' }}>The School of Engineering & Technology (SOET)</strong> at K.R. Mangalam University is at the forefront of engineering and technological education, research, and innovation. SOET offers a wide range of undergraduate, postgraduate, and doctoral programs in fields such as Computer Science & Engineering, Artificial Intelligence & Machine Learning, Data Science, Cyber Security, Cloud Computing, Full-Stack Development, Mechanical Engineering, and Electric Vehicles.
+                    </p>
+                    <p style={{ marginBottom: '20px' }}>
+                        SOET follows a project-based and research-oriented pedagogy, encouraging students to work on real-world problems and interdisciplinary innovations. Through strong academic–industry partnerships with leading organizations like IBM, Siemens, Xebia, and ImaginXP, the school provides students with opportunities for live projects, internships, and incubation support.
+                    </p>
+                    <p style={{ marginBottom: '20px' }}>
+                        Equipped with modern laboratories, advanced research facilities, and a team of dedicated faculty, SOET actively fosters an environment of creativity, critical thinking, and collaboration. The school also organizes hackathons, conferences, workshops, and expert lectures, nurturing talent and promoting a culture of research-driven excellence.
+                    </p>
+                    <p style={{ marginBottom: '20px' }}>
+                        By managing the <strong style={{ color: '#084c61' }}>Innovative Trends in Multidisciplinary Engineering (ITME) Journal</strong>, SOET further strengthens its mission of advancing scholarly research and providing a platform for knowledge exchange in engineering and technology at both national and global levels.
+                    </p>
                 </div>
             </div>
 
@@ -345,14 +408,18 @@ const About = () => {
                         marginTop: '25px'
                     }}>
                         {[
-                            'Tribology & Friction Sciences',
-                            'Materials Engineering & Science',
-                            'Mechanical Engineering',
-                            'Nanotechnology Applications',
-                            'Surface Engineering',
-                            'Biomaterials & Bioengineering',
-                            'Computational Materials Science',
-                            'Sustainable Materials Development'
+                            { name: 'Artificial Intelligence', img: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=100&h=80&fit=crop&crop=center' },
+                            { name: 'Machine Learning', img: 'https://images.unsplash.com/photo-1516110833967-0b5716ca1387?w=100&h=80&fit=crop&crop=center' },
+                            { name: 'Cyber Security', img: 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=100&h=80&fit=crop&crop=center' },
+                            { name: 'Quantum Computing', img: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=100&h=80&fit=crop&crop=center' },
+                            { name: 'BlockChain', img: 'https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=100&h=80&fit=crop&crop=center' },
+                            { name: 'Mechanical & Civil', img: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=100&h=80&fit=crop&crop=center' },
+                            { name: 'SDT', img: 'https://images.unsplash.com/photo-1484417894907-623942c8ee29?w=100&h=80&fit=crop&crop=center' },
+                            { name: 'Data Science & Analytics', img: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=100&h=80&fit=crop&crop=center' },
+                            { name: 'IoT & Smart Systems', img: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=100&h=80&fit=crop&crop=center' },
+                            { name: 'Robotics', img: 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?w=100&h=80&fit=crop&crop=center' },
+                            { name: 'Biomedical Engineering', img: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=100&h=80&fit=crop&crop=center' },
+                            { name: 'Environmental Engineering', img: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=100&h=80&fit=crop&crop=center' }
                         ].map((topic, index) => (
                             <div key={index} style={{
                                 backgroundColor: '#f8f9fa',
@@ -360,18 +427,41 @@ const About = () => {
                                 borderRadius: '8px',
                                 border: '1px solid #e9ecef',
                                 textAlign: 'center',
-                                transition: 'transform 0.2s ease'
+                                transition: 'transform 0.2s ease',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                gap: '10px'
                             }}
                                 onMouseEnter={(e) => {
                                     e.currentTarget.style.transform = 'translateY(-2px)';
                                     e.currentTarget.style.backgroundColor = '#e9ecef';
                                 }}
                                 onMouseLeave={(e) => {
-                                    e.currentTarget.style.transform = 'translateY(0)';
+                                    e.currentTarget.style.transform = '';
                                     e.currentTarget.style.backgroundColor = '#f8f9fa';
+                                }}
+                                data-aos="fade-up"
+                                data-aos-delay={index * 50}
+                            >
+                                <img 
+                                    src={topic.img} 
+                                    alt={topic.name}
+                                    style={{
+                                        width: '60px',
+                                        height: '48px',
+                                        borderRadius: '6px',
+                                        objectFit: 'cover',
+                                        border: '2px solid #084c61'
+                                    }}
+                                />
+                                <span style={{
+                                    fontWeight: '600',
+                                    color: '#084c61',
+                                    fontSize: '0.95rem'
                                 }}>
-                                <CheckCircle size={20} color="#084c61" style={{ marginBottom: '8px' }} />
-                                <div style={{ fontWeight: '500', color: '#084c61' }}>{topic}</div>
+                                    {topic.name}
+                                </span>
                             </div>
                         ))}
                     </div>
@@ -506,27 +596,6 @@ const About = () => {
                                 lineHeight: '1.4'
                             }}>
                                 editor.itme@krmangalam.edu.in
-                            </a>
-                        </div>
-
-                        <div style={{
-                            backgroundColor: 'white',
-                            padding: '25px',
-                            borderRadius: '10px',
-                            boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
-                            border: '1px solid #e9ecef',
-                            textAlign: 'center',
-                            gridColumn: 'span 1'
-                        }}>
-                            <Phone size={24} color="#084c61" style={{ marginBottom: '10px' }} />
-                            <h3 style={{ color: '#084c61', fontSize: '1rem', marginBottom: '10px', fontWeight: 'bold' }}>Phone Support</h3>
-                            <a href="tel:+919910502393" style={{
-                                color: '#007bff',
-                                textDecoration: 'none',
-                                fontSize: '0.9rem',
-                                fontWeight: '500'
-                            }}>
-                                +91 99105 02393
                             </a>
                         </div>
                     </div>
