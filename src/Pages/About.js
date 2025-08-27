@@ -177,7 +177,7 @@ const About = () => {
                             fontSize: '0.9rem',
                             fontWeight: '500'
                         }}>
-                            ISSN: 0923-4748
+                            ISSN: XXXX-XXXX
                         </span>
                         <span style={{
                             backgroundColor: 'rgba(255,255,255,0.2)',

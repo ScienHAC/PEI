@@ -413,21 +413,23 @@ const Home = () => {
                     zIndex: 1
                 }}>
                     {[
-                        'Sustainable Materials',
-                        'Bio-inspired Materials',
-                        'Energy Materials',
-                        'Computational Materials Science',
-                        'Extreme Environment Materials',
-                        'Healthcare & Wearables',
-                        'Additive Manufacturing',
-                        'AI Materials'
+                        { name: 'Artificial Intelligence', icon: '💡' },
+                        { name: 'Machine Learning', icon: '🧠' },
+                        { name: 'Cyber Security', icon: '🛡️' },
+                        { name: 'Quantum Computing', icon: '⚛️' },
+                        { name: 'BlockChain', icon: '⛓️' },
+                        { name: 'Mechanical & Civil', icon: '⚙️' },
+                        { name: 'SDT', icon: '💻' },
+                        { name: 'Data Science & Analytics', icon: '📊' },
+                        { name: 'IoT & Smart Systems', icon: '🌐' },
+                        { name: 'Robotics', icon: '🤖' }
                     ].map((area, index) => (
                         <div
                             key={index}
                             data-aos="fade-up"
                             data-aos-delay={index * 50}
                             style={{
-                                padding: '10px 16px',
+                                padding: '12px 18px',
                                 backgroundColor: '#ffffff',
                                 color: '#084c61',
                                 borderRadius: '30px',
@@ -436,7 +438,10 @@ const Home = () => {
                                 border: '1px solid rgba(0, 0, 0, 0.1)',
                                 fontSize: '0.9rem',
                                 transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                                cursor: 'pointer'
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '8px'
                             }}
                             onMouseEnter={(e) => {
                                 e.currentTarget.style.transform = 'translateY(-3px)';
@@ -447,7 +452,8 @@ const Home = () => {
                                 e.currentTarget.style.boxShadow = '0 1px 3px rgba(0, 0, 0, 0.1)';
                             }}
                         >
-                            {area}
+                            <span style={{ fontSize: '1.2rem' }}>{area.icon}</span>
+                            <span>{area.name}</span>
                         </div>
                     ))}
                 </div>
@@ -698,34 +704,31 @@ const Slider = () => {
                                 transition: 'transform 0.5s ease, opacity 0.5s ease',
                                 transitionDelay: '0.3s'
                             }}>{slide.text}</p>
-                            <a
-                                href={slide.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
+                            <button
                                 className="read-more"
+                                disabled
                                 style={{
                                     display: 'inline-block',
                                     padding: '8px 20px',
-                                    backgroundColor: 'white',
-                                    color: '#084c61',
-                                    textDecoration: 'none',
+                                    backgroundColor: '#e0e0e0',
+                                    color: '#888888',
+                                    border: 'none',
                                     borderRadius: '30px',
                                     fontWeight: '500',
-                                    boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
+                                    boxShadow: '0 2px 6px rgba(0,0,0,0.1)',
                                     transform: index === currentIndex ? 'translateY(0) scale(1)' : 'translateY(20px) scale(0.9)',
-                                    opacity: index === currentIndex ? 1 : 0,
-                                    transition: 'transform 0.5s ease, opacity 0.5s ease, background-color 0.3s ease',
-                                    transitionDelay: '0.4s'
+                                    opacity: index === currentIndex ? 0.6 : 0,
+                                    transition: 'transform 0.5s ease, opacity 0.5s ease',
+                                    transitionDelay: '0.4s',
+                                    cursor: 'not-allowed'
                                 }}
-                                onMouseEnter={(e) => {
-                                    e.currentTarget.style.backgroundColor = '#f0f0f0';
-                                }}
-                                onMouseLeave={(e) => {
-                                    e.currentTarget.style.backgroundColor = 'white';
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
                                 }}
                             >
                                 Read More
-                            </a>
+                            </button>
                         </div>
                     </div>
                 ))}
@@ -817,7 +820,7 @@ const getCardText = (title) => {
         case 'Review Workflow':
             return 'All submissions undergo initial screening followed by a double-blind peer review process by at least two experts, with decision notifications typically sent within two weeks.';
         case 'Author Benefits':
-            return 'No publication fees, open access distribution, indexing in major databases, free digital copies, and promotion of published articles through our academic networks.';
+            return 'No publication fees, open access distribution, free digital copies, and promotion through academic networks. Fast-track review process, international visibility, comprehensive author support, and copyright retention.';
         case 'Publication Timeline':
             return 'After acceptance, manuscripts undergo copyediting, typesetting, and proofreading before publication in the next available quarterly issue (March, June, September, or December) or as online first articles.';
         default:
