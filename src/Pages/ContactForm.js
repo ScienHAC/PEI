@@ -184,10 +184,6 @@ function ContactForm() {
             <i className="fas fa-globe"></i>
             <span>https://itme.krmangalam.edu.in</span>
           </div>
-          <div className="contact-item">
-            <i className="fas fa-university"></i>
-            <span>K.R. Mangalam University</span>
-          </div>
         </div>
       </div>
 

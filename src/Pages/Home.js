@@ -831,7 +831,7 @@ const getCardText = (title) => {
         case 'Author Benefits':
             return 'No publication fees, open access distribution, free digital copies, and promotion through academic networks. Fast-track review process, international visibility, comprehensive author support, and copyright retention.';
         case 'Publication Timeline':
-            return 'After acceptance, manuscripts undergo copyediting, typesetting, and proofreading before publication in the next available quarterly issue (March, June, September, or December) or as online first articles.';
+            return 'After acceptance, manuscripts undergo copyediting, typesetting, and proofreading before being scheduled for publication in the next available biannual issue (July or December). In some cases, accepted articles may also appear as Online First publications prior to the official issue release.';
         default:
             return '';
     }

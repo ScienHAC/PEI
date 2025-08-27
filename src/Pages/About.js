@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { Award, Users, Clock, BookOpen, Globe, CheckCircle, Mail, Phone, User, Edit, Target, Zap, Shield } from 'lucide-react';
+import { Award, Users, Clock, BookOpen, Globe, CheckCircle, Mail, User, Edit, Target, Zap, Shield } from 'lucide-react';
 
 const About = () => {
     const [isHovered, setIsHovered] = useState(false);
@@ -120,7 +120,7 @@ const About = () => {
         {
             icon: <Users size={40} color="#084c61" />,
             title: 'Distinguished Editorial Board',
-            description: 'Supported by prominent individuals from renowned universities, colleges, and corporations across USA, Australia, Canada, Japan, China, and India.'
+            description: 'Supported by prominent individuals from renowned universities, colleges, and corporations across the USA, Australia, Canada, Japan, China, and India, fostering collaboration between academia and industry on global issues.'
         },
         {
             icon: <Globe size={40} color="#084c61" />,

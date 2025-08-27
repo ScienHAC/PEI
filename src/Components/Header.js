@@ -5,7 +5,8 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSun, faMoon, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import useAuth from '../Hooks/useAuth';
-export default function Header() {
+
+const Header = React.memo(() => {
     const { isAuthenticated, refreshAuthStatus, isAdmin, user, role } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
@@ -363,5 +364,7 @@ export default function Header() {
                 </div>
             </nav>
         </>
-    )
-}
+    );
+});
+
+export default Header;

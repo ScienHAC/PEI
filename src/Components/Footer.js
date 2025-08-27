@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import itme_logo from "../Images/ITME_LOGO.png";
 import "../CSS/Footer.css"; // if you extract styles to a separate file
 
-const Footer = ({ name }) => {
+const Footer = React.memo(({ name }) => {
     return (
         <footer className="footer">
             {/* Top Section with logo, policy, and contact details */}
@@ -29,9 +29,6 @@ const Footer = ({ name }) => {
                         Contact Us
                     </Link>
                     <span className="footer-contact-text">
-                        Phone: +91 90693 60400
-                    </span>
-                    <span className="footer-contact-text">
                         <a href="mailto:support.itme@krmangalam.edu.in" className="footer-link">
                             support.itme@krmangalam.edu.in
                         </a>
@@ -50,6 +47,6 @@ const Footer = ({ name }) => {
             </div>
         </footer>
     );
-};
+});
 
 export default Footer;
