@@ -236,7 +236,7 @@ export default function Header() {
                             <Link className="nav-link" to="/abstracting-indexing">Abstracting & Indexing</Link>
                         </li>
 
-                        {/* Dropdown for Archives & Editorial Board */}
+                        {/* Dropdown for Publications */}
                         <li className="nav-item dropdown">
                             <button
                                 className="nav-link dropdown-toggle"
@@ -253,10 +253,11 @@ export default function Header() {
                                 <li>
                                     <Link className="dropdown-item" to="/archives">Archives</Link>
                                 </li>
-                                <li>
-                                    <Link className="dropdown-item" to="/editorial-board">Editorial Board</Link>
-                                </li>
                             </ul>
+                        </li>
+
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/editorial-board">Editorial Board</Link>
                         </li>
 
                         <li className="nav-item">
