@@ -163,7 +163,16 @@ const Home = () => {
                         color: '#333',
                         lineHeight: '1.6'
                     }}>
-                        <span style={{ fontWeight: 'bold', color: '#084c61' }}>Innovative Trends in Multidisciplinary Engineering</span> is a double-blind, peer-reviewed journal published quarterly (March, June, September, December). We provide a platform for interdisciplinary research in engineering materials with no publication fees and a rapid review process.
+                        <span style={{ fontWeight: 'bold', color: '#084c61' }}>Innovative Trends in Multidisciplinary Engineering (ITME)</span> is a double-blind, peer-reviewed international journal, published biannually in July and December. The journal provides a high-quality platform for the dissemination of interdisciplinary research in engineering and applied sciences, with a particular emphasis on innovative approaches, emerging technologies, and advanced materials.
+                    </p>
+                    <p style={{
+                        fontSize: '1.25rem',
+                        maxWidth: '100%',
+                        marginBottom: '30px',
+                        color: '#333',
+                        lineHeight: '1.6'
+                    }}>
+                        We are committed to maintaining the highest standards of academic publishing by ensuring a rigorous peer-review process, while also offering rapid review and publication timelines to support timely dissemination of research findings.
                     </p>
 
                     <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
