@@ -86,21 +86,18 @@
     filter: drop-shadow(0 3px 6px rgba(0,0,0,0.25));
 }
 
-/* KRMU crest gets soft rounded rectangle mask */
-.footer-logo-krmu {
-    border-radius: 18px; /* rounded corners as requested */
-    background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.15), rgba(255,255,255,0.03));
-    padding: 4px; /* inner breathing space to avoid clipping */
-    box-shadow: 0 4px 10px -2px rgba(0,0,0,0.35), 0 2px 4px -1px rgba(0,0,0,0.25);
+/* Main journal (left) logo responsive sizing */
+.footer-logo-main { 
+    width:clamp(100px, 9vw, 150px); /* grows smoothly with viewport */
+    height:auto;
+    aspect-ratio:1/1;
+    object-fit:contain;
+    display:block;
+    margin:0 0 22px 0; /* space under logo */
+    filter:drop-shadow(2px 4px 6px rgba(0,0,0,.25));
+    transition:filter .35s ease, transform .35s ease;
 }
-
-/* ITME logo subtle glass chip */
-.footer-logo-itme {
-    border-radius: 14px;
-    backdrop-filter: blur(3px);
-    background: rgba(255,255,255,0.08);
-    padding: 6px 8px;
-}
+.footer-logo-main.enlarged:hover { transform:translateY(-4px); filter:drop-shadow(4px 8px 10px rgba(0,0,0,.35)); }
 
 /* Interactive scaling (kept moderate for professionalism) */
 .footer-logo-krmu:hover, .footer-logo-itme:hover, .footer-logo-krmu:focus-visible, .footer-logo-itme:focus-visible {
@@ -210,17 +207,31 @@
 @media (max-width: 968px) {
     .footer-main { grid-template-columns:1fr; gap:38px; text-align:center; }
     .footer-left { justify-content:center; }
+    .footer-logo-main { margin:0 auto 24px; }
     .footer-contact-section { text-align:center; }
     .footer-contact-item { align-items:center; }
     .footer-links-section { grid-template-columns:repeat(2,1fr); gap:28px; }
     .footer-right { align-items:center; }
         .footer-social-icons { justify-content:center; }
+    /* Reorder sections: center, right, left */
+    .footer-main { display:flex; flex-direction:column; }
+    .footer-center { order:1; }
+    .footer-right { order:2; }
+    .footer-left { order:3; }
+    /* Ensure proper centering */
+    .footer-main { align-items:center; }
+    .footer-center, .footer-right, .footer-left { width:100%; max-width:720px; }
+    .footer-center { display:flex; flex-direction:column; align-items:center; }
+    .footer-journal-section { width:100%; }
+    .footer-logo-combination { margin-left:auto; margin-right:auto; }
+    .footer-links-section { justify-content:center; }
 }
 
 @media (max-width: 640px) {
     .footer {
         padding: 30px 15px 15px;
     }
+    .footer-logo-main { width:120px; margin:0 auto 20px; }
     
     .footer-main {
         gap: 25px;
@@ -228,7 +239,7 @@
     
     .footer-links-section { grid-template-columns:1fr; gap:20px; }
     .footer-right { align-items:stretch; }
-    .footer-social-icons { justify-content:flex-start; }
+    .footer-social-icons { justify-content:center; }
     
     .footer-journal-section {
         max-width: 100%;
@@ -270,6 +281,7 @@
     .footer {
         padding: 20px 10px 10px;
     }
+    .footer-logo-main { width:110px; }
     
     .footer-logo-combination { gap:8px; padding:10px; flex-direction:column; }
     .footer-social-icons { justify-content:center; }
@@ -309,6 +321,7 @@
 }
 
 @media (max-width: 350px) {
+    .footer-logo-main { width:95px; }
     .footer-logo-combination {
         gap: 5px;
         padding: 8px;
