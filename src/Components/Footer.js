@@ -1,115 +1,92 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPhone, faEnvelope, faLocationDot } from '@fortawesome/free-solid-svg-icons';
-import { faFacebookF, faTwitter, faLinkedinIn, faInstagram, faYoutube, faXTwitter } from '@fortawesome/free-brands-svg-icons';
 import "../CSS/Footer.css";
 
+// Icon social links (user requested icons only with correct URLs)
 const socialLinks = [
-    { href: 'https://www.facebook.com/', label: 'Facebook', icon: faFacebookF },
-    { href: 'https://twitter.com/', label: 'Twitter', icon: faTwitter },
-    { href: 'https://x.com/', label: 'X', icon: faXTwitter },
-    { href: 'https://www.linkedin.com/', label: 'LinkedIn', icon: faLinkedinIn },
-    { href: 'https://www.instagram.com/', label: 'Instagram', icon: faInstagram },
-    { href: 'https://www.youtube.com/', label: 'YouTube', icon: faYoutube },
+    { label: "Instagram", icon: "fab fa-instagram", url: "https://www.instagram.com/krmuniv/" },
+    { label: "X (Twitter)", icon: "fab fa-x-twitter", url: "https://x.com/krmuniversity" },
+    { label: "Facebook", icon: "fab fa-facebook-f", url: "https://facebook.com/krmuniv" },
+    { label: "LinkedIn", icon: "fab fa-linkedin-in", url: "https://www.linkedin.com/school/krmuniv/" },
 ];
 
-const Footer = React.memo(({ name }) => {
+const Footer = React.memo(() => {
     return (
         <footer className="footer">
-            {/* Main Footer Content */}
             <div className="footer-main">
-                {/* Left Column */}
-                <div className="footer-col footer-contact-col">
-                    <div className="footer-logo-wrapper">
-                        <img src="/logo.png" alt="K.R. Mangalam University" className="footer-main-logo enlarged" />
-                    </div>
-                    <h4 className="footer-section-heading">CONTACT INFORMATION</h4>
-                    <div className="footer-contact-item">
-                        <FontAwesomeIcon icon={faPhone} />
-                        <div className="contact-info">
-                            <a href="tel:01148884888" className="contact-primary">011-48884888</a>
-                            <span className="contact-secondary">8800697010–15 / 8192888444</span>
-                        </div>
-                    </div>
-                    <div className="footer-contact-item">
-                        <FontAwesomeIcon icon={faEnvelope} />
-                        <div className="contact-info">
-                            <a href="mailto:dean.soet@krmangalam.edu.in" className="contact-primary">dean.soet@krmangalam.edu.in</a>
-                            <a href="mailto:soetconference@krmangalam.edu.in" className="contact-secondary">soetconference@krmangalam.edu.in</a>
-                        </div>
-                    </div>
-                    <div className="footer-contact-item">
-                        <FontAwesomeIcon icon={faLocationDot} />
-                        <div className="contact-info">
-                            <span className="contact-primary">Sohna Road, Gurugram</span>
-                            <span className="contact-secondary">Haryana 122103 (India)</span>
+                {/* LEFT: Logo + Contact */}
+                <div className="footer-left">
+                    <div className="footer-contact-section">
+                        <img src="/logo.png" alt="University Logo" className="footer-logo-main enlarged" onError={(e)=>{e.currentTarget.src='/kmu.png';}} />
+                        <h4 className="footer-section-title">Contact Information</h4>
+                        <div className="footer-contact-list">
+                            <div className="footer-contact-item">
+                                <span className="footer-contact-label">Address:</span>
+                                <span className="footer-contact-text">K.R. Mangalam University, Sohna Road, Gurugram, Haryana 122103</span>
+                            </div>
+                            <div className="footer-contact-item">
+                                <span className="footer-contact-label">General SOET:</span>
+                                <a href="mailto:dean.soet@krmangalam.edu.in" className="footer-contact-link">dean.soet@krmangalam.edu.in</a>
+                            </div>
+                            <div className="footer-contact-item">
+                                <span className="footer-contact-label">Conference / Events:</span>
+                                <a href="mailto:soetconference@krmangalam.edu.in" className="footer-contact-link">soetconference@krmangalam.edu.in</a>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                {/* Center Column */}
-                <div className="footer-col footer-center-col">
-                    <div className="footer-logo-combination flat">
-                        <img src="/ITME.png" alt="ITME Logo" className="footer-logo-itme" />
-                        <span className="footer-logo-separator">×</span>
-                        <img src="/kmu.png" alt="K.R. Mangalam University Logo" className="footer-logo-krmu" />
-                    </div>
-                    <div className="footer-journal-text">
-                        <h3>ITME</h3>
-                        <p>Innovative Trends in Multidisciplinary Engineering</p>
-                        <p className="footer-publisher">Published by K.R. Mangalam University</p>
+                {/* CENTER: Journal Info */}
+                <div className="footer-center">
+                    <div className="footer-journal-section">
+                        <div className="footer-logo-combination">
+                            <img src="/ITME.png" alt="ITME Logo" className="footer-logo-itme" />
+                            <span className="footer-logo-separator">×</span>
+                            <img src="/kmu.png" alt="K.R. Mangalam University Logo" className="footer-logo-krmu" />
+                        </div>
+                        <div className="footer-journal-text">
+                            <h3>ITME</h3>
+                            <p>Innovative Trends in Multidisciplinary Engineering</p>
+                            <p className="footer-publisher">Published by K.R. Mangalam University</p>
+                        </div>
                     </div>
                 </div>
 
-                {/* Right Column Navigation */}
-                <nav className="footer-col footer-nav-col" aria-label="Footer navigation">
-                    <div className="footer-nav-columns three-cols">
+                {/* RIGHT: Links + Social icons */}
+                <div className="footer-right">
+                    <div className="footer-links-section">
                         <div className="footer-links-group">
-                            <h4>QUICK LINKS</h4>
+                            <h4>Quick Links</h4>
                             <Link to="/about" className="footer-link">About Journal</Link>
                             <Link to="/editorial-board" className="footer-link">Editorial Board</Link>
                             <Link to="/archives" className="footer-link">Archives</Link>
                             <Link to="/current-issue" className="footer-link">Current Issue</Link>
                         </div>
                         <div className="footer-links-group">
-                            <h4>SUPPORT</h4>
+                            <h4>Support</h4>
                             <Link to="/contact" className="footer-link">Contact Us</Link>
                             <a href="mailto:support.itme@krmangalam.edu.in" className="footer-link">Technical Support</a>
                             <a href="mailto:editor.itme@krmangalam.edu.in" className="footer-link">Editorial Office</a>
                         </div>
                         <div className="footer-links-group">
-                            <h4>POLICIES</h4>
+                            <h4>Policies</h4>
                             <Link to="/privacy-policy" className="footer-link">Privacy Policy</Link>
                             <Link to="/terms-and-conditions" className="footer-link">Terms & Conditions</Link>
                         </div>
                     </div>
-                </nav>
-            </div>
-            {/* Social Row (centered) */}
-            <div className="footer-social-row" aria-label="Social media">
-                {socialLinks.map(s => (
-                    <a
-                        key={s.label}
-                        href={s.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={s.label}
-                        className="footer-social-icon"
-                    >
-                        <FontAwesomeIcon icon={s.icon} />
-                    </a>
-                ))}
+                    <div className="footer-social-icons" aria-label="Social media links">
+                        {socialLinks.map((s, i) => (
+                            <a key={i} href={s.url} target="_blank" rel="noopener noreferrer" className="footer-social-icon" aria-label={s.label} title={s.label}>
+                                <i className={s.icon} aria-hidden="true"></i>
+                            </a>
+                        ))}
+                    </div>
+                </div>
             </div>
 
-            {/* Bottom Section */}
             <div className="footer-bottom">
-                <p className="footer-copyright">
-                    © 2025 ITME Journal - K.R. Mangalam University. All rights reserved.
-                </p>
-                <p className="footer-issn">
-                    International Peer-Reviewed Journal | Open Access Publication
-                </p>
+                <p className="footer-copyright">© 2025 ITME Journal - K.R. Mangalam University. All rights reserved.</p>
+                <p className="footer-issn">International Peer-Reviewed Journal | Open Access Publication</p>
             </div>
         </footer>
     );

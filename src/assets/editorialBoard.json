@@ -1,0 +1,62 @@
+[
+  {
+    "id": "pankaj-agarwal",
+    "name": "Dr. Pankaj Agarwal",
+    "role": "Editor-in-Chief",
+    "affiliation": "K.R. Mangalam University, Gurugram, India",
+    "email": "dean.soet@krmangalam.edu.in",
+    "image": "pankaj-agarwal.jpg",
+    "bio": "Focus areas include multidisciplinary engineering education and research leadership.",
+    "orcid": ""
+  },
+  {
+    "id": "shweta-bansal",
+    "name": "Dr. Shweta Bansal",
+    "role": "Editor",
+    "affiliation": "K.R. Mangalam University, Gurugram, India",
+    "email": "shweta.bansal@krmangalam.edu.in",
+    "image": "shweta-bansal.jpg",
+    "bio": "Research interests span software engineering and emerging educational technologies.",
+    "orcid": ""
+  },
+  {
+    "id": "aman-jatain",
+    "name": "Dr. Aman Jatain",
+    "role": "Editor",
+    "affiliation": "K.R. Mangalam University, Gurugram, India",
+    "email": "aman.jatain@krmangalam.edu.in",
+    "image": "aman-jatain.jpg",
+    "bio": "Specializes in data-driven systems and applied computing methodologies.",
+    "orcid": ""
+  },
+  {
+    "id": "rupesh-kumar-tipu",
+    "name": "Dr. Rupesh Kumar Tipu",
+    "role": "Editor",
+    "affiliation": "K.R. Mangalam University, Gurugram, India",
+    "email": "rupesh.kumar@krmangalam.edu.in",
+    "image": "rupesh-kumar-tipu.jpg",
+    "bio": "Contributions in mechanical and interdisciplinary engineering innovation.",
+    "orcid": ""
+  },
+  {
+    "id": "digvijay-singh",
+    "name": "Dr. Digvijay Singh",
+    "role": "Editor",
+    "affiliation": "K.R. Mangalam University, Gurugram, India",
+    "email": "digvijay.singh@krmangalam.edu.in",
+    "image": "digvijay-singh.jpg",
+    "bio": "Works across engineering domains fostering collaborative research networks.",
+    "orcid": ""
+  },
+  {
+    "id": "imran-siraj",
+    "name": "Dr. Imran Siraj",
+    "role": "Editor",
+    "affiliation": "K.R. Mangalam University, Gurugram, India",
+    "email": "imran.siraj@krmangalam.edu.in",
+    "image": "imran-siraj.jpg",
+    "bio": "Focus on intelligent systems and computational engineering applications.",
+    "orcid": ""
+  }
+]
