@@ -1,62 +1,16 @@
 [
-  {
-    "id": "pankaj-agarwal",
-    "name": "Dr. Pankaj Agarwal",
-    "role": "Editor-in-Chief",
-    "affiliation": "K.R. Mangalam University, Gurugram, India",
-    "email": "dean.soet@krmangalam.edu.in",
-    "image": "pankaj-agarwal.jpg",
-    "bio": "Focus areas include multidisciplinary engineering education and research leadership.",
-    "orcid": ""
-  },
-  {
-    "id": "shweta-bansal",
-    "name": "Dr. Shweta Bansal",
-    "role": "Editor",
-    "affiliation": "K.R. Mangalam University, Gurugram, India",
-    "email": "shweta.bansal@krmangalam.edu.in",
-    "image": "shweta-bansal.jpg",
-    "bio": "Research interests span software engineering and emerging educational technologies.",
-    "orcid": ""
-  },
-  {
-    "id": "aman-jatain",
-    "name": "Dr. Aman Jatain",
-    "role": "Editor",
-    "affiliation": "K.R. Mangalam University, Gurugram, India",
-    "email": "aman.jatain@krmangalam.edu.in",
-    "image": "aman-jatain.jpg",
-    "bio": "Specializes in data-driven systems and applied computing methodologies.",
-    "orcid": ""
-  },
-  {
-    "id": "rupesh-kumar-tipu",
-    "name": "Dr. Rupesh Kumar Tipu",
-    "role": "Editor",
-    "affiliation": "K.R. Mangalam University, Gurugram, India",
-    "email": "rupesh.kumar@krmangalam.edu.in",
-    "image": "rupesh-kumar-tipu.jpg",
-    "bio": "Contributions in mechanical and interdisciplinary engineering innovation.",
-    "orcid": ""
-  },
-  {
-    "id": "digvijay-singh",
-    "name": "Dr. Digvijay Singh",
-    "role": "Editor",
-    "affiliation": "K.R. Mangalam University, Gurugram, India",
-    "email": "digvijay.singh@krmangalam.edu.in",
-    "image": "digvijay-singh.jpg",
-    "bio": "Works across engineering domains fostering collaborative research networks.",
-    "orcid": ""
-  },
-  {
-    "id": "imran-siraj",
-    "name": "Dr. Imran Siraj",
-    "role": "Editor",
-    "affiliation": "K.R. Mangalam University, Gurugram, India",
-    "email": "imran.siraj@krmangalam.edu.in",
-    "image": "imran-siraj.jpg",
-    "bio": "Focus on intelligent systems and computational engineering applications.",
-    "orcid": ""
-  }
+  { "id": 1, "name": "Dr. Pankaj Agarwal", "role": "Editor-in-Chief", "affiliation": "KR Mangalam University, Gurugram, India", "email": "dean.soet@krmangalam.edu.in" },
+  { "id": 2, "name": "Dr Shweta Bansal", "role": "Editor", "affiliation": "KR Mangalam University, Gurugram, India", "email": "shweta.bansal@krmangalam.edu.in" },
+  { "id": 3, "name": "Dr Aman Jatain", "role": "Editor", "affiliation": "KR Mangalam University, Gurugram, India", "email": "aman.jatain@krmangalam.edu.in" },
+  { "id": 4, "name": "Dr Rupesh Kumar Tipu", "role": "Editor", "affiliation": "KR Mangalam University, Gurugram, India", "email": "rupesh.kumar@krmangalam.edu.in" },
+  { "id": 5, "name": "Dr. Digvijay Singh", "role": "Editor", "affiliation": "KR Mangalam University, Gurugram, India", "email": "digvijay.singh@krmangalam.edu.in" },
+  { "id": 6, "name": "Dr Imran Siraj", "role": "Editor", "affiliation": "KR Mangalam University, Gurugram, India", "email": "imran.siraj@krmangalam.edu.in" },
+  { "id": 7, "name": "Prof. (Dr.) Jenq-Haur Wang", "role": "Editorial Board", "affiliation": "National Taiwan University, Taiwan (Computer Science)", "email": "jhwang@ntut.edu.tw" },
+  { "id": 8, "name": "Prof. (Dr.) Chuan-Ming Liu", "role": "Editorial Board", "affiliation": "National Taipei University of Technology, Taiwan (Computer Science)", "email": "cmliu@ntut.edu.tw" },
+  { "id": 9, "name": "Prof. (Dr.) Maria Jose Escalona", "role": "Editorial Board", "affiliation": "University of Seville, Spain (Software Engineering)", "email": "andreas.hinderks@iwt2.org" },
+  { "id": 10, "name": "Prof. (Dr.) Michael Bosnjak", "role": "Editorial Board", "affiliation": "University of Trier, Germany (Psychology)", "email": "bosnjak@uni-trierde" },
+  { "id": 11, "name": "Prof. (Dr.) Hasan Koten", "role": "Editorial Board", "affiliation": "Istanbul Medeniyet University, Turkey (Mechanical Engineering)", "email": "hasan.koten@medeniyet.edu.tr" },
+  { "id": 12, "name": "Dr. Umesh Kumar", "role": "Editorial Board", "affiliation": "Air Radiators Pty Ltd, Lara, Australia (Mechanical Engineering)", "email": "Farooq_ahmad2@rediffmail.com" },
+  { "id": 13, "name": "Prof. (Dr.) Ágota Drégelyi-Kiss", "role": "Editorial Board", "affiliation": "Óbuda University, Hungary (Mechanical Engineering)", "email": "dregelyi.agota@bgk.uni-obuda.hu" },
+  { "id": 14, "name": "Mr. Farooque Ahmad", "role": "Editorial Board", "affiliation": "Jazan University, Saudi Arabia (Mechanical Engineering)", "email": "farooq_ahmad2@rediffmail.com" }
 ]

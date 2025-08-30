@@ -30,6 +30,11 @@
 .eb-simple-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:14px;}
 .eb-simple-item{background:#fff;border:1px solid #e1e9ed;border-radius:10px;padding:14px 18px;box-shadow:0 3px 8px -3px rgba(0,0,0,.08);display:flex;align-items:flex-start;gap:14px;}
 .eb-simple-item.with-photo{align-items:center;}
+.eb-avatar-col{flex-shrink:0;display:flex;align-items:center;}
+.eb-simple-item.with-photo .eb-simple-info{flex:1;}
+@media (max-width:560px){
+  .eb-simple-item.with-photo{align-items:flex-start;}
+}
 .eb-simple-name{display:block;font-size:.95rem;color:#053947;margin:0 0 4px;}
 .eb-role-inline{display:block;font-size:.65rem;font-weight:600; letter-spacing:.05em; text-transform:uppercase; color:#0b657c; margin:-2px 0 6px;}
 .eb-simple-affil{display:block;font-size:.72rem;color:#385058;margin:0 0 6px;line-height:1.3;}
@@ -46,3 +51,41 @@
 @media (max-width:980px){.eb-three-col{grid-template-columns:repeat(2,1fr);} }
 @media (max-width:680px){.eb-three-col{grid-template-columns:1fr;} }
 .eb-col{display:flex;flex-direction:column;gap:14px;}
+/* New modern redesign */
+.eb-modern-wrapper{min-height:100%;padding:40px 32px;max-width:1200px;margin:0 auto;font-family:'Inter','Arial',sans-serif;}
+.eb-modern-hero{text-align:center;margin:0 0 40px;background:linear-gradient(135deg,#0a5a70,#0c6880);color:#fff;padding:48px 24px;border-radius:28px;box-shadow:0 10px 28px -10px rgba(0,0,0,.25);}
+.eb-modern-hero h1{margin:0 0 14px;font-size:2.6rem;letter-spacing:.5px;}
+.eb-modern-hero p{margin:0;font-size:1rem;opacity:.9;}
+.eb-modern-section{margin-bottom:56px;}
+.eb-modern-section h2{font-size:1.9rem;margin:0 0 22px;color:#0c4c5f;letter-spacing:.04em;position:relative;display:inline-block;}
+.eb-modern-section h2:after{content:"";display:block;height:3px;width:120px;background:linear-gradient(90deg,#0a5a70,#0c6880);margin-top:6px;border-radius:4px;}
+.eb-grid-modern{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:28px;}
+.eb-card.modern{background:#fff;border:1px solid #e2ecef;border-radius:22px;padding:22px 24px;display:flex;gap:18px;align-items:center;box-shadow:0 6px 14px -4px rgba(0,0,0,.12);transition:.35s ease;position:relative;overflow:hidden;}
+.eb-card.modern:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 15%,rgba(12,104,128,.15),transparent 60%);opacity:0;transition:.4s;}
+.eb-card.modern:hover{box-shadow:0 10px 24px -6px rgba(0,0,0,.18);transform:translateY(-4px);} 
+.eb-card.modern:hover:before{opacity:1;}
+.eb-photo-frame.avatar{width:70px;height:70px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#0a5a70,#0c6880);box-shadow:0 4px 10px -2px rgba(0,0,0,.3);flex-shrink:0;}
+.eb-initial-avatar.big{font-size:1.2rem;font-weight:600;}
+.eb-card-body{flex:1;min-width:0;}
+.eb-name-lg{margin:0 0 4px;font-size:1.05rem;font-weight:600;color:#053947;}
+.eb-role-badge{display:inline-block;background:#e8f5f8;color:#0b657c;font-size:.6rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;padding:4px 8px;border-radius:30px;margin:0 0 10px;}
+.eb-affiliation-lg{margin:0 0 8px;font-size:.72rem;color:#385058;line-height:1.35;font-weight:500;}
+.eb-email-link{display:inline-flex;align-items:center;gap:6px;font-size:.7rem;text-decoration:none;color:#0c6880;background:#f1fafc;padding:5px 12px;border-radius:18px;transition:.3s;}
+.eb-email-link:hover{background:#0c6880;color:#fff;}
+/* Minimal professional variant */
+.editorial-board-wrapper.minimal{max-width:1000px;padding:30px 32px;}
+.eb-header.minimal{margin-bottom:36px;text-align:left;}
+.eb-header.minimal h1{margin:8px 0 14px;font-size:2.4rem;font-weight:700;letter-spacing:.5px;color:#062f3b;}
+.eb-header.minimal .eb-subtitle{max-width:760px;font-size:.9rem;line-height:1.5;opacity:.75;}
+.eb-badge{display:inline-block;background:#0c6880;color:#fff;font-size:.6rem;font-weight:600;letter-spacing:.08em;padding:6px 10px;border-radius:999px;text-transform:uppercase;}
+.eb-section-title.minimal{font-size:1.25rem;margin-top:4px;}
+.eb-simple-item.minimal{border-radius:12px;padding:16px 20px;}
+.eb-simple-item.minimal:hover{box-shadow:0 4px 12px -3px rgba(0,0,0,.12);}
+@media (max-width:640px){
+	.eb-modern-hero{padding:38px 20px;border-radius:24px;}
+	.eb-modern-hero h1{font-size:2.2rem;}
+	.eb-grid-modern{grid-template-columns:repeat(auto-fill,minmax(250px,1fr));}
+	.eb-card.modern{padding:18px 20px;}
+}
+.eb-info-line{display:flex;align-items:center;gap:6px;margin:4px 0;}
+.eb-icon{width:16px;height:16px;opacity:.75;flex-shrink:0;}
