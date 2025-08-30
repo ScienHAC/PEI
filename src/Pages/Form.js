@@ -12,6 +12,8 @@ need to reinstate it, retrieve an earlier commit or uncomment this block.
 
 // New International Standard Manuscript Submission Form
 import React, { useState } from "react";
+import axios from 'axios';
+import CircularProgress from '@mui/material/CircularProgress';
 import {
     Box,
     TextField,
@@ -135,13 +137,14 @@ const InternationalSubmissionForm = () => {
 
     const removeKeyword = (k) => setKeywords(prev => prev.filter(x => x !== k));
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (!validate()) return;
         setSubmitting(true);
         setProgress(0);
+        const apiBase = process.env.REACT_APP_hostURL || 'http://localhost:8080';
+        const endpoint = apiBase.replace(/\/?$/, '') + '/api/submission';
 
-        // Build metadata JSON
         const metadata = {
             title,
             articleType,
@@ -164,46 +167,55 @@ const InternationalSubmissionForm = () => {
         };
 
         const fd = new FormData();
-        fd.append("metadata", new Blob([JSON.stringify(metadata)], { type: 'application/json' }));
-        fd.append("manuscript", manuscriptFile);
-        if (coverLetterFile) fd.append("coverLetter", coverLetterFile);
+        fd.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json' }));
+        fd.append('manuscript', manuscriptFile);
+        if (coverLetterFile) fd.append('coverLetter', coverLetterFile);
 
-        // Simulate upload with fake progress & timeout to mimic API
-        const interval = setInterval(() => {
-            setProgress(p => {
-                const np = Math.min(p + Math.random() * 20, 95);
-                return np;
+        try {
+            await axios.post(endpoint, fd, {
+                headers: { 'Accept': 'application/json' },
+                onUploadProgress: (evt) => {
+                    if (!evt.total) return;
+                    const percent = Math.round((evt.loaded / evt.total) * 100);
+                    setProgress(percent > 99 ? 99 : percent);
+                },
+                withCredentials: false
             });
-        }, 400);
-
-        setTimeout(() => {
-            clearInterval(interval);
             setProgress(100);
-            // Dummy success
-            console.log("Submitted payload (metadata JSON):", metadata);
-            console.log("Attached files:", { manuscriptFile, coverLetterFile });
-            setSnackbar({ open: true, message: "Manuscript submitted (dummy API)", severity: "success" });
-            // Reset
+            setSnackbar({ open: true, message: 'Manuscript submitted successfully', severity: 'success' });
+            // Reset form
             setAuthors([emptyAuthor()]);
             setCorrespondingAuthorIndex(0);
-            setTitle("");
-            setAbstract("");
+            setTitle('');
+            setAbstract('');
             setKeywords([]);
-            setArticleType("");
-            setJournal("");
+            setArticleType('');
+            setJournal('');
             setManuscriptFile(null);
             setCoverLetterFile(null);
-            setFunding("");
-            setConflictOfInterest("");
+            setFunding('');
+            setConflictOfInterest('');
             setEthicsApproved(false);
-            setEthicsDetails("");
-            setAcknowledgements("");
-            setSuggestedReviewers("");
-            setOpposedReviewers("");
+            setEthicsDetails('');
+            setAcknowledgements('');
+            setSuggestedReviewers('');
+            setOpposedReviewers('');
             setConsent(false);
+        } catch (err) {
+            console.error('Submission failed', err);
+            let message = 'Submission failed';
+            if (err.response?.data?.error === 'Validation failed') {
+                message = 'Server validation failed: ' + (err.response.data.fields || []).join(', ');
+            } else if (err.response?.data?.error === 'CORS') {
+                message = 'CORS error: backend origin not allowed';
+            } else if (err.message) {
+                message = err.message;
+            }
+            setSnackbar({ open: true, message, severity: 'error' });
+        } finally {
             setSubmitting(false);
-            setProgress(0);
-        }, 2800);
+            setTimeout(() => setProgress(0), 800);
+        }
     };
 
     const errorText = (key) => errors[key] && (
@@ -308,8 +320,8 @@ const InternationalSubmissionForm = () => {
                         <Typography variant="caption" sx={{ display:'block', mt:0.5 }}>Uploading... {Math.round(progress)}%</Typography>
                     </Box>
                 )}
-                <Button type="submit" variant="contained" disabled={submitting} sx={{ mt:2 }} fullWidth>
-                    {submitting ? 'Submitting…' : 'Submit Manuscript'}
+                <Button type="submit" variant="contained" disabled={submitting} sx={{ mt:2, position:'relative', minHeight:48 }} fullWidth>
+                    {submitting ? <><CircularProgress size={20} sx={{ mr:1, color:'#fff' }} /> Submitting…</> : 'Submit Manuscript'}
                 </Button>
             </Box>
             <Snackbar open={snackbar.open} autoHideDuration={5000} onClose={()=>setSnackbar(s=>({...s, open:false}))} anchorOrigin={{ vertical:'bottom', horizontal:'center' }}>
