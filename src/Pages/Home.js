@@ -516,7 +516,7 @@ const Home = () => {
                     Join our community of researchers and contribute to advancements in engineering and materials science.
                 </p>
                 <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
-                    <Link to="/signup" style={{
+                    <Link to="/form" style={{
                         padding: '14px 30px',
                         backgroundColor: 'white',
                         color: '#084c61',

@@ -139,9 +139,12 @@ const InternationalSubmissionForm = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!validate()) return;
+        if (!validate()) {
+            setSnackbar({ open:true, message:'Please fix highlighted validation errors.', severity:'error'});
+            return;
+        }
         setSubmitting(true);
-        setProgress(0);
+        setProgress(5); // show immediate progress feedback
         const apiBase = process.env.REACT_APP_hostURL || 'http://localhost:8080';
         const endpoint = apiBase.replace(/\/?$/, '') + '/api/submission';
 
@@ -166,12 +169,14 @@ const InternationalSubmissionForm = () => {
             }
         };
 
-        const fd = new FormData();
-        fd.append('metadata', new Blob([JSON.stringify(metadata)], { type: 'application/json' }));
+    const fd = new FormData();
+    // Append metadata as plain text so Multer treats it as a text field (avoids Unexpected field error)
+    fd.append('metadata', JSON.stringify(metadata));
         fd.append('manuscript', manuscriptFile);
         if (coverLetterFile) fd.append('coverLetter', coverLetterFile);
 
         try {
+            console.log('[Submission] POST', endpoint, metadata); // debug
             await axios.post(endpoint, fd, {
                 headers: { 'Accept': 'application/json' },
                 onUploadProgress: (evt) => {
@@ -202,7 +207,7 @@ const InternationalSubmissionForm = () => {
             setOpposedReviewers('');
             setConsent(false);
         } catch (err) {
-            console.error('Submission failed', err);
+            console.error('Submission failed', err?.response || err);
             let message = 'Submission failed';
             if (err.response?.data?.error === 'Validation failed') {
                 message = 'Server validation failed: ' + (err.response.data.fields || []).join(', ');
