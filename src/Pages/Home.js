@@ -133,7 +133,7 @@ const Home = () => {
                         Welcome to ITME
                     </h2>
 
-                    <div className="animation-container d-none d-lg-block" style={{
+                    <div className="animation-container d-none d-md-block" style={{
                         height: '70px',
                         marginBottom: '25px',
                         width: '100%'
@@ -144,13 +144,24 @@ const Home = () => {
                             style={{ width: '100%', height: 'auto' }}
                         />
                     </div>
-                    <div className="animation-container d-lg-none" style={{
-                        height: '60px',
-                        marginBottom: '20px',
+                    <div className="animation-container d-md-none d-none d-sm-block" style={{
+                        height: '50px',
+                        marginBottom: '15px',
                         width: '100%'
                     }}>
                         <img
-                            src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=20&duration=3000&pause=1000&color=084c61&vCenter=true&width=350&height=60&lines=Submit+Your+Research+Paper;Explore+Innovation+in+Materials;Contribute+to+Scientific+Research"
+                            src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=18&duration=3000&pause=1000&color=084c61&vCenter=true&width=400&height=50&lines=Submit+Your+Research+Paper;Explore+Innovation+in+Materials;Contribute+to+Scientific+Research"
+                            alt="Typing SVG"
+                            style={{ width: '100%', height: 'auto' }}
+                        />
+                    </div>
+                    <div className="animation-container d-sm-none" style={{
+                        height: '40px',
+                        marginBottom: '15px',
+                        width: '100%'
+                    }}>
+                        <img
+                            src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=14&duration=3000&pause=1000&color=084c61&vCenter=true&width=300&height=40&lines=Submit+Your+Research+Paper;Explore+Innovation;Contribute+to+Research"
                             alt="Typing SVG"
                             style={{ width: '100%', height: 'auto' }}
                         />
@@ -713,7 +724,7 @@ const Slider = () => {
                                 transition: 'transform 0.5s ease, opacity 0.5s ease',
                                 transitionDelay: '0.3s'
                             }}>{slide.text}</p>
-                            <button
+                            {/* <button
                                 className="read-more"
                                 disabled
                                 style={{
@@ -737,7 +748,7 @@ const Slider = () => {
                                 }}
                             >
                                 Read More
-                            </button>
+                            </button> */}
                         </div>
                     </div>
                 ))}

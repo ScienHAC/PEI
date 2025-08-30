@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import itme_logo from '../Images/ITME_LOGO.png';
 import * as DarkReader from 'darkreader';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -109,28 +108,34 @@ const Header = React.memo(() => {
             </div>
             <div id="topBar">
                 {/* for wider screen */}
-                <div id="innerBar-max" className='d-none d-lg-flex'>
-                    <img className="logo-max" src={itme_logo} alt="Logo" />
+                <div id="innerBar-max" className='d-none d-md-flex'>
+                    <div className="header-left-logo">
+                        <img src="/logo.png" alt="University Logo" className="logo-max" />
+                    </div>
                     <div id='childBar-max'>
                         <h2 className="jnhd-max">INNOVATIVE TRENDS IN MULTIDISCIPLINARY ENGINEERING</h2>
-                        <p className="jndh-max">
-                            ISSN: XXXX XXXX
-                        </p>
+                        <div className="header-subtitle">
+                            <span className="issn-text">International Peer-Reviewed Journal</span>
+                        </div>
+                    </div>
+                    <div className="header-right-logo">
+                        <img src="/ITME.png" alt="ITME Logo" className="itme-logo-max" />
                     </div>
                 </div>
-                {/* for mobile pr lower screen */}
-                <div id="innerBar-min" className='d-lg-none'>
-                    <img className="logo-min" src={itme_logo} alt="Logo" />
+                {/* for tablet and mobile */}
+                <div id="innerBar-min" className='d-md-none'>
+                    <img className="logo-min" src="/logo.png" alt="University Logo" />
                     <div id='childBar-min'>
                         <h2 className="jnhd-min">INNOVATIVE TRENDS IN MULTIDISCIPLINARY ENGINEERING</h2>
-                        <p className="jndh-min">
-                            ISSN: XXXX XXXX
-                        </p>
+                        <div className="header-subtitle-mobile">
+                            <span className="issn-text-mobile">International Journal</span>
+                        </div>
                     </div>
+                    <img className="logo-min" src="/ITME.png" alt="ITME Logo" />
                 </div>
             </div>
 
-            <nav className="navbar navbar-expand-lg navbar-light mx-auto navbar-custom" style={{ backgroundColor: "#e3f2fd" }}>
+            <nav className="navbar navbar-expand-lg navbar-light mx-auto navbar-custom" style={{ backgroundColor: "rgba(8, 76, 97, 0.08)" }}>
                 <button
                     className="navbar-toggler"
                     type="button"
