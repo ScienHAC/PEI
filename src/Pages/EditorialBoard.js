@@ -81,11 +81,11 @@ const MemberCard = ({ member }) => {
 const EditorialBoard = () => {
     const sections = useMemo(() => groupByRole(data), []);
     return (
-        <div className="eb-modern-wrapper">
-            <header className="eb-modern-hero">
-                <h1>Editorial Board</h1>
-                <p>Distinguished academics and researchers committed to advancing scholarly excellence and innovation.</p>
-            </header>
+            <div className="eb-modern-wrapper">
+                <header className="eb-clean-header">
+                    <h1 className="eb-clean-title">Editorial Board</h1>
+                    <p className="eb-clean-sub">Distinguished academics and researchers committed to advancing scholarly excellence and innovation.</p>
+                </header>
             {sections.map((section, idx) => (
                 <section key={section.title} className="eb-modern-section" style={idx>0?{marginTop: '40px'}:undefined}>
                     <h2>{section.title}</h2>
