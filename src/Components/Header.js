@@ -11,7 +11,6 @@ const Header = React.memo(() => {
     const location = useLocation();
     const userDetailsRef = useRef(null);
     const [showUserDetails, setShowUserDetails] = useState(false);
-    const [isHovered, setIsHovered] = useState(false);
     const [isDarkMode, setIsDarkMode] = useState(() => {
         return JSON.parse(localStorage.getItem('isDarkMode')) || false;
     });
@@ -47,14 +46,9 @@ const Header = React.memo(() => {
         refreshAuth();
     }, [location, refreshAuth]);
 
-    const handleLogin = () => {
-        navigate('/login');
-        refreshAuth();
-    };
-    const handleSignup = () => {
-        navigate('/signup');
-        refreshAuth();
-    };
+    // Login & signup handlers retained (commented) for future activation
+    // const handleLogin = () => { navigate('/login'); refreshAuth(); };
+    // const handleSignup = () => { navigate('/signup'); refreshAuth(); };
     const handleLogout = () => {
         // Logout user
         fetch(`${process.env.REACT_APP_hostURL}/auth/logout`, {
@@ -151,28 +145,8 @@ const Header = React.memo(() => {
                 {/* Buttons that stay outside the collapsible part */}
 
                 <div className="d-flex ms-auto d-lg-none">
-                    <button
-                        className={`btn mx-2 ${isDarkMode ? 'btn-dark' : 'btn-outline-secondary'}`}
-                        onClick={toggleDarkMode}
-                        onMouseEnter={() => setIsHovered(true)}
-                        onMouseLeave={() => setIsHovered(false)}
-                        style={{
-                            backgroundColor: isDarkMode ? (isHovered ? '#444' : '#333') : (isHovered ? '#b3e0fc' : '#e3f2fd'),
-                            color: isDarkMode ? (isHovered ? 'lightgray' : 'white') : (isHovered ? 'blue' : 'black'),
-                            transition: 'background-color 0.3s, color 0.3s',
-                            padding: '10px 20px',
-                            borderRadius: '5px',
-                            border: isDarkMode ? 'none' : '1px solid #ccc',
-                        }}
-                    >
-                        <FontAwesomeIcon
-                            icon={isDarkMode ? faSun : faMoon}
-                            style={{
-                                transition: 'color 0.3s',
-                                color: isDarkMode ? (isHovered ? 'yellow' : 'yellow') : (isHovered ? 'darkblue' : 'black'),
-                                fontSize: '1.5rem',
-                            }}
-                        />
+                    <button className="theme-toggle-btn" onClick={toggleDarkMode} aria-label="Toggle dark mode">
+                        <FontAwesomeIcon icon={isDarkMode ? faSun : faMoon} />
                     </button>
                     {isAuthenticated ? (
                         <>
@@ -217,14 +191,8 @@ const Header = React.memo(() => {
                             )}
                         </>
                     ) : (
-                        <>
-                            <button className="btn btn-outline-success mx-2" id="Login_btn" onClick={handleLogin}>
-                                Login
-                            </button>
-                            <button className="btn btn-outline-success mx-2" id="Signup_btn" onClick={handleSignup}>
-                                Sign Up
-                            </button>
-                        </>
+                        // Login / Signup hidden during initial launch
+                        null
                     )}
                 </div>
 
@@ -271,15 +239,10 @@ const Header = React.memo(() => {
                         </li>
 
                         {/* Role-Based Links */}
-                        {role === "reviewer" ? (
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/reviewer/dashboard">Dashboard</Link>
-                            </li>
-                        ) : (
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/form">Submit Manuscript</Link>
-                            </li>
-                        )}
+                        {/* Active placeholder: Submit Manuscript (goes to staged placeholder form) */}
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/form">Submit Manuscript</Link>
+                        </li>
 
                         {isAdmin && (
                             <li className="nav-item">
@@ -288,29 +251,9 @@ const Header = React.memo(() => {
                         )}
                     </ul>
                     {/* Buttons on the right for larger screens */}
-                    <div className="d-none d-lg-flex">
-                        <button
-                            className={`btn mx-2 ${isDarkMode ? 'btn-dark' : 'btn-outline-secondary'}`}
-                            onClick={toggleDarkMode}
-                            onMouseEnter={() => setIsHovered(true)}
-                            onMouseLeave={() => setIsHovered(false)}
-                            style={{
-                                backgroundColor: isDarkMode ? (isHovered ? '#444' : '#333') : (isHovered ? '#b3e0fc' : '#e3f2fd'),
-                                color: isDarkMode ? (isHovered ? 'lightgray' : 'white') : (isHovered ? 'blue' : 'black'),
-                                transition: 'background-color 0.3s, color 0.3s',
-                                padding: '10px 20px',
-                                borderRadius: '5px',
-                                border: isDarkMode ? 'none' : '1px solid #ccc',
-                            }}
-                        >
-                            <FontAwesomeIcon
-                                icon={isDarkMode ? faSun : faMoon}
-                                style={{
-                                    transition: 'color 0.3s',
-                                    color: isDarkMode ? (isHovered ? 'yellow' : 'yellow') : (isHovered ? 'darkblue' : 'black'),
-                                    fontSize: '1.5rem',
-                                }}
-                            />
+                    <div className="d-none d-lg-flex align-items-center">
+                        <button className="theme-toggle-btn me-2" onClick={toggleDarkMode} aria-label="Toggle dark mode">
+                            <FontAwesomeIcon icon={isDarkMode ? faSun : faMoon} />
                         </button>
                         {isAuthenticated ? (
                             <>
@@ -325,20 +268,19 @@ const Header = React.memo(() => {
                                 <button className="btn btn-outline-success mx-2" id="Logout_btn" onClick={handleLogout}>
                                     <i className="fa fa-sign-out" aria-hidden="true"></i>
                                 </button>
-                                {/* Conditionally render user dashboard details */}
                                 {showUserDetails && (
                                     <div
                                         ref={userDetailsRef}
                                         className="user-details-dropdown"
                                         style={{
                                             position: 'absolute',
-                                            top: '60px', // Adjust as needed
-                                            right: '20px', // Adjust as needed
+                                            top: '60px',
+                                            right: '20px',
                                             backgroundColor: '#fff',
                                             border: '1px solid #ccc',
                                             padding: '10px',
                                             borderRadius: '5px',
-                                            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
+                                            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)'
                                         }}
                                         onMouseEnter={handleMouseEnter}
                                         onMouseLeave={handleMouseLeave}
@@ -355,16 +297,7 @@ const Header = React.memo(() => {
                                     </div>
                                 )}
                             </>
-                        ) : (
-                            <>
-                                <button className="btn btn-outline-success mx-2" id="Login_btn" onClick={handleLogin}>
-                                    Login
-                                </button>
-                                <button className="btn btn-outline-success mx-2" id="Signup_btn" onClick={handleSignup}>
-                                    Sign Up
-                                </button>
-                            </>
-                        )}
+                        ) : null}
                     </div>
                 </div>
             </nav>

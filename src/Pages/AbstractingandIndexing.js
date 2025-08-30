@@ -1,125 +1,88 @@
 import React from 'react';
+import Maintenance from '../Components/Maintenance';
+
+// Abstracting & Indexing page: professional placeholder + preview of upcoming indexing targets.
+// Original draft list retained below (commented) for future reinstatement.
+
+const upcoming = [
+    'CrossRef DOI Registration',
+    'Google Scholar',
+    'Directory of Open Access Journals (DOAJ)',
+    'Scopus (Evaluation Pipeline)',
+    'Web of Science (Emerging Sources Citation Index)',
+    'EBSCOhost',
+    'INSPEC',
+    'ProQuest',
+];
 
 const AbstractingandIndexing = () => {
-    /* 
-    // Commented out original content - will be restored later
-    const containerStyle = {
-        padding: '20px',
-        backgroundColor: '#f9f9f9',
-        borderRadius: '8px',
-        boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-        maxWidth: '800px',
-        margin: '20px auto',
-    };
-
-    const headerStyle = {
-        fontFamily: 'Roboto Slab, serif',
-        fontSize: '2.5rem',
-        color: '#333',
-        textAlign: 'center',
-        marginBottom: '20px',
-    };
-
-    const listStyle = {
-        listStyleType: 'none',
-        padding: '0',
-    };
-
-    const listItemStyle = {
-        fontSize: '1.2rem',
-        color: '#555',
-        padding: '8px 0',
-        borderBottom: '1px solid #ddd',
-        transition: 'background-color 0.3s',
-    };
-
-    const hoverStyle = {
-        backgroundColor: '#e8f0fe',
-    };
-    */
-
     return (
-        <>
-            <style>
-                {`
-                    @keyframes spin {
-                        0% { transform: rotate(0deg); }
-                        100% { transform: rotate(360deg); }
-                    }
-                    
-                    @keyframes pulse {
-                        0%, 100% { opacity: 1; }
-                        50% { opacity: 0.6; }
-                    }
-                `}
-            </style>
-            <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-                minHeight: '60vh',
-                padding: '40px',
-                backgroundColor: '#f9f9f9',
-            }}>
+        <div style={{ padding: '40px 20px', background: '#f5f7fa', minHeight: '70vh' }}>
+            <Maintenance
+                title="Abstracting & Indexing"
+                message="We are enhancing our metadata quality and completing formal evaluation processes with leading indexing and abstracting services."
+                note="Below is a non-exhaustive roadmap of indexing partners targeted during the initial rollout phase." />
+            <div style={{ maxWidth: 1000, margin: '40px auto 0', fontFamily: 'Inter, Arial, sans-serif' }}>
                 <div style={{
-                    fontSize: '4rem',
-                    color: '#084c61',
-                    animation: 'spin 2s linear infinite',
-                    marginBottom: '20px',
-                }}>⚙️</div>
-                <div style={{
-                    fontSize: '2rem',
-                    color: '#333',
-                    fontFamily: 'Roboto Slab, serif',
-                    textAlign: 'center',
-                    animation: 'pulse 1.5s ease-in-out infinite',
-                }}>Updating...</div>
-                <p style={{ 
-                    fontSize: '1.1rem', 
-                    color: '#666', 
-                    textAlign: 'center', 
-                    marginTop: '10px',
-                    fontStyle: 'italic'
+                    display: 'grid',
+                    gap: 24,
+                    gridTemplateColumns: 'repeat(auto-fit,minmax(240px,1fr))'
                 }}>
-                    We're currently updating our abstracting and indexing information. Please check back soon.
-                </p>
-            </div>
-            
-            {/* 
-            // Original content commented out for future restoration
-            <div style={containerStyle}>
-                <h1 style={headerStyle}>Abstracting & Indexing</h1>
-                <ul style={listStyle}>
-                    {[
-                        'ABI/Inform',
-                        'CAD/CAM Abstracts',
-                        'Cambridge Scientific Abstracts',
-                        'Current Contents',
-                        'Engineering Index',
-                        'INSPEC',
-                        'Management Contents',
-                        'Social Sciences Citation Index',
-                        'Technical Education Abstracts',
-                        'Consultants' Report',
-                        'Academic Journal Guide (Chartered Association of Business Schools)',
-                        'Scopus',
-                        'Science Citation Index',
-                    ].map((item, index) => (
-                        <li
-                            key={index}
-                            style={listItemStyle}
-                            onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = hoverStyle.backgroundColor; }}
-                            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; }}
-                        >
-                            {item}
-                        </li>
+                    {upcoming.map(item => (
+                        <div key={item} style={cardStyle}>
+                            <div style={badgeStyle}>{item.split(' ')[0]}</div>
+                            <h4 style={cardTitleStyle}>{item}</h4>
+                            <p style={cardTextStyle}>Status: <span style={{ color: '#0a6079', fontWeight: 600 }}>In Preparation</span></p>
+                        </div>
                     ))}
-                </ul>
+                </div>
             </div>
+            {/*
+            Original list preserved for future reference:
+            ABI/Inform, CAD/CAM Abstracts, Cambridge Scientific Abstracts, Current Contents, Engineering Index, INSPEC, Management Contents, Social Sciences Citation Index, Technical Education Abstracts, Consultants' Report, Academic Journal Guide (CABS), Scopus, Science Citation Index
             */}
-        </>
+        </div>
     );
+};
+
+const cardStyle = {
+    background: '#ffffff',
+    borderRadius: 18,
+    padding: '22px 20px 20px',
+    boxShadow: '0 6px 18px -4px rgba(20,60,74,0.18), 0 2px 6px rgba(20,60,74,0.12)',
+    position: 'relative',
+    minHeight: 140,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-start'
+};
+
+const badgeStyle = {
+    position: 'absolute',
+    top: -14,
+    left: 18,
+    background: 'linear-gradient(135deg,#0b5d73,#0d728c)',
+    color: '#fff',
+    fontSize: 12,
+    letterSpacing: '.5px',
+    padding: '6px 12px',
+    borderRadius: 14,
+    boxShadow: '0 4px 10px rgba(12,80,98,0.35)'
+};
+
+const cardTitleStyle = {
+    fontSize: '1rem',
+    margin: '12px 0 6px',
+    lineHeight: 1.35,
+    color: '#0e3d4b',
+    fontWeight: 600
+};
+
+const cardTextStyle = {
+    fontSize: '.82rem',
+    margin: 0,
+    color: '#4c626b',
+    lineHeight: 1.4
 };
 
 export default AbstractingandIndexing;

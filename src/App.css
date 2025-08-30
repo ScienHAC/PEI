@@ -9,6 +9,37 @@ body {
     background-color: rgb(209, 242, 252);
 }
 
+/* Theme toggle refined styling */
+.theme-toggle-btn {
+    background: linear-gradient(135deg, #0b5d73 0%, #0d6f89 100%);
+    border: none;
+    width: 46px;
+    height: 46px;
+    border-radius: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.25rem;
+    box-shadow: 0 6px 14px -4px rgba(8,76,97,0.45), 0 2px 4px rgba(8,76,97,0.35);
+    transition: background .5s ease, transform .45s cubic-bezier(.34,1.56,.64,1), box-shadow .45s ease;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+.theme-toggle-btn:before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), rgba(255,255,255,0));
+    opacity: 0;
+    transition: opacity .6s ease;
+}
+.theme-toggle-btn:hover { transform: translateY(-4px) scale(1.05); }
+.theme-toggle-btn:hover:before { opacity: 1; }
+.theme-toggle-btn:active { transform: translateY(0) scale(.97); }
+.theme-toggle-btn:focus-visible { outline: 2px solid #ffffff; outline-offset: 3px; }
+
 .navbar,
 ul {
     margin: 0 auto 0 auto !important;

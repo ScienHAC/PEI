@@ -97,7 +97,8 @@ function AuthRoutes() {
         </>
       ) : (
         <>
-          <Route path="/form" element={<Navigate to="/login" replace />} />
+          {/* Public access to manuscript form during early phase */}
+          <Route path="/form" element={<Form />} />
           <Route path="/admin" element={<Navigate to="/login" replace />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
