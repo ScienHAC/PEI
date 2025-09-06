@@ -29,7 +29,12 @@ import {
     Alert,
     MenuItem,
     Chip,
-    Stack
+    Stack,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    Grid
 } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddIcon from '@mui/icons-material/Add';
@@ -87,6 +92,7 @@ const InternationalSubmissionForm = () => {
     const [submitting, setSubmitting] = useState(false);
     const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
     const [errors, setErrors] = useState({});
+    const [showPreview, setShowPreview] = useState(false);
 
     // Helpers
     const updateAuthor = (idx, field, value) => {
@@ -143,6 +149,12 @@ const InternationalSubmissionForm = () => {
             setSnackbar({ open:true, message:'Please fix highlighted validation errors.', severity:'error'});
             return;
         }
+        // Show preview dialog instead of submitting directly
+        setShowPreview(true);
+    };
+
+    const handleConfirmSubmit = async () => {
+        setShowPreview(false);
         setSubmitting(true);
         setProgress(5); // show immediate progress feedback
         const apiBase = process.env.REACT_APP_hostURL || 'http://localhost:8080';
@@ -225,6 +237,98 @@ const InternationalSubmissionForm = () => {
 
     const errorText = (key) => errors[key] && (
         <Typography variant="caption" color="error" sx={{ display: 'block', mt: 0.5 }}>{errors[key]}</Typography>
+    );
+
+    const PreviewDialog = () => (
+        <Dialog open={showPreview} onClose={() => setShowPreview(false)} maxWidth="md" fullWidth>
+            <DialogTitle>Review Your Submission</DialogTitle>
+            <DialogContent>
+                <Typography variant="h6" gutterBottom>Manuscript Details</Typography>
+                <Grid container spacing={2} sx={{ mb: 2 }}>
+                    <Grid item xs={12}>
+                        <Typography variant="subtitle2" color="text.secondary">Title:</Typography>
+                        <Typography variant="body1">{title}</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Typography variant="subtitle2" color="text.secondary">Article Type:</Typography>
+                        <Typography variant="body1">{articleType}</Typography>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Typography variant="subtitle2" color="text.secondary">Journal:</Typography>
+                        <Typography variant="body1">{journal}</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography variant="subtitle2" color="text.secondary">Abstract:</Typography>
+                        <Typography variant="body2" sx={{ maxHeight: 100, overflow: 'auto' }}>{abstract}</Typography>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography variant="subtitle2" color="text.secondary">Keywords:</Typography>
+                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                            {keywords.map(k => <Chip key={k} label={k} size="small" />)}
+                        </Box>
+                    </Grid>
+                </Grid>
+
+                <Divider sx={{ my: 2 }} />
+                <Typography variant="h6" gutterBottom>Authors</Typography>
+                {authors.map((author, idx) => (
+                    <Box key={idx} sx={{ mb: 2, p: 1, border: '1px solid #e0e0e0', borderRadius: 1 }}>
+                        <Typography variant="subtitle2">
+                            {author.firstName} {author.lastName}
+                            {idx === correspondingAuthorIndex && <Chip label="Corresponding" size="small" sx={{ ml: 1 }} />}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">{author.email}</Typography>
+                        <Typography variant="body2" color="text.secondary">{author.affiliation}</Typography>
+                        {author.orcid && <Typography variant="body2" color="text.secondary">ORCID: {author.orcid}</Typography>}
+                    </Box>
+                ))}
+
+                <Divider sx={{ my: 2 }} />
+                <Typography variant="h6" gutterBottom>Files</Typography>
+                <Typography variant="body2">
+                    <strong>Manuscript:</strong> {manuscriptFile?.name || 'None'}
+                </Typography>
+                {coverLetterFile && (
+                    <Typography variant="body2">
+                        <strong>Cover Letter:</strong> {coverLetterFile.name}
+                    </Typography>
+                )}
+
+                {(funding || conflictOfInterest || acknowledgements) && (
+                    <>
+                        <Divider sx={{ my: 2 }} />
+                        <Typography variant="h6" gutterBottom>Declarations</Typography>
+                        {funding && (
+                            <Typography variant="body2" sx={{ mb: 1 }}>
+                                <strong>Funding:</strong> {funding}
+                            </Typography>
+                        )}
+                        {conflictOfInterest && (
+                            <Typography variant="body2" sx={{ mb: 1 }}>
+                                <strong>Conflict of Interest:</strong> {conflictOfInterest}
+                            </Typography>
+                        )}
+                        {acknowledgements && (
+                            <Typography variant="body2" sx={{ mb: 1 }}>
+                                <strong>Acknowledgements:</strong> {acknowledgements}
+                            </Typography>
+                        )}
+                        {ethicsApproved && (
+                            <Typography variant="body2" sx={{ mb: 1 }}>
+                                <strong>Ethics Approval:</strong> Yes {ethicsDetails && `- ${ethicsDetails}`}
+                            </Typography>
+                        )}
+                    </>
+                )}
+            </DialogContent>
+            <DialogActions>
+                <Button onClick={() => setShowPreview(false)}>Edit</Button>
+                <Button onClick={handleConfirmSubmit} variant="contained" disabled={submitting}>
+                    {submitting ? <CircularProgress size={20} sx={{ mr: 1 }} /> : null}
+                    Confirm & Submit
+                </Button>
+            </DialogActions>
+        </Dialog>
     );
 
     return (
@@ -328,7 +432,15 @@ const InternationalSubmissionForm = () => {
                 <Button type="submit" variant="contained" disabled={submitting} sx={{ mt:2, position:'relative', minHeight:48 }} fullWidth>
                     {submitting ? <><CircularProgress size={20} sx={{ mr:1, color:'#fff' }} /> Submitting…</> : 'Submit Manuscript'}
                 </Button>
+                <Divider sx={{ my: 3 }} />
+                <Typography variant="body1" align="center" sx={{ fontWeight: 700 }}>
+                    In addition to the above form, you can ALSO email the PDF of your paper to{' '}
+                    <a href="mailto:editor.itme@krmangalam.edu.in" style={{ color: '#1976d2', textDecoration: 'none' }}>
+                        editor.itme@krmangalam.edu.in
+                    </a>.
+                </Typography>
             </Box>
+            <PreviewDialog />
             <Snackbar open={snackbar.open} autoHideDuration={5000} onClose={()=>setSnackbar(s=>({...s, open:false}))} anchorOrigin={{ vertical:'bottom', horizontal:'center' }}>
                 <Alert severity={snackbar.severity} onClose={()=>setSnackbar(s=>({...s, open:false}))} variant="filled">{snackbar.message}</Alert>
             </Snackbar>
