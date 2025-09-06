@@ -1,0 +1,193 @@
+.current-issue-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+.current-issue-content {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    margin-bottom: 30px;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    color: #084c61;
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: bold;
+    border-bottom: 3px solid #084c61;
+    padding-bottom: 15px;
+}
+
+.issue-details {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.issue-details h2 {
+    font-size: 1.8rem;
+    color: #0a5a70;
+    margin-bottom: 10px;
+}
+
+.issue-info {
+    font-size: 1.1rem;
+    color: #666;
+    font-style: italic;
+}
+
+.call-for-papers-section {
+    margin-bottom: 40px;
+}
+
+.call-for-papers-section h3 {
+    font-size: 1.6rem;
+    color: #084c61;
+    margin-bottom: 20px;
+    border-left: 4px solid #084c61;
+    padding-left: 15px;
+}
+
+.call-for-papers-image-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.call-for-papers-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.call-for-papers-image:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.image-fallback {
+    padding: 40px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    color: #666;
+    text-align: center;
+}
+
+.download-section {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.download-link {
+    display: inline-block;
+    background: linear-gradient(135deg, #084c61 0%, #0a5a70 100%);
+    color: white;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.download-link:hover {
+    background: linear-gradient(135deg, #0a5a70 0%, #084c61 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    color: white;
+    text-decoration: none;
+}
+
+.submission-info, .contact-section {
+    margin-bottom: 30px;
+}
+
+.submission-info h3, .contact-section h3 {
+    font-size: 1.4rem;
+    color: #084c61;
+    margin-bottom: 15px;
+    border-left: 4px solid #084c61;
+    padding-left: 15px;
+}
+
+.submission-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.submission-info li {
+    background: #f8f9fa;
+    margin-bottom: 8px;
+    padding: 12px 16px;
+    border-radius: 6px;
+    border-left: 3px solid #084c61;
+}
+
+.submission-link, .email-link {
+    color: #084c61;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.submission-link:hover, .email-link:hover {
+    color: #0a5a70;
+    text-decoration: underline;
+}
+
+.contact-section p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .current-issue-container {
+        padding: 20px 15px;
+    }
+    
+    .current-issue-content {
+        padding: 25px 20px;
+    }
+    
+    .page-title {
+        font-size: 2rem;
+    }
+    
+    .issue-details h2 {
+        font-size: 1.5rem;
+    }
+    
+    .call-for-papers-section h3,
+    .submission-info h3,
+    .contact-section h3 {
+        font-size: 1.3rem;
+    }
+    
+    .download-link {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 1.8rem;
+    }
+    
+    .issue-details h2 {
+        font-size: 1.3rem;
+    }
+    
+    .call-for-papers-section h3,
+    .submission-info h3,
+    .contact-section h3 {
+        font-size: 1.2rem;
+    }
+}
