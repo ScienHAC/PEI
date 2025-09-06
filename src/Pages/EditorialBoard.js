@@ -68,7 +68,16 @@ const MemberCard = ({ member }) => {
                     <div className="eb-info-line"><MapPinIcon className="eb-icon" /><span className="eb-affiliation-lg">{member.affiliation}</span></div>
                 )}
                 {member.email && (
-                    <div className="eb-info-line"><MailIcon className="eb-icon" /><a href={`mailto:${member.email}`} className="eb-email-link">{member.email}</a></div>
+                    <div className="eb-info-line">
+                        <MailIcon className="eb-icon" />
+                        <a
+                            href={`mailto:${member.email}`}
+                            className="eb-email-link"
+                            style={{ cursor: 'pointer' }}
+                        >
+                            {member.email}
+                        </a>
+                    </div>
                 )}
             </div>
         </div>
