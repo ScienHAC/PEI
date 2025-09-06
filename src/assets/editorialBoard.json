@@ -1,6 +1,6 @@
 [
   { "id": 1, "name": "Dr. Pankaj Agarwal", "role": "Editor-in-Chief", "affiliation": "K.R. Mangalam University, Gurugram, India", "email": "dean.soet@krmangalam.edu.in", "image": "pankaj-agarwal.jpg" },
-  { "id": 2,"name": "Dr. (Prof.) M.N. Hooda","role": "Editor-in-chief","affiliation": "Bharati Vidyapeeth's Institute of Computer Applications & Management (BVICAM), New Delhi","email": "mca@bvicam.ac.in","image": "mn-hooda.jpg"},
+  { "id": 2,"name": "Dr. (Prof.) M.N. Hooda","role": "Editor-in-Chief","affiliation": "Bharati Vidyapeeth's Institute of Computer Applications & Management (BVICAM), New Delhi","email": "mca@bvicam.ac.in","image": "mn-hooda.jpg"},
   { "id": 3, "name": "Dr. Hema Chaudhary", "role": "Editor", "affiliation": "K.R. Mangalam University, Gurugram, India (Medical & Allied Sciences)", "email": "hema.chaudhary@krmangalam.edu.in", "image": "hema-chaudhary.webp" },
   { "id": 4, "name": "Dr. Seema Raj", "role": "Editor", "affiliation": "K.R. Mangalam University, Gurugram, India (Basic & Applied Sciences)", "email": "seema.raj@krmangalam.edu.in", "image": "seema-raj.webp" },
   { "id": 5, "name": "Dr Aman Jatain", "role": "Editor", "affiliation": "K.R. Mangalam University, Gurugram, India", "email": "aman.jatain@krmangalam.edu.in", "image": "aman-jatain.jpeg" },
