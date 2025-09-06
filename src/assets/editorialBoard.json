@@ -1,9 +1,19 @@
 [
   { "id": 1, "name": "Dr. Pankaj Agarwal", "role": "Editor-in-Chief", "affiliation": "K.R. Mangalam University, Gurugram, India", "email": "dean.soet@krmangalam.edu.in", "image": "pankaj-agarwal.jpg" },
+  { "id": 3, "name": "Dr. Hema Chaudhary", "role": "Editor", "affiliation": "K.R. Mangalam University, Gurugram, India (Medical & Allied Sciences)", "email": "hema.chaudhary@krmangalam.edu.in", "image": "hema-chaudhary.webp" },
+  { "id": 4, "name": "Dr. Seema Raj", "role": "Editor", "affiliation": "K.R. Mangalam University, Gurugram, India (Basic & Applied Sciences)", "email": "seema.raj@krmangalam.edu.in", "image": "seema-raj.webp" },
+  { "id": 5, "name": "Dr Aman Jatain", "role": "Editor", "affiliation": "K.R. Mangalam University, Gurugram, India", "email": "aman.jatain@krmangalam.edu.in", "image": "aman-jatain.jpeg" },
   { "id": 2, "name": "Dr Shweta Bansal", "role": "Editor", "affiliation": "K.R. Mangalam University, Gurugram, India", "email": "shweta.bansal@krmangalam.edu.in", "image": "shweta-bansal.webp" },
+<<<<<<< HEAD
   { "id": 3, "name": "Dr Aman Jatain", "role": "Editor", "affiliation": "K.R. Mangalam University, Gurugram, India", "email": "aman.jatain@krmangalam.edu.in", "image": "aman-jatain.jpeg" },
   { "id": 4, "name": "Dr Rupesh Kumar Tipu", "role": "Editor", "affiliation": "K.R. Mangalam University, Gurugram, India", "email": "rupesh", "image": "rupesh-kumar-tipu.webp" },
   { "id": 5, "name": "Dr. Kriti Sharma", "role": "Editor", "affiliation": "K.R. Mangalam University, Gurugram, India", "email": "kriti.s@krmangalam.edu.in", "image": "kriti-sharma.jpeg" },
+=======
+  { "id": 6, "name": "Dr Rupesh Kumar Tipu", "role": "Editor", "affiliation": "K.R. Mangalam University, Gurugram, India", "email": "rupesh-kumar-tipu.jpg", "image": "rupesh-kumar-tipu.webp" },
+  { "id": 7, "name": "Dr. Kriti", "role": "Editor", "affiliation": "K.R. Mangalam University, Gurugram, India (Engineering & Technology)", "email": "kriti@krmangalam.edu.in", "image": "kriti.jpg" },
+  { "id": 8, "name": "Dr. Kaushal Kumar", "role": "Editor", "affiliation": "K.R. Mangalam University, Gurugram, India (Engineering & Technology)", "email": "kaushal.kumar@krmangalam.edu.in", "image": "Kaushal-Kumar.webp" },
+  { "id": 9, "name": "Dr. Prabhakar Bhandari", "role": "Editor", "affiliation": "K.R. Mangalam University, Gurugram, India (Engineering & Technology)", "email": "prabhakar.bhandari@krmangalam.edu.in", "image": "prabhakar-bhandari.webp" },
+>>>>>>> 5e9b7f1b319778fcd3b6567864e18bb036a94d24
   { "id": 7, "name": "Prof. (Dr.) Jenq-Haur Wang", "role": "Editorial Board", "affiliation": "National Taiwan University, Taiwan (Computer Science)", "email": "jhwang@ntut.edu.tw", "image": "jenq-haur-wang.jpg" },
   { "id": 8, "name": "Prof. (Dr.) Chuan-Ming Liu", "role": "Editorial Board", "affiliation": "National Taipei University of Technology, Taiwan (Computer Science)", "email": "cmliu@ntut.edu.tw", "image": "chuan-ming-liu.jpg" },
   { "id": 9, "name": "Prof. (Dr.) Maria Jose Escalona", "role": "Editorial Board", "affiliation": "University of Seville, Spain (Software Engineering)", "email": "andreas.hinderks@iwt2.org", "image": "maria-jose-escalona.jpg" },

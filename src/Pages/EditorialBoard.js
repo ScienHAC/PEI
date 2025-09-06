@@ -3,19 +3,16 @@ import data from '../assets/editorialBoard.json';
 import '../CSS/EditorialBoard.css';
 
 // --- Utilities ---
+// Preserve the input JSON order for both roles and members (no alphabetic sort)
 const groupByRole = (items) => {
-    const order = ['Editor-in-Chief', 'Editor', 'Editorial Board'];
     const map = new Map();
+    const roleOrder = [];
     items.forEach(m => {
         const role = m.role || 'Member';
-        if (!map.has(role)) map.set(role, []);
-        map.get(role).push(m);
+        if (!map.has(role)) { map.set(role, []); roleOrder.push(role); }
+        map.get(role).push(m); // keep insertion order
     });
-    map.forEach(list => list.sort((a, b) => a.name.localeCompare(b.name)));
-    const result = [];
-    order.forEach(r => { if (map.has(r)) result.push({ title: r, members: map.get(r) }); });
-    map.forEach((v, k) => { if (!order.includes(k)) result.push({ title: k, members: v }); });
-    return result;
+    return roleOrder.map(r => ({ title: r, members: map.get(r) }));
 };
 
 const avatarColors = [
@@ -90,7 +87,7 @@ const EditorialBoard = () => {
                 <section key={section.title} className="eb-modern-section" style={idx>0?{marginTop: '40px'}:undefined}>
                     <h2>{section.title}</h2>
                     <div className="eb-grid-modern">
-                        {section.members.map(m => <MemberCard key={m.id || m.email || m.name} member={m} />)}
+                        {section.members.map(m => <MemberCard key={m.email || m.id || m.name} member={m} />)}
                     </div>
                 </section>
             ))}
