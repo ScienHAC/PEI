@@ -1,3 +1,22 @@
+/* Remove all hover/focus/active transform/scale effects for logos on landing page */
+img.logo-max:hover,
+img.logo-max:focus,
+img.logo-max:active,
+img.logo-min:hover,
+img.logo-min:focus,
+img.logo-min:active,
+img[src*="itme" i]:hover,
+img[src*="itme" i]:focus,
+img[src*="itme" i]:active,
+img[src*="krmu" i]:hover,
+img[src*="krmu" i]:focus,
+img[src*="krmu" i]:active,
+img[src*="kmu" i]:hover,
+img[src*="kmu" i]:focus,
+img[src*="kmu" i]:active {
+    transform: none !important;
+    scale: 1 !important;
+}
 .slider-container {
     position: relative;
     width: 60vw;

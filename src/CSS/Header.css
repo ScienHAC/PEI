@@ -1,38 +1,15 @@
-
-.logo-max {
-  width: 48px;
-  height: 48px;
+/* Simplified Header logo styles; sizing handled in App.css */
+.logo-max, .itme-logo-max, .logo-min {
   object-fit: contain;
-  border-radius: 10px;
   border: none;
   background: none;
   box-shadow: none;
+  transition: none !important;
 }
-/* Professional style for KRMU logo in header */
-
-
-.itme-logo-max {
-  width: 64px;
-  height: 64px;
-  object-fit: contain;
-  border-radius: 12px;
-  border: none;
-  background: none;
-  box-shadow: none;
-}
-
-/* Remove hover scaling, add subtle hover effect */
-
-
-/* Mobile logo */
-.logo-min[src*="kmu.png"] {
-  width: 48px;
-  height: 48px;
-  object-fit: contain;
-  border-radius: 10px;
-  border: none;
-  background: none;
-  box-shadow: none;
+.logo-max:hover, .logo-max:focus, .logo-max:active,
+.itme-logo-max:hover, .itme-logo-max:focus, .itme-logo-max:active,
+.logo-min:hover, .logo-min:focus, .logo-min:active {
+  transform: none !important;
 }
 
 
