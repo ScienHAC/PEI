@@ -105,7 +105,7 @@ const Header = React.memo(() => {
                 {/* for wider screen */}
                 <div id="innerBar-max" className='d-none d-md-flex'>
                     <div className="header-left-logo">
-                        <img src="/logo.png" alt="University Logo" className="logo-max" />
+                        <img src="/itme_2.png" alt="University Logo" className="logo-max" />
                     </div>
                     <div id='childBar-max'>
                         <h2 className="jnhd-max">INNOVATIVE TRENDS IN MULTIDISCIPLINARY ENGINEERING</h2>
@@ -119,7 +119,7 @@ const Header = React.memo(() => {
                 </div>
                 {/* for tablet and mobile */}
                 <div id="innerBar-min" className='d-md-none'>
-                    <img className="logo-min" src="/logo.png" alt="University Logo" />
+                    <img className="logo-min" src="/itme_2.png" alt="University Logo" />
                     <div id='childBar-min'>
                         <h2 className="jnhd-min">INNOVATIVE TRENDS IN MULTIDISCIPLINARY ENGINEERING</h2>
                         <div className="header-subtitle-mobile">
