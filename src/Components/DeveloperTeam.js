@@ -2,7 +2,7 @@ import React from 'react';
 import DeveloperCard from './DeveloperCard';
 import '../CSS/DeveloperTeam.css';
 import yashrajImg from '../assets/yashraj.jpg';
-import piyushImg from '../assets/piyush.png';
+import piyushImg from '../assets/piyush.jpg';
 
 // Dummy data - Replace with your team data!
 const developers = [

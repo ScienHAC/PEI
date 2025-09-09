@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import '../CSS/Header.css';
 import * as DarkReader from 'darkreader';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -113,7 +114,7 @@ const Header = React.memo(() => {
                         </div>
                     </div>
                     <div className="header-right-logo">
-                        <img src="/ITME.png" alt="ITME Logo" className="itme-logo-max" />
+                        <img src="/K.R._Mangalam_University_logo.svg.png" alt="KRMU Logo" className="itme-logo-max" />
                     </div>
                 </div>
                 {/* for tablet and mobile */}
@@ -125,7 +126,7 @@ const Header = React.memo(() => {
                             <span className="issn-text-mobile">International Journal</span>
                         </div>
                     </div>
-                    <img className="logo-min" src="/ITME.png" alt="ITME Logo" />
+                    <img className="logo-min" src="/K.R._Mangalam_University_logo.svg.png" alt="KRMU Logo" />
                 </div>
             </div>
 

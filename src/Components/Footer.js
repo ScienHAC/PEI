@@ -17,7 +17,7 @@ const Footer = React.memo(() => {
                 {/* LEFT: Logo + Contact */}
                 <div className="footer-left">
                     <div className="footer-contact-section">
-                        <img src="/logo.png" alt="University Logo" className="footer-logo-main enlarged" onError={(e)=>{e.currentTarget.src='/kmu.png';}} />
+                        <img src="/logo.png" alt="University Logo" className="footer-logo-main enlarged" onError={(e)=>{e.currentTarget.src='/krmu.png';}} />
                         <h4 className="footer-section-title">Contact Information</h4>
                         <div className="footer-contact-list">
                             <div className="footer-contact-item">
@@ -42,7 +42,7 @@ const Footer = React.memo(() => {
                         <div className="footer-logo-combination">
                             <img src="/ITME.png" alt="ITME Logo" className="footer-logo-itme" />
                             <span className="footer-logo-separator">×</span>
-                            <img src="/kmu.png" alt="K.R. Mangalam University Logo" className="footer-logo-krmu" />
+                            <img src="/krmu.png" alt="K.R. Mangalam University Logo" className="footer-logo-krmu" />
                         </div>
                         <div className="footer-journal-text">
                             <h3>ITME</h3>
