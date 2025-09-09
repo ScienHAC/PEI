@@ -88,6 +88,12 @@
     border-radius: 12px;
 }
 
+/* Enlarge only ITME logo (left) */
+.footer-logo-itme {
+    width: 102px;
+    height: 102px;
+}
+
 /* Main journal (left) logo responsive sizing */
 .footer-logo-main { 
     width:clamp(100px, 9vw, 150px); /* grows smoothly with viewport */
@@ -110,16 +116,16 @@
 }
 
 .footer-logo-separator {
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: rgba(255, 255, 255, 0.85);
-    margin: 0 6px;
+    font-size: 1.85rem; /* enlarged X */
+    font-weight: 650;
+    color: rgba(255, 255, 255, 0.90);
+    margin: 0 8px;
     line-height: 1;
     position: relative;
-    padding: 4px 6px;
-    border-radius: 10px;
-    background: linear-gradient(145deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));
-    box-shadow: inset 0 1px 2px rgba(255,255,255,0.25), 0 2px 4px rgba(0,0,0,0.25);
+    padding: 6px 10px 8px; /* extra vertical for visual balance */
+    border-radius: 12px;
+    background: linear-gradient(145deg, rgba(255,255,255,0.16), rgba(255,255,255,0.05));
+    box-shadow: inset 0 2px 3px rgba(255,255,255,0.28), 0 3px 6px rgba(0,0,0,0.30);
 }
 
 /* Footer main logo shown (previously hidden) */

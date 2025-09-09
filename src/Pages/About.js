@@ -146,7 +146,7 @@ const About = () => {
 
     const stats = [
         { value: '2', label: 'Issues Per Year', icon: <BookOpen size={30} />, subtitle: 'Quarterly Publication' },
-        { value: '15%', label: 'Acceptance Rate', icon: <Award size={30} />, subtitle: 'Highly Selective' },
+    { value: '15%', label: 'Plagiarism Acceptance Rate', icon: <Award size={30} />, subtitle: 'Highly Selective' },
         { value: '2 Weeks', label: 'Review Time', icon: <Clock size={30} />, subtitle: 'Rapid Process' },
         { value: '50+', label: 'Global Reviewers', icon: <Users size={30} />, subtitle: 'International Board' }
     ];
@@ -167,7 +167,7 @@ const About = () => {
                 <div style={{ position: 'relative', zIndex: 1 }}>
                     <h1 style={headerStyle}>INNOVATIVE TRENDS IN MULTIDISCIPLINARY ENGINEERING</h1>
                     <p style={subHeaderStyle}>
-                        An international, peer-reviewed online journal advancing research excellence in tribology, materials engineering, and interdisciplinary sciences through our Scholarly Open Access Initiative
+                        Innovative Trends in Multidisciplinary Engineering (ITME) is a peer-reviewed international journal, published biannually in July and December. It showcases cutting-edge research in engineering and applied sciences, focusing on innovation, emerging technologies, and advanced materials.
                     </p>
                     <div style={{ marginTop: '30px', display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
                         {/* <span style={{
@@ -201,7 +201,7 @@ const About = () => {
                 </div>
             </div>
 
-            {/* About K.R. Mangalam University Content */}
+            {/* About K.R. Mangalam University Content (commented out as requested)
             <div style={sectionStyle} data-aos="fade-up" data-aos-delay="50">
                 <h2 style={{
                     fontSize: '2.2rem',
@@ -227,8 +227,9 @@ const About = () => {
                     </p>
                 </div>
             </div>
+            */}
 
-            {/* About SOET Content */}
+            {/* About SOET Content (commented out as requested)
             <div style={sectionStyle} data-aos="fade-up" data-aos-delay="75">
                 <h2 style={{
                     fontSize: '2.2rem',
@@ -263,6 +264,7 @@ const About = () => {
                     </p>
                 </div>
             </div>
+            */}
 
             {/* About Content */}
             <div style={sectionStyle} data-aos="fade-up" data-aos-delay="100">
