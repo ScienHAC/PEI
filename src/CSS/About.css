@@ -64,8 +64,13 @@
 .contact-grid { display:grid; gap:1.2rem; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); margin-top:1.2rem; }
 .contact-card { background:#ffffff; border:1px solid #d7e9ec; padding:1.25rem 1rem 1.1rem; border-radius:18px; position:relative; display:flex; flex-direction:column; gap:.45rem; box-shadow:0 2px 6px rgba(0,0,0,.05); transition:transform .35s, box-shadow .35s,border-color .35s; font-size:.8rem; }
 .contact-card:hover { transform:translateY(-5px); box-shadow:0 12px 26px -6px rgba(0,0,0,.25); border-color:#b7dfe5; }
-.contact-card.emphasis { background:linear-gradient(135deg,#0f6b79,#13a5b7); color:#fff; box-shadow:0 6px 18px -5px rgba(0,0,0,.45); }
-.contact-card.emphasis .contact-text { color:#fff; opacity:.95; }
+.contact-card.emphasis { background:#f2fafb; border:1px solid #bfe3e8; box-shadow:0 2px 8px rgba(0,0,0,.06); color:inherit; }
+.contact-card.emphasis:before { content:""; position:absolute; left:0; top:0; bottom:0; width:4px; background:linear-gradient(#0d7b88,#13a1b4); border-radius:18px 0 0 18px; }
+.contact-card.emphasis .contact-text { color:#2d4950; }
+.contact-card.emphasis .contact-icon { color:#0d7b88; }
+
+/* Plain language line under hero */
+.about-hero__plain { margin:0 auto 1.4rem; max-width:760px; font-size:.8rem; color:#cceff2; font-weight:400; letter-spacing:.25px; }
 .contact-icon { color:#0f6d7b; }
 .contact-label { margin:0; font-weight:650; font-size:.85rem; color:#0e5662; letter-spacing:.4px; }
 .contact-link { color:#0d7b88; text-decoration:none; font-weight:600; font-size:.72rem; letter-spacing:.4px; }

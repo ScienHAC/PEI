@@ -834,15 +834,15 @@ const Slider = () => {
 const getCardText = (title) => {
     switch (title) {
         case 'Publication Scope':
-            return 'ITME publishes original research papers, review articles, and case studies in engineering, materials science, sustainable materials, and advanced manufacturing technologies.';
+            return 'Original research, methodological studies, applied models, experimental analyses, and integrative reviews spanning materials, mechanical, computing / data‑driven, sustainable systems, design & manufacturing, and intelligent / autonomous engineering interfaces.';
         case 'Submission Process':
-            return 'Authors must first register an account, then navigate to Research Archive to complete submission details and upload their manuscript following our formatting guidelines.';
+            return 'Register, consult template & scope guidance, complete ethical declarations, then upload via Research Archive. Each submission is screened (scope + similarity) before editor / reviewer allocation.';
         case 'Review Workflow':
-            return 'All submissions undergo initial screening followed by a double-blind peer review process by at least two experts, with decision notifications typically sent within two weeks.';
+            return 'Editorial screening → similarity & scope check → double‑blind peer review (normally 2 reviewers; more if needed) → consolidated decision & revision guidance. Emphasis on clarity, rigor, and integrity—quality over speed.';
         case 'Author Benefits':
-            return 'No publication fees, open access distribution, free digital copies, and promotion through academic networks. Fast-track review process, international visibility, comprehensive author support, and copyright retention.';
+            return 'Currently no author processing charges; open access visibility; structured template & clear review feedback; focus on ethical & methodological transparency; authors retain copyright under stated license.';
         case 'Publication Timeline':
-            return 'After acceptance, manuscripts undergo copyediting, typesetting, and proofreading before being scheduled for publication in the next available biannual issue (July or December). In some cases, accepted articles may also appear as Online First publications prior to the official issue release.';
+            return 'Biannual issues (July & December). Acknowledgement in 1–2 business days; review duration varies with complexity. Accepted papers are queued for the next issue (early online posting will be added when platform support is in place).';
         default:
             return '';
     }
