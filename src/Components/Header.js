@@ -114,7 +114,7 @@ const Header = React.memo(() => {
                         </div>
                     </div>
                     <div className="header-right-logo">
-                        <img src="/K.R._Mangalam_University_logo.svg.png" alt="KRMU Logo" className="itme-logo-max" />
+                        <img src="/krmu.png" alt="KRMU Logo" className="itme-logo-max" />
                     </div>
                 </div>
                 {/* for tablet and mobile */}
@@ -126,7 +126,7 @@ const Header = React.memo(() => {
                             <span className="issn-text-mobile">International Journal</span>
                         </div>
                     </div>
-                    <img className="logo-min" src="/K.R._Mangalam_University_logo.svg.png" alt="KRMU Logo" />
+                    <img className="logo-min" src="/krmu.png" alt="KRMU Logo" />
                 </div>
             </div>
 

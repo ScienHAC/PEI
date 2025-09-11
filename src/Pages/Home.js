@@ -232,7 +232,7 @@ const Home = () => {
                 }}>
                     {[
                         { label: 'Issues Per Year', value: '2', icon: <BookOpen size={24} color="#084c61" /> },
-                        { label: 'Plagiarism Acceptance Rate', value: '15%', icon: <Award size={24} color="#084c61" /> },
+                        { label: 'Plagiarism', value: '<15%', icon: <Award size={24} color="#084c61" /> },
                         { label: 'Review Time', value: '2 Weeks', icon: <Clock size={24} color="#084c61" /> },
                         { label: 'Active Reviewers', value: '50+', icon: <Users size={24} color="#084c61" /> }
                     ].map((metric, index) => (
