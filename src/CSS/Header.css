@@ -30,8 +30,7 @@
   box-shadow:0 8px 24px -6px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.06); 
   z-index: 1000;
 }
-.custom-hover-dropdown:hover > .dropdown-menu,
-.custom-hover-dropdown:focus-within > .dropdown-menu { display: block; }
+.custom-hover-dropdown:hover > .dropdown-menu { display: block; }
 
 /* Keep menu open when transitioning between link and menu */
 .custom-hover-dropdown > a.nav-link { position: relative; z-index: 1001; }
