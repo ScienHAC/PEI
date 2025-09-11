@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback, useRef } from 'react';
 import CurrentIssue from '../Pages/CurrentIssue';
 import { Link } from 'react-router-dom';
 import Loader from '../Components/Loader';
-import { ChevronLeft, ChevronRight, ArrowDown, BookOpen, Award, Clock, Users } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowDown, BookOpen, Award, Clock, Users, FileCheck } from 'lucide-react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import '../CSS/Home.css';
@@ -232,7 +232,7 @@ const Home = () => {
                 }}>
                     {[
                         { label: 'Issues Per Year', value: '2', icon: <BookOpen size={24} color="#084c61" /> },
-                        { label: 'Plagiarism', value: '<15%', icon: <Award size={24} color="#084c61" /> },
+                        { label: 'Plagiarism', value: '<15%', icon: <FileCheck size={24} color="#084c61" /> },
                         { label: 'Review Time', value: '2 Weeks', icon: <Clock size={24} color="#084c61" /> },
                         { label: 'Active Reviewers', value: '50+', icon: <Users size={24} color="#084c61" /> }
                     ].map((metric, index) => (
