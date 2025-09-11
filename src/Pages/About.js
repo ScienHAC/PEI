@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { Award, Users, Clock, BookOpen, Globe, CheckCircle, Mail, User, Edit, Target, Zap, Shield } from 'lucide-react';
+import { ShieldCheck, Users, Clock, BookOpen, Globe, FileCheck2, Layers, Edit, User, Mail, CheckCircle } from 'lucide-react';
 
 const About = () => {
     const [isHovered, setIsHovered] = useState(false);
@@ -111,50 +111,51 @@ const About = () => {
         gap: '8px'
     };
 
+    // Refined, realistic value propositions (no over-claiming)
     const features = [
         {
-            icon: <Zap size={40} color="#084c61" />,
-            title: 'Fast, Quality & Easy Publishing',
-            description: 'Our streamlined process allows researchers to share their findings quickly and efficiently with rapid peer review and publication timeline.'
+            icon: <ShieldCheck size={40} color="#084c61" />,
+            title: 'Rigorous Peer Review',
+            description: 'Multi‑disciplinary evaluation emphasizing methodological clarity, reproducibility, and scholarly integrity.'
         },
         {
             icon: <Users size={40} color="#084c61" />,
-            title: 'Distinguished Editorial Board',
-            description: 'Supported by prominent individuals from renowned universities, colleges, and corporations across the USA, Australia, Canada, Japan, China, and India, fostering collaboration between academia and industry on global issues.'
+            title: 'Experienced Editorial Oversight',
+            description: 'An editorial team committed to transparent decision processes and ethical publication standards.'
+        },
+        {
+            icon: <BookOpen size={40} color="#084c61" />,
+            title: 'Biannual Issues',
+            description: 'Two carefully curated issues (July & December) highlighting emerging directions across engineering domains.'
         },
         {
             icon: <Globe size={40} color="#084c61" />,
-            title: 'Scholarly Open Access Initiative',
-            description: 'Committed to providing genuine and reliable contributions to the scientific community through open access publishing.'
+            title: 'Inclusive Multidisciplinary Scope',
+            description: 'Welcomes research that bridges traditional engineering silos with applied sciences and technology innovation.'
         },
         {
-            icon: <Shield size={40} color="#084c61" />,
-            title: 'Quality & Integrity Standards',
-            description: 'Upholding the highest standards of quality and integrity in the research publication process with rigorous peer review.'
+            icon: <FileCheck2 size={40} color="#084c61" />,
+            title: 'Ethics & Quality Compliance',
+            description: 'Adherence to recognized publication ethics, plagiarism screening, and transparent revisions.'
         },
         {
-            icon: <Target size={40} color="#084c61" />,
-            title: 'Global Networking Platform',
-            description: 'Conferences and events featuring renowned speakers, interactive sessions, world-class exhibitions, and poster presentations.'
-        },
-        {
-            icon: <Award size={40} color="#084c61" />,
-            title: 'Academic Career Advancement',
-            description: 'Numerous benefits aimed at strengthening research skills and advancing academic careers in engineering and science.'
+            icon: <Layers size={40} color="#084c61" />,
+            title: 'Structured Author Guidance',
+            description: 'Clear formatting template, scope clarification FAQs, and responsive editorial communication.'
         }
     ];
 
     const stats = [
-        { value: '2', label: 'Issues Per Year', icon: <BookOpen size={30} />, subtitle: 'Quarterly Publication' },
-    { value: '15%', label: 'Plagiarism Acceptance Rate', icon: <Award size={30} />, subtitle: 'Highly Selective' },
-        { value: '2 Weeks', label: 'Review Time', icon: <Clock size={30} />, subtitle: 'Rapid Process' },
-        { value: '50+', label: 'Global Reviewers', icon: <Users size={30} />, subtitle: 'International Board' }
+        { value: '2', label: 'Issues Per Year', icon: <BookOpen size={30} />, subtitle: 'Biannual (Jul & Dec)' },
+        { value: 'Screened', label: 'Plagiarism', icon: <ShieldCheck size={30} />, subtitle: 'Similarity Checked' },
+        { value: 'Structured', label: 'Peer Review', icon: <Clock size={30} />, subtitle: 'Editorially Managed' },
+        { value: 'Diverse', label: 'Disciplinary Reach', icon: <Globe size={30} />, subtitle: 'Cross‑Field Focus' }
     ];
 
     return (
         <div style={containerStyle}>
             {/* Hero Section */}
-            <div style={heroSectionStyle} data-aos="fade-up">
+            <div style={{ ...heroSectionStyle, backgroundAttachment:'fixed' }} data-aos="fade-up">
                 <div style={{
                     position: 'absolute',
                     top: 0,
@@ -165,9 +166,10 @@ const About = () => {
                     zIndex: 0
                 }} />
                 <div style={{ position: 'relative', zIndex: 1 }}>
+                    <img src="/ITME_LOGO.png" alt="ITME Logo" style={{ width:110, height:'auto', marginBottom:25, filter:'drop-shadow(0 4px 8px rgba(0,0,0,0.25))' }} />
                     <h1 style={headerStyle}>INNOVATIVE TRENDS IN MULTIDISCIPLINARY ENGINEERING</h1>
                     <p style={subHeaderStyle}>
-                        Innovative Trends in Multidisciplinary Engineering (ITME) is a peer-reviewed international journal, published biannually in July and December. It showcases cutting-edge research in engineering and applied sciences, focusing on innovation, emerging technologies, and advanced materials.
+                        Innovative Trends in Multidisciplinary Engineering (ITME) is a peer‑reviewed international journal published biannually (July & December). We curate methodologically sound, ethically responsible research spanning core and emerging engineering domains.
                     </p>
                     <div style={{ marginTop: '30px', display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
                         {/* <span style={{
@@ -186,7 +188,7 @@ const About = () => {
                             fontSize: '0.9rem',
                             fontWeight: '500'
                         }}>
-                            Quarterly Publication
+                            Biannual Issues
                         </span>
                         <span style={{
                             backgroundColor: 'rgba(255,255,255,0.2)',
@@ -269,7 +271,7 @@ const About = () => {
             </div>
             */}
 
-            {/* About Content */}
+            {/* About Content (refined) */}
             <div style={sectionStyle} data-aos="fade-up" data-aos-delay="100">
                 <h2 style={{
                     fontSize: '2.2rem',
@@ -289,23 +291,23 @@ const About = () => {
                         backgroundColor: '#084c61'
                     }} />
                 </h2>
-                <div style={{ fontSize: '1.2rem', lineHeight: '1.8', textAlign: 'justify' }}>
-                    <p style={{ marginBottom: '20px' }}>
-                        <strong style={{ color: '#084c61' }}>Innovative Trends in Multidisciplinary Engineering (ITME)</strong> is an international, peer-reviewed online journal published quarterly. Our mission is to provide a platform for genuine and reliable contributions to the scientific community through our Scholarly Open Access Initiative.
+                <div style={{ fontSize: '1.08rem', lineHeight: '1.75', textAlign: 'justify' }}>
+                    <p style={{ marginBottom: '18px' }}>
+                        <strong style={{ color: '#084c61' }}>Innovative Trends in Multidisciplinary Engineering (ITME)</strong> advances cross‑disciplinary engineering scholarship by providing an ethically grounded, editor‑guided platform for original research, technical developments, design methodologies, computational models, sustainable engineering solutions, and applied innovation case studies.
                     </p>
-                    <p style={{ marginBottom: '20px' }}>
-                        ITME is committed to upholding the highest standards of quality and integrity in the research publication process. With a distinguished editorial board comprising eminent professionals, we ensure rapid and thorough peer review. This process not only enhances the quality of published research but also fosters academic collaboration across various branches of engineering, science, and related fields.
+                    <p style={{ marginBottom: '18px' }}>
+                        We emphasize clarity of contribution, transparent methodology, responsible data use, and relevance to contemporary engineering challenges—from intelligent systems and advanced materials to energy resilience, manufacturing processes, infrastructure optimization, and human‑centered engineering design.
                     </p>
-                    <p style={{ marginBottom: '20px' }}>
-                        Conferences affiliated with ITME serve as a perfect platform for global networking, bringing together renowned speakers and scientists from around the world. These events feature enlightening interactive sessions, world-class exhibitions, and poster presentations, creating an exciting and memorable experience for participants.
+                    <p style={{ marginBottom: '18px' }}>
+                        Our biannual model allows careful curation rather than volume‑driven output. Submitted manuscripts undergo similarity screening and structured peer evaluation focused on originality, technical rigor, and disciplinary relevance. Reviewer feedback aims to be constructive, guiding refinement where merited.
                     </p>
-                    <p style={{ marginBottom: '20px' }}>
-                        Our infrastructure, facilities, and dedicated associates significantly impact the academic community and society at large, providing numerous benefits aimed at strengthening research skills and advancing academic careers.
+                    <p style={{ marginBottom: '0' }}>
+                        ITME maintains a living scope—responsive to emerging intersections (e.g., AI‑enabled engineering analytics, sustainable process integration, cyber‑physical systems)—while retaining grounding in core applied and theoretical engineering foundations.
                     </p>
                 </div>
             </div>
 
-            {/* Key Features */}
+            {/* Value Propositions */}
             <div data-aos="fade-up" data-aos-delay="200">
                 <h2 style={{
                     fontSize: '2rem',
@@ -314,7 +316,7 @@ const About = () => {
                     marginBottom: '40px',
                     fontWeight: 'bold'
                 }}>
-                    Why Choose ITME?
+                    What ITME Provides
                 </h2>
                 <div style={{
                     display: 'grid',
@@ -354,7 +356,27 @@ const About = () => {
                 </div>
             </div>
 
-            {/* Statistics Section */}
+            {/* Parallax Highlight Band */}
+            <div style={{ position:'relative', margin:'70px 0 40px', borderRadius:16, overflow:'hidden' }} data-aos="fade-up" data-aos-delay="250">
+                <div style={{
+                    background:'linear-gradient(120deg,#084c61 0%,#0d6f77 40%,#128294 90%)',
+                    backgroundAttachment:'fixed',
+                    padding:'70px 30px'
+                }}>
+                    <div style={{ maxWidth:1000, margin:'0 auto', display:'grid', gap:32, gridTemplateColumns:'repeat(auto-fit,minmax(180px,1fr))' }}>
+                        {stats.map((stat,i)=> (
+                            <div key={i} style={{ textAlign:'center', color:'#fff' }}>
+                                <div style={{ opacity:.85, marginBottom:6 }}>{stat.icon}</div>
+                                <div style={{ fontSize:'2rem', fontWeight:700, letterSpacing:.5 }}>{stat.value}</div>
+                                <div style={{ fontSize:'.9rem', fontWeight:500, opacity:.9 }}>{stat.label}</div>
+                                <div style={{ fontSize:'.7rem', opacity:.65, marginTop:4 }}>{stat.subtitle}</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+
+            {/* Statistics Section (secondary narrative) */}
             <div style={statsStyle} data-aos="fade-up" data-aos-delay="300">
                 <div style={{
                     position: 'absolute',
@@ -368,23 +390,22 @@ const About = () => {
                 }} />
                 <div style={{ position: 'relative', zIndex: 1 }}>
                     <h2 style={{ fontSize: '2rem', marginBottom: '40px', fontWeight: 'bold', color: '#ffffff' }}>
-                        ITME by Numbers
+                        Editorial Ethos
                     </h2>
                     <div style={{
                         display: 'grid',
                         gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
                         gap: '30px'
                     }}>
-                        {stats.map((stat, index) => (
-                            <div key={index} data-aos="fade-up" data-aos-delay={index * 100}>
-                                <div style={{ marginBottom: '10px', opacity: 0.8 }}>{stat.icon}</div>
-                                <div style={{ fontSize: '2.5rem', fontWeight: 'bold', marginBottom: '5px', color: '#ffffff' }}>
-                                    {stat.value}
-                                </div>
-                                <div style={{ fontSize: '1rem', opacity: 0.9, color: '#ffffff' }}>{stat.label}</div>
-                                <div style={{ fontSize: '0.85rem', opacity: 0.7, color: '#ffffff', marginTop: '5px' }}>
-                                    {stat.subtitle}
-                                </div>
+                        {[ 
+                            {title:'Integrity', text:'Similarity screening + ethical compliance checks precede review allocation.'},
+                            {title:'Constructive Review', text:'Focus on methodological clarity, contribution framing, and reproducibility cues.'},
+                            {title:'Transparent Decisions', text:'Editorial recommendations grounded in reviewer convergence & scope fit.'},
+                            {title:'Curated Scope', text:'Biannual pacing enables careful thematic balance across submissions.'}
+                        ].map((b,i)=>(
+                            <div key={i} style={{ background:'rgba(255,255,255,0.08)', padding:'18px 16px', borderRadius:10 }}>
+                                <h3 style={{ margin:'0 0 8px', fontSize:'1.05rem', color:'#fff', fontWeight:600 }}>{b.title}</h3>
+                                <p style={{ margin:0, fontSize:'.8rem', lineHeight:1.4, color:'#dfeff2' }}>{b.text}</p>
                             </div>
                         ))}
                     </div>
