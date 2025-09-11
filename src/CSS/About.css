@@ -79,8 +79,8 @@
 .contact-text.tight { line-height:1.35; }
 
 .about-footer { padding:2.9rem 1rem 3.8rem; text-align:center; }
-.footer-link { color:#0a6a78; text-decoration:none; font-weight:600; letter-spacing:.55px; border-bottom:2px solid rgba(10,106,120,.35); padding-bottom:3px; transition:color .35s,border-color .35s; }
-.footer-link:hover { color:#09485b; border-color:#09485b; }
+.footer-link { text-decoration:none; font-weight:600; letter-spacing:.55px; border-bottom:2px solid rgba(10,106,120,.35); padding-bottom:3px; transition:color .35s,border-color .35s; }
+/* .footer-link:hover { color:#09485b; border-color:#09485b; } */
 
 @media (max-width: 880px){
   .about-section { padding:3.4rem 1.05rem 3.1rem; }
