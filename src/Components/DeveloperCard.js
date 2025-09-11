@@ -8,7 +8,7 @@ const DeveloperCard = ({ developer }) => {
             </div>
             <div className="card-content">
                 <h3>{developer.name}</h3>
-                <p>{developer.role}</p>
+                <p>{developer.role}{developer.batch ? ` • ${developer.batch}` : ''}</p>
                 <div className="social-links">
                     <a href={developer.linkedin} target="_blank" rel="noreferrer">
                         <i className="fab fa-linkedin"></i>

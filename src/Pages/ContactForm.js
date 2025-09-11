@@ -173,18 +173,47 @@ function ContactForm() {
       </form>
 
       {/* Contact Information */}
-      <div className="contact-info">
+      <div className="contact-info enhanced">
         <h3>Contact Information</h3>
-        <div className="contact-details">
-          <div className="contact-item">
-            <i className="fas fa-envelope"></i>
-            <span>support.itme@krmangalam.edu.in</span>
+        <div className="contact-details two-col">
+          <div className="contact-block">
+            <div className="contact-item">
+              <i className="fas fa-headset" aria-hidden="true"></i>
+              <div className="contact-meta">
+                <span className="label">Technical Support</span>
+                <a href="mailto:support.itme@krmangalam.edu.in" className="value linkable">support.itme@krmangalam.edu.in</a>
+              </div>
+            </div>
+            <div className="contact-item">
+              <i className="fas fa-user-tie" aria-hidden="true"></i>
+              <div className="contact-meta">
+                <span className="label">Dean (SOET)</span>
+                <a href="mailto:dean.soet@krmangalam.edu.in" className="value linkable">dean.soet@krmangalam.edu.in</a>
+              </div>
+            </div>
           </div>
-          <div className="contact-item">
-            <i className="fas fa-globe"></i>
-            <span>https://itme.krmangalam.edu.in</span>
+          <div className="contact-block">
+            <div className="contact-item">
+              <i className="fas fa-phone" aria-hidden="true"></i>
+              <div className="contact-meta">
+                <span className="label">Phone</span>
+                <a href="tel:+919811911970" className="value">+91‑9811911970</a>
+              </div>
+            </div>
+            <div className="contact-item">
+              <i className="fas fa-globe" aria-hidden="true"></i>
+              <div className="contact-meta">
+                <span className="label">Official Portal</span>
+                <a href="https://itme.krmangalam.edu.in" target="_blank" rel="noopener noreferrer" className="value linkable">itme.krmangalam.edu.in</a>
+              </div>
+            </div>
+          </div>
+          <div className="contact-brand">
+            <img src="/ITME_LOGO.png" alt="ITME Logo" className="contact-logo" />
+            <p className="brand-caption">ITME Journal (Biannual) • K.R. Mangalam University</p>
           </div>
         </div>
+        <p className="contact-disclaimer">For manuscript enquiries include (if available) your submission ID and a concise subject line to aid routing.</p>
       </div>
 
       {/* Snackbar for success/error messages */}
@@ -377,6 +406,27 @@ function ContactForm() {
             padding: 12px 24px;
             font-size: 1rem;
           }
+        }
+      `}</style>
+      <style>{`
+        .contact-info.enhanced { border-left:6px solid #003366; background:linear-gradient(135deg,#f8fafc 0%,#f2f7fa 100%); position:relative; overflow:hidden; }
+        .contact-info.enhanced:before { content:""; position:absolute; inset:0; background:radial-gradient(circle at 85% 18%,rgba(0,51,102,.12),transparent 60%); pointer-events:none; }
+        .contact-details.two-col { display:grid; gap:22px; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); align-items:start; }
+        .contact-block { display:grid; gap:18px; }
+        .contact-item { display:flex; gap:14px; align-items:flex-start; padding:10px 12px; background:#fff; border:1px solid #e2e9ef; border-radius:10px; box-shadow:0 1px 3px rgba(0,0,0,.04); transition:box-shadow .35s, transform .35s, border-color .35s; }
+        .contact-item:hover { transform:translateY(-3px); box-shadow:0 6px 18px -4px rgba(0,51,102,.25); border-color:#c2d8e4; }
+        .contact-item i { background:#003366; color:#fff; width:38px; height:38px; display:flex; align-items:center; justify-content:center; border-radius:10px; font-size:.95rem; box-shadow:0 4px 10px -2px rgba(0,0,0,.25); }
+        .contact-meta { display:flex; flex-direction:column; gap:2px; font-size:.85rem; }
+        .contact-meta .label { font-weight:600; letter-spacing:.4px; color:#003366; font-size:.7rem; text-transform:uppercase; opacity:.85; }
+        .contact-meta .value { font-weight:500; color:#163b52; font-size:.78rem; word-break:break-word; text-decoration:none; }
+        .contact-meta .value.linkable:hover { text-decoration:underline; color:#00518a; }
+        .contact-brand { grid-column:1/-1; display:flex; flex-direction:column; align-items:center; gap:.65rem; padding:14px 10px 4px; }
+        .contact-logo { width:72px; height:auto; filter:drop-shadow(0 4px 8px rgba(0,0,0,.25)); transform:scale(1.9); }
+        .brand-caption { margin:0; font-size:.65rem; letter-spacing:.5px; font-weight:600; color:#0d3b4d; text-transform:uppercase; opacity:.8; }
+        .contact-disclaimer { margin:18px 0 0; font-size:.63rem; letter-spacing:.4px; text-transform:uppercase; font-weight:600; color:#4d6472; }
+        @media (max-width:640px){
+          .contact-logo { transform:scale(1.55); }
+          .contact-item { padding:10px 10px; }
         }
       `}</style>
     </div>

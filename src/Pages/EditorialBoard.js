@@ -52,6 +52,16 @@ const MapPinIcon = (props) => (
     </svg>
 );
 
+const displayRole = (role) => {
+    if (role === 'Editorial Board') return 'International Editor';
+    return role;
+};
+
+const sectionTitle = (title) => {
+    if (title === 'Editorial Board') return 'International Editors';
+    return title;
+};
+
 const MemberCard = ({ member }) => {
     const img = getImage(member.image);
     const initials = getInitials(member.name);
@@ -62,7 +72,7 @@ const MemberCard = ({ member }) => {
                 {img ? <img src={img} alt={member.name} /> : <div className="eb-initial-avatar big" aria-label={member.name}>{initials}</div>}
             </div>
             <div className="eb-card-body">
-                <div className="eb-role-badge">{member.role}</div>
+                <div className="eb-role-badge">{displayRole(member.role)}</div>
                 <h3 className="eb-name-lg">{member.name}</h3>
                 {member.affiliation && (
                     <div className="eb-info-line"><MapPinIcon className="eb-icon" /><span className="eb-affiliation-lg">{member.affiliation}</span></div>
@@ -89,12 +99,12 @@ const EditorialBoard = () => {
     return (
             <div className="eb-modern-wrapper">
                 <header className="eb-clean-header">
-                    <h1 className="eb-clean-title">Editorial Board</h1>
-                    <p className="eb-clean-sub">Distinguished academics and researchers committed to advancing scholarly excellence and innovation.</p>
+                    <h1 className="eb-clean-title">International Editors & Editorial Leadership</h1>
+                    <p className="eb-clean-sub">A collaborative panel of editors and subject experts supporting quality, integrity, and multidisciplinary relevance.</p>
                 </header>
             {sections.map((section, idx) => (
                 <section key={section.title} className="eb-modern-section" style={idx>0?{marginTop: '40px'}:undefined}>
-                    <h2>{section.title}</h2>
+                    <h2>{sectionTitle(section.title)}</h2>
                     <div className="eb-grid-modern">
                         {section.members.map(m => <MemberCard key={m.email || m.id || m.name} member={m} />)}
                     </div>

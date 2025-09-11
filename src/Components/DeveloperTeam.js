@@ -9,6 +9,7 @@ const developers = [
     {
         name: 'Piyush Sharma',
         role: 'B.Tech CSE (AI & ML)',
+        batch: '2024–2028',
         image: piyushImg,
         linkedin: 'https://www.linkedin.com/in/piyush-078455221/',
         github: 'https://github.com/ScienHAC'
@@ -16,6 +17,7 @@ const developers = [
     {
         name: 'Yashraj Pahuja',
         role: 'B.Tech CSE (AI & ML)',
+        batch: '2024–2028',
         image: yashrajImg,
         linkedin: 'https://www.linkedin.com/in/yashraj-pahuja-28a34b325',
         github: 'https://github.com/CYBORG-YASHRAJ'
