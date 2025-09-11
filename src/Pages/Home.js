@@ -834,7 +834,7 @@ const Slider = () => {
 const getCardText = (title) => {
     switch (title) {
         case 'Publication Scope':
-            return 'ITME publishes original research papers, review articles, and case studies in tribology, materials engineering, sustainable materials, and advanced manufacturing technologies.';
+            return 'ITME publishes original research papers, review articles, and case studies in engineering, materials science, sustainable materials, and advanced manufacturing technologies.';
         case 'Submission Process':
             return 'Authors must first register an account, then navigate to Research Archive to complete submission details and upload their manuscript following our formatting guidelines.';
         case 'Review Workflow':

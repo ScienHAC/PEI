@@ -242,7 +242,14 @@ const Header = React.memo(() => {
                         {/* Role-Based Links */}
                         {/* Active placeholder: Submit Manuscript (goes to staged placeholder form) */}
                         <li className="nav-item">
-                            <Link className="nav-link" to="/form">Submit Manuscript</Link>
+                            <Link className="nav-link" to="/form" style={{ display:'inline-flex', alignItems:'center', gap:8 }}>
+                                <span>Submit Manuscript</span>
+                                <img
+                                    src="/arrow-top-right.svg"
+                                    alt="Open"
+                                    style={{ width:22, height:22, display:'block', filter:'invert(1) brightness(1.2)', opacity:1 }}
+                                />
+                            </Link>
                         </li>
 
                         {isAdmin && (

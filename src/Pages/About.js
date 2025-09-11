@@ -488,7 +488,7 @@ const About = () => {
                         maxWidth: '600px',
                         margin: '0 auto 30px'
                     }}>
-                        Contribute to cutting-edge research, collaborate with global experts, and advance the frontiers of tribology and materials engineering through our international platform.
+                        Contribute to cutting-edge research, collaborate with global experts, and advance the frontiers of engineering and materials science through our international platform.
                     </p>
                     <div style={{ display: 'flex', gap: '20px', justifyContent: 'center', flexWrap: 'wrap' }}>
                         <Link

@@ -11,7 +11,7 @@ need to reinstate it, retrieve an earlier commit or uncomment this block.
 */
 
 // New International Standard Manuscript Submission Form
-import React, { useState } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import axios from 'axios';
 import CircularProgress from '@mui/material/CircularProgress';
 import {
@@ -93,6 +93,50 @@ const InternationalSubmissionForm = () => {
     const [snackbar, setSnackbar] = useState({ open: false, message: "", severity: "success" });
     const [errors, setErrors] = useState({});
     const [showPreview, setShowPreview] = useState(false);
+    const [openFAQ, setOpenFAQ] = useState(null); // which FAQ panel open
+
+    // Scroll to FAQ if hash like #faq-format appears
+    useEffect(() => {
+        if (window.location.hash.startsWith('#faq-')) {
+            const el = document.querySelector(window.location.hash);
+            if (el) {
+                setTimeout(()=> el.scrollIntoView({ behavior:'smooth', block:'start'}), 200);
+            }
+        }
+    }, []);
+
+    const faqItems = useMemo(()=>[
+        {
+            id:'scope',
+            q:'What types of manuscripts does ITME consider?',
+            a:'Original research articles, review articles, short communications, technical notes, project / design studies, and case studies across multidisciplinary engineering and materials science domains.'
+        },
+        {
+            id:'template',
+            q:'Is there a mandatory manuscript template?',
+            a:'Yes. Authors must structure their paper using the official ITME template (sections: Title, Abstract, Keywords, Introduction, Methods / Experimental, Results & Discussion, Conclusion, Acknowledgements, References in IEEE style). Download the template via the provided links.'
+        },
+        {
+            id:'review',
+            q:'How does the peer review process work?',
+            a:'Each submission undergoes editorial screening followed by double-blind peer review by at least two independent reviewers. Typical initial decisions are targeted within 2–3 weeks, depending on reviewer availability.'
+        },
+        {
+            id:'filetypes',
+            q:'Which file formats are accepted for initial submission?',
+            a:'PDF or DOCX for the manuscript. A single combined manuscript file is preferred. Figures may be embedded at first submission; editable source files can be requested after acceptance.'
+        },
+        {
+            id:'ethics',
+            q:'When is ethics approval information required?',
+            a:'Provide ethics approval details for studies involving human participants, animal experiments, sensitive data, or institutional compliance frameworks. If not applicable, leave unchecked.'
+        },
+        {
+            id:'contact',
+            q:'Can I submit by email instead of using the online system?',
+            a:'The online system is preferred for metadata integrity and tracking. In exceptional cases you may send the manuscript PDF to editor.itme@krmangalam.edu.in with a clear subject line (e.g., ITME Submission – Article Title).'
+        }
+    ], []);
 
     // Helpers
     const updateAuthor = (idx, field, value) => {
@@ -284,7 +328,13 @@ const InternationalSubmissionForm = () => {
                 ))}
 
                 <Divider sx={{ my: 2 }} />
-                <Typography variant="h6" gutterBottom>Files</Typography>
+                <Typography variant="h6" gutterBottom>Files & Template</Typography>
+                <Typography variant="body2" sx={{ mb:2 }}>
+                    Please prepare your manuscript using the official ITME template. Download: {' '}
+                    <a href="/template.pdf" target="_blank" rel="noopener noreferrer" style={{ fontWeight:600, color:'#0a5a70', textDecoration:'none' }}>
+                        ITME Template PDF <span style={{fontSize:'0.85em', display:'inline-block', transform:'translateY(-1px)'}}>↗</span>
+                    </a>
+                </Typography>
                 <Typography variant="body2">
                     <strong>Manuscript:</strong> {manuscriptFile?.name || 'None'}
                 </Typography>
@@ -334,9 +384,16 @@ const InternationalSubmissionForm = () => {
     return (
         <Box component={Paper} sx={{ maxWidth: 960, mx: 'auto', my: 4, p: { xs: 2, md: 4 } }}>
             <Typography variant="h4" gutterBottom align="center">Manuscript Submission</Typography>
+            <Typography variant="body2" align="center" sx={{ mb: 1 }}>
+                Please complete all required sections ( * mandatory ). Ensure your manuscript follows the ITME formatting guidelines.
+            </Typography>
             <Typography variant="body2" align="center" sx={{ mb: 3 }}>
-                Please complete all required sections. Fields marked * are mandatory. This form mirrors
-                common international / IEEE style submission metadata.
+                <a href="/template.pdf" target="_blank" rel="noopener noreferrer" style={{ fontWeight:600, color:'#0a5a70', textDecoration:'none', display:'inline-flex', alignItems:'center', gap:6 }}>
+                    <span>Download Official Template</span>
+                    <img src="/arrow-top-right.svg" alt="open" style={{ width:18, height:18 }} />
+                </a>
+                <span style={{ margin:'0 8px', color:'#999' }}>|</span>
+                <a href="#faq-template" style={{ fontWeight:500, color:'#0a5a70', textDecoration:'none' }}>Template FAQ</a>
             </Typography>
             <Box component="form" onSubmit={handleSubmit} noValidate>
                 <TextField label="Title *" value={title} onChange={e => setTitle(e.target.value)} fullWidth size="small" />
@@ -412,6 +469,9 @@ const InternationalSubmissionForm = () => {
                         <input type="file" hidden onChange={handleFile(setCoverLetterFile)} />
                     </Button>
                 </Box>
+                <Typography variant="caption" sx={{ display:'block', mt:1 }}>
+                    Need the structure? <a href="/template.pdf" target="_blank" rel="noopener noreferrer" style={{ fontWeight:600, color:'#0a5a70', textDecoration:'none', display:'inline-flex', alignItems:'center', gap:4 }}>Template PDF <img src="/arrow-top-right.svg" alt="open" style={{ width:14, height:14 }} /></a>
+                </Typography>
                 {errorText('manuscriptFile')}
 
                 <Divider sx={{ my: 3 }} />
@@ -429,16 +489,39 @@ const InternationalSubmissionForm = () => {
                         <Typography variant="caption" sx={{ display:'block', mt:0.5 }}>Uploading... {Math.round(progress)}%</Typography>
                     </Box>
                 )}
-                <Button type="submit" variant="contained" disabled={submitting} sx={{ mt:2, position:'relative', minHeight:48 }} fullWidth>
-                    {submitting ? <><CircularProgress size={20} sx={{ mr:1, color:'#fff' }} /> Submitting…</> : 'Submit Manuscript'}
+                <Button type="submit" variant="contained" disabled={submitting} sx={{ mt:2, position:'relative', minHeight:48, fontWeight:600, letterSpacing:.3 }} fullWidth>
+                    {submitting ? <><CircularProgress size={20} sx={{ mr:1, color:'#fff' }} /> Submitting…</> : <span style={{ display:'inline-flex', alignItems:'center', gap:6 }}>Submit Manuscript <img src="/arrow-top-right.svg" alt="open" style={{ width:20, height:20, filter:'brightness(0) invert(1)' }} /></span>}
                 </Button>
                 <Divider sx={{ my: 3 }} />
-                <Typography variant="body1" align="center" sx={{ fontWeight: 700 }}>
-                    In addition to the above form, you can ALSO email the PDF of your paper to{' '}
-                    <a href="mailto:editor.itme@krmangalam.edu.in" style={{ color: '#1976d2', textDecoration: 'none' }}>
-                        editor.itme@krmangalam.edu.in
-                    </a>.
+                <Typography variant="body2" align="center" sx={{ fontWeight: 500, maxWidth:700, mx:'auto' }}>
+                    If you experience difficulty with the online system, you may alternatively send the manuscript PDF to
+                    {' '}<a href="mailto:editor.itme@krmangalam.edu.in" style={{ color: '#0a5a70', fontWeight:600, textDecoration:'none' }}>editor.itme@krmangalam.edu.in</a>
+                    {' '}with a clear subject line (e.g., <em>ITME Submission – Article Title</em>). Online submission remains the preferred route.
                 </Typography>
+
+                <Divider sx={{ my:4 }} />
+                <Typography variant="h6" gutterBottom id="faq-top">Submission FAQs</Typography>
+                <Box>
+                    {faqItems.map(item => (
+                        <Box key={item.id} id={`faq-${item.id}`} sx={{ mb:2, border:'1px solid #e0e0e0', borderRadius:1, overflow:'hidden' }}>
+                            <Box onClick={()=> setOpenFAQ(openFAQ===item.id ? null : item.id)} sx={{ cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'space-between', px:2, py:1.2, background: openFAQ===item.id ? '#f5f9fa' : '#fafafa', transition:'background .25s' }}>
+                                <Typography variant="subtitle2" sx={{ fontWeight:600 }}>{item.q}</Typography>
+                                <Typography variant="body2" sx={{ fontWeight:600, color:'#0a5a70' }}>{openFAQ===item.id ? '−' : '+'}</Typography>
+                            </Box>
+                            {openFAQ===item.id && (
+                                <Box sx={{ px:2, pb:2, pt:0.5, background:'#fff' }}>
+                                    <Typography variant="body2" sx={{ whiteSpace:'pre-line' }}>
+                                        {item.a}
+                                        {item.id === 'template' && (
+                                            <><br/><br/>Download template: <a href="/template.pdf" target="_blank" rel="noopener noreferrer" style={{ fontWeight:600, color:'#0a5a70', textDecoration:'none', display:'inline-flex', alignItems:'center', gap:4 }}>Template PDF <img src="/arrow-top-right.svg" alt="open" style={{ width:16, height:16 }} /></a></>
+                                        )}
+                                    </Typography>
+                                    <Typography variant="caption" sx={{ display:'block', mt:1 }}><a href="#faq-top" onClick={(e)=>{ e.preventDefault(); window.scrollTo({ top:0, behavior:'smooth'}); }} style={{ textDecoration:'none', color:'#0a5a70' }}>Back to top ↑</a></Typography>
+                                </Box>
+                            )}
+                        </Box>
+                    ))}
+                </Box>
             </Box>
             <PreviewDialog />
             <Snackbar open={snackbar.open} autoHideDuration={5000} onClose={()=>setSnackbar(s=>({...s, open:false}))} anchorOrigin={{ vertical:'bottom', horizontal:'center' }}>
