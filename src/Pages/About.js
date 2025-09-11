@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import '../CSS/About.css';
-import { ShieldCheck, Users, BookOpen, Globe, FileCheck2, Layers, Clock, Mail, CheckCircle, Edit } from 'lucide-react';
+import { ShieldCheck, Users, BookOpen, Globe, FileCheck2, Layers, Clock, Mail, CheckCircle, Edit, Phone } from 'lucide-react';
 
 const About = () => {
     useEffect(() => {
@@ -151,24 +151,39 @@ const About = () => {
             <section className="about-section contact" aria-labelledby="contact-heading" data-aos="fade-up">
                 <h2 id="contact-heading" className="section-title">Contact & Support</h2>
                 <div className="contact-grid">
-                    <div className="contact-card">
+                    <div className="contact-card" data-aos="zoom-in" data-aos-delay="50">
                         <Mail size={26} className="contact-icon" />
-                        <h3 className="contact-label">Technical Support</h3>
-                        <a href="mailto:support.itme@krmangalam.edu.in" className="contact-link">support.itme@krmangalam.edu.in</a>
-                    </div>
-                    <div className="contact-card">
-                        <ShieldCheck size={26} className="contact-icon" />
-                        <h3 className="contact-label">Ethics / Integrity</h3>
+                        <h3 className="contact-label">Manuscript / Editorial</h3>
+                        <p className="contact-text">Submission status, reviewer queries, scope clarification.</p>
                         <a href="mailto:editor.itme@krmangalam.edu.in" className="contact-link">editor.itme@krmangalam.edu.in</a>
                     </div>
-                        <div className="contact-card">
-                            <Clock size={26} className="contact-icon" />
-                            <h3 className="contact-label">Response Window</h3>
-                            <p className="contact-text">Most queries answered in 1–2 business days.</p>
-                        </div>
-                    <div className="contact-card emphasis">
+                    <div className="contact-card" data-aos="zoom-in" data-aos-delay="90">
+                        <ShieldCheck size={26} className="contact-icon" />
+                        <h3 className="contact-label">Ethics & Integrity</h3>
+                        <p className="contact-text">Plagiarism concerns, authorship, conflict disclosure.</p>
+                        <a href="mailto:editor.itme@krmangalam.edu.in" className="contact-link">editor.itme@krmangalam.edu.in</a>
+                    </div>
+                    <div className="contact-card" data-aos="zoom-in" data-aos-delay="130">
+                        <Mail size={26} className="contact-icon" />
+                        <h3 className="contact-label">Technical Support</h3>
+                        <p className="contact-text">Platform access or file upload issues.</p>
+                        <a href="mailto:support.itme@krmangalam.edu.in" className="contact-link">support.itme@krmangalam.edu.in</a>
+                    </div>
+                    <div className="contact-card" data-aos="zoom-in" data-aos-delay="170">
+                        <Phone size={26} className="contact-icon" />
+                        <h3 className="contact-label">Academic Liaison</h3>
+                        <p className="contact-text">Dean (SOET) – academic coordination (business hrs IST).</p>
+                        <span className="contact-text">+91‑9811911970</span>
+                    </div>
+                    <div className="contact-card" data-aos="zoom-in" data-aos-delay="210">
+                        <Clock size={26} className="contact-icon" />
+                        <h3 className="contact-label">Typical Response</h3>
+                        <p className="contact-text">Initial acknowledgement within 1–2 business days.</p>
+                        <p className="contact-text">Complex ethical reviews may require additional time.</p>
+                    </div>
+                    <div className="contact-card emphasis" data-aos="zoom-in" data-aos-delay="250">
                         <CheckCircle size={24} className="contact-icon" />
-                        <p className="contact-text tight">Please include manuscript ID (if assigned) and a concise subject line to expedite handling.</p>
+                        <p className="contact-text tight"><strong>Format tip:</strong> Subject line =&nbsp;<em>“Manuscript ID (if any) – Short Topic (≤60 chars)”</em>. Attach revised files only when requested.</p>
                     </div>
                 </div>
             </section>
