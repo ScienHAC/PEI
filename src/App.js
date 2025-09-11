@@ -12,6 +12,7 @@ import Header from "./Components/Header";
 import Footer from "./Components/Footer";
 import Home from "./Pages/Home";
 import { About } from "./Pages/About";
+import KRMU from "./Pages/KRMU";
 import BackToTopButton from "./Components/BackToTopButton.js";
 import Form from "./Pages/Form";
 import Login from "./Auth/Login";
@@ -63,6 +64,7 @@ function AuthRoutes() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About />} />
+  <Route path="/krmangalam-university" element={<KRMU />} />
       <Route path="/developers" element={<DeveloperTeam />} />
       <Route path="/forgot-password" element={<ForgotPassword />} />
       <Route path="/contact" element={<ContactForm />} />

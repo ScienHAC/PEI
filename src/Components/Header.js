@@ -204,30 +204,23 @@ const Header = React.memo(() => {
                                 Welcome to ITME <span className="sr-only">(current)</span>
                             </Link>
                         </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/about">About</Link>
+                        <li className="nav-item dropdown custom-hover-dropdown">
+                            <Link className="nav-link dropdown-toggle" to="/about" role="button" aria-expanded="false" style={{ display:'inline-flex', alignItems:'center', gap:4 }}>About</Link>
+                            <ul className="dropdown-menu about-menu" role="menu" aria-label="About navigation">
+                                <li role="none"><Link role="menuitem" className="dropdown-item" to="/about">About ITME</Link></li>
+                                <li role="none"><Link role="menuitem" className="dropdown-item" to="/krmangalam-university">K.R. Mangalam University</Link></li>
+                            </ul>
                         </li>
                         <li className="nav-item">
                             <Link className="nav-link" to="/abstracting-indexing">Abstracting & Indexing</Link>
                         </li>
 
                         {/* Dropdown for Publications */}
-                        <li className="nav-item dropdown">
-                            <button
-                                className="nav-link dropdown-toggle"
-                                id="navbarDropdown"
-                                data-bs-toggle="dropdown"
-                                aria-expanded="false"
-                            >
-                                Publications
-                            </button>
-                            <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li>
-                                    <Link className="dropdown-item" to="/current-issue">Current Issue</Link>
-                                </li>
-                                <li>
-                                    <Link className="dropdown-item" to="/archives">Archives</Link>
-                                </li>
+                        <li className="nav-item dropdown custom-hover-dropdown">
+                            <Link className="nav-link dropdown-toggle" to="/current-issue" role="button" aria-expanded="false">Publications</Link>
+                            <ul className="dropdown-menu">
+                                <li><Link className="dropdown-item" to="/current-issue">Current Issue</Link></li>
+                                <li><Link className="dropdown-item" to="/archives">Archives</Link></li>
                             </ul>
                         </li>
 
@@ -242,13 +235,9 @@ const Header = React.memo(() => {
                         {/* Role-Based Links */}
                         {/* Active placeholder: Submit Manuscript (goes to staged placeholder form) */}
                         <li className="nav-item">
-                            <Link className="nav-link" to="/form" style={{ display:'inline-flex', alignItems:'center', gap:8 }}>
+                            <Link className="nav-link submit-link" to="/form" style={{ display:'inline-flex', alignItems:'center', gap:8 }}>
                                 <span>Submit Manuscript</span>
-                                <img
-                                    src="/arrow-top-right.svg"
-                                    alt="Open"
-                                    style={{ width:22, height:22, display:'block', filter:'invert(1) brightness(1.2)', opacity:1 }}
-                                />
+                                <img src="/arrow-top-right.svg" alt="Open" className="submit-arrow" />
                             </Link>
                         </li>
 

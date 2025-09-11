@@ -13,3 +13,55 @@
 }
 
 
+/* Hover dropdown activation */
+/* Hover + focus dropdown activation */
+.custom-hover-dropdown { position: relative; }
+.custom-hover-dropdown > .dropdown-menu { 
+  display: none; 
+  position: absolute; 
+  top: 100%; 
+  left: 14px; /* increased right offset */
+  padding: 6px 0; 
+  margin: 0; 
+  min-width: 240px; 
+  background:#ffffff; 
+  border:1px solid #d4e2e6; 
+  border-radius:10px; 
+  box-shadow:0 8px 24px -6px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.06); 
+  z-index: 1000;
+}
+.custom-hover-dropdown:hover > .dropdown-menu,
+.custom-hover-dropdown:focus-within > .dropdown-menu { display: block; }
+
+/* Keep menu open when transitioning between link and menu */
+.custom-hover-dropdown > a.nav-link { position: relative; z-index: 1001; }
+
+.custom-hover-dropdown .dropdown-menu.about-menu { padding:0; }
+.custom-hover-dropdown .dropdown-menu.about-menu .dropdown-item { 
+  padding: 11px 18px; 
+  font-weight:400; 
+  font-size:0.9rem; 
+  line-height:1.2; 
+  white-space:nowrap; 
+  display:flex; 
+  align-items:center; 
+  gap:8px; 
+  border-radius:0; 
+  position:relative;
+  border-bottom:1px solid #e5edf0;
+}
+.custom-hover-dropdown .dropdown-menu.about-menu .dropdown-item:last-child { border-bottom:none; }
+.custom-hover-dropdown .dropdown-menu.about-menu .dropdown-item:hover,
+.custom-hover-dropdown .dropdown-menu.about-menu .dropdown-item:focus { 
+  background:#0a5a70; 
+  color:#fff; 
+}
+
+/* Removed entry animation to prevent perceived lateral shift */
+/* (Animation previously here) */
+
+/* Submit arrow styling */
+.submit-link .submit-arrow { width:22px; height:22px; filter: brightness(0) invert(1); transition: transform .25s ease; display:block; }
+.submit-link:hover .submit-arrow, .submit-link:focus .submit-arrow { transform: translateY(-1px); /* stays white */ }
+
+

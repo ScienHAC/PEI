@@ -720,3 +720,15 @@ ul.dropdown-menu {
 .developer-button:hover {
     background-color: #0056b3;
 }
+
+/* Shared submit arrow styling (header + buttons) */
+.submit-arrow {
+    filter: brightness(0) invert(1);
+    transition: filter .25s ease, transform .25s ease;
+    display: inline-block;
+}
+.submit-btn:hover .submit-arrow,
+.submit-btn:focus .submit-arrow { transform: translateY(-1px); }
+/* Header submit keeps arrow white */
+.submit-link:hover .submit-arrow,
+.submit-link:focus .submit-arrow { transform: translateY(-1px); }

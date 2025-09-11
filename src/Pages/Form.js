@@ -489,8 +489,8 @@ const InternationalSubmissionForm = () => {
                         <Typography variant="caption" sx={{ display:'block', mt:0.5 }}>Uploading... {Math.round(progress)}%</Typography>
                     </Box>
                 )}
-                <Button type="submit" variant="contained" disabled={submitting} sx={{ mt:2, position:'relative', minHeight:48, fontWeight:600, letterSpacing:.3 }} fullWidth>
-                    {submitting ? <><CircularProgress size={20} sx={{ mr:1, color:'#fff' }} /> Submitting…</> : <span style={{ display:'inline-flex', alignItems:'center', gap:6 }}>Submit Manuscript <img src="/arrow-top-right.svg" alt="open" style={{ width:20, height:20, filter:'brightness(0) invert(1)' }} /></span>}
+                <Button type="submit" variant="contained" disabled={submitting} sx={{ mt:2, position:'relative', minHeight:48, fontWeight:600, letterSpacing:.3 }} fullWidth className="submit-btn">
+                    {submitting ? <><CircularProgress size={20} sx={{ mr:1, color:'#fff' }} /> Submitting…</> : <span style={{ display:'inline-flex', alignItems:'center', gap:6 }}>Submit Manuscript <img src="/arrow-top-right.svg" alt="open" className="submit-arrow" style={{ width:22, height:22 }} /></span>}
                 </Button>
                 <Divider sx={{ my: 3 }} />
                 <Typography variant="body2" align="center" sx={{ fontWeight: 500, maxWidth:700, mx:'auto' }}>

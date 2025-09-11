@@ -198,6 +198,9 @@ const About = () => {
                             Open Access
                         </span>
                     </div>
+                    <p style={{ marginTop:35, fontSize:'0.95rem', opacity:0.9 }}>
+                        Learn more about our parent institution: <Link to="/krmangalam-university" style={{ color:'#fff', textDecoration:'underline', fontWeight:600 }}>K.R. Mangalam University →</Link>
+                    </p>
                 </div>
             </div>
 
