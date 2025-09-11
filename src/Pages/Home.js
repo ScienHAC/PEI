@@ -489,14 +489,14 @@ const Home = () => {
                 color: 'rgb(19, 15, 15)',
                 boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)',
             }} data-aos="fade-up">
-                <h3 style={{
+                {/* <h3 style={{
                     fontSize: '1.5rem',
                     color: '#084c61',
                     borderBottom: '2px solid #084c61',
                     paddingBottom: '10px',
                     marginBottom: '20px',
                     textAlign: 'center'
-                }}>Current Issue</h3>
+                }}>Current Issue</h3> */}
                 {isWindowScrolled ? <CurrentIssue /> : <Loader />}
             </div>
 

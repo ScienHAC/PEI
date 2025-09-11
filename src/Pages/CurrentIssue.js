@@ -5,14 +5,14 @@ const CurrentIssue = () => {
     return (
         <div className="current-issue-container">
             <div className="current-issue-content">
-                <h1 className="page-title">Innovations for a Sustainable Future</h1>
+                <h1 className="page-title">Current Issue</h1>
                 <div className="issue-details">
                     <h2>Innovative Trends in Multidisciplinary Engineering (ITME)</h2>
                     <p className="issue-info">Issue 1, Volume 1 - 2025 | December 2025 Issue</p>
                 </div>
                 
                 <div className="call-for-papers-section">
-                    <h3>Call For Papers</h3>
+                    <h3>Innovations for a Sustainable Future</h3>
                     <div className="call-for-papers-image-container">
                         <img 
                             src="/ITME_Call_for_Papers.jpg" 

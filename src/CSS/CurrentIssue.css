@@ -48,8 +48,8 @@
     font-size: 1.6rem;
     color: #084c61;
     margin-bottom: 20px;
-    border-left: 4px solid #084c61;
-    padding-left: 15px;
+    text-align: center;
+    font-weight: bold;
 }
 
 .call-for-papers-image-container {
