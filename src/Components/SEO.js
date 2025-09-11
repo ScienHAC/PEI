@@ -3,8 +3,8 @@ import { Helmet } from 'react-helmet-async';
 
 const SEO = ({
     title = "ITME - Innovative Trends in Multidisciplinary Engineering",
-    description = "International peer-reviewed journal publishing high-quality research in engineering, materials science, and interdisciplinary domains. Open access, rapid review process.",
-    keywords = "ITME Journal, Innovative Trends in Multidisciplinary Engineering, Materials Science, Research Publication, Peer Review, Open Access, Engineering Research, Academic Journal, K.R. Mangalam University, School of Engineering and Technology",
+    description = "Biannual peer‑reviewed journal publishing applied and foundational engineering research across materials, mechanical, computational / data‑driven, sustainable systems, design & manufacturing, and intelligent/autonomous interfaces.",
+    keywords = "ITME Journal, multidisciplinary engineering, materials engineering, sustainable systems, computational engineering, intelligent systems, autonomous systems, design optimization, K.R. Mangalam University, peer reviewed journal, open access",
     url = "",
     type = "website",
     author = "ITME Editorial Board",
@@ -91,7 +91,11 @@ const SEO = ({
                     "issn": "To be assigned",
                     "inLanguage": "en",
                     "datePublished": "2024",
-                    "keywords": keywords.split(', ')
+                    "keywords": keywords.split(', '),
+                    "publicationFrequency": "Biannual",
+                    "sameAs": [
+                        "https://krmangalam.edu.in"
+                    ]
                 })}
             </script>
         </Helmet>
