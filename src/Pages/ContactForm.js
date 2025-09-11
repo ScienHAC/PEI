@@ -53,10 +53,10 @@ function ContactForm() {
     }
     setIsSubmitting(true);
     try {
-  const response = await fetch(CONTACT_ENDPOINT, {
+      // credentials removed (no auth cookie needed). If backend later requires cookies, re-add and ensure proper CORS headers.
+      const response = await fetch(CONTACT_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
         body: JSON.stringify(cleaned)
       });
       let responseData = {};
