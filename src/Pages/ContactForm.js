@@ -3,15 +3,33 @@ import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 
 function ContactForm() {
+  // Single clear endpoint. Backend should expose POST /contact-us
+  // Example full URL: https://apiitme.vercel.app/contact-us
+  const CONTACT_ENDPOINT = `${process.env.REACT_APP_hostURL.replace(/\/$/, '')}/contact-us`;
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     subject: '',
     message: '',
+    hp: '' // honeypot (should stay empty)
   });
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const validate = (data) => {
+    const errors = [];
+    if (!data.name.trim() || data.name.trim().length < 2) errors.push('Name too short.');
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    if (!emailPattern.test(data.email)) errors.push('Invalid email format.');
+    const digits = data.phone.replace(/\D/g, '');
+    if (digits.length < 8 || digits.length > 15) errors.push('Phone must be 8–15 digits.');
+    if (!data.subject.trim() || data.subject.trim().length < 3) errors.push('Subject too short.');
+    if (!data.message.trim() || data.message.trim().length < 10) errors.push('Message too short.');
+    if (data.hp) errors.push('Spam detected.');
+    return errors;
+  };
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -19,45 +37,39 @@ function ContactForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (isSubmitting) return;
+    const cleaned = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      phone: formData.phone.trim(),
+      subject: formData.subject.trim(),
+      message: formData.message.trim(),
+      hp: formData.hp
+    };
+    const errs = validate(cleaned);
+    if (errs.length) {
+      setSnackbar({ open: true, message: errs.join(' '), severity: 'error' });
+      return;
+    }
     setIsSubmitting(true);
-
     try {
-      const response = await fetch(`${process.env.REACT_APP_hostURL}/auth/contact-us`, {
+  const response = await fetch(CONTACT_ENDPOINT, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify(formData),
+        body: JSON.stringify(cleaned)
       });
-
-      const responseData = await response.json();
-
+      let responseData = {};
+      try { responseData = await response.json(); } catch { /* ignore parse error */ }
       if (!response.ok) {
-        // Display the specific error message from the backend
-        setSnackbar({
-          open: true,
-          message: responseData.message || 'Failed to send message. Please try again.',
-          severity: 'error'
-        });
+        setSnackbar({ open: true, message: responseData.message || 'Failed to send message.', severity: 'error' });
         return;
       }
-
-      // Success - show success message and reset form
-      setSnackbar({
-        open: true,
-        message: responseData.message || 'Message sent successfully!',
-        severity: 'success'
-      });
-      setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
-
-    } catch (error) {
-      console.error('Contact form error:', error);
-      setSnackbar({
-        open: true,
-        message: 'Network error. Please check your connection and try again.',
-        severity: 'error'
-      });
+      setSnackbar({ open: true, message: responseData.message || 'Message sent successfully!', severity: 'success' });
+      setFormData({ name: '', email: '', phone: '', subject: '', message: '', hp: '' });
+    } catch (err) {
+      console.error('Contact form error:', err);
+      setSnackbar({ open: true, message: 'Network / server error. Try again later.', severity: 'error' });
     } finally {
       setIsSubmitting(false);
     }
@@ -75,6 +87,11 @@ function ContactForm() {
       </div>
 
       <form onSubmit={handleSubmit} className="contact-form">
+        <div className="form-group" style={{display:'none'}} aria-hidden="true">
+          <label htmlFor="hp">Do not fill</label>
+          <input id="hp" name="hp" value={formData.hp} onChange={handleChange} tabIndex={-1} autoComplete="off" />
+        </div>
+
         <div className="form-group">
           <label htmlFor="name">Full Name <span className="required">*</span></label>
           <input
@@ -209,11 +226,11 @@ function ContactForm() {
             </div>
           </div>
           <div className="contact-brand">
-            <img src="/ITME_LOGO.png" alt="ITME Logo" className="contact-logo" />
+            <img src="/logo.png" alt="ITME Logo" className="contact-logo" />
             <p className="brand-caption">ITME Journal (Biannual) • K.R. Mangalam University</p>
           </div>
         </div>
-        <p className="contact-disclaimer">For manuscript enquiries include (if available) your submission ID and a concise subject line to aid routing.</p>
+  <p className="contact-disclaimer">For manuscript enquiries include (if available) your submission ID and a concise subject line to aid routing. Do not attach large files here—use the submission system unless specifically asked.</p>
       </div>
 
       {/* Snackbar for success/error messages */}
