@@ -36,6 +36,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://itme.krmangalam.edu.in/reviewers</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://itme.krmangalam.edu.in/abstracting-indexing</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

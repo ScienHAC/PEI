@@ -30,6 +30,7 @@ import VolumePage from "./Pages/VolumePage.js";
 import CurrentIssue from "./Pages/CurrentIssue.js";
 import AbstractingandIndexing from "./Pages/AbstractingandIndexing.js";
 import EditorialBoard from "./Pages/EditorialBoard.js";
+import Reviewers from "./Pages/Reviewers.js";
 import PrivacyPolicy from "./Pages/PrivacyPolicy.js";
 import TermsandConditions from "./Pages/TermsandConditions.js";
 import InvitePage from "./Pages/InvitePage.js";
@@ -76,6 +77,7 @@ function AuthRoutes() {
         element={<AbstractingandIndexing />}
       />
       <Route path="/editorial-board" element={<EditorialBoard />} />
+  <Route path="/reviewers" element={<Reviewers />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route path="/terms-and-conditions" element={<TermsandConditions />} />
       {isAuthenticated ? (

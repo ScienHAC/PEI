@@ -1,4 +1,6 @@
 import React, { useMemo } from 'react';
+import { Link } from 'react-router-dom';
+import reviewers from '../assets/reviewer_committee_list.json';
 import data from '../assets/editorialBoard.json';
 import '../CSS/EditorialBoard.css';
 
@@ -101,6 +103,13 @@ const EditorialBoard = () => {
                 <header className="eb-clean-header">
                     <h1 className="eb-clean-title">International Editors & Editorial Leadership</h1>
                     <p className="eb-clean-sub">A collaborative panel of editors and subject experts supporting quality, integrity, and multidisciplinary relevance.</p>
+                    <div style={{marginTop:12,fontSize:14}}>
+                        <span>Peer review support: </span>
+                        <strong>{reviewers.length}</strong>
+                        <span> reviewers</span>
+                        <span> · </span>
+                        <Link to="/reviewers" style={{color:'#0a6079'}}>Browse reviewer committee →</Link>
+                    </div>
                 </header>
             {sections.map((section, idx) => (
                 <section key={section.title} className="eb-modern-section" style={idx>0?{marginTop: '40px'}:undefined}>
