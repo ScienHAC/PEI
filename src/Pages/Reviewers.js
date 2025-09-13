@@ -6,13 +6,12 @@ import { Link } from 'react-router-dom';
 
 const ITEMS_PER_PAGE = 12;
 
-const toInitials = (name='') => name.trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase();
 const cleanStr = (s='') => (s || '').toString().trim();
 const isNumericOnly = (s='') => /^\s*\d+\s*$/.test(s||'');
 const normalize = (s='') => cleanStr(s)
   .toLowerCase()
   .replace(/[\u00A0]/g,' ') // NBSP to space
-  .replace(/[.,!'"()_\/\-]+/g,' ') // punctuation to space (hyphen at end)
+  .replace(/[.,!'"()_/-]+/g,' ') // punctuation to space
   .replace(/\s+/g,' ');
 
 // Hoisted function so it can be used inside useMemo before definition
@@ -102,7 +101,6 @@ export default function Reviewers() {
         {pageItems.map(r => (
           <article key={r.ID} className="rv-card">
             <div className="rv-card-head">
-              <div className="rv-avatar" aria-label={r['Full Name']}>{toInitials(r['Full Name'])}</div>
               <div className="rv-head-text">
                 <h3>{getSalutation(r)} {cleanStr(r['Full Name'])}</h3>
                 <div className="rv-role">{cleanStr(r['Current Designation']) || 'Reviewer'}</div>
