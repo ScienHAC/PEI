@@ -9,6 +9,17 @@ const ITEMS_PER_PAGE = 12;
 const toInitials = (name='') => name.trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase();
 const cleanStr = (s='') => (s || '').toString().trim();
 const isNumericOnly = (s='') => /^\s*\d+\s*$/.test(s||'');
+const normalize = (s='') => cleanStr(s)
+  .toLowerCase()
+  .replace(/[\u00A0]/g,' ') // NBSP to space
+  .replace(/[.,!'"()_\/\-]+/g,' ') // punctuation to space (hyphen at end)
+  .replace(/\s+/g,' ');
+
+// Hoisted function so it can be used inside useMemo before definition
+function getSalutation(r) {
+  // handle keys: 'Salutation', 'Salutation ', 'Salutation\u00A0'
+  return cleanStr(r['Salutation\u00A0'] || r['Salutation '] || r['Salutation'] || 'Dr.');
+}
 
 export default function Reviewers() {
   const [q, setQ] = useState('');
@@ -22,7 +33,7 @@ export default function Reviewers() {
     data.forEach(r => {
       const raw = cleanStr(r['Primary Field(s) of Expertise']);
       if (!raw || isNumericOnly(raw)) return;
-      raw.split(/[,;&/]|\band\b/i).map(s=>cleanStr(s)).forEach(v => {
+      raw.split(/[,;&/]|\band\b/i).map(s=>cleanStr(s.replace(/\s+/g,' '))).forEach(v => {
         if (v && v.length>2) set.add(v);
       });
     });
@@ -30,15 +41,24 @@ export default function Reviewers() {
   }, [data]);
 
   const filtered = useMemo(() => {
-    const term = q.toLowerCase();
+    const termNorm = normalize(q);
+    const tokens = termNorm ? termNorm.split(' ') : [];
     return data.filter(r => {
-      const inSearch = !term || [
-        r['Full Name'],
+      const sal = getSalutation(r);
+      const name = cleanStr(r['Full Name']);
+      const combo = `${sal} ${name}`;
+      const hay = normalize([
+        name,
+        combo,
         r['Institutional Affiliation'],
         r['Primary Field(s) of Expertise'],
-        r['Specific Research Interests (Keywords)']
-      ].some(v => (v||'').toLowerCase().includes(term));
-      const inField = field === 'all' || (r['Primary Field(s) of Expertise']||'').toLowerCase().includes(field.toLowerCase());
+        r['Specific Research Interests (Keywords)'],
+        sal,
+        r['Current Designation']
+      ].map(x=>cleanStr(x)).filter(Boolean).join(' | '));
+
+      const inSearch = !tokens.length || tokens.every(t => hay.includes(t));
+      const inField = field === 'all' || cleanStr(r['Primary Field(s) of Expertise']).toLowerCase().includes(field.toLowerCase());
       return inSearch && inField;
     });
   }, [data, q, field]);
@@ -53,6 +73,8 @@ export default function Reviewers() {
   const short = (s='', n=60) => (s && s.length>n ? s.slice(0,n)+'…' : s);
   const pills = (s='') => (s||'').split(/[,;&]/).map(x=>cleanStr(x)).filter(Boolean).slice(0,3);
 
+  // getSalutation defined above
+
   return (
     <div className="rv-wrap">
       <SEO title="Reviewer Committee – ITME" url="/reviewers" description="Explore the ITME reviewer committee spanning materials, mechanical, computational, sustainable, design & manufacturing, and allied domains." />
@@ -61,7 +83,7 @@ export default function Reviewers() {
           <h1>Reviewer Committee</h1>
           <p>Trusted peer reviewers supporting clarity, rigor, and multidisciplinary relevance. Currently {data.length} members.</p>
           <div className="rv-controls">
-            <input className="rv-input" placeholder="Search name, institution, or expertise" value={q} onChange={onSearchChange} />
+            <input className="rv-input" placeholder="Search name, salutation, institution, or expertise" value={q} onChange={onSearchChange} />
             <select className="rv-select" value={field} onChange={onFilterChange}>
               <option value="all">All fields</option>
               {fields.map(f => <option key={f} value={f}>{f}</option>)}
@@ -82,7 +104,7 @@ export default function Reviewers() {
             <div className="rv-card-head">
               <div className="rv-avatar" aria-label={r['Full Name']}>{toInitials(r['Full Name'])}</div>
               <div className="rv-head-text">
-                <h3>{(r['Salutation\u00A0'] || 'Dr.').toString().trim()} {cleanStr(r['Full Name'])}</h3>
+                <h3>{getSalutation(r)} {cleanStr(r['Full Name'])}</h3>
                 <div className="rv-role">{cleanStr(r['Current Designation']) || 'Reviewer'}</div>
               </div>
             </div>
@@ -91,6 +113,7 @@ export default function Reviewers() {
             <div className="rv-tags">
               {pills(r['Specific Research Interests (Keywords)']).map((t,i)=>(<span key={i} className="rv-tag">{t}</span>))}
             </div>
+            <div className="rv-divider" />
             <div className="rv-contact">
               {r['Email address'] && <a href={`mailto:${cleanStr(r['Email address'])}`} className="rv-link">{cleanStr(r['Email address'])}</a>}
               {r['Phone number'] && <span className="rv-muted">{cleanStr(r['Phone number'])}</span>}
