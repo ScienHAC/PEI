@@ -7,6 +7,28 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import '../CSS/Home.css';
 
+// Stable default slides used when no local carousel images are found
+const DEFAULT_SLIDES = [
+    {
+        title: 'Featured Paper on AI',
+        text: 'Exploring the latest breakthroughs in artificial intelligence.',
+        link: 'https://www.sciencealert.com/new-ai-breakthrough-can-finally-detect-parasitic-worm-infections',
+        img: 'https://plus.unsplash.com/premium_photo-1683121710572-7723bd2e235d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YXJ0aWZpY2lhbCUyMGludGVsbGlnZW5jZXxlbnwwfHwwfHx8MA%3D%3D',
+    },
+    {
+        title: 'Latest Issue',
+        text: 'Discover the most recent articles in engineering research.',
+        link: 'https://www.sciencedaily.com/news/matter_energy/engineering/',
+        img: 'https://eitfaridabad.com/wp-content/uploads/2024/05/EIT-blog-image-2.jpg',
+    },
+    {
+        title: 'Special Edition on Robotics',
+        text: 'Advancements in robotics and automation.',
+        link: 'https://www.twi-global.com/technical-knowledge/faqs/what-is-industrial-automation-and-robotics',
+        img: 'https://worldskills2022se.com/application/files/thumbnails/large/6416/6818/4256/mobile-robotics-thumb.jpg',
+    },
+];
+
 const Home = () => {
     const [isWindowScrolled, setIsWindowScrolled] = useState(false);
     const [showScrollIndicator, setShowScrollIndicator] = useState(true);
@@ -603,26 +625,32 @@ const Slider = () => {
     const [isHovered, setIsHovered] = useState(false);
     const [isAnimating, setIsAnimating] = useState(false);
 
-    const slides = [
-        {
-            title: 'Featured Paper on AI',
-            text: 'Exploring the latest breakthroughs in artificial intelligence.',
-            link: 'https://www.sciencealert.com/new-ai-breakthrough-can-finally-detect-parasitic-worm-infections',
-            img: 'https://plus.unsplash.com/premium_photo-1683121710572-7723bd2e235d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8YXJ0aWZpY2lhbCUyMGludGVsbGlnZW5jZXxlbnwwfHwwfHx8MA%3D%3D',
-        },
-        {
-            title: 'Latest Issue',
-            text: 'Discover the most recent articles in engineering research.',
-            link: 'https://www.sciencedaily.com/news/matter_energy/engineering/',
-            img: 'https://eitfaridabad.com/wp-content/uploads/2024/05/EIT-blog-image-2.jpg',
-        },
-        {
-            title: 'Special Edition on Robotics',
-            text: 'Advancements in robotics and automation.',
-            link: 'https://www.twi-global.com/technical-knowledge/faqs/what-is-industrial-automation-and-robotics',
-            img: 'https://worldskills2022se.com/application/files/thumbnails/large/6416/6818/4256/mobile-robotics-thumb.jpg',
-        },
-    ];
+    // Auto-load local carousel images matching h-c-1.png, h-c-2.png, ... from assets/home/carousel
+    const localImages = React.useMemo(() => {
+        try {
+            const ctx = require.context('../assets/home/carousel', false, /h-c-(\d+)\.(png|jpe?g|webp)$/i);
+            return ctx.keys()
+                .map((key) => {
+                    const match = key.match(/h-c-(\d+)/i);
+                    const idx = match ? parseInt(match[1], 10) : 0;
+                    return { idx, src: ctx(key) };
+                })
+                .sort((a, b) => a.idx - b.idx)
+                .map((x) => x.src);
+        } catch (e) {
+            return [];
+        }
+    }, []);
+
+    const slides = React.useMemo(() => {
+        if (localImages.length === 0) return DEFAULT_SLIDES;
+        return localImages.map((src, i) => ({
+            title: DEFAULT_SLIDES[i]?.title || 'Featured',
+            text: DEFAULT_SLIDES[i]?.text || '',
+            link: DEFAULT_SLIDES[i]?.link || '#',
+            img: src,
+        }));
+    }, [localImages]);
 
     const nextSlide = useCallback(() => {
         if (isAnimating) return;
@@ -801,16 +829,7 @@ const Slider = () => {
                 </span>
             </div>
 
-            <div className="dotsContainer" style={{
-                position: 'absolute',
-                bottom: '15px',
-                left: '0',
-                width: '100%',
-                display: 'flex',
-                justifyContent: 'center',
-                gap: '10px',
-                zIndex: 10
-            }}>
+            <div className="dotsContainer">
                 {slides.map((_, index) => (
                     <div
                         key={index}

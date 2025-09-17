@@ -142,12 +142,13 @@
 
 .dotsContainer {
     position: absolute;
-    bottom: 16px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     gap: 8px;
-    z-index: 2;
+    z-index: 5; /* Above overlay, below nav buttons (which have inline z-index 10) */
+    bottom: 18px; /* lift a bit from curved corner to avoid overlap */
+    pointer-events: auto;
 }
 
 .dot {
@@ -166,6 +167,10 @@
 .dot.active {
     background: white;
     width: 32px;
+}
+
+@media (max-width: 576px) {
+    .dotsContainer { bottom: 12px; }
 }
 
 /* Enhanced UX/UI Improvements for Home Page */
