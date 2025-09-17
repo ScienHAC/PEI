@@ -40,6 +40,12 @@ const getInitials = (name) => {
 };
 const colorFor = (name) => avatarColors[name.charCodeAt(0) % avatarColors.length];
 
+// Normalize salutation across possible JSON key variants
+const getSalutation = (r) => {
+    const val = (r && (r['Salutation\u00A0'] || r['Salutation '] || r['Salutation'])) || '';
+    return (val || 'Dr.').toString().trim();
+};
+
 // Inline icons (no external deps)
 const MailIcon = (props) => (
     <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" {...props}>
@@ -94,15 +100,8 @@ const EditorialBoard = () => {
     return (
             <div className="eb-modern-wrapper">
                 <header className="eb-clean-header">
-                    <h1 className="eb-clean-title">International Editors & Editorial Leadership</h1>
+                    <h1 className="eb-clean-title">ITME Editorial Leadership</h1>
                     <p className="eb-clean-sub">A collaborative panel of editors and subject experts supporting quality, integrity, and multidisciplinary relevance.</p>
-                    <div style={{marginTop:12,fontSize:14}}>
-                        <span>Peer review support: </span>
-                        <strong>{reviewers.length}</strong>
-                        <span> reviewers</span>
-                        <span> · </span>
-                        <Link to="/reviewers" style={{color:'#0a6079'}}>Browse reviewer committee →</Link>
-                    </div>
                 </header>
             {sections.map((section, idx) => (
                 <section key={section.title} className="eb-modern-section" style={idx>0?{marginTop: '40px'}:undefined}>
@@ -112,6 +111,33 @@ const EditorialBoard = () => {
                     </div>
                 </section>
             ))}
+            {/* Reviewer Committee preview section */}
+            <section className="eb-modern-section" style={{marginTop: '52px'}}>
+                <h2>Reviewer Committee</h2>
+                <div className="eb-grid-modern">
+                    {reviewers.slice(0,6).map((r) => (
+                        <div key={r.ID} className="eb-card modern" style={{gap:14}}>
+                            <div style={{width:56,height:56,borderRadius:14,background:'linear-gradient(135deg,#0b5d73,#13a1b4)',display:'flex',alignItems:'center',justifyContent:'center',color:'#fff',fontWeight:700,flexShrink:0}}>
+                                {(r['Full Name']||'?').toString().trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase()}
+                            </div>
+                            <div className="eb-card-body">
+                                <div className="eb-role-badge">{getSalutation(r)}</div>
+                                <h3 className="eb-name-lg" style={{marginBottom:2}}>{(r['Full Name']||'').toString().trim()}</h3>
+                                {r['Current Designation'] && (
+                                    <div className="eb-affiliation-lg" style={{marginBottom:4}}>{r['Current Designation']}</div>
+                                )}
+                                {r['Institutional Affiliation'] && (
+                                    <div className="eb-info-line"><span className="eb-affiliation-lg" style={{margin:0}}>{r['Institutional Affiliation']}</span></div>
+                                )}
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginTop:16}}>
+                    <div style={{color:'#32535c',fontSize:14}}>Peer review support: <strong>{reviewers.length}</strong> reviewers</div>
+                    <Link to="/reviewers" style={{color:'#0a6079',fontWeight:600}}>View all reviewers →</Link>
+                </div>
+            </section>
         </div>
     );
 };
