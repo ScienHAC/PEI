@@ -1,7 +1,7 @@
 [
   { "id": 1, "name": "Dr. Pankaj Agarwal", "role": "Editor-in-Chief", "affiliation": "K.R. Mangalam University, Gurugram, India", "email": "dean.soet@krmangalam.edu.in", "image": "pankaj-agarwal.jpg" },
   { "id": 2,"name": "Dr. (Prof.) M.N. Hooda","role": "Principal-Editor","affiliation": "Bharati Vidyapeeth's Institute of Computer Applications & Management (BVICAM), New Delhi","email": "mca@bvicam.ac.in","image": "mn-hooda.jpg"},
-  { "id": 3,"name": "Dr. (Prof.) Usha Jagannathan","role": "Principal-Editor","affiliation": "Director - AI Products IEEE Standards Assosiation","email": "","image": "usha-jagannathan.jpg"},
+  { "id": 3,"name": "Dr. (Prof.) Usha Jagannathan","role": "Principal-Editor","affiliation": "Director - AI Products IEEE Standards Assosiation","email": "u.jagannathan@ieee.org","image": "usha-jagannathan.jpg"},
   { "id": 4, "name": "Dr. Hema Chaudhary", "role": "Editor", "affiliation": "K.R. Mangalam University, Gurugram, India (Medical & Allied Sciences)", "email": "hema.chaudhary@krmangalam.edu.in", "image": "hema-chaudhary.webp" },
   { "id": 5, "name": "Dr. Seema Raj", "role": "Editor", "affiliation": "K.R. Mangalam University, Gurugram, India (Basic & Applied Sciences)", "email": "seema.raj@krmangalam.edu.in", "image": "seema-raj.webp" },
   { "id": 6, "name": "Dr Aman Jatain", "role": "Editor", "affiliation": "K.R. Mangalam University, Gurugram, India (Engineering & Technology)", "email": "aman.jatain@krmangalam.edu.in", "image": "aman-jatain.jpeg" },

@@ -129,7 +129,7 @@ export default function Reviewers() {
       )}
 
       <footer className="rv-footer-note">
-        Looking for editorial leadership? See the <Link to="/editorial-board">Editorial Board</Link>.
+        Looking for editorial leadership? See the <Link to="/editorial-leadership">Editorial Leadership</Link>.
       </footer>
     </div>
   );

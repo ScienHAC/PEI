@@ -76,7 +76,8 @@ function AuthRoutes() {
         path="/abstracting-indexing"
         element={<AbstractingandIndexing />}
       />
-      <Route path="/editorial-board" element={<EditorialBoard />} />
+      <Route path="/editorial-leadership" element={<EditorialBoard />} />
+      <Route path="/editorial-board" element={<Navigate to="/editorial-leadership" replace />} />
   <Route path="/reviewers" element={<Reviewers />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route path="/terms-and-conditions" element={<TermsandConditions />} />

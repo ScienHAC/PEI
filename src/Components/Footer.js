@@ -28,10 +28,10 @@ const Footer = React.memo(() => {
                                 <span className="footer-contact-label">General SOET:</span>
                                 <a href="mailto:dean.soet@krmangalam.edu.in" className="footer-contact-link">dean.soet@krmangalam.edu.in</a>
                             </div>
-                            <div className="footer-contact-item">
+                            {/* <div className="footer-contact-item">
                                 <span className="footer-contact-label">Conference / Events:</span>
                                 <a href="mailto:soetconference@krmangalam.edu.in" className="footer-contact-link">soetconference@krmangalam.edu.in</a>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@ const Footer = React.memo(() => {
                         <div className="footer-links-group">
                             <h4>Quick Links</h4>
                             <Link to="/about" className="footer-link">About Journal</Link>
-                            <Link to="/editorial-board" className="footer-link">Editorial Board</Link>
+                            <Link to="/editorial-leadership" className="footer-link">Editorial Leadership</Link>
                             <Link to="/archives" className="footer-link">Archives</Link>
                             <Link to="/current-issue" className="footer-link">Current Issue</Link>
                         </div>

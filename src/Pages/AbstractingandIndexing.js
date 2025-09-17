@@ -2,11 +2,11 @@ import React from 'react';
 import SEO from '../Components/SEO';
 
 const indexes = [
-    { name: 'Crossref', desc: 'DOI registration and metadata distribution for all accepted articles.', status: 'Active' },
-    { name: 'Google Scholar', desc: 'Scholarly search discovery via structured metadata and full‑text indexing.', status: 'Active' },
-    { name: 'Index Copernicus', desc: 'Journal profile and indexing services supporting broader visibility.', status: 'Active' },
-    { name: 'NASA ADS', desc: 'Astrophysics Data System coverage for applicable domains and citations.', status: 'Active' },
-    { name: 'ANED', desc: 'American National Engineering Database listing to broaden engineering reach.', status: 'Active' },
+    { name: 'Crossref', desc: 'DOI registration and metadata distribution for all accepted articles.', status: 'In Progress' },
+    { name: 'Google Scholar', desc: 'Scholarly search discovery via structured metadata and full‑text indexing.', status: 'In Progress' },
+    { name: 'Index Copernicus', desc: 'Journal profile and indexing services supporting broader visibility.', status: 'In Progress' },
+    { name: 'NASA ADS', desc: 'Astrophysics Data System coverage for applicable domains and citations.', status: 'In Progress' },
+    { name: 'ANED', desc: 'American National Engineering Database listing to broaden engineering reach.', status: 'In Progress' },
 ];
 
 const chipColor = (s) => ({

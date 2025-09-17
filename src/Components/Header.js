@@ -225,7 +225,7 @@ const Header = React.memo(() => {
                         </li>
 
                         <li className="nav-item">
-                            <Link className="nav-link" to="/editorial-board">Editorial Board</Link>
+                            <Link className="nav-link" to="/editorial-leadership">Editorial Leadership</Link>
                         </li>
 
                         <li className="nav-item">
