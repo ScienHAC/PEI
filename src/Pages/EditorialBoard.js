@@ -54,15 +54,8 @@ const MapPinIcon = (props) => (
     </svg>
 );
 
-const displayRole = (role) => {
-    if (role === 'Editorial Board') return 'International Editor';
-    return role;
-};
-
-const sectionTitle = (title) => {
-    if (title === 'Editorial Board') return 'International Editors';
-    return title;
-};
+const displayRole = (role) => role || 'Member';
+const sectionTitle = (title) => title || 'Section';
 
 const MemberCard = ({ member }) => {
     const img = getImage(member.image);
