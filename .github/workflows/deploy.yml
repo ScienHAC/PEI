@@ -46,14 +46,15 @@ jobs:
           retention-days: 3
       
       - name: SFTP Deploy to cPanel
-        uses: atymic/sftp-deploy@v2
+        uses: appleboy/scp-action@v0.1.4
         with:
-          server: ${{ secrets.SFTP_HOST }}
+          host: ${{ secrets.SFTP_HOST }}
           username: ${{ secrets.SFTP_USERNAME }}
-          privateKey: ${{ secrets.SFTP_PRIVATE_KEY }}
+          key: ${{ secrets.SFTP_PRIVATE_KEY }}
           port: 22
-          localPath: ./build/
-          remotePath: /home/ejw8xw5o2j/public_html/itme.krmangalam.edu.in
+          source: "./build/"
+          target: "/home/ejw8xw5o2j/public_html/itme.krmangalam.edu.in"
+
       
       - name: Post-deploy confirmation
         run: echo "Deployment finished at $(date -u)"
