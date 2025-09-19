@@ -15,46 +15,85 @@ concurrency:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      NODE_VERSION: '20.x'
+      # Remote directory path (adjust if cPanel home changes)
+      REMOTE_PATH: /home/ejw8xw5o2j/public_html/itme.krmangalam.edu.in
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      
-      - name: Use Node.js
+
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
-      
+
       - name: Install dependencies
-        run: npm install --no-audit --no-fund
-      
+        run: npm ci || npm install --no-audit --no-fund
+
       - name: Build project
         run: npm run build
         env:
           CI: false
-      
-      - name: Archive production artifact
+
+      - name: (Optional) Upload build artifact
         if: success()
-        run: |
-          tar -czf build-artifact.tgz build
-      
-      - name: Upload artifact (debug/re-run support)
         uses: actions/upload-artifact@v4
         with:
-          name: build-artifact
-          path: build-artifact.tgz
-          retention-days: 3
-      
-      - name: SFTP Deploy to cPanel
-        uses: appleboy/scp-action@v0.1.4
-        with:
-          host: ${{ secrets.SFTP_HOST }}
-          username: ${{ secrets.SFTP_USERNAME }}
-          key: ${{ secrets.SFTP_PRIVATE_KEY }}
-          port: 22
-          source: "./build/"
-          target: "/home/ejw8xw5o2j/public_html/itme.krmangalam.edu.in"
+            name: build-output
+            path: build
+            retention-days: 3
 
-      
+      - name: Prepare deploy manifest
+        run: |
+          find build -type f -printf '%P\n' | sort > build_manifest.txt
+          sha256sum $(find build -type f -print) > build_checksums.txt
+          echo "Generated manifest and checksums";
+
+      - name: Upload manifest (debug)
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-manifest
+          path: |
+            build_manifest.txt
+            build_checksums.txt
+          retention-days: 3
+
+      - name: Install lftp
+        run: sudo apt-get update && sudo apt-get install -y lftp
+
+      - name: Deploy via SFTP (incremental mirror)
+        env:
+          SFTP_HOST: ${{ secrets.SFTP_HOST }}
+          SFTP_USER: ${{ secrets.SFTP_USERNAME }}
+          SFTP_KEY: ${{ secrets.SFTP_PRIVATE_KEY }}
+          # Set to 'true' to delete remote files not in local build
+          CLEAN_REMOTE: true
+        run: |
+          echo "$SFTP_KEY" > sftp_key
+          chmod 600 sftp_key
+          echo "Starting lftp mirror to $REMOTE_PATH"
+          if [ "$CLEAN_REMOTE" = "true" ]; then
+            CLEAN_FLAG="--delete"
+          else
+            CLEAN_FLAG=""
+          fi
+          lftp -e "set sftp:auto-confirm yes; set net:max-retries 2; set net:timeout 20; open -u $SFTP_USER -p 22 -s sftp://$SFTP_HOST; mirror -R $CLEAN_FLAG --only-newer --parallel=4 --verbose=1 build $REMOTE_PATH; bye" -f /dev/stdin < /dev/null 2>&1 | sed 's/password: .*/password: *** (hidden)/'
+          echo "Deploy complete"
+
+      - name: Touch deployment marker
+        env:
+          SFTP_HOST: ${{ secrets.SFTP_HOST }}
+          SFTP_USER: ${{ secrets.SFTP_USERNAME }}
+          SFTP_KEY: ${{ secrets.SFTP_PRIVATE_KEY }}
+        run: |
+          echo "$SFTP_KEY" > sftp_key
+          chmod 600 sftp_key
+          TS=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          echo "Deployment: $TS" > deploy-info.txt
+          lftp -e "set sftp:auto-confirm yes; open -u $SFTP_USER -p 22 -s sftp://$SFTP_HOST; put -O $REMOTE_PATH deploy-info.txt; bye" -f /dev/stdin < /dev/null
+          echo "Uploaded deploy-info.txt ($TS)"
+
       - name: Post-deploy confirmation
         run: echo "Deployment finished at $(date -u)"
