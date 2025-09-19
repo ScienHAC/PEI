@@ -46,14 +46,22 @@ jobs:
           retention-days: 3
       
       - name: SFTP Deploy to cPanel
-        uses: appleboy/scp-action@v0.1.4
+        # Using scp (SSH) to push build contents. The previous failure was caused by missing TERM (tput warning).
+        # We set TERM to silence the error and adjust source so only the *contents* of build are deployed.
+        uses: appleboy/scp-action@v0.1.7
+        env:
+          TERM: xterm
         with:
           host: ${{ secrets.SFTP_HOST }}
           username: ${{ secrets.SFTP_USERNAME }}
           key: ${{ secrets.SFTP_PRIVATE_KEY }}
           port: 22
-          source: "./build/"
-          target: "public_html/itme.krmangalam.edu.in"
+          # Copy contents (files & folders) inside build rather than nesting an extra build/ folder remotely
+          source: "build/*"
+          target: "public_html/itme.krmangalam.edu.in/"
+          overwrite: true
+          # If you want to remove files on the server that no longer exist locally, uncomment below (be cautious!)
+          # rm: true
       
       - name: Post-deploy confirmation
         run: echo "Deployment finished at $(date -u)"
