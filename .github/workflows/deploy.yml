@@ -53,8 +53,7 @@ jobs:
           key: ${{ secrets.SFTP_PRIVATE_KEY }}
           port: 22
           source: "./build/"
-          target: "/home/ejw8xw5o2j/public_html/itme.krmangalam.edu.in"
-
+          target: "public_html/itme.krmangalam.edu.in"
       
       - name: Post-deploy confirmation
         run: echo "Deployment finished at $(date -u)"
