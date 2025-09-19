@@ -52,6 +52,26 @@ jobs:
           echo "${{ secrets.SFTP_PRIVATE_KEY }}" > sftp_key
           chmod 600 sftp_key
           ls -l sftp_key
+          # Basic sanity check: show first line (redacted) length only
+          head -1 sftp_key | sed 's/.*/[private-key-first-line-redacted]/'
+          echo "Deriving public key (add this to server authorized keys if not already)" 
+          ssh-keygen -y -f sftp_key > derived_pubkey.pub 2>/dev/null || echo "(Could not derive public key; ensure OpenSSH format)"
+          if [ -f derived_pubkey.pub ]; then
+            echo "----- PUBLIC KEY (truncated) -----"
+            head -c 80 derived_pubkey.pub; echo '...'
+          fi
+
+      - name: Test SSH key authentication
+        env:
+          SFTP_HOST: ${{ secrets.SFTP_HOST }}
+          SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
+        run: |
+          set -e
+          echo "Testing key-based SSH auth with verbose output"
+          ssh -vvv -o StrictHostKeyChecking=no -i sftp_key "$SFTP_USERNAME@$SFTP_HOST" exit 0 || {
+            echo "::error:: Key authentication failed. Add the derived public key to the server (cPanel: SSH Access -> Manage Keys -> Import -> Authorize).";
+            exit 1;
+          }
       
       - name: Install lftp
         run: |
@@ -65,25 +85,12 @@ jobs:
           REMOTE_PATH: public_html/itme.krmangalam.edu.in
         run: |
           set -e
-          echo "Starting lftp deploy to $SFTP_HOST:$REMOTE_PATH"
-          # Build a connect program that uses our key and skips strict host checking (add known_hosts later if desired)
+          echo "Starting lftp deploy to $SFTP_HOST:$REMOTE_PATH (key auth only)"
           CONNECT_PROG="ssh -a -x -i sftp_key -o StrictHostKeyChecking=no"
-          # Mirror options:
-          #  -R : reverse mirror (local -> remote)
-          #  --parallel=4 : upload up to 4 files simultaneously
-          #  --verbose : show progress
-          #  --delete : remove remote files not present locally (DISABLED by default for safety)
-          DELETE_FLAG=""
-          if [ "${{ vars.REMOTE_DELETE }}" = "true" ]; then
-            DELETE_FLAG="--delete"
-            echo "[INFO] Remote pruning ENABLED"
-          else
-            echo "[INFO] Remote pruning disabled (vars.REMOTE_DELETE != true)"
-          fi
-          # Ensure remote path exists (mkdir -p style) then mirror build contents
-          lftp -u "$SFTP_USERNAME" sftp://$SFTP_HOST -e "set sftp:connect-program '$CONNECT_PROG'; set net:max-retries 2; set net:timeout 20; set net:persist-retries 1; set ftp:ssl-allow no; mkdir -p $REMOTE_PATH; bye"
+          # Ensure remote path exists (open session using key)
+          lftp -e "set sftp:connect-program '$CONNECT_PROG'; set net:max-retries 2; set net:timeout 20; set net:persist-retries 1; open -u $SFTP_USERNAME sftp://$SFTP_HOST; mkdir -p $REMOTE_PATH; bye" sftp://$SFTP_HOST
           echo "Pushing build directory via mirror"
-          lftp -u "$SFTP_USERNAME" sftp://$SFTP_HOST -e "set sftp:connect-program '$CONNECT_PROG'; set net:max-retries 2; set net:timeout 30; set net:persist-retries 1; mirror -R --parallel=4 --only-newer --verbose $DELETE_FLAG build/ $REMOTE_PATH; bye"
+          lftp -e "set sftp:connect-program '$CONNECT_PROG'; set net:max-retries 2; set net:timeout 30; set net:persist-retries 1; open -u $SFTP_USERNAME sftp://$SFTP_HOST; mirror -R --parallel=4 --only-newer --verbose build/ $REMOTE_PATH; bye" sftp://$SFTP_HOST
           echo "Deployment complete"
       
       - name: List remote top-level (debug)
