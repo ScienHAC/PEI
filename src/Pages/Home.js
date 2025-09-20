@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback, useRef } from 'react';
 import CurrentIssue from '../Pages/CurrentIssue';
 import { Link } from 'react-router-dom';
 import Loader from '../Components/Loader';
+import TypingAnimation from '../Components/TypingAnimation';
 import { ChevronLeft, ChevronRight, ArrowDown, BookOpen, Award, Clock, Users, FileCheck } from 'lucide-react';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -155,37 +156,29 @@ const Home = () => {
                         Welcome to ITME
                     </h2>
 
-                    <div className="animation-container d-none d-md-block" style={{
-                        height: '70px',
+                    <div className="typing-container" style={{
                         marginBottom: '25px',
-                        width: '100%'
+                        width: '100%',
+                        minHeight: '60px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center' // Center the container
                     }}>
-                        <img
-                            src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=24&duration=3000&pause=1000&color=084c61&vCenter=true&width=500&height=70&lines=Submit+Your+Research+Paper;Explore+Innovation+in+Materials;Contribute+to+Scientific+Research"
-                            alt="Typing SVG"
-                            style={{ width: '100%', height: 'auto' }}
-                        />
-                    </div>
-                    <div className="animation-container d-md-none d-none d-sm-block" style={{
-                        height: '50px',
-                        marginBottom: '15px',
-                        width: '100%'
-                    }}>
-                        <img
-                            src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=18&duration=3000&pause=1000&color=084c61&vCenter=true&width=400&height=50&lines=Submit+Your+Research+Paper;Explore+Innovation+in+Materials;Contribute+to+Scientific+Research"
-                            alt="Typing SVG"
-                            style={{ width: '100%', height: 'auto' }}
-                        />
-                    </div>
-                    <div className="animation-container d-sm-none" style={{
-                        height: '40px',
-                        marginBottom: '15px',
-                        width: '100%'
-                    }}>
-                        <img
-                            src="https://readme-typing-svg.demolab.com?font=Fira+Code&size=14&duration=3000&pause=1000&color=084c61&vCenter=true&width=300&height=40&lines=Submit+Your+Research+Paper;Explore+Innovation;Contribute+to+Research"
-                            alt="Typing SVG"
-                            style={{ width: '100%', height: 'auto' }}
+                        <TypingAnimation
+                            phrases={ [ "Advancing Multidisciplinary Engineering", "Peer‑Reviewed. Ethical. Author‑Focused.", "Original Research. Real Impact.", "Accelerating Innovation & Discovery", "Submit. Refine. Publish. Disseminate." ]}
+                            typingSpeed={80}
+                            deletingSpeed={40}
+                            pauseDuration={2500}
+                            textColor="#084c61"
+                            cursorColor="#084c61"
+                            fontSize="1.4rem"
+                            fontFamily="'Fira Code', 'Courier New', monospace"
+                            responsive={true}
+                            showCursor={true} // Set to false to remove cursor
+                            style={{
+                                fontWeight: '500', // Increased from 400 to make it slightly bolder
+                                letterSpacing: '0.3px'
+                            }}
                         />
                     </div>
 
