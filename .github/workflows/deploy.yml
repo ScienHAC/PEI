@@ -1,105 +1,40 @@
-name: Build and Deploy (cPanel SFTP)
+is these complete workflow file is it able to push the code in specific public_html/itme..name: Deploy to cPanel
 
 on:
   push:
-    branches: [ main ]
-  workflow_dispatch:
-
-permissions:
-  contents: read
-
-concurrency:
-  group: deploy-production
-  cancel-in-progress: true
+    branches:
+      - main
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
-      
-      - name: Use Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
-          cache: 'npm'
-      
-      - name: Install dependencies
-        run: npm install --no-audit --no-fund
-      
-      - name: Build project
-        run: npm run build
-        env:
-          CI: false
-      
-      - name: Archive production artifact
-        if: success()
-        run: tar -czf build-artifact.tgz build
+        uses: actions/checkout@v3
 
-      - name: Upload artifact (debug/re-run support)
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-artifact
-          path: build-artifact.tgz
-          retention-days: 3
-
-      # --- SSH Key setup ---
-      - name: Prepare SSH key for SFTP
+      - name: Setup SSH key
         run: |
-          echo "Writing private key from secret"
-          printf '%s\n' "${{ secrets.SFTP_PRIVATE_KEY }}" > sftp_key
-          chmod 600 sftp_key
-          ls -l sftp_key
-          echo "First line of key (sanity check):"
-          head -1 sftp_key
+          echo "${{ secrets.SFTP_PRIVATE_KEY }}" > id_rsa
+          chmod 600 id_rsa
 
-      # --- Validation Step ---
-      - name: Validate SSH Key Authentication
-        env:
-          SFTP_HOST: ${{ secrets.SFTP_HOST }}
-          SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
+      - name: Test SSH connection
         run: |
-          echo "Testing SSH key authentication..."
-          ssh -i sftp_key -o StrictHostKeyChecking=no \
-              -o BatchMode=yes -o IdentitiesOnly=yes \
-              "$SFTP_USERNAME@$SFTP_HOST" 'echo "SSH_AUTH_SUCCESS"' || {
-            echo "::error:: SSH key authentication failed."
-            echo "➡ Make sure the PUBLIC key is authorized in cPanel (SSH Access → Manage Keys → Authorize)."
-            exit 1
-          }
+          ssh -i id_rsa \
+            -o StrictHostKeyChecking=no \
+            -o BatchMode=yes \
+            -o IdentitiesOnly=yes \
+            ${{ secrets.SFTP_USERNAME }}@${{ secrets.SFTP_HOST }} "echo ✅ SSH Connected"
 
-      # --- Install lftp ---
-      - name: Install lftp
-        run: |
-          sudo apt-get update -y
-          sudo apt-get install -y lftp
-
-      # --- Deploy Step ---
-      - name: Deploy via lftp (SFTP mirror)
-        env:
-          SFTP_HOST: ${{ secrets.SFTP_HOST }}
-          SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
-          REMOTE_PATH: public_html/itme.krmangalam.edu.in
+      - name: Deploy via lftp
         run: |
           set -e
-          echo "Starting lftp deploy to $SFTP_HOST:$REMOTE_PATH"
-          CONNECT_PROG="ssh -a -x -i $PWD/sftp_key -o StrictHostKeyChecking=no -o BatchMode=yes -o IdentitiesOnly=yes"
+          echo "Starting lftp deploy to ${{ secrets.SFTP_HOST }}:$REMOTE_PATH"
+          CONNECT_PROG="ssh -a -x -i $PWD/id_rsa -o StrictHostKeyChecking=no -o BatchMode=yes -o IdentitiesOnly=yes"
           lftp -e "set sftp:connect-program '$CONNECT_PROG'; \
-                   open sftp://$SFTP_USERNAME@$SFTP_HOST; \
+                   open sftp://${{ secrets.SFTP_USERNAME }}@${{ secrets.SFTP_HOST }}; \
                    mkdir -p $REMOTE_PATH; \
-                   mirror -R --parallel=3 --only-newer --verbose build/ $REMOTE_PATH; bye" sftp://$SFTP_HOST
+                   mirror -R --parallel=3 --only-newer --verbose build/ $REMOTE_PATH; bye" sftp://${{ secrets.SFTP_HOST }}
           echo "✅ Deployment complete"
-
-      # --- Debug Step ---
-      - name: List remote top-level (debug)
-        if: always()
         env:
-          SFTP_HOST: ${{ secrets.SFTP_HOST }}
-          SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
-        run: |
-          CONNECT_PROG="ssh -a -x -i $PWD/sftp_key -o StrictHostKeyChecking=no -o BatchMode=yes -o IdentitiesOnly=yes"
-          echo "Remote directory contents:"
-          lftp -e "set sftp:connect-program '$CONNECT_PROG'; \
-                   open sftp://$SFTP_USERNAME@$SFTP_HOST; \
-                   ls -1 public_html/itme.krmangalam.edu.in | head -20; bye" sftp://$SFTP_HOST || true
+          REMOTE_PATH: public_html/itme.krmangalam.edu.in
