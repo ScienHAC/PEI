@@ -110,7 +110,7 @@ const Header = React.memo(() => {
                     <div id='childBar-max'>
                         <h2 className="jnhd-max">INNOVATIVE TRENDS IN MULTIDISCIPLINARY ENGINEERING</h2>
                         <div className="header-subtitle">
-                            <span className="issn-text">International Peer-Reviewed Journal by School Of Engineering & Technology , K.R. Mangalam University, Gurugram.</span>
+                            <span className="issn-text">International Peer-Reviewed Journal of the School of Engineering & Technology , K.R. Mangalam University, Gurugram.</span>
                         </div>
                     </div>
                     <div className="header-right-logo">
