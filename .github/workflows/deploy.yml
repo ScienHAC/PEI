@@ -1,5 +1,3 @@
-is these complete workflow file is it able to push the code in specific public_html/itme..name: Deploy to cPanel
-
 on:
   push:
     branches:
