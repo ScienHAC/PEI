@@ -38,7 +38,7 @@ export default function AbstractingandIndexing() {
                 </section>
 
                 <aside style={{ marginTop: 28, color: '#607b84', fontSize: 13 }}>
-                    Note: Service names above reflect current indexing, registration, or discovery pathways. Additional databases may be added over time.
+                    Note: Additional databases may be added over time.
                 </aside>
             </div>
         </div>

@@ -201,7 +201,7 @@ const Header = React.memo(() => {
                     <ul className="navbar-nav me-auto nav-link-custom">
                         <li className="nav-item active">
                             <Link className="nav-link" to="/">
-                                Welcome to ITME <span className="sr-only">(current)</span>
+                                ITME Home <span className="sr-only">(current)</span>
                             </Link>
                         </li>
                         <li className="nav-item dropdown custom-hover-dropdown">

@@ -850,11 +850,11 @@ const getCardText = (title) => {
         case 'Submission Process':
             return 'Register, consult template & scope guidance, complete ethical declarations, then upload via Research Archive. Each submission is screened (scope + similarity) before editor / reviewer allocation.';
         case 'Review Workflow':
-            return 'Editorial screening → similarity & scope check → double‑blind peer review (normally 2 reviewers; more if needed) → consolidated decision & revision guidance. Emphasis on clarity, rigor, and integrity—quality over speed.';
+            return 'Editorial screening → similarity & scope check → double‑blind peer review → consolidated decision & revision guidance. Emphasis on clarity, rigor, and integrity—quality over speed.';
         case 'Author Benefits':
-            return 'Currently no author processing charges; open access visibility; structured template & clear review feedback; focus on ethical & methodological transparency; authors retain copyright under stated license.';
+            return 'No author processing charges; open access visibility; structured template & clear review feedback; focus on ethical & methodological transparency; authors retain copyright under stated license.';
         case 'Publication Timeline':
-            return 'Biannual issues (July & December). Acknowledgement in 1–2 business days; review duration varies with complexity. Accepted papers are queued for the next issue (early online posting will be added when platform support is in place).';
+            return 'Biannual issues (July & December). Submission acknowledgement within 4 business days; review duration varies with complexity. Accepted papers are queued for the next issue (early online posting will be added when platform support is in place).';
         default:
             return '';
     }

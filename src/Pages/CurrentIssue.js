@@ -13,6 +13,9 @@ const CurrentIssue = () => {
                 
                 <div className="call-for-papers-section">
                     <h3>Innovations for a Sustainable Future</h3>
+                    <p style={{marginTop:'0.25rem', fontStyle:'italic', color:'#2f4f4f'}}>
+                        &#8220;Advancing transformative innovations that drive sustainable development, strengthen resilient ecosystems, and create a future where technological progress aligns seamlessly with environmental stewardship and social equity.&#8221;
+                    </p>
                     <div className="call-for-papers-image-container">
                         <img 
                             src="/ITME_Call_for_Papers.jpg" 

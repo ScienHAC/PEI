@@ -68,7 +68,7 @@ const About = () => {
                     <img src="/logo.png" alt="ITME Journal Logo" className="about-hero__logo" />
                     <h1 id="about-journal-heading" className="about-hero__title">Innovative Trends in Multidisciplinary Engineering</h1>
                     <p className="about-hero__tagline">A biannual, peer‑reviewed platform advancing responsibly curated research across intersecting engineering domains.</p>
-                    <p className="about-hero__plain">ITME is a small, growing academic journal space supported within K.R. Mangalam University. We focus on clear, honest engineering work—nothing flashy, just solid studies, models, and applied insights that help move problems forward.</p>
+                    <p className="about-hero__plain">ITME is a small, growing academic journal space supported within K.R. Mangalam University. We focus on clear, honest engineering work—solid studies, models, and applied insights that help move problems forward.</p>
                     <div className="about-hero__badges" aria-label="Journal attributes">
                         <span className="badge-pill">Biannual Issues</span>
                         <span className="badge-pill">Open Access</span>
