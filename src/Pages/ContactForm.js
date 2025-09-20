@@ -5,7 +5,11 @@ import MuiAlert from '@mui/material/Alert';
 function ContactForm() {
   // Single clear endpoint. Backend should expose POST /contact-us
   // Example full URL: https://apiitme.vercel.app/contact-us
-  const CONTACT_ENDPOINT = `${process.env.REACT_APP_hostURL.replace(/\/$/, '')}/contact-us`;
+  // Provide a defensive fallback so an undefined env var does not break the page in production hosting (cPanel)
+  const rawHost = typeof process.env.REACT_APP_hostURL === 'string' ? process.env.REACT_APP_hostURL : '';
+  const baseHost = (rawHost || window?.location?.origin || '').replace(/\/$/, '');
+  // If still empty (edge case), we keep CONTACT_ENDPOINT blank and block submission gracefully
+  const CONTACT_ENDPOINT = baseHost ? `${baseHost}/contact-us` : '';
 
   const [formData, setFormData] = useState({
     name: '',
@@ -38,6 +42,10 @@ function ContactForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isSubmitting) return;
+    if (!CONTACT_ENDPOINT) {
+      setSnackbar({ open: true, message: 'Contact endpoint not configured. Please try again later.', severity: 'error' });
+      return;
+    }
     const cleaned = {
       name: formData.name.trim(),
       email: formData.email.trim(),
