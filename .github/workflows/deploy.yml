@@ -1,4 +1,4 @@
-name: Deploy to SFTP
+name: Deploy via rsync over SSH
 
 on:
   push:
@@ -17,28 +17,10 @@ jobs:
           echo "${{ secrets.SFTP_PRIVATE_KEY }}" > id_rsa
           chmod 600 id_rsa
 
-      - name: Install lftp
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y lftp
-
       - name: Test SSH connection
         run: |
-          ssh -i id_rsa \
-            -o StrictHostKeyChecking=no \
-            -o BatchMode=yes \
-            -o IdentitiesOnly=yes \
-            ${{ secrets.SFTP_USERNAME }}@${{ secrets.SFTP_HOST }} "echo ✅ SSH Connected"
+          ssh -i id_rsa -o StrictHostKeyChecking=no ${{ secrets.SFTP_USERNAME }}@${{ secrets.SFTP_HOST }} "echo SSH Connected"
 
-      - name: Deploy via lftp
-        env:
-          REMOTE_PATH: public_html/itme.krmangalam.edu.in
+      - name: Deploy via rsync (no delete)
         run: |
-          set -e
-          echo "Starting lftp deploy to ${{ secrets.SFTP_HOST }}:$REMOTE_PATH"
-          CONNECT_PROG="ssh -a -x -i $PWD/id_rsa -o StrictHostKeyChecking=no -o BatchMode=yes -o IdentitiesOnly=yes"
-          lftp -e "set sftp:connect-program '$CONNECT_PROG'; \
-                   open sftp://${{ secrets.SFTP_USERNAME }}@${{ secrets.SFTP_HOST }}; \
-                   mkdir -p $REMOTE_PATH; \
-                   mirror -R --parallel=3 --only-newer --verbose build/ $REMOTE_PATH; bye" sftp://${{ secrets.SFTP_HOST }}
-          echo "✅ Deployment complete"
+          rsync -avz -e "ssh -i id_rsa -o StrictHostKeyChecking=no" build/ ${{ secrets.SFTP_USERNAME }}@${{ secrets.SFTP_HOST }}:public_html/itme.krmangalam.edu.in/
