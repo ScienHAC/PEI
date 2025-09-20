@@ -35,49 +35,47 @@ jobs:
       
       - name: Archive production artifact
         if: success()
-        run: |
-          tar -czf build-artifact.tgz build
-      
+        run: tar -czf build-artifact.tgz build
+
       - name: Upload artifact (debug/re-run support)
         uses: actions/upload-artifact@v4
         with:
           name: build-artifact
           path: build-artifact.tgz
           retention-days: 3
-      
+
+      # --- SSH Key setup ---
       - name: Prepare SSH key for SFTP
-        id: prep-key
         run: |
-          echo "Writing private key"
-          echo "${{ secrets.SFTP_PRIVATE_KEY }}" > sftp_key
+          echo "Writing private key from secret"
+          printf '%s\n' "${{ secrets.SFTP_PRIVATE_KEY }}" > sftp_key
           chmod 600 sftp_key
           ls -l sftp_key
-          # Basic sanity check: show first line (redacted) length only
-          head -1 sftp_key | sed 's/.*/[private-key-first-line-redacted]/'
-          echo "Deriving public key (add this to server authorized keys if not already)" 
-          ssh-keygen -y -f sftp_key > derived_pubkey.pub 2>/dev/null || echo "(Could not derive public key; ensure OpenSSH format)"
-          if [ -f derived_pubkey.pub ]; then
-            echo "----- PUBLIC KEY (truncated) -----"
-            head -c 80 derived_pubkey.pub; echo '...'
-          fi
+          echo "First line of key (sanity check):"
+          head -1 sftp_key
 
-      - name: Test SSH key authentication
+      # --- Validation Step ---
+      - name: Validate SSH Key Authentication
         env:
           SFTP_HOST: ${{ secrets.SFTP_HOST }}
           SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
         run: |
-          set -e
-          echo "Testing key-based SSH auth with verbose output"
-          ssh -vvv -o StrictHostKeyChecking=no -i sftp_key "$SFTP_USERNAME@$SFTP_HOST" exit 0 || {
-            echo "::error:: Key authentication failed. Add the derived public key to the server (cPanel: SSH Access -> Manage Keys -> Import -> Authorize).";
-            exit 1;
+          echo "Testing SSH key authentication..."
+          ssh -i sftp_key -o StrictHostKeyChecking=no \
+              -o BatchMode=yes -o IdentitiesOnly=yes \
+              "$SFTP_USERNAME@$SFTP_HOST" 'echo "SSH_AUTH_SUCCESS"' || {
+            echo "::error:: SSH key authentication failed."
+            echo "➡ Make sure the PUBLIC key is authorized in cPanel (SSH Access → Manage Keys → Authorize)."
+            exit 1
           }
-      
+
+      # --- Install lftp ---
       - name: Install lftp
         run: |
           sudo apt-get update -y
           sudo apt-get install -y lftp
-      
+
+      # --- Deploy Step ---
       - name: Deploy via lftp (SFTP mirror)
         env:
           SFTP_HOST: ${{ secrets.SFTP_HOST }}
@@ -85,23 +83,23 @@ jobs:
           REMOTE_PATH: public_html/itme.krmangalam.edu.in
         run: |
           set -e
-          echo "Starting lftp deploy to $SFTP_HOST:$REMOTE_PATH (key auth only)"
-          CONNECT_PROG="ssh -a -x -i sftp_key -o StrictHostKeyChecking=no"
-          # Ensure remote path exists (open session using key)
-          lftp -e "set sftp:connect-program '$CONNECT_PROG'; set net:max-retries 2; set net:timeout 20; set net:persist-retries 1; open -u $SFTP_USERNAME sftp://$SFTP_HOST; mkdir -p $REMOTE_PATH; bye" sftp://$SFTP_HOST
-          echo "Pushing build directory via mirror"
-          lftp -e "set sftp:connect-program '$CONNECT_PROG'; set net:max-retries 2; set net:timeout 30; set net:persist-retries 1; open -u $SFTP_USERNAME sftp://$SFTP_HOST; mirror -R --parallel=4 --only-newer --verbose build/ $REMOTE_PATH; bye" sftp://$SFTP_HOST
-          echo "Deployment complete"
-      
+          echo "Starting lftp deploy to $SFTP_HOST:$REMOTE_PATH"
+          CONNECT_PROG="ssh -a -x -i $PWD/sftp_key -o StrictHostKeyChecking=no -o BatchMode=yes -o IdentitiesOnly=yes"
+          lftp -e "set sftp:connect-program '$CONNECT_PROG'; \
+                   open sftp://$SFTP_USERNAME@$SFTP_HOST; \
+                   mkdir -p $REMOTE_PATH; \
+                   mirror -R --parallel=3 --only-newer --verbose build/ $REMOTE_PATH; bye" sftp://$SFTP_HOST
+          echo "✅ Deployment complete"
+
+      # --- Debug Step ---
       - name: List remote top-level (debug)
         if: always()
         env:
           SFTP_HOST: ${{ secrets.SFTP_HOST }}
           SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
         run: |
-          CONNECT_PROG="ssh -a -x -i sftp_key -o StrictHostKeyChecking=no"
-          echo "Listing remote path snippet for verification" || true
-          lftp -u "$SFTP_USERNAME" sftp://$SFTP_HOST -e "set sftp:connect-program '$CONNECT_PROG'; ls -1 public_html/itme.krmangalam.edu.in | head -20; bye" || true
-      
-      - name: Post-deploy confirmation
-        run: echo "Deployment finished at $(date -u)"
+          CONNECT_PROG="ssh -a -x -i $PWD/sftp_key -o StrictHostKeyChecking=no -o BatchMode=yes -o IdentitiesOnly=yes"
+          echo "Remote directory contents:"
+          lftp -e "set sftp:connect-program '$CONNECT_PROG'; \
+                   open sftp://$SFTP_USERNAME@$SFTP_HOST; \
+                   ls -1 public_html/itme.krmangalam.edu.in | head -20; bye" sftp://$SFTP_HOST || true
