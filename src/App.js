@@ -31,6 +31,7 @@ import CurrentIssue from "./Pages/CurrentIssue.js";
 import AbstractingandIndexing from "./Pages/AbstractingandIndexing.js";
 import EditorialBoard from "./Pages/EditorialBoard.js";
 import Reviewers from "./Pages/Reviewers.js";
+import AuthorGuidelines from "./Pages/AuthorGuidelines.js";
 import PrivacyPolicy from "./Pages/PrivacyPolicy.js";
 import TermsandConditions from "./Pages/TermsandConditions.js";
 import InvitePage from "./Pages/InvitePage.js";
@@ -79,6 +80,7 @@ function AuthRoutes() {
       <Route path="/editorial-leadership" element={<EditorialBoard />} />
       <Route path="/editorial-board" element={<Navigate to="/editorial-leadership" replace />} />
   <Route path="/reviewers" element={<Reviewers />} />
+    <Route path="/author-guidelines" element={<AuthorGuidelines />} />
       <Route path="/privacy-policy" element={<PrivacyPolicy />} />
       <Route path="/terms-and-conditions" element={<TermsandConditions />} />
       {isAuthenticated ? (

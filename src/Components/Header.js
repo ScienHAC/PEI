@@ -228,8 +228,13 @@ const Header = React.memo(() => {
                             <Link className="nav-link" to="/editorial-leadership">Editorial Leadership</Link>
                         </li>
 
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/contact">Contact Us</Link>
+                        {/* Help dropdown consolidating Author Guidelines & Contact */}
+                        <li className="nav-item dropdown custom-hover-dropdown">
+                            <Link className="nav-link dropdown-toggle" to="/author-guidelines" role="button" aria-expanded="false">Help</Link>
+                            <ul className="dropdown-menu">
+                                <li><Link className="dropdown-item" to="/author-guidelines">Author Guidelines</Link></li>
+                                <li><Link className="dropdown-item" to="/contact">Contact Us</Link></li>
+                            </ul>
                         </li>
 
                         {/* Role-Based Links */}

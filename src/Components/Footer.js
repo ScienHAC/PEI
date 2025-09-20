@@ -61,6 +61,7 @@ const Footer = React.memo(() => {
                             <Link to="/editorial-leadership" className="footer-link">Editorial Leadership</Link>
                             <Link to="/archives" className="footer-link">Archives</Link>
                             <Link to="/current-issue" className="footer-link">Current Issue</Link>
+                            <Link to="/author-guidelines" className="footer-link">Author Guidelines</Link>
                         </div>
                         <div className="footer-links-group">
                             <h4>Support</h4>
